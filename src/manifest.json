@@ -1,0 +1,318 @@
+{
+  "package": "org.hapjs.demo.sample",
+  "name": "快应用组件展示",
+  "versionName": "1.0",
+  "versionCode": 1,
+  "icon": "/Common/logo.png",
+  "features": [
+    { "name": "system.webview" },
+    { "name": "system.prompt" },
+    { "name": "system.clipboard" },
+    { "name": "system.calendar" },
+    { "name": "system.device" },
+    { "name": "system.fetch" },
+    { "name": "system.file" },
+    { "name": "system.geolocation" },
+    { "name": "system.image" },
+    { "name": "system.media" },
+    { "name": "system.notification" },
+    { "name": "system.barcode" },
+    { "name": "system.sensor" },
+    { "name": "system.share" },
+    { "name": "system.shortcut" },
+    { "name": "system.storage" },
+    { "name": "system.vibrator" },
+    { "name": "system.network" },
+    { "name": "system.request" },
+    { "name": "system.audio" },
+    { "name": "system.volume" },
+    { "name": "system.battery" },
+    { "name": "system.brightness" },
+    { "name": "system.package" },
+    { "name": "system.record" },
+    { "name": "service.stats" },
+    { "name": "service.account" },
+    { "name": "service.app" },
+    { "name": "service.share", "params": {"appSign": "", "wxKey": ""} },
+    { "name": "service.pay" },
+    { "name": "service.alipay" },
+    {
+      "name": "service.wxpay",
+      "params": {
+        "url": "",
+        "package": "",
+        "sign": ""
+      }
+    },
+    {
+      "name": "service.push",
+      "params": {
+        "appId": "",
+        "appKey": ""
+      }
+    }
+  ],
+  "permissions": [
+    { "origin": "*" }
+  ],
+  "config": {
+    "logLevel": "debug",
+    "data": {
+      "back": "false"
+    }
+  },
+  "router": {
+    "entry": "Home",
+    "pages": {
+      "Home": {
+        "component": "index"
+      },
+      "Component_A": {
+        "component": "index"
+      },
+      "Component_Web": {
+        "component": "index"
+      },
+      "Component_Div": {
+        "component": "index"
+      },
+      "Component_Image": {
+        "component": "index"
+      },
+      "Component_Input": {
+        "component": "index"
+      },
+      "Component_Label": {
+        "component": "index"
+      },
+      "Component_List": {
+        "component": "index"
+      },
+      "Component_Picker": {
+        "component": "index"
+      },
+      "Component_Progress": {
+        "component": "index"
+      },
+      "Component_Popup": {
+        "component": "index"
+      },
+      "Component_Refresh": {
+        "component": "index"
+      },
+      "Component_Richtext": {
+        "component": "index"
+      },
+      "Component_Slider": {
+        "component": "index"
+      },
+      "Component_Span": {
+        "component": "index"
+      },
+      "Component_Stack": {
+        "component": "index"
+      },
+      "Component_Swiper": {
+        "component": "index"
+      },
+      "Component_Switch": {
+        "component": "index"
+      },
+      "Component_Tabs": {
+        "component": "index"
+      },
+      "Component_Text": {
+        "component": "index"
+      },
+      "Component_Rating": {
+        "component": "index"
+      },
+      "Component_Textarea": {
+        "component": "index"
+      },
+     "Component_Video": {
+        "component": "index"
+      },
+      "Component_Audio": {
+        "component": "index"
+      },
+      "Framework_DeepLink": {
+        "component": "index"
+      },
+      "Framework_Lifecycle": {
+        "component": "index"
+      },
+      "Interface_Alipay": {
+        "component": "index"
+      },
+      "Interface_Brightness": {
+        "component": "index"
+      },
+      "Interface_Calendar": {
+        "component": "index"
+      },
+      "Interface_Clipboard": {
+        "component": "index"
+      },
+      "Interface_Device": {
+        "component": "index"
+      },
+      "Interface_App": {
+        "component": "index"
+      },
+      "Interface_Fetch": {
+        "component": "index"
+      },
+      "Interface_File": {
+        "component": "index"
+      },
+      "Interface_Geolocation": {
+        "component": "index"
+      },
+      "Interface_Image": {
+        "component": "index"
+      },
+      "Interface_Media": {
+        "component": "index"
+      },
+      "Interface_Network": {
+        "component": "index"
+      },
+      "Interface_Notification": {
+        "component": "index"
+      },
+      "Interface_Pay": {
+        "component": "index"
+      },
+      "Interface_Prompt": {
+        "component": "index"
+      },
+      "Interface_Push": {
+        "component": "index"
+      },
+      "Interface_Package": {
+        "component": "index"
+      },
+      "Interface_QRCode": {
+        "component": "index"
+      },
+      "Interface_Request": {
+        "component": "index"
+      },
+      "Interface_Router": {
+        "component": "index"
+      },
+      "Interface_Router/Detail": {
+        "component": "index"
+      },
+      "Interface_Record": {
+        "component": "index"
+      },
+      "Interface_Sensor": {
+        "component": "index"
+      },
+      "Interface_Serviceshare": {
+        "component": "index"
+      },
+      "Interface_Share": {
+        "component": "index"
+      },
+      "Interface_Shortcut": {
+        "component": "index"
+      },
+      "Interface_Storage": {
+        "component": "index"
+      },
+      "Interface_Vibrator": {
+        "component": "index"
+      },
+      "Interface_Volume": {
+        "component": "index"
+      },
+      "Interface_Battery": {
+        "component": "index"
+      },
+      "Interface_Webview": {
+        "component": "index"
+      },
+      "Interface_Wxpay": {
+        "component": "index"
+      },
+      "Style_Animation": {
+        "component": "index"
+      },
+      "Style_Transform": {
+        "component": "index"
+      },
+      "Service_Stats": {
+        "component": "index"
+      },
+      "Service_Account": {
+        "component": "index"
+      },
+      "JSX_binding": {
+        "component": "index"
+      },
+      "JSX_If": {
+        "component": "index"
+      },
+      "JSX_For": {
+        "component": "index"
+      },
+      "JSX_Complex": {
+        "component": "index"
+      },
+
+      "Functionality/form": {
+        "component": "index"
+      },
+      "Functionality/menutop": {
+        "component": "index"
+      },
+      "Functionality/ceiling": {
+        "component": "index"
+      },
+      "Functionality/photo": {
+        "component": "index"
+      },
+      "Functionality/qrcode": {
+        "component": "index"
+      },
+      "Functionality/titlebar": {
+        "component": "index"
+      },
+      "Functionality/listcombination/demo1": {
+        "component": "index"
+      },
+      "Functionality/verification": {
+        "component": "index"
+      },
+      "Functionality/simulateSwipe": {
+        "component": "index"
+      },
+      "Functionality/template/elec_business": {
+        "component": "index"
+      }
+    }
+  },
+  "display": {
+    "backgroundColor": "#fbf9fe",
+    "titleBar": true,
+    "titleBarBackgroundColor": "#0faeff",
+    "titleBarTextColor": "#ffffff",
+    "pages": {
+      "Home": {
+        "titleBarText": "快应用组件展示"
+      },
+      "Component_Web": {
+        "titleBar": false
+      },
+      "Framework_Lifecycle": {
+        "menu": true
+      },
+      "Functionality/titlebar": {
+        "titleBar": false
+      }
+    }
+  }
+}

@@ -1,0 +1,229 @@
+<template>
+  <tabs class="doc-page">
+    <tab-bar class="xui-tab-bar">
+      <text class="xui-tab-bar-text">垂直表单</text>
+      <text class="xui-tab-bar-text">水平表单</text>
+    </tab-bar>
+
+    <tab-content>
+      <!-- 垂直表单 -->
+      <div class="flex-column">
+        <div class="xui-input-group-col">
+          <text>垂直左对齐，标题和表单元素垂直排列</text>
+        </div>
+
+        <div class="xui-input-group-col">
+          <text class="xui-input-group-col-title">Text</text>
+          <input type="text" class="xui-input-round" placeholder="Please enter text"></input>
+        </div>
+
+        <div class="xui-input-group-col">
+          <text class="xui-input-group-col-title">Email</text>
+          <input type="email" class="xui-input-round" placeholder="Please enter email"></input>
+        </div>
+
+        <div class="xui-input-group-col">
+          <text class="xui-input-group-col-title">Password</text>
+          <input type="password" class="xui-input-round" placeholder="Please enter password"></input>
+        </div>
+
+        <div class="xui-input-group-col">
+          <text class="xui-input-group-col-title">Checkbox</text>
+          <div class="flex-row xui-div-left-right">
+            <input type="checkbox" name="c1" value="c1"></input>
+            <input type="checkbox" name="c1" value="c2"></input>
+            <input type="checkbox" name="c1" value="c3"></input>
+          </div>
+        </div>
+
+        <div class="xui-input-group-col">
+          <text class="xui-input-group-col-title">Date</text>
+          <input type="date" class="xui-input-round" placeholder="Please enter date"></input>
+        </div>
+
+        <div class="xui-input-group-col">
+          <text class="xui-input-group-col-title">Time</text>
+          <input type="time" class="xui-input-round" placeholder="Please enter time"></input>
+        </div>
+
+        <div class="xui-input-group-col">
+          <text class="xui-input-group-col-title">Number</text>
+          <input type="number" class="xui-input-round" placeholder="Please enter number"></input>
+        </div>
+
+        <div class="xui-input-group-col">
+          <text class="xui-input-group-col-title">Button</text>
+          <div class="flex-row xui-div-left-right">
+            <input type="button" class="xui-input-round" value="提交"></input>
+            <input type="button" class="xui-input-round" value="重置"></input>
+          </div>
+        </div>
+
+        <div class="xui-input-group-col">
+          <text class="xui-input-group-col-title">TextPicker</text>
+          <picker type="text" class="xui-input-round" range="{{range}}" selected="2" value="{{text}}" onchange="changeText"></picker>
+        </div>
+
+        <div class="xui-input-group-col">
+          <text class="xui-input-group-col-title">DatePicker</text>
+          <picker type="date" class="xui-input-round" start="2000-1-1" end="2100-12-31" selected="2017-7-3" value="{{date}}" onchange="changeDate"></picker>
+        </div>
+
+        <div class="xui-input-group-col">
+          <text class="xui-input-group-col-title">TimePicker</text>
+          <picker type="time" class="xui-input-round" selected="12:00" value="{{time}}" onchange="changeTime"></picker>
+        </div>
+
+        <div class="xui-input-group-col">
+          <text class="xui-input-group-col-title">slider</text>
+          <div class="flex-row">
+            <slider class="xui-col" onchange="getProgressValue"></slider>
+            <text>{{progressValue}}</text>
+          </div>
+        </div>
+
+        <div class="xui-input-group-col">
+          <text class="xui-input-group-col-title">slider</text>
+          <div class="flex-row xui-col xui-div-left-right">
+            <switch checked="true" onchange="changeSwitchStatus"></switch>
+            <text>{{switchStatus}}</text>
+          </div>
+        </div>
+
+        <div class="xui-input-group-col">
+          <text class="xui-input-group-col-title">Textarea</text>
+          <div class="xui-col" style="border: 1px solid #cccccc;">
+            <textarea class="xui-col xui-input-round" style="height: 200px;" style="lines: 4" placeholder="Please enter textarea"></textarea>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 水平表单 -->
+      <div class="flex-column">
+        <div class="xui-input-group-row">
+          <text>标题和表单元素水平排列</text>
+        </div>
+
+        <div class="xui-input-group-row">
+          <text class="xui-input-group-row-title">Text</text>
+          <input type="text" class="xui-col xui-input-round" placeholder="Please enter text"></input>
+        </div>
+
+        <div class="xui-input-group-row">
+          <text class="xui-input-group-row-title">Email</text>
+          <input type="email" class="xui-col xui-input-round" placeholder="Please enter email"></input>
+        </div>
+
+        <div class="xui-input-group-row">
+          <text class="xui-input-group-row-title">Password</text>
+          <input type="password" class="xui-col xui-input-round" placeholder="Please enter password"></input>
+        </div>
+
+        <div class="xui-input-group-row">
+          <text class="xui-input-group-row-title">Checkbox</text>
+          <input type="checkbox" name="c2" value="c1"></input>
+          <input type="checkbox" name="c2" value="c2"></input>
+          <input type="checkbox" name="c2" value="c3"></input>
+        </div>
+
+        <div class="xui-input-group-row">
+          <text class="xui-input-group-row-title">Date</text>
+          <input type="date" class="xui-col xui-input-round" placeholder="Please enter date"></input>
+        </div>
+
+        <div class="xui-input-group-row">
+          <text class="xui-input-group-row-title">Time</text>
+          <input type="time" class="xui-col xui-input-round" placeholder="Please enter time"></input>
+        </div>
+
+        <div class="xui-input-group-row">
+          <text class="xui-input-group-row-title">Number</text>
+          <input type="number" class="xui-col xui-input-round" placeholder="Please enter number"></input>
+        </div>
+
+        <div class="xui-input-group-row">
+          <text class="xui-input-group-row-title">Button</text>
+          <div class="flex-row xui-div-left-right xui-col">
+            <input type="button" class="xui-input-round" value="提交"></input>
+            <input type="button" class="xui-input-round" value="重置"></input>
+          </div>
+        </div>
+
+        <div class="xui-input-group-row">
+          <text class="xui-input-group-row-title">TextPicker</text>
+          <picker type="text" class="xui-col xui-input-round" range="{{range}}" selected="2" value="{{text}}" onchange="changeText"></picker>
+        </div>
+
+        <div class="xui-input-group-row">
+          <text class="xui-input-group-row-title">DatePicker</text>
+          <picker type="date" class="xui-col xui-input-round" start="2000-1-1" end="2100-12-31" selected="2017-7-3" value="{{date}}" onchange="changeDate"></picker>
+        </div>
+
+        <div class="xui-input-group-row">
+          <text class="xui-input-group-row-title">TimePicker</text>
+          <picker type="time" class="xui-col xui-input-round" selected="12:00" value="{{time}}" onchange="changeTime"></picker>
+        </div>
+
+        <div class="xui-input-group-row">
+          <text class="xui-input-group-row-title">slider</text>
+          <div class="xui-col flex-row">
+            <slider class="xui-col" onchange="getProgressValue"></slider>
+            <text>{{progressValue}}</text>
+          </div>
+        </div>
+
+        <div class="xui-input-group-row">
+          <text class="xui-input-group-row-title">slider</text>
+          <div class="flex-row xui-col">
+            <switch class="xui-col" checked="true" onchange="changeSwitchStatus"></switch>
+            <text>{{switchStatus}}</text>
+          </div>
+        </div>
+
+        <div class="xui-input-group-row">
+          <text class="xui-input-group-row-title">Textarea</text>
+          <div class="xui-col" style="border: 1px solid #cccccc;">
+            <textarea class="xui-col xui-input-round" style="height: 200px;" style="lines: 4" placeholder="Please enter textarea"></textarea>
+          </div>
+        </div>
+
+      </div>
+    </tab-content>
+  </tabs>
+</template>
+
+<style>
+  @import "../../Common/css/index.css";
+</style>
+
+<script>
+  export default {
+    onInit(){
+      this.$page.setTitleBar({ text: '表单' })
+    },
+    private: {
+      range: ['text1', 'text2', 'text3'],
+      text: 'default',
+      date: '2017-7-1',
+      time: '00:00',
+      progressValue: 0,
+      switchStatus: 'on'
+    },
+    changeText (e) {
+      this.text = e.newValue
+    },
+    changeDate (e) {
+      this.date = e.year + '-' + (e.month + 1) + '-' + e.day
+    },
+    changeTime (e) {
+      this.time = e.hour + ':' + e.minute
+    },
+    getProgressValue (e) {
+      this.progressValue = e.progress
+    },
+    changeSwitchStatus (e) {
+      this.switchStatus = e.checked ? 'on' : 'off'
+    }
+  }
+</script>

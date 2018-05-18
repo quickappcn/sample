@@ -1,0 +1,249 @@
+<template>
+  <stack class="doc-page">
+    <div class="main">
+      <div class="page-title-wrap">
+        <text class="page-title">{{componentName}}</text>
+      </div>
+
+      <div class="item-container">
+        <div class="item-content">
+          <text class="txt">获取图片信息:</text>
+          <image src="{{imageGetInfo.uri || ''}}"></image>
+          <text class="txt">uri: {{imageGetInfo.uri || ''}}</text>
+          <text class="txt">width: {{imageGetInfo.width || ''}}</text>
+          <text class="txt">height: {{imageGetInfo.height || ''}}</text>
+          <text class="txt">size: {{imageGetInfo.size || ''}}</text>
+        </div>
+        <input type="button" class="btn" onclick="getImageInfo" value="获取图片信息"/>
+      </div>
+
+      <div class="item-container">
+        <div class="item-content">
+          <text class="txt">压缩图片:</text>
+          <image src="{{imageCompressInfo.uri || ''}}"></image>
+          <text class="txt">uri: {{imageCompressInfo.uri || ''}}</text>
+        </div>
+        <input type="button" class="btn" onclick="compressImage" value="压缩图片"/>
+      </div>
+
+      <div class="item-container">
+        <div class="item-content">
+          <text class="txt">按操作顺序编辑图片:</text>
+          <image src="{{imageOperateInfo.uri || ''}}"></image>
+          <text class="txt">uri: {{imageOperateInfo.uri || ''}}</text>
+        </div>
+        <input type="button" class="btn" onclick="operateImage" value="按操作顺序编辑图片"/>
+      </div>
+
+      <div class="item-container">
+        <div class="item-content">
+          <text class="txt">编辑图片:</text>
+          <image src="{{imageEditInfo.uri || ''}}"></image>
+          <text class="txt">uri: {{imageEditInfo.uri || ''}}</text>
+        </div>
+        <input type="button" class="btn" onclick="editImage" value="编辑图片"/>
+      </div>
+    </div>
+
+    <!-- mask -->
+    <div if="showMask" class="mask" onclick="showToast">
+      <text class="font-m">{{hint}}</text>
+      <text class="font-m color-white" onclick="preTask">点击刷新页面</text>
+    </div>
+  </stack>
+</template>
+
+<style>
+  @import '../Common/css/common.css';
+
+  .main {
+    flex-direction: column;
+  }
+  .mask {
+    flex: 1;
+    flex-direction: column;
+    align-content: center;
+    padding-top: 400px;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  .color-white {
+    color: #FFFFFF;
+  }
+  .font-m {
+    margin-bottom: 100px;
+    text-align: center;
+    font-size: 40px;
+  }
+  .item-container {
+    margin-bottom: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+  .item-content {
+    flex-direction: column;
+    background-color: #ffffff;
+    padding: 30px;
+    margin-bottom: 100px;
+    align-items: flex-start;
+  }
+</style>
+
+<script>
+  import image from '@system.image'
+  import request from '@system.request'
+  import prompt from '@system.prompt'
+
+  export default {
+    private: {
+      componentName: 'image',
+      imageUri: '',
+      showMask: true,
+      hint: 'Loading...',
+      imageGetInfo: {},
+      imageCompressInfo: {},
+      imageOperateInfo: {},
+      imageEditInfo: {}
+    },
+    onInit () {
+      this.$page.setTitleBar({ text: 'Image' })
+      this.preTask()
+    },
+    preTask () {
+      // 下载图片
+      const self = this
+      request.download({
+        url: 'https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=2247692397,1189743173&fm=5',
+        success: function (data) {
+          // 监听下载任务
+          request.onDownloadComplete({
+            token: data.token,
+            success: function (ret) {
+              self.imageUri = ret.uri
+              self.showMask = false
+            },
+            fail: function (erromsg, errocode) {
+              self.hint = `${errocode}: ${erromsg}`
+              console.info(`### request.onDownloadComplete ### ${errocode}: ${erromsg}`)
+              prompt.showToast({
+                message: `${errocode}: ${erromsg}`
+              })
+            }
+          })
+        }
+      })
+    },
+    showToast () {
+      prompt.showToast({
+        message: `${this.hint}`
+      })
+    },
+    getImageInfo () {
+      // 获取图片信息
+      const self = this
+      image.getInfo({
+        uri: self.imageUri,
+        success: function (data) {
+          self.imageGetInfo = data
+        },
+        fail: function (erromsg, errocode) {
+          console.info(`### image.getInfo ### ${errocode}: ${erromsg}`)
+          prompt.showToast({
+            message: `${errocode}: ${erromsg}`
+          })
+        },
+        complete: function () {
+          prompt.showToast({
+            message: `complete`
+          })
+        }
+      })
+    },
+    compressImage () {
+      // 压缩图片
+      const self = this
+      image.compress({
+        uri: self.imageUri,
+        quality: 50,
+        ratio: 5,
+        format: 'WEBP',
+        success: function (data) {
+          self.imageCompressInfo = data
+        },
+        fail: function (erromsg, errocode) {
+          console.info(`### image.compress ### ${errocode}: ${erromsg}`)
+          prompt.showToast({
+            message: `${errocode}: ${erromsg}`
+          })
+        },
+        complete: function () {
+          prompt.showToast({
+            message: `complete`
+          })
+        }
+      })
+    },
+    operateImage () {
+      // 按操作顺序编辑图片
+      const self = this
+      image.applyOperations({
+        uri: self.imageUri,
+        operations: [
+          {
+            action: 'crop',
+            x: 30,
+            y: 50,
+            width: 50,
+            height: 50
+          },
+          {
+            action: 'scale',
+            scaleX: 2,
+            scaleY: 2
+          },
+          {
+            action: 'rotate',
+            degree: 180
+          }
+        ],
+        quality: 50,
+        format: 'WEBP',
+        success: function (data) {
+          self.imageOperateInfo = data
+        },
+        fail: function (erromsg, errocode) {
+          console.info(`### image.applyOperations ### ${errocode}: ${erromsg}`)
+          prompt.showToast({
+            message: `${errocode}: ${erromsg}`
+          })
+        },
+        complete: function () {
+          prompt.showToast({
+            message: `complete`
+          })
+        }
+      })
+    },
+    editImage () {
+      // 编辑图片
+      const self = this
+      image.edit({
+        uri: self.imageUri,
+        success: function (data) {
+          self.imageEditInfo = data
+        },
+        fail: function (erromsg, errocode) {
+          console.info(`### image.edit ### ${errocode}: ${erromsg}`)
+          prompt.showToast({
+            message: `${errocode}: ${erromsg}`
+          })
+        },
+        complete: function () {
+          prompt.showToast({
+            message: `complete`
+          })
+        }
+      })
+    }
+  }
+</script>

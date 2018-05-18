@@ -1,0 +1,79 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+    <div class="item">
+      <text class="title">显示: {{starNum}}星</text>
+      <rating class="rating" onchange="onstarStatus"></rating>
+    </div>
+    <div class="item">
+      <text class="title">使用背景图片:</text>
+      <rating class="rating-bg4" numstars="8" rating="3" stepsize="0.5" indicator="false"></rating>
+      <rating class="rating-bg2" numstars="6" rating="3" stepsize="0.5" indicator="false"></rating>
+      <rating class="rating-bg3" numstars="5" rating="3" stepsize="0.5" indicator="false"></rating>
+      <rating class="rating-bg1" numstars="3" rating="1" stepsize="0.5" indicator="false"></rating>
+    </div>
+  </div>
+</template>
+
+<style>
+  @import '../Common/css/common.css';
+
+  .item {
+    flex-direction: column;
+    margin-bottom: 20px;
+    padding: 20px;
+    align-items: center;
+  }
+  .title {
+    border:0px solid #dddddd;
+    border-bottom-width: 1px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+  }
+  .rating-bg1 {
+    star-background: url(../Common/star/star_1_1.png);
+    star-secondary: url(../Common/star/star_1_2.png);
+    star-foreground: url(../Common/star/star_1_3.png);
+    margin-bottom: 20px;
+    width: 600px;
+    height: 200px;
+  }
+  .rating-bg2 {
+    star-background: url(../Common/star/star_2_1.png);
+    star-secondary: url(../Common/star/star_2_2.png);
+    star-foreground: url(../Common/star/star_2_3.png);
+    margin-bottom: 20px;
+    width: 600px;
+  }
+  .rating-bg3 {
+    star-background: url(../Common/star/star_3_1.png);
+    star-secondary: url(../Common/star/star_3_2.png);
+    star-foreground: url(../Common/star/star_3_3.png);
+    margin-bottom: 20px;
+    width: 600px;
+  }
+  .rating-bg4 {
+    star-background: url(../Common/star/star_4_1.png);
+    star-secondary: url(../Common/star/star_4_2.png);
+    star-foreground: url(../Common/star/star_4_3.png);
+    margin-bottom: 20px;
+    width: 600px;
+  }
+</style>
+
+<script>
+  export default {
+    private: {
+      componentName: 'rating',
+      starNum: 0
+    },
+    onInit () {
+      this.$page.setTitleBar({text: 'Rating'})
+    },
+    onstarStatus (e) {
+      this.starNum = e.rating
+    }
+  }
+</script>

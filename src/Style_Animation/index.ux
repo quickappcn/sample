@@ -1,0 +1,472 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+
+    <div class="item-container">
+      <div class="group">
+        <text class="header">animation-name</text>
+        <div class="item {{color}}">
+          <text class="txt">color</text>
+        </div>
+        <div class="item {{opacity}}">
+          <text class="txt">opacity</text>
+        </div>
+        <div class="item {{height}}">
+          <text class="txt">height</text>
+        </div>
+        <div class="item {{width}}">
+          <text class="txt">width</text>
+        </div>
+        <input class="button" type="button" name="" value="show" onclick="show01">
+      </div>
+
+      <div class="group">
+        <text class="header">animation-delay</text>
+        <div class="item {{delay}}">
+          <text class="txt">3s</text>
+        </div>
+        <input class="button" type="button" name="" value="show" onclick="show02">
+      </div>
+
+      <div class="group">
+        <text class="header">animation-duration</text>
+        <div class="item {{oneSec}}">
+          <text class="txt">1s</text>
+        </div>
+        <div class="item {{fiveSec}}">
+          <text class="txt">5s</text>
+        </div>
+        <div class="item {{tenSec}}">
+          <text class="txt">10s</text>
+        </div>
+        <input class="button" type="button" name="" value="show" onclick="show03">
+      </div>
+
+      <div class="group">
+        <text class="header">animation-iteration-count</text>
+        <div class="item {{oneCount}}">
+          <text class="txt">1</text>
+        </div>
+        <div class="item {{twoCount}}">
+          <text class="txt">2</text>
+        </div>
+        <div class="item {{threeCount}}">
+          <text class="txt">3</text>
+        </div>
+        <input class="button" type="button" name="" value="show" onclick="show04">
+      </div>
+
+      <div class="group">
+        <text class="header">animation-timing-function</text>
+        <div class="item {{linear}}">
+          <text class="txt">linear</text>
+        </div>
+        <div class="item {{ease}}">
+          <text class="txt">ease</text>
+        </div>
+        <div class="item {{easeIn}}">
+          <text class="txt">ease-in</text>
+        </div>
+        <div class="item {{easeOut}}">
+          <text class="txt">ease-out</text>
+        </div>
+        <div class="item {{easeInOut}}">
+          <text class="txt">ease-in-out</text>
+        </div>
+        <input class="button" type="button" name="" value="show" onclick="show05">
+      </div>
+
+      <div class="group">
+        <text class="header">animation-fill-mode</text>
+        <div class="item {{forwards}}">
+          <text class="txt">forwards</text>
+        </div>
+        <div class="item {{none}}">
+          <text class="txt">none</text>
+        </div>
+        <input class="button" type="button" name="" value="show" onclick="show06">
+      </div>
+
+      <div class="group">
+        <text class="header">transform in animation</text>
+        <div class="item {{translateX}}">
+          <text class="txt">translateX</text>
+        </div>
+        <div class="item {{translateY}}">
+          <text class="txt">translateY</text>
+        </div>
+        <div class="item {{scaleX}}">
+          <text class="txt">scaleX</text>
+        </div>
+        <div class="item {{scaleY}}">
+          <text class="txt">scaleY</text>
+        </div>
+        <div class="item {{rotate}}">
+          <text class="txt">rotate</text>
+        </div>
+        <div class="item {{rotateX}}">
+          <text class="txt">rotateX</text>
+        </div>
+        <div class="item {{rotateY}}">
+          <text class="txt">rotateY</text>
+        </div>
+        <input class="button" type="button" name="" value="show" onclick="show07">
+      </div>
+    </div>
+  </div>
+</template>
+
+<style>
+  @import '../Common/css/common.css';
+
+  .item-container {
+    margin-bottom: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .group {
+    margin-bottom: 150px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .header {
+    margin-bottom: 20px;
+  }
+  .item {
+    background-color: #f76160;
+  }
+  .txt {
+    text-align: center;
+    width: 200px;
+    height: 100px;
+  }
+  .button {
+    width: 200px;
+    font-size: 30px;
+    color: #ffffff;
+    background-color: #09ba07;
+  }
+  .color {
+    animation-name: Color;
+    animation-duration: 8000ms;
+  }
+  .opacity {
+    animation-name: Opacity;
+    animation-duration: 8000ms;
+  }
+  .height {
+    animation-name: Height;
+    animation-duration: 8000ms;
+  }
+  .width {
+    animation-name: Width;
+    animation-duration: 1000ms;
+  }
+  .delay {
+    animation-name: Go;
+    animation-duration: 5000ms;
+    animation-delay: 3000ms;
+  }
+  .oneSec {
+    animation-name: Go;
+    animation-duration: 1000ms;
+  }
+  .fiveSec {
+    animation-name: Go;
+    animation-duration: 5000ms;
+  }
+  .tenSec {
+    animation-name: Go;
+    animation-duration: 10000ms;
+  }
+  .oneCount {
+    animation-name: Go;
+    animation-duration: 3000ms;
+    animation-iteration-count: 1;
+  }
+  .twoCount {
+    animation-name: Go;
+    animation-duration: 3000ms;
+    animation-iteration-count: 2;
+  }
+  .threeCount {
+    animation-name: Go;
+    animation-duration: 3000ms;
+    animation-iteration-count: 3;
+  }
+  .linear {
+    animation-name: Go;
+    animation-duration: 3000ms;
+    animation-timing-function: linear;
+  }
+  .ease {
+    animation-name: Go;
+    animation-duration: 3000ms;
+    animation-timing-function: ease;
+  }
+  .easeIn {
+    animation-name: Go;
+    animation-duration: 3000ms;
+    animation-timing-function: ease-in;
+  }
+  .easeOut {
+    animation-name: Go;
+    animation-duration: 3000ms;
+    animation-timing-function: ease-out;
+  }
+  .easeInOut {
+    animation-name: Go;
+    animation-duration: 3000ms;
+    animation-timing-function: ease-in-out;
+  }
+  .forwards {
+    animation-name: Go;
+    animation-duration: 3000ms;
+    animation-fill-mode: forwards;
+  }
+  .none {
+    animation-name: Go;
+    animation-duration: 3000ms;
+    animation-fill-mode: none;
+  }
+  .translateX {
+    animation-name: translateX;
+    animation-duration: 8000ms;
+  }
+  .translateY {
+    animation-name: translateY;
+    animation-duration: 8000ms;
+  }
+  .scaleX {
+    animation-name: scaleX;
+    animation-duration: 8000ms;
+  }
+  .scaleY {
+    animation-name: scaleY;
+    animation-duration: 8000ms;
+  }
+  .rotate {
+    transform-origin: 0px 100px;
+    animation-name: rotate;
+    animation-duration: 8000ms;
+  }
+  .rotateX {
+    animation-name: rotateX;
+    animation-duration: 8000ms;
+  }
+  .rotateY {
+    animation-name: rotateY;
+    animation-duration: 8000ms;
+  }
+  @keyframes Go {
+    from {
+      background-color: #f76160;
+    }
+    to {
+      background-color: #09ba07;
+    }
+  }
+
+  @keyframes Color {
+    from {
+      background-color: #f76160;
+    }
+    to {
+      background-color: #09ba07;
+    }
+  }
+
+  @keyframes Opacity {
+    from {
+      opacity: 0.9;
+    }
+    to {
+      opacity: 0.1;
+    }
+  }
+
+  @keyframes Width {
+    from {
+      width: 100px;
+    }
+    to {
+      width: 300px;
+    }
+  }
+
+  @keyframes Height {
+    from {
+      height: 100px;
+    }
+    to {
+      height: 220px;
+    }
+  }
+
+  @keyframes translateX {
+    from {
+      transform: translateX(20px);
+    }
+    to {
+      transform: translateX(50px);
+    }
+  }
+
+  @keyframes translateY {
+    from {
+      transform: translateY(20px);
+    }
+    to {
+      transform: translateY(50px);
+    }
+  }
+
+  @keyframes scaleX {
+    from {
+      transform: scaleX(0.5);
+    }
+    to {
+      transform: scaleX(2);
+    }
+  }
+
+  @keyframes scaleY {
+    from {
+      transform: scaleY(0.5);
+    }
+    to {
+      transform: scaleY(2);
+    }
+  }
+
+  @keyframes rotate {
+    from {
+      transform: rotate(10deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes rotateX {
+    from {
+      transform: rotateX(10deg);
+    }
+    to {
+      transform: rotateX(360deg);
+    }
+  }
+
+  @keyframes rotateY {
+    from {
+      transform: rotateY(10deg);
+    }
+    to {
+      transform: rotateY(360deg);
+    }
+  }
+</style>
+
+<script>
+  export default {
+    private: {
+      componentName: 'animation',
+      color: '',
+      opacity: '',
+      height: '',
+      width: '',
+      delay: '',
+      oneSec: '',
+      fiveSec: '',
+      tenSec: '',
+      oneCount: '',
+      twoCount: '',
+      threeCount: '',
+      linear: '',
+      ease: '',
+      easeIn: '',
+      easeOut: '',
+      easeInOut: '',
+      forwards: '',
+      none: '',
+      translateX: '',
+      translateY: '',
+      scaleX: '',
+      scaleY: '',
+      rotate: '',
+      rotateX: '',
+      rotateY: ''
+    },
+    onInit () {
+      this.$page.setTitleBar({text: 'Animation'})
+    },
+    show01 () {
+      this.color = ''
+      this.opacity = ''
+      this.height = ''
+      this.width = ''
+      this.color = 'color'
+      this.opacity = 'opacity'
+      this.height = 'height'
+      this.width = 'width'
+    },
+    show02 () {
+      this.delay = ''
+      this.delay = 'delay'
+    },
+    show03 () {
+      this.oneSec = ''
+      this.fiveSec = ''
+      this.tenSec = ''
+      this.oneSec = 'oneSec'
+      this.fiveSec = 'fiveSec'
+      this.tenSec = 'tenSec'
+    },
+    show04 () {
+      this.oneCount = ''
+      this.twoCount = ''
+      this.threeCount = ''
+      this.oneCount = 'oneCount'
+      this.twoCount = 'twoCount'
+      this.threeCount = 'threeCount'
+    },
+    show05 () {
+      this.linear = ''
+      this.ease = ''
+      this.easeIn = ''
+      this.easeOut = ''
+      this.easeInOut = ''
+      this.linear = 'linear'
+      this.ease = 'ease'
+      this.easeIn = 'easeIn'
+      this.easeOut = 'easeOut'
+      this.easeInOut = 'easeInOut'
+    },
+    show06 () {
+      this.forwards = ''
+      this.none = ''
+      this.forwards = 'forwards'
+      this.none = 'none'
+    },
+    show07 () {
+      this.translateX = ''
+      this.translateY = ''
+      this.scaleX = ''
+      this.scaleY = ''
+      this.rotate = ''
+      this.rotateX = ''
+      this.rotateY = ''
+      this.translateX = 'translateX'
+      this.translateY = 'translateY'
+      this.scaleX = 'scaleX'
+      this.scaleY = 'scaleY'
+      this.rotate = 'rotate'
+      this.rotateX = 'rotateX'
+      this.rotateY = 'rotateY'
+    }
+  }
+</script>

@@ -1,0 +1,108 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+
+    <div class="item-container">
+      <div class="swiper-container">
+        <swiper class="swiper" autoplay="{{autoPlay}}" interval="{{sliderValue}}" indicator="{{indicator}}">
+          <text class="item color-1">A</text>
+          <text class="item color-2">B</text>
+          <text class="item color-3">C</text>
+        </swiper>
+      </div>
+    </div>
+    <div class="item-container">
+      <div class="item-content">
+        <text class="item-content_title">指示点</text>
+        <switch class="switch" checked="true" onchange="showIndicator"></switch>
+      </div>
+      <div class="item-content">
+        <text class="item-content_title">自动播放</text>
+        <switch class="switch" checked="true" onchange="startAutoPlay"></switch>
+      </div>
+    </div>
+    <div class="item-container">
+      <div class="item-content">
+        <text class="item-content_title">自动播放间隔时长(ms)</text>
+        <text class="item_left">{{sliderValue}}</text>
+      </div>
+      <slider class="slider" min="1000" max="3000" onchange="setSliderValue"></slider>
+    </div>
+  </div>
+</template>
+
+<style>
+  @import '../Common/css/common.css';
+
+  .item-container {
+    margin-bottom: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+  .swiper-container {
+    flex-direction: column;
+  }
+  .swiper {
+    flex-direction: column;
+    height: 250px;
+  }
+  .item-content {
+  }
+  .item-content_title {
+    flex: 1;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+  .item_left {
+    padding: 20px;
+  }
+  .switch {
+    height: 50px;
+    width: 320px;
+  }
+  .slider {
+    width: 100%;
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+  .item {
+    height: 250px;
+    text-align: center;
+    color: #ffffff;
+  }
+  .color-1 {
+    background-color: #09ba07;
+  }
+  .color-2 {
+    background-color: #f76160;
+  }
+  .color-3 {
+    background-color: #0faeff;
+  }
+</style>
+
+<script>
+  export default {
+    private: {
+      componentName: 'swiper',
+      autoPlay: true,
+      indicator: true,
+      sliderValue: 1000
+    },
+    onInit () {
+      this.$page.setTitleBar({text: 'Swiper'})
+    },
+    startAutoPlay: function (e) {
+      this.autoPlay = e.checked
+    },
+    showIndicator: function (e) {
+      this.indicator = e.checked
+    },
+    setSliderValue: function (e) {
+      this.sliderValue = e.progress
+    }
+  }
+</script>

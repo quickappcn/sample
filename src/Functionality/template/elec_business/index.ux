@@ -1,0 +1,177 @@
+<template>
+<tabs id="tabs" class="doc-page">
+  <!-- tab-content -->
+  <tab-content id="tabContent">
+    <div class="page">
+      <!-- 顶部搜索栏 -->
+      <div class="title-bar">
+        <image class="icon-normal" src="./img/template_scan.png"></image>
+        <div class="search-wrap xui-col">
+          <image class="icon-normal" src="./img/template_search.png"></image>
+          <input class="search-input xui-col color-white" type="text" placeholder="搜索"></input>
+        </div>
+        <image class="icon-normal" src="./img/template_news.png"></image>
+      </div>
+
+      <!-- 主体内容 -->
+      <refresh class="content">
+        <text>首页</text>
+      </refresh>
+    </div>
+
+    <div class="page">
+      <refresh class="content">
+        <text>分类</text>
+      </refresh>
+    </div>
+
+    <div class="page">
+      <refresh class="content">
+        <text>推荐</text>
+      </refresh>
+    </div>
+
+    <refresh class="page">
+      <refresh class="content">
+        <text>购物车</text>
+      </refresh>
+    </refresh>
+
+    <div class="page">
+      <refresh class="content">
+        <text>我的</text>
+      </refresh>
+    </div>
+  </tab-content>
+
+  <!-- tab-bar -->
+  <tab-bar id="tabBar">
+    <div class="tab-bar-item" for="tabBarData">
+      <image class="tab-bar-image" src="{{$item.image}}"></image>
+      <text class="tab-bar-text">{{$item.text}}</text>
+    </div>
+  </tab-bar>
+</tabs>
+</template>
+
+<style>
+  @import "../../util/index.css";
+
+  .color-white {
+    color: #ffffff;
+    placeholder-color: #ffffff;
+  }
+  .icon-normal {
+    flex-shrink: 0;
+    resize-mode: contain;
+    width: 50px;
+    height: 50px;
+  }
+  #tabs {
+    flex-direction: column;
+  }
+  #tabContent {
+    flex: 1;
+  }
+  .page {
+    flex: 1;
+    flex-direction: column;
+  }
+  .title-bar {
+    flex-shrink: 0;
+    height: 100px;
+    padding: 20px 30px;
+    background-color: #333333;
+  }
+  .content {
+    flex-shrink: 0;
+    justify-content: center;
+  }
+  .search-wrap {
+    margin: 0 30px;
+    padding: 10px;
+    border-bottom-color: #ffffff;
+    border-bottom-width: 1px;
+  }
+  .search-input {
+    margin-left: 10px;
+    font-size: 32px;
+  }
+  #tabBar {
+    height: 120px;
+    border-top-width: 1px;
+    border-top-color: #cccccc;
+    background-color: #ffffff;
+  }
+  .tab-bar-item {
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+  }
+  .tab-bar-image {
+    width: 50px;
+    height: 50px;
+    resize-mode: contain;
+  }
+  .tab-bar-text:active {
+    color: #0faeff;
+  }
+</style>
+
+<script>
+  export default {
+    private: {
+      tabBarData: [
+        {
+          image: './img/template_home.png',
+          text: '首页'
+        },{
+          image: './img/template_sort.png',
+          text: '分类'
+        },{
+          image: './img/template_recommend.png',
+          text: '推荐'
+        },{
+          image: './img/template_cart.png',
+          text: '购物车'
+        },{
+          image: './img/template_user.png',
+          text: '我的'
+        }
+      ],
+      navData: [
+        {
+          text: '精选',
+          key: '1'
+        },{
+          text: '直播',
+          key: '2'
+        },{
+          text: '关注',
+          key: '3'
+        },{
+          text: '清单',
+          key: '4'
+        },{
+          text: '问答',
+          key: '5'
+        },{
+          text: '社区',
+          key: '6'
+        },{
+          text: '生活',
+          key: '7'
+        },{
+          text: '数码',
+          key: '8'
+        },{
+          text: '亲子',
+          key: '9'
+        }
+      ]
+    },
+    onInit () {
+      this.$page.setTitleBar({ text: '电商模板' })
+    }
+  }
+</script>

@@ -1,0 +1,68 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+
+    <div class="item-container">
+      <div class="item-content">
+        <text>录音文件路径: {{path}}</text>
+      </div>
+      <input type="button" class="btn" onclick="start" value="开始录音"/>
+      <input type="button" class="btn" onclick="stop" value="录音完成"/>
+      <input type="button" class="btn" onclick="playAudio" value="播放当前录音"/>
+    </div>
+  </div>
+</template>
+
+<style>
+  @import '../Common/css/common.css';
+
+  .item-container {
+    margin-bottom: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+  .item-content {
+    flex-direction: column;
+    background-color: #ffffff;
+    padding: 30px;
+    margin-bottom: 50px;
+  }
+</style>
+
+<script>
+  import record from '@system.record'
+  import audio from '@system.audio'
+
+  export default {
+    private: {
+      componentName: 'Record',
+      path: ''
+    },
+    onInit () {
+      this.$page.setTitleBar({text: '录音'})
+    },
+    start () {
+      this.path = '录音中...'
+      const self = this
+      record.start({
+        success: function (data) {
+          self.path = data.uri
+        },
+        fail: function (err, code) {
+          self.path = 'handling fail, code=' + code
+        }
+      })
+    },
+    stop () {
+      record.stop()
+    },
+    // 播放音频
+    playAudio () {
+      audio.src = this.path
+      audio.play()
+    }
+  }
+</script>

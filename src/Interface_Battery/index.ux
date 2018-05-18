@@ -1,0 +1,62 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+
+    <div class="item-container">
+      <div class="item-content">
+        <text>设备电量:</text>
+        <text>{{info}}</text>
+        <text>是否处于充电状态： {{charging}}</text>
+      </div>
+      <input type="button" class="btn" onclick="getInfo" value="获取设备电量信息 "/>
+    </div>
+
+  </div>
+</template>
+
+<style>
+  @import '../Common/css/common.css';
+
+  .item-container {
+    margin-bottom: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+  .item-content {
+    flex-direction: column;
+    background-color: #ffffff;
+    padding: 30px;
+    margin-bottom: 50px;
+    align-items: flex-start;
+  }
+</style>
+
+<script>
+  import battery from '@system.battery'
+
+  export default {
+    private: {
+      componentName: 'Battery',
+      info: '',
+      charging: ''
+    },
+    onInit () {
+      this.$page.setTitleBar({text: '电量信息'})
+    },
+    getInfo () {
+      const self = this
+      battery.getStatus({
+        success: function (data) {
+          self.info = data.level
+          self.charging = data.charging
+        },
+        fail: function (error) {
+          self.info = error
+        }
+      })
+    }
+  }
+</script>

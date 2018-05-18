@@ -1,0 +1,89 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+
+    <div class="item-container">
+      <div class="item-content">
+        <text>获取服务商: {{provider}}</text>
+      </div>
+      <input type="button" class="btn" onclick="getProvider" value="获取服务商"/>
+    </div>
+
+    <div class="item-container">
+      <div class="item-content">
+        <text>计数类型: {{recordCount}}</text>
+      </div>
+      <input type="button" class="btn" onclick="recordCountFn" value="发起一次计数"/>
+    </div>
+
+    <div class="item-container">
+      <div class="item-content">
+        <text>计算类型: {{calculateCount}}</text>
+      </div>
+      <input type="button" class="btn" onclick="calculateCountFn" value="发起一次计数"/>
+    </div>
+
+  </div>
+</template>
+
+<style>
+  @import '../Common/css/common.css';
+
+  .item-container {
+    margin-bottom: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+
+  .item-content {
+    flex-direction: column;
+    background-color: #ffffff;
+    padding: 30px;
+    margin-bottom: 50px;
+    align-items: flex-start;
+  }
+</style>
+
+<script>
+  import stats from '@service.stats'
+
+  export default {
+    private: {
+      componentName: 'stats',
+      provider: '',
+      recordCount: '',
+      calculateCount: ''
+    },
+    onInit () {
+      this.$page.setTitleBar({text: '统计接口'})
+    },
+    getProvider () {
+      const content = stats.getProvider()
+      this.provider = content === '' ? '（此功能待开发）' : content
+    },
+    recordCountFn () {
+      const self = this
+      stats.recordCountEvent ({
+        category : 'Button_Click',
+        key: 'Button_OK_click',
+        success: function () {
+          self.recordCount = '统计成功'
+        }
+      })
+    },
+    calculateCountFn () {
+      const self = this
+      stats.recordCalculateEvent({
+        category: 'user_pay',
+        key: 'buy_ebook',
+        value:20,
+        success: function () {
+          self.calculateCount = '统计成功'
+        }
+      })
+    }
+  }
+</script>

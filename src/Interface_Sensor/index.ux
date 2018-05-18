@@ -1,0 +1,123 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+
+    <div class="item-container">
+      <div class="item-content">
+        <text class="txt">重力感应数据:</text>
+        <text class="txt">X: {{sensorAccelerometerData.x}}</text>
+        <text class="txt">Y: {{sensorAccelerometerData.y}}</text>
+        <text class="txt">Z: {{sensorAccelerometerData.z}}</text>
+      </div>
+      <input type="button" class="btn"  onclick="accelerometer" value="监听重力感应数据" />
+      <input type="button" class="btn"  onclick="unaccelerometer" value="取消重力感应监听" />
+
+      <div class="item-content">
+        <text class="txt">罗盘数据:</text>
+        <text class="txt">direction: {{sensorCompassData}}</text>
+      </div>
+      <input type="button" class="btn"  onclick="compass" value="监听罗盘数据" />
+      <input type="button" class="btn"  onclick="uncompass" value="取消罗盘监听" />
+
+      <div class="item-content">
+        <text class="txt">距离感应数据:</text>
+        <text class="txt">distance: {{subscribeProximityData}} cm</text>
+      </div>
+      <input type="button" class="btn"  onclick="proximity" value="监听距离感应数据" />
+      <input type="button" class="btn"  onclick="unproximity" value="取消距离感应监听" />
+
+      <div class="item-content">
+        <text class="txt">光线感应数据:</text>
+        <text class="txt">intensity: {{lightData}} lux</text>
+      </div>
+      <input type="button" class="btn"  onclick="light" value="监听光线感应数据" />
+      <input type="button" class="btn"  onclick="unlight" value="取消光线感应监听" />
+    </div>
+  </div>
+</template>
+
+<style>
+  @import '../Common/css/common.css';
+
+  .item-container{
+    margin-bottom: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+
+  .item-content{
+    flex-direction: column;
+    background-color: #ffffff;
+    padding: 30px;
+    margin-bottom: 100px;
+    align-items: flex-start;
+  }
+</style>
+
+<script>
+  import sensor from '@system.sensor'
+
+  export default {
+    private: {
+      componentName: 'sensor',
+      sensorAccelerometerData: {
+        x: '',
+        y: '',
+        z: ''
+      },
+      sensorCompassData: 0,
+      subscribeProximityData: 0,
+      lightData: 0
+    },
+    onInit () {
+      this.$page.setTitleBar({text: 'Sensor'})
+    },
+    accelerometer () {
+      const self = this
+      sensor.subscribeAccelerometer({
+        callback: function (ret) {
+          self.sensorAccelerometerData = ret
+        }
+      })
+    },
+    unaccelerometer () {
+      sensor.unsubscribeAccelerometer()
+    },
+    compass () {
+      const self = this
+      sensor.subscribeCompass({
+        callback: function (e) {
+          self.sensorCompassData = e.direction
+        }
+      })
+    },
+    uncompass () {
+      sensor.unsubscribeCompass()
+    },
+    proximity () {
+      const self = this
+      sensor.subscribeProximity({
+        callback: function(e){
+          self.subscribeProximityData = e.distance
+        }
+      })
+    },
+    unproximity () {
+      sensor.unsubscribeProximity()
+    },
+    light () {
+      const self = this
+      sensor.subscribeLight({
+        callback: function(e){
+          self.lightData = e.intensity
+        }
+      })
+    },
+    unlight () {
+      sensor.unsubscribeLight()
+    }
+  }
+</script>

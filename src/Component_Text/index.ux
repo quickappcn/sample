@@ -1,0 +1,60 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+
+    <div class="item-container">
+      <!-- 支持的子组件 -->
+      <text class="item-title">在text中span的多种表现形式</text>
+      <text class="txt">
+        <span style="color: #09ba07">文本内容</span>
+        <span style="color: #0faeff;text-decoration: underline;">文本内容</span>
+        <span style="color: #f76160;text-decoration: line-through;">文本内容</span>
+      </text>
+      <text class="item-title">在text中a的多种表现形式</text>
+      <text class="txt">
+        <a href="https://www.baidu.com/" style="color: #09ba07;">文本内容</a>
+        <a href="https://www.baidu.com/" style="color: #0faeff;text-decoration: underline;">文本内容</a>
+        <a href="https://www.baidu.com/" style="color: #f76160;text-decoration: line-through;">文本内容</a>
+      </text>
+      <!-- style -->
+      <text class="item-title">lines: 默认值-1</text>
+      <text class="txt">{{loneText}}</text>
+      <text class="item-title">lines: 设置为3; text-overflow: clip</text>
+      <text class="txt" style="lines: 3; text-overflow: clip;">{{loneText}}</text>
+      <text class="item-title">lines: 设置为3; text-overflow: ellipsis</text>
+      <text class="txt" style="lines: 3; text-overflow: ellipsis;">{{loneText}}</text>
+      <text class="item-title">line-height: 设置为50px</text>
+      <text class="txt" style="line-height: 50px;">{{loneText}}</text>
+    </div>
+  </div>
+</template>
+
+<style>
+  @import '../Common/css/common.css';
+
+  .item-container {
+    margin-bottom: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+  .item-title {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    color: #aaaaaa;
+  }
+</style>
+
+<script>
+  export default {
+    private: {
+      componentName: 'text',
+      loneText: '本框架是一套以前端开发技术栈为主进行应用开发的框架，采用流行的前端开发模式，贴合主流前端开发者的思维习惯，同时大幅提升应用的性能，提供大量前端环境无法使用的系统能力，以及很多第三方服务的对接能力。'
+    },
+    onInit () {
+      this.$page.setTitleBar({text: 'Text'})
+    }
+  }
+</script>

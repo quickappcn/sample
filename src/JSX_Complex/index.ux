@@ -1,0 +1,107 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+
+    <div class="item-container">
+      <block for="{{productList}}">
+        <block if="{{$item.display}}">
+          <slot content="{{renderProduct($item, $idx)}}"></slot>
+        </block>
+      </block>
+      <slot content="renderButton"></slot>
+    </div>
+  </div>
+</template>
+
+<style>
+  @import '../Common/css/common.css';
+
+  .item-container{
+    margin-bottom: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+</style>
+
+<script>
+  import webview from '@system.webview'
+  import {jsxComplexMap} from '../Common/js/data'
+
+  export default {
+    private: {
+      componentName: 'complex',
+      productList: jsxComplexMap,
+      loadMoreText: '更多商品 >'
+    },
+    onInit () {
+      this.$page.setTitleBar({text: 'Complex'})
+    },
+    renderProduct (item, index) {
+      // 返回产品元素
+      const propsProduct = {
+        '@click': function(){
+          webview.loadUrl({
+            url: item.url
+          })
+        }
+      }
+      const propsImg = {
+        style: 'flex-shrink: 0; width:50%; resize-mode: cover;',
+        src: item.img
+      }
+      const propsInfo = {
+        style: 'flex: 1; flex-direction: column; justify-content: center;padding-left: 30px; padding-right: 30px;'
+      }
+      const propsName = {
+        style: 'font-size: 32px; color: #333333;'
+      }
+      const propsBriefwarp = {
+        style: 'font-size: 28px; color: #999999;'
+      }
+      const propsPrice = {
+        style: 'font-size: 32px; color: #ff6000;'
+      }
+      if (index % 2) {
+        // 排序为奇数的产品样式
+        return(
+          <div {...propsProduct}>
+            <image {...propsImg}></image>
+            <div {...propsInfo}>
+              <text {...propsName}>{item.name}</text>
+              <text {...propsBriefwarp}>{item.briefwarp}</text>
+              <text {...propsPrice}>{item.price}</text>
+            </div>
+          </div>
+        )
+      } else {
+        // 排序为偶数的产品样式
+        return(
+          <div {...propsProduct}>
+            <div {...propsInfo}>
+              <text {...propsName}>{item.name}</text>
+              <text {...propsBriefwarp}>{item.briefwarp}</text>
+              <text {...propsPrice}>{item.price}</text>
+            </div>
+            <image {...propsImg}></image>
+          </div>
+        )
+      }
+    },
+    renderButton () {
+      // 返回加载更多按钮
+      const propsButton = {
+        type: 'button',
+        '@click': function(){
+          webview.loadUrl({
+            url:'https://www.quickapp.cn/'
+          })
+        },
+        style: 'flex: 1; color: #999999; font-size: 35px; text-align: center; padding-top: 30px;'
+      }
+      return(<text {...propsButton} value={this.loadMoreText}></text>)
+    }
+  }
+</script>

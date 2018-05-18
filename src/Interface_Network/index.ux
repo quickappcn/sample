@@ -1,0 +1,86 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+
+    <div class="item-container">
+      <div class="item-content">
+        <text class="txt">网络类型: {{networkType}}</text>
+      </div>
+      <input type="button" class="btn" onclick="getNetworkType" value="获取网络类型"/>
+
+      <div class="item-content">
+        <text class="txt">网络链接状态: {{currentType}}</text>
+      </div>
+      <input type="button" class="btn" onclick="listenNetwork" value="监听网络连接状态"/>
+      <input type="button" class="btn" onclick="cancelNetwork" value="取消网络链接状态监听"/>
+
+    </div>
+  </div>
+</template>
+
+<style>
+  @import '../Common/css/common.css';
+
+  .item-container {
+    margin-bottom: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+  .item-content {
+    flex-direction: column;
+    background-color: #ffffff;
+    padding: 30px;
+    margin-bottom: 100px;
+    align-items: flex-start;
+  }
+</style>
+
+<script>
+  import network from '@system.network'
+  import prompt from '@system.prompt'
+
+  export default {
+    private: {
+      componentName: 'network',
+      networkType: '',
+      currentType: '',
+    },
+    onInit () {
+      this.$page.setTitleBar({text: 'Network'})
+    },
+    getNetworkType () {
+      const self = this
+      network.getType({
+        success: function (ret) {
+          self.networkType = JSON.stringify(ret)
+        },
+        fail: function (erromsg, errocode) {
+          console.info(`### network.getType ### ${errocode}: ${erromsg}`)
+          prompt.showToast({
+            message: `${errocode}: ${erromsg}`
+          })
+        }
+      })
+    },
+    listenNetwork () {
+      const self = this
+      network.subscribe({
+        success: function (ret) {
+          self.currentType = JSON.stringify(ret)
+        },
+        fail: function (erromsg, errocode) {
+          console.info(`### network.subscribe ### ${errocode}: ${erromsg}`)
+          prompt.showToast({
+            message: `${errocode}: ${erromsg}`
+          })
+        }
+      })
+    },
+    cancelNetwork () {
+      network.unsubscribe()
+    }
+  }
+</script>

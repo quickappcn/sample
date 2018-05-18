@@ -1,0 +1,83 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+    <div class="item-container">
+      <text class="hint">与block配合使用</text>
+      <input class="btn" type="button" @click="{{controlText('visible1', 'hint1')}}" value="{{hint1}}说明文本"></input>
+      <block if="{{visible1}}">
+        <slot content="renderText1"></slot>
+      </block>
+    </div>
+    <div class="item-container">
+      <text class="hint line">在render函数中直接通过js代码实现if逻辑</text>
+      <input class="btn" type="button" @click="{{controlText('visible2', 'hint2')}}" value="{{hint2}}说明文本"></input>
+      <slot content="renderText2"></slot>
+    </div>
+  </div>
+</template>
+
+<style>
+  @import '../Common/css/common.css';
+
+  .item-container {
+    margin-bottom: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+  .hint{
+    padding-bottom: 20px;
+    color: #aaaaaa;
+  }
+  .line {
+    padding-top: 20px;
+    border-style: solid;
+    border-color: #bbbbbb;
+    border-top-width: 1px;
+  }
+</style>
+
+<script>
+  export default {
+    private: {
+      componentName: 'if',
+      visible1: false,
+      visible2: false,
+      hint1: '显示',
+      hint2: '显示',
+      text: 'JSX模板本身不支持for, if等逻辑控制属性, 可与<block>配合使用，或者在render函数中直接通过js代码实现复杂逻辑'
+    },
+    onInit () {
+      this.$page.setTitleBar({text: 'If'})
+    },
+    renderText1 () {
+      console.info('与block配合使用')
+      // 与block配合使用
+      return (<text style="margin-top: 30px; line-height: 45px; font-size: 30px; color: #666666;">{this.text}</text>)
+    },
+    renderText2 () {
+      // 在render函数中直接通过js代码实现if逻辑
+      if (this.visible2) {
+        return (
+          <text style="margin-top: 30px; line-height: 45px; font-size: 30px; color: #666666;">
+            {this.text}
+          </text>
+        )
+      } else {
+        return (<text></text>)
+      }
+    },
+    controlText (visible, hint) {
+      // 控制text显示隐藏逻辑
+      if (this[visible]) {
+        this[hint] = '显示'
+        this[visible] = false
+      } else {
+        this[hint] = '隐藏'
+        this[visible] = true
+      }
+    }
+  }
+</script>
