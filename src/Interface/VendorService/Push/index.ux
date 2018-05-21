@@ -1,0 +1,104 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+
+    <div class="item-container">
+      <div class="item-content">
+        <text class="txt">订阅 Push 结果:</text>
+        <text class="txt">result: {{pushSubscribeResult}}</text>
+      </div>
+      <input type="button" class="btn" onclick="pushSubscribe" value="订阅 Push"/>
+      <input type="button" class="btn" onclick="pushUnsubscribe" value="取消订阅"/>
+      <div class="item-content">
+        <text class="txt">Push 事件监听结果:</text>
+        <text class="txt">messageId: {{pushMessageData.messageId}}</text>
+        <text class="txt">data: {{pushMessageData.data}}</text>
+      </div>
+      <input type="button" class="btn" onclick="pushOn" value="添加 Push 事件监听"/>
+      <input type="button" class="btn" onclick="pushOff" value="取消 Push 事件监听"/>
+    </div>
+  </div>
+</template>
+
+<style>
+  @import '../../../Common/css/common.css';
+
+  .item-container {
+    margin-top: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+
+  .item-content {
+    flex-direction: column;
+    background-color: #ffffff;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin-bottom: 30px;
+  }
+</style>
+
+<script>
+  import push from '@service.push'
+  import prompt from '@system.prompt'
+
+  export default {
+    private: {
+      componentName: 'push',
+      pushSubscribeResult: '',
+      pushMessageData: {
+        messageId: '',
+        data: ''
+      }
+    },
+    onInit () {
+      this.$page.setTitleBar({text: 'Push'})
+    },
+    pushSubscribe () {
+      const self = this
+      push.subscribe({
+        success: function (ret) {
+          self.pushSubscribeResult = JSON.stringify(ret)
+        },
+        fail: function (erromsg, errocode) {
+          self.pushSubscribeResult = errocode + ': ' + JSON.stringify(erromsg)
+          console.info(`### push.subscribe ### ${errocode}: ${erromsg}`)
+          prompt.showToast({
+            message: `${errocode}: ${erromsg}`
+          })
+        }
+      })
+    },
+    pushUnsubscribe () {
+      const self = this
+      push.unsubscribe({
+        success: function (ret) {
+          self.pushSubscribeResult = JSON.stringify(ret)
+        },
+        fail: function (erromsg, errocode) {
+          self.pushSubscribeResult = errocode + ': ' + JSON.stringify(erromsg)
+          console.info(`### push.unsubscribe ### ${errocode}: ${erromsg}`)
+          prompt.showToast({
+            message: `${errocode}: ${erromsg}`
+          })
+        }
+      })
+    },
+    pushOn () {
+      const self = this
+      push.on({
+        callback: function (ret) {
+          self.pushMessageData = ret
+        }
+      })
+    },
+    pushOff () {
+      push.off()
+    }
+  }
+</script>

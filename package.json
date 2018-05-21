@@ -2,20 +2,20 @@
   "name": "Sample",
   "version": "1.0.0",
   "subversion": {
-    "toolkit": "0.0.31",
+    "toolkit": "0.0.32",
     "packager": "0.0.5"
   },
   "description": "Hybrid Application",
   "scripts": {
-    "build": "cross-env NODE_PLATFORM=na NODE_PHASE=dv webpack --config ./node_modules/hap-tools/webpack.config.js",
+    "build": "hap build",
     "release": "cross-env NODE_PLATFORM=na NODE_PHASE=ol webpack --config ./node_modules/hap-tools/webpack.config.js",
     "clear": "rm -rf build/* && rm -rf dist/*",
-    "server": "cross-env node ./node_modules/hap-tools/server/index.js",
-    "notify": "node ./node_modules/hap-tools/server/command/notify.js",
-    "debug": "npm run server -- --loadModules='debugger' --port=8081",
-    "watch": "npm run na:dv -- --watch",
+    "server": "hap server",
+    "notify": "node ./node_modules/hap-tools/debugger/command/notify.js",
+    "debug": "npm run server -- --debug-only --port=8081",
+    "watch": "cross-env NODE_PLATFORM=na NODE_PHASE=dv webpack --config ./node_modules/hap-tools/webpack.config.js --watch",
     "watch:na": "npm run na:dv -- --watch",
-    "lint": "./node_modules/.bin/eslint src/",
+    "lint": "./node_modules/.bin/eslint src/ --ext js,ux",
     "na": "npm run na:dv -- --watch",
     "na:dv": "cross-env NODE_PLATFORM=na NODE_PHASE=dv webpack --config ./node_modules/hap-tools/webpack.config.js",
     "na:qa": "cross-env NODE_PLATFORM=na NODE_PHASE=qa webpack --config ./node_modules/hap-tools/webpack.config.js",
@@ -59,9 +59,7 @@
     "socket.io": "^2.0.3",
     "source-map": "^0.5.6",
     "tar": "^3.1.5",
-    "yargs": "^6.6.0",
-    "babel-plugin-transform-async-to-generator": "^6.24.1",
-    "jszip": "^3.1.5"
+    "yargs": "^6.6.0"
   },
   "devDependencies": {
     "babel-cli": "^6.10.1",
@@ -71,7 +69,7 @@
     "babel-polyfill": "^6.23.0",
     "cross-env": "^3.2.4",
     "css-what": "^2.1.0",
-    "eslint": "^2.13.1",
+    "eslint": "^4.3.0",
     "file-loader": "^0.9.0",
     "html-webpack-plugin": "^2.28.0",
     "js-base64": "^2.1.9",
@@ -79,10 +77,10 @@
     "sinon-chai": "^2.8.0",
     "url-loader": "^0.5.7",
     "webdriverio": "^4.8.0",
-    "webpack": "~1.13.0",
+    "webpack": "^1.13.0",
     "webpack-dev-server": "^1.16.5",
     "hybrid-chai": "~0.0.1",
-    "eslint-plugin-hybrid": "~0.0.1",
+    "eslint-plugin-hybrid": "~0.0.2",
     "hybrid-mocha": "~0.0.1",
     "koa": "^2.3.0",
     "koa-send": "^4.1.1",
@@ -90,8 +88,7 @@
     "koa-body": "^2.5.0",
     "koa-router": "^7.2.1",
     "babel-eslint": "^8.2.1",
-    "html-loader": "^0.4.5",
-    "string-replace-loader": "^1.3.0",
-    "uglify-js": "^2.7.5"
+    "hap-toolkit": "*",
+    "socket.io": "^2.1.0"
   }
 }

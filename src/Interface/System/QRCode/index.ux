@@ -1,0 +1,62 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+        <text class="page-title">{{componentName}}</text>
+    </div>
+
+    <div class="item-container">
+      <div class="item-content">
+        <text class="txt">二维码扫描数据:{{qrCodeData}}</text>
+      </div>
+      <input type="button" class="btn"  onclick="qrCode" value="打开二维码扫描" />
+    </div>
+  </div>
+</template>
+
+<style>
+  @import '../../../Common/css/common.css';
+
+  .item-container{
+    margin-bottom: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+  .item-content{
+    flex-direction: column;
+    background-color: #ffffff;
+    padding: 30px;
+    margin-bottom: 100px;
+    align-items: flex-start;
+  }
+</style>
+
+<script>
+  import barcode from '@system.barcode'
+  import prompt from '@system.prompt'
+
+  export default {
+    private: {
+      componentName: 'qrcode',
+      qrCodeData: ''
+    },
+    onInit () {
+      this.$page.setTitleBar({text: 'Qrcode'})
+    },
+    qrCode () {
+      const self = this
+      barcode.scan({
+        success: function (ret) {
+          self.qrCodeData = ret.result
+        },
+        fail: function (erromsg, errocode) {
+          self.qrCodeData = errocode + ': ' + erromsg
+          console.info(`### barcode.scan ### ${errocode}: ${erromsg}`)
+          prompt.showToast({
+            message: `${errocode}: ${erromsg}`
+          })
+        }
+      })
+    }
+  }
+</script>

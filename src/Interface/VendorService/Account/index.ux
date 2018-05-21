@@ -1,0 +1,68 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+
+    <div class="item-container">
+      <div class="item-content">
+        <text>服务提供商: {{info}}</text>
+      </div>
+      <input type="button" class="btn" onclick="getProvider" value="获取服务提供商"/>
+    </div>
+    <div class="item-container">
+      <div class="item-content">
+        <text>账号授权: {{account}}</text>
+      </div>
+      <input type="button" class="btn" onclick="authorizeFn" value="账号授权">
+    </div>
+  </div>
+</template>
+
+<style>
+  @import '../../../Common/css/common.css';
+
+  .item-container {
+    margin-bottom: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+  .item-content {
+    flex-direction: column;
+    background-color: #ffffff;
+    padding: 30px;
+    margin-bottom: 50px;
+    align-items: flex-start;
+  }
+</style>
+
+<script>
+  import account from '@service.account'
+
+  export default {
+    private: {
+      componentName: 'Account',
+      info: '',
+      account: ''
+    },
+    onInit () {
+      this.$page.setTitleBar({text: '账号'})
+    },
+    getProvider () {
+      this.info = account.getProvider()
+    },
+    authorizeFn () {
+      const self = this
+      account.authorize({
+        type: 'token',
+        success: function (e) {
+          self.account = e
+        },
+        fail: function (data, code) {
+          self.account = code
+        }
+      })
+    }
+  }
+</script>

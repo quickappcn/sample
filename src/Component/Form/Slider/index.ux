@@ -1,0 +1,73 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+
+    <div class="item-container">
+      <text class="item-title">初始化：value = 50</text>
+      <div class="item-content">
+        <slider class="slider" min="0" max="100" value="{{currentValue1}}" onchange="getValue('currentValue1')"></slider>
+        <text class="label">{{currentValue1}}</text>
+      </div>
+    </div>
+
+    <div class="item-container">
+      <text class="item-title">step = {{step}}</text>
+      <div class="item-content">
+        <slider class="slider" min="0" max="100" value="{{currentValue2}}" step="{{step}}" onchange="getValue('currentValue2')"></slider>
+        <text class="label">{{currentValue2}}</text>
+      </div>
+    </div>
+
+    <div class="item-container">
+      <text class="item-title">min = 50; max = 200</text>
+      <div class="item-content">
+        <slider class="slider" min="50" max="200" value="{{currentValue3}}" onchange="getValue('currentValue3')"></slider>
+        <text class="label">{{currentValue3}}</text>
+      </div>
+    </div>
+  </div>
+</template>
+
+<style>
+  @import '../../../Common/css/common.css';
+
+  .item-container {
+    margin-bottom: 50px;
+    flex-direction: column;
+  }
+  .item-title {
+    line-height: 100px;
+    padding-left: 40px;
+    color: #aaaaaa;
+  }
+  .slider {
+    flex: 1;
+    padding-left: 50px;
+    padding-right: 50px;
+    selected-color: #0faeff;
+  }
+  .label {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+</style>
+
+<script>
+  export default {
+    private: {
+      componentName: 'slider',
+      step: 10,
+      currentValue1: 50,
+      currentValue2: 50,
+      currentValue3: 50
+    },
+    onInit () {
+      this.$page.setTitleBar({text: 'Slider'})
+    },
+    getValue (name, e) {
+      this[name] = e.progress
+    }
+  }
+</script>

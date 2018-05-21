@@ -1,0 +1,51 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+
+    <div class="item-container">
+      <div class="item-content">
+        <textarea placeholder="请输入文本内容" class="textarea"></textarea>
+      </div>
+      <text class="txt">文本过多时自动换行，定高时滚动显示</text>
+    </div>
+  </div>
+</template>
+
+<style>
+  @import '../../../Common/css/common.css';
+
+  .item-container {
+    margin-bottom: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+  .textarea {
+    border-color: #bbbbbb;
+    border-width: 1px;
+    padding: 15px;
+    height: 150px;
+    font-size: 30px;
+  }
+  .item-content {
+    flex-direction: column;
+    background-color: #ffffff;
+    padding: 30px;
+    height: 200px;
+    margin-bottom: 100px;
+    justify-content: center;
+  }
+</style>
+
+<script>
+  export default {
+    private: {
+      componentName: 'textarea'
+    },
+    onInit () {
+      this.$page.setTitleBar({text: 'Textarea'})
+    }
+  }
+</script>

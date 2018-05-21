@@ -1,4 +1,4 @@
-const tabsData = {
+export const tabsData = {
   component: {
     name: '组件',
     desc: '以下将展示快应用组件能力，组件样式仅供参考，开发者可根据自身需求自定义组件样式，具体属性参数详见快应用开发文档',
@@ -8,35 +8,35 @@ const tabsData = {
         caseList: [
           {
             name: 'div',
-            path: 'Component_Div'
+            path: 'Component/Container/Div'
           },
           {
             name: 'list',
-            path: 'Component_List'
+            path: 'Component/Container/List'
           },
           {
             name: 'popup',
-            path: 'Component_Popup'
+            path: 'Component/Container/Popup'
           },
           {
             name: 'refresh',
-            path: 'Component_Refresh'
+            path: 'Component/Container/Refresh'
           },
           {
             name: 'richtext',
-            path: 'Component_Richtext'
+            path: 'Component/Container/Richtext'
           },
           {
             name: 'stack',
-            path: 'Component_Stack'
+            path: 'Component/Container/Stack'
           },
           {
             name: 'swiper',
-            path: 'Component_Swiper'
+            path: 'Component/Container/Swiper'
           },
           {
             name: 'tabs',
-            path: 'Component_Tabs'
+            path: 'Component/Container/Tabs'
           }
         ]
       },
@@ -45,27 +45,27 @@ const tabsData = {
         caseList: [
           {
             name: 'a',
-            path: 'Component_A'
+            path: 'Component/Basic/A'
           },
           {
             name: 'image',
-            path: 'Component_Image'
+            path: 'Component/Basic/Image'
           },
           {
             name: 'progress',
-            path: 'Component_Progress'
+            path: 'Component/Basic/Progress'
           },
           {
             name: 'rating',
-            path: 'Component_Rating'
+            path: 'Component/Basic/Rating'
           },
           {
             name: 'span',
-            path: 'Component_Span'
+            path: 'Component/Basic/Span'
           },
           {
             name: 'text',
-            path: 'Component_Text'
+            path: 'Component/Basic/Text'
           }
         ]
       },
@@ -74,27 +74,27 @@ const tabsData = {
         caseList: [
           {
             name: 'input',
-            path: 'Component_Input'
+            path: 'Component/Form/Input'
           },
           {
             name: 'label',
-            path: 'Component_Label'
+            path: 'Component/Form/Label'
           },
           {
             name: 'picker',
-            path: 'Component_Picker'
+            path: 'Component/Form/Picker'
           },
           {
             name: 'slider',
-            path: 'Component_Slider'
+            path: 'Component/Form/Slider'
           },
           {
             name: 'switch',
-            path: 'Component_Switch'
+            path: 'Component/Form/Switch'
           },
           {
             name: 'textarea',
-            path: 'Component_Textarea'
+            path: 'Component/Form/Textarea'
           }
         ]
       },
@@ -103,28 +103,28 @@ const tabsData = {
         caseList: [
           {
             name: 'video',
-            path: 'Component_Video'
+            path: 'Component/Media/Video'
           },
           {
             name: 'audio',
-            path: 'Component_Audio'
+            path: 'Component/Media/Audio'
+          },
+          {
+            name: 'web',
+            path: 'Component/Media/Web'
           }
         ]
       },
       {
-        name: '其他',
+        name: '样式动画',
         caseList: [
           {
-            name: 'web',
-            path: 'Component_Web'
-          },
-          {
             name: 'animation',
-            path: 'Style_Animation'
+            path: 'Component/Style/Animation'
           },
           {
             name: 'transform',
-            path: 'Style_Transform'
+            path: 'Component/Style/Transform'
           }
         ]
       },
@@ -133,32 +133,11 @@ const tabsData = {
         caseList: [
           {
             name: '页面生命周期',
-            path: 'Framework_Lifecycle'
+            path: 'Framework/Lifecycle'
           },
           {
             name: '唤起应用(deepLink)',
-            path: 'Framework_DeepLink'
-          }
-        ]
-      },
-      {
-        name: 'JSX',
-        caseList: [
-          {
-            name: 'binding',
-            path: 'JSX_binding'
-          },
-          {
-            name: 'if',
-            path: 'JSX_If'
-          },
-          {
-            name: 'for',
-            path: 'JSX_For'
-          },
-          {
-            name: 'complex',
-            path: 'JSX_Complex'
+            path: 'Framework/DeepLink'
           }
         ]
       },
@@ -218,15 +197,15 @@ const tabsData = {
         caseList: [
           {
             name:'页面路由',
-            path:'Interface_Router'
+            path:'Interface/System/Router'
           },
           {
             name:'应用上下文',
-            path:'Interface_App'
+            path:'Interface/System/App'
           },
           {
             name:'应用管理',
-            path:'Interface_Package'
+            path:'Interface/System/Package'
           }
         ]
       },
@@ -235,23 +214,23 @@ const tabsData = {
         caseList: [
           {
             name:'分享',
-            path:'Interface_Share'
+            path:'Interface/System/Share'
           },
           {
             name:'弹窗',
-            path:'Interface_Prompt'
+            path:'Interface/System/Prompt'
           },
           {
             name:'打开网页',
-            path:'Interface_Webview'
+            path:'Interface/System/Webview'
           },
           {
             name:'通知消息',
-            path:'Interface_Notification'
+            path:'Interface/System/Notification'
           },
           {
             name:'震动',
-            path:'Interface_Vibrator'
+            path:'Interface/System/Vibrator'
           }
         ]
       },
@@ -260,11 +239,11 @@ const tabsData = {
         caseList: [
           {
             name:'上传下载',
-            path:'Interface_Request'
+            path:'Interface/System/Request'
           },
           {
             name:'数据请求',
-            path:'Interface_Fetch'
+            path:'Interface/System/Fetch'
           }
         ]
       },
@@ -273,11 +252,11 @@ const tabsData = {
         caseList: [
           {
             name:'数据存储',
-            path:'Interface_Storage'
+            path:'Interface/System/Storage'
           },
           {
             name:'文件存储',
-            path:'Interface_File'
+            path:'Interface/System/File'
           }
         ]
       },
@@ -286,51 +265,51 @@ const tabsData = {
         caseList: [
           {
             name:'二维码',
-            path:'Interface_QRCode'
+            path:'Interface/System/QRCode'
           },
           {
             name:'传感器',
-            path:'Interface_Sensor'
+            path:'Interface/System/Sensor'
           },
           {
             name:'剪贴板',
-            path:'Interface_Clipboard'
+            path:'Interface/System/Clipboard'
           },
           {
             name:'地理位置',
-            path:'Interface_Geolocation'
+            path:'Interface/System/Geolocation'
           },
           {
             name:'桌面图标',
-            path:'Interface_Shortcut'
+            path:'Interface/System/Shortcut'
           },
           {
             name:'日历事件',
-            path:'Interface_Calendar'
+            path:'Interface/System/Calendar'
           },
           {
             name:'网络状态',
-            path:'Interface_Network'
+            path:'Interface/System/Network'
           },
           {
             name:'设备信息',
-            path:'Interface_Device'
+            path:'Interface/System/Device'
           },
           {
             name:'屏幕亮度',
-            path:'Interface_Brightness'
+            path:'Interface/System/Brightness'
           },
           {
             name:'电量信息',
-            path:'Interface_Battery'
+            path:'Interface/System/Battery'
           },
           {
             name:'录音',
-            path:'Interface_Record'
+            path:'Interface/System/Record'
           },
           {
             name:'系统音量',
-            path:'Interface_Volume'
+            path:'Interface/System/Volume'
           }
         ]
       },
@@ -339,11 +318,11 @@ const tabsData = {
         caseList: [
           {
             name:'图片编辑',
-            path:'Interface_Image'
+            path:'Interface/System/Image'
           },
           {
             name:'多媒体',
-            path:'Interface_Media'
+            path:'Interface/System/Media'
           }
         ]
       },
@@ -352,19 +331,15 @@ const tabsData = {
         caseList: [
           {
             name:'推送',
-            path:'Interface_Push'
+            path:'Interface/VendorService/Push'
           },
           {
             name:'账号',
-            path:'Service_Account'
+            path:'Interface/VendorService/Account'
           },
           {
             name:'支付',
-            path:'Interface_Pay'
-          },
-          {
-            name:'统计',
-            path:'Service_Stats'
+            path:'Interface/VendorService/Pay'
           }
         ]
       },
@@ -373,22 +348,18 @@ const tabsData = {
         caseList: [
           {
             name:'微信支付',
-            path:'Interface_Wxpay'
+            path:'Interface/ThirdParty/Wxpay'
           },
           {
             name:'支付宝支付',
-            path:'Interface_Alipay'
+            path:'Interface/ThirdParty/Alipay'
           },
           {
             name:'第三方分享',
-            path:'Interface_Serviceshare'
+            path:'Interface/ThirdParty/Serviceshare'
           }
         ]
       }
     ]
   }
-}
-
-export {
-  tabsData
 }

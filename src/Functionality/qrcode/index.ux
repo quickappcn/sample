@@ -24,7 +24,7 @@
       this.$page.setTitleBar({text: '生成二维码'})
     },
     onReady () {
-      let text = 'https://www.baidu.com/xxx'
+      let text = 'https://www.quickapp.cn/xxx'
       this.dataBase64 = qrcode.toDataURL(text, 8)
     }
   }

@@ -1,0 +1,84 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+
+    <div class="item-container">
+      <input type="button" class="btn" onclick="showToast" value="显示浮窗"/>
+      <input type="button" class="btn" onclick="showDialog" value="显示对话框">
+      <input type="button" class="btn" onclick="showContextMenu" value="显示上下文菜单">
+    </div>
+  </div>
+</template>
+
+<style>
+  @import '../../../Common/css/common.css';
+
+  .item-container {
+    margin-bottom: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+</style>
+
+<script>
+  import prompt from '@system.prompt'
+
+  export default {
+    private: {
+      componentName: 'prompt'
+    },
+    onInit () {
+      this.$page.setTitleBar({text: 'Prompt'})
+    },
+    showToast () {
+      prompt.showToast({
+        message: 'message'
+      })
+    },
+    showDialog () {
+      prompt.showDialog({
+        title: '弹框标题',
+        message: '弹框内容、告知当前状态、信息和解决方法，描述文字尽量控制在三行内',
+        buttons: [
+          {
+            text: '确定',
+            color: '#0faeff'
+          },{
+            text: '取消'
+          },{
+            text: '忽略'
+          }
+        ],
+        success: function (ret) {
+          prompt.showToast({
+            message: '成功回调:选中按钮序号---' + ret.index
+          })
+        },
+        cancel: function () {
+          prompt.showToast({
+            message: '取消回调'
+          })
+        }
+      })
+    },
+    showContextMenu () {
+      prompt.showContextMenu({
+        itemList: ['item0', 'item1', 'item2', 'item3', 'item4', 'item5'],
+        itemColor: '#0faeff',
+        success: function (ret) {
+          prompt.showToast({
+            message: '成功回调:选中按钮序号---' + ret.index
+          })
+        },
+        cancel: function () {
+          prompt.showToast({
+            message: '取消回调'
+          })
+        }
+      })
+    }
+  }
+</script>

@@ -1,0 +1,80 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+
+    <div class="item-container">
+      <text class="item-title">默认样式</text>
+      <div class="item-content">
+        <switch checked="true" class="switch"></switch>
+        <switch checked="false" class="switch"></switch>
+      </div>
+    </div>
+
+    <div class="item-container">
+      <text class="item-title ">推荐展示样式</text>
+      <div class="switch-wrap">
+        <div class="switch-content border-bottom">
+          <text class="label">开启中</text>
+          <switch checked="true" class="switch"></switch>
+        </div>
+        <div class="switch-content">
+          <text class="label">关闭中</text>
+          <switch checked="false" class="switch"></switch>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<style>
+  @import '../../../Common/css/common.css';
+
+  .item-container {
+    margin-top: 20px;
+    margin-bottom: 30px;
+    flex-direction: column;
+  }
+  .item-title {
+    padding-left: 30px;
+    padding-bottom: 20px;
+    color: #aaaaaa;
+  }
+  .item-content {
+    padding-left: 30px;
+  }
+  .switch-wrap {
+    border-color: #bbbbbb;
+    padding-left: 40px;
+    border-bottom-width: 1px;
+    border-top-width: 1px;
+    background-color: #ffffff;
+    flex-direction: column;
+  }
+  .switch {
+    margin-right: 30px;
+  }
+  .switch-content {
+    padding-right: 50px;
+  }
+  .label {
+    flex: 1;
+    height: 100px;
+  }
+  .border-bottom {
+    border-color: #bbbbbb;
+    border-bottom-width: 1px;
+  }
+</style>
+
+<script>
+  export default {
+    private: {
+      componentName: 'switch'
+    },
+    onInit () {
+      this.$page.setTitleBar({text: 'Switch'})
+    }
+  }
+</script>

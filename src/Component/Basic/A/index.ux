@@ -1,0 +1,36 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+    <a href="https://www.quickapp.cn/">链接示例</a>
+    <a href="/Home">跳转到应用内的首页</a>
+    <a href="/Interface/Router/Detail?pageInfo=我是上个页面传递来的数据">携带数据跳转到应用内的详情页</a>
+  </div>
+</template>
+
+<style>
+  @import '../../../Common/css/common.css';
+
+  a {
+    margin-left: 75px;
+    width: 600px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    margin-bottom: 100px;
+    background-color: #ffffff;
+    text-decoration: underline;
+    text-align: center;
+  }
+</style>
+
+<script>
+  export default {
+    private: {
+      componentName: 'a'
+    },
+    onInit () {
+      this.$page.setTitleBar({text: 'A'})
+    }
+  }
+</script>

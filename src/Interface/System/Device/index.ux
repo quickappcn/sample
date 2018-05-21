@@ -1,0 +1,198 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+
+    <div class="item-container">
+      <div class="item-content">
+        <text>设备信息:</text>
+        <text>{{deviceInfo}}</text>
+      </div>
+      <input type="button" class="btn" onclick="getDeviceInfo" value="获取设备信息"/>
+    </div>
+
+    <div class="item-container">
+      <div class="item-content">
+        <text>批量获取设备标识:</text>
+        <text>{{deviceIdList}}</text>
+      </div>
+      <input type="button" class="btn" onclick="getDeviceIdList" value="批量获取设备标识"/>
+    </div>
+
+    <div class="item-container">
+      <div class="item-content">
+        <text>设备Id:</text>
+        <text>{{deviceId}}</text>
+      </div>
+      <input type="button" class="btn" onclick="getDeviceId" value="获取设备唯一标识"/>
+    </div>
+
+    <div class="item-container">
+      <div class="item-content">
+        <text>获取用户唯一标识:</text>
+        <text>{{userId}}</text>
+      </div>
+      <input type="button" class="btn" onclick="getUserId" value="获取用户唯一标识"/>
+    </div>
+
+    <div class="item-container">
+      <div class="item-content">
+        <text>获取广告唯一标识:</text>
+        <text>{{advertisingId}}</text>
+      </div>
+      <input type="button" class="btn" onclick="getAdvertisingId" value="获取广告唯一标识"/>
+    </div>
+
+    <div class="item-container">
+      <div class="item-content">
+        <text>获取存储空间的总大小:</text>
+        <text>{{totalStorage}}</text>
+      </div>
+      <input type="button" class="btn" onclick="getTotalStorage" value="获取存储空间的总大小"/>
+    </div>
+
+    <div class="item-container">
+      <div class="item-content">
+        <text>获取存储空间的可用大小:</text>
+        <text>{{availableStorage}}</text>
+      </div>
+      <input type="button" class="btn" onclick="getAvailableStorage" value="获取存储空间的可用大小"/>
+    </div>
+
+    <div class="item-container">
+      <div class="item-content">
+        <text>CPU信息:</text>
+        <text>{{cpuInfo}}</text>
+      </div>
+      <input type="button" class="btn" onclick="getCpuInfo" value="获取CPU信息"/>
+    </div>
+
+  </div>
+</template>
+
+<style>
+  @import '../../../Common/css/common.css';
+
+  .item-container {
+    margin-bottom: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+
+  .item-content {
+    flex-direction: column;
+    background-color: #ffffff;
+    padding: 30px;
+    margin-bottom: 50px;
+    align-items: flex-start;
+  }
+</style>
+
+<script>
+  import device from '@system.device'
+
+  export default {
+    private: {
+      componentName: 'Device',
+      deviceInfo: '',
+      deviceIdList: '',
+      deviceId: '',
+      userId: '',
+      advertisingId: '',
+      totalStorage: '',
+      availableStorage: '',
+      cpuInfo: ''
+    },
+    onInit () {
+      this.$page.setTitleBar({text: '设备信息'})
+    },
+    getDeviceInfo () {
+      const self = this
+      device.getInfo({
+        success: function (data) {
+          self.deviceInfo = JSON.stringify(data)
+        }
+      })
+    },
+    getDeviceIdList () {
+      const self = this
+      device.getId({
+        type: ['device', 'mac', 'user'],
+        success: function (data) {
+          self.deviceIdList = JSON.stringify(data)
+        },
+        fail: function (data, code) {
+          self.deviceIdList = 'handling fail, code=' + code
+        }
+      })
+    },
+    getDeviceId () {
+      const self = this
+      device.getDeviceId({
+        success: function (data) {
+          self.deviceId =  JSON.stringify(data)
+        },
+        fail: function (data, code) {
+          self.deviceId = 'handling fail, code=' + code
+        }
+      })
+    },
+    getUserId () {
+      const self = this
+      device.getUserId({
+        success: function (data) {
+          self.userId = JSON.stringify(data)
+        },
+        fail: function (data, code) {
+          self.userId = 'handling fail, code=' + code
+        }
+      })
+    },
+    getAdvertisingId () {
+      const self = this
+      device.getAdvertisingId({
+        success: function (data) {
+          self.advertisingId = JSON.stringify(data)
+        },
+        fail: function (data, code) {
+          self.advertisingId  = 'handling fail, code=' + code
+        }
+      })
+    },
+    getTotalStorage () {
+      const self = this
+      device.getTotalStorage({
+        success: function (data) {
+          self.totalStorage = JSON.stringify(data)
+        },
+        fail: function(data, code) {
+          self.totalStorage = 'handling fail, code=' + code
+        }
+      })
+    },
+    getAvailableStorage () {
+      const self = this
+      device.getAvailableStorage({
+        success: function (data) {
+          self.availableStorage = JSON.stringify(data)
+        },
+        fail: function(data, code) {
+          self.availableStorage = 'handling fail, code=' + code
+        }
+      })
+    },
+    getCpuInfo () {
+      const self = this
+      device.getCpuInfo({
+        success: function (data) {
+          self.cpuInfo = JSON.stringify(data)
+        },
+        fail: function (data, code) {
+          self.cpuInfo = 'handling fail, code=' + code
+        }
+      })
+    }
+  }
+</script>

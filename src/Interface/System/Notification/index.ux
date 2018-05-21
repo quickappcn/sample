@@ -1,0 +1,92 @@
+<template>
+  <div class="doc-page">
+
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+
+    <div class="item-container">
+      <div class="item-content">
+        <div class="item-content-detail">
+          <text class="txt">消息标题:</text>
+          <input type="text" class="input" name="" placeholder="请输入title" onchange="titleFn">
+        </div>
+
+        <div class="item-content-detail">
+          <text class="txt">消息文本:</text>
+          <input type="text" class="input" name="" placeholder="请输入content" onchange="contentFn">
+        </div>
+      </div>
+      <input type="button" class="btn" value="发送通知消息" onclick="show">
+    </div>
+  </div>
+</template>
+
+<style>
+  @import '../../../Common/css/common.css';
+
+  .item-container {
+    margin-top: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+  .item-content {
+    flex-direction: column;
+    background-color: #ffffff;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin-bottom: 100px;
+  }
+  .item-content-detail {
+    align-items: center;
+  }
+  .input {
+    flex: 1;
+    font-size: 30px;
+    padding-left: 20px;
+  }
+  .txt {
+    width: 150px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    text-align: right;
+  }
+</style>
+
+<script>
+  import prompt from '@system.prompt'
+  import notification from '@system.notification'
+
+  export default {
+    private: {
+      componentName: 'notification',
+      inputTitle: 'title',
+      inputContent: 'content'
+    },
+    onInit () {
+      this.$page.setTitleBar({text: 'Notification'})
+    },
+    show () {
+      const self = this
+      prompt.showToast({
+        message: '标题为: "' + self.inputTitle + '" 的消息已发送，请查看消息通知栏'
+      })
+      notification.show({
+        contentTitle: self.inputTitle,
+        contentText: self.inputContent,
+        clickAction: {
+          uri: '/Home'
+        }
+      })
+    },
+    titleFn (e) {
+      this.inputTitle = e.text
+    },
+    contentFn (e) {
+      this.inputContent = e.text
+    }
+  }
+</script>

@@ -1,0 +1,78 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+
+    <div class="item-container">
+      <div class="item-content">
+        <text class="txt" if="{{show}}">{{clipboard}}</text>
+      </div>
+
+      <div class="item-content txt-left">
+        <text class="txt">设置剪切文本：{{showSet}}</text>
+        <text class="txt">获取剪切文本：{{showGet}}</text>
+      </div>
+      <input type="button" class="btn" onclick="set" value="设置剪切文本"/>
+      <input type="button" class="btn" onclick="get" value="获取剪切文本"/>
+    </div>
+  </div>
+</template>
+
+<style>
+  @import '../../../Common/css/common.css';
+
+  .item-container {
+    margin-bottom: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+  .item-content {
+    flex-direction: column;
+    background-color: #ffffff;
+    padding: 30px;
+    margin-bottom: 50px;
+    align-items: center;
+    justify-content: center;
+  }
+  .txt {
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+  .txt-left {
+    align-items: flex-start;
+  }
+</style>
+
+<script>
+  import clipboard from '@system.clipboard'
+
+  export default {
+    private: {
+      componentName: 'clipboard',
+      show: true,
+      clipboard: '新应用测试版1.0',
+      showSet: '',
+      showGet: ''
+    },
+    onInit () {
+      this.$page.setTitleBar({text: 'Clipboard'})
+    },
+    set () {
+      this.showSet = this.clipboard
+      clipboard.set({
+        text: this.clipboard
+      })
+    },
+    get () {
+      const self = this
+      clipboard.get({
+        success: function (obj) {
+          self.showGet = obj.text
+        }
+      })
+    }
+
+  }
+</script>

@@ -67,202 +67,186 @@
       "Home": {
         "component": "index"
       },
-      "Component_A": {
+      "Component/Basic/A": {
         "component": "index"
       },
-      "Component_Web": {
+      "Component/Media/Web": {
         "component": "index"
       },
-      "Component_Div": {
+      "Component/Container/Div": {
         "component": "index"
       },
-      "Component_Image": {
+      "Component/Basic/Image": {
         "component": "index"
       },
-      "Component_Input": {
+      "Component/Form/Input": {
         "component": "index"
       },
-      "Component_Label": {
+      "Component/Form/Label": {
         "component": "index"
       },
-      "Component_List": {
+      "Component/Container/List": {
         "component": "index"
       },
-      "Component_Picker": {
+      "Component/Form/Picker": {
         "component": "index"
       },
-      "Component_Progress": {
+      "Component/Basic/Progress": {
         "component": "index"
       },
-      "Component_Popup": {
+      "Component/Container/Popup": {
         "component": "index"
       },
-      "Component_Refresh": {
+      "Component/Container/Refresh": {
         "component": "index"
       },
-      "Component_Richtext": {
+      "Component/Container/Richtext": {
         "component": "index"
       },
-      "Component_Slider": {
+      "Component/Form/Slider": {
         "component": "index"
       },
-      "Component_Span": {
+      "Component/Basic/Span": {
         "component": "index"
       },
-      "Component_Stack": {
+      "Component/Container/Stack": {
         "component": "index"
       },
-      "Component_Swiper": {
+      "Component/Container/Swiper": {
         "component": "index"
       },
-      "Component_Switch": {
+      "Component/Form/Switch": {
         "component": "index"
       },
-      "Component_Tabs": {
+      "Component/Container/Tabs": {
         "component": "index"
       },
-      "Component_Text": {
+      "Component/Basic/Text": {
         "component": "index"
       },
-      "Component_Rating": {
+      "Component/Basic/Rating": {
         "component": "index"
       },
-      "Component_Textarea": {
+      "Component/Form/Textarea": {
         "component": "index"
       },
-     "Component_Video": {
+     "Component/Media/Video": {
         "component": "index"
       },
-      "Component_Audio": {
+      "Component/Media/Audio": {
         "component": "index"
       },
-      "Framework_DeepLink": {
+      "Framework/DeepLink": {
         "component": "index"
       },
-      "Framework_Lifecycle": {
+      "Framework/Lifecycle": {
         "component": "index"
       },
-      "Interface_Alipay": {
+      "Interface/ThirdParty/Alipay": {
         "component": "index"
       },
-      "Interface_Brightness": {
+      "Interface/System/Brightness": {
         "component": "index"
       },
-      "Interface_Calendar": {
+      "Interface/System/Calendar": {
         "component": "index"
       },
-      "Interface_Clipboard": {
+      "Interface/System/Clipboard": {
         "component": "index"
       },
-      "Interface_Device": {
+      "Interface/System/Device": {
         "component": "index"
       },
-      "Interface_App": {
+      "Interface/System/App": {
         "component": "index"
       },
-      "Interface_Fetch": {
+      "Interface/System/Fetch": {
         "component": "index"
       },
-      "Interface_File": {
+      "Interface/System/File": {
         "component": "index"
       },
-      "Interface_Geolocation": {
+      "Interface/System/Geolocation": {
         "component": "index"
       },
-      "Interface_Image": {
+      "Interface/System/Image": {
         "component": "index"
       },
-      "Interface_Media": {
+      "Interface/System/Media": {
         "component": "index"
       },
-      "Interface_Network": {
+      "Interface/System/Network": {
         "component": "index"
       },
-      "Interface_Notification": {
+      "Interface/System/Notification": {
         "component": "index"
       },
-      "Interface_Pay": {
+      "Interface/VendorService/Pay": {
         "component": "index"
       },
-      "Interface_Prompt": {
+      "Interface/System/Prompt": {
         "component": "index"
       },
-      "Interface_Push": {
+      "Interface/VendorService/Push": {
         "component": "index"
       },
-      "Interface_Package": {
+      "Interface/System/Package": {
         "component": "index"
       },
-      "Interface_QRCode": {
+      "Interface/System/QRCode": {
         "component": "index"
       },
-      "Interface_Request": {
+      "Interface/System/Request": {
         "component": "index"
       },
-      "Interface_Router": {
+      "Interface/System/Router": {
         "component": "index"
       },
-      "Interface_Router/Detail": {
+      "Interface/System/Router/Detail": {
         "component": "index"
       },
-      "Interface_Record": {
+      "Interface/System/Record": {
         "component": "index"
       },
-      "Interface_Sensor": {
+      "Interface/System/Sensor": {
         "component": "index"
       },
-      "Interface_Serviceshare": {
+      "Interface/ThirdParty/Serviceshare": {
         "component": "index"
       },
-      "Interface_Share": {
+      "Interface/System/Share": {
         "component": "index"
       },
-      "Interface_Shortcut": {
+      "Interface/System/Shortcut": {
         "component": "index"
       },
-      "Interface_Storage": {
+      "Interface/System/Storage": {
         "component": "index"
       },
-      "Interface_Vibrator": {
+      "Interface/System/Vibrator": {
         "component": "index"
       },
-      "Interface_Volume": {
+      "Interface/System/Volume": {
         "component": "index"
       },
-      "Interface_Battery": {
+      "Interface/System/Battery": {
         "component": "index"
       },
-      "Interface_Webview": {
+      "Interface/System/Webview": {
         "component": "index"
       },
-      "Interface_Wxpay": {
+      "Interface/ThirdParty/Wxpay": {
         "component": "index"
       },
-      "Style_Animation": {
+      "Component/Style/Animation": {
         "component": "index"
       },
-      "Style_Transform": {
+      "Component/Style/Transform": {
         "component": "index"
       },
-      "Service_Stats": {
+      "Interface/VendorService/Account": {
         "component": "index"
       },
-      "Service_Account": {
-        "component": "index"
-      },
-      "JSX_binding": {
-        "component": "index"
-      },
-      "JSX_If": {
-        "component": "index"
-      },
-      "JSX_For": {
-        "component": "index"
-      },
-      "JSX_Complex": {
-        "component": "index"
-      },
-
       "Functionality/form": {
         "component": "index"
       },
@@ -304,10 +288,10 @@
       "Home": {
         "titleBarText": "快应用组件展示"
       },
-      "Component_Web": {
+      "Component/Web": {
         "titleBar": false
       },
-      "Framework_Lifecycle": {
+      "Framework/Lifecycle": {
         "menu": true
       },
       "Functionality/titlebar": {

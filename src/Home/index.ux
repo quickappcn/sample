@@ -81,13 +81,13 @@
     display: none;
   }
   .item-li {
-    border-color: #d2d2d2;
+    border-color: #bbbbbb;
     border-bottom-width: 1px;
     align-items: center;
   }
   .item_arrow_img {
-    height: 20px;
-    width: 10px;
+    height: 40px;
+    width: 20px;
     margin-right: 30px;
     resize-mode: contain;
   }
@@ -107,7 +107,7 @@
     display: flex;
   }
   .selected-text {
-    color: #0faeff;
+    color: #cccccc;
   }
 </style>
 
