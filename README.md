@@ -31,11 +31,6 @@ A project to demonstrate the use of quickapp, including demos of components and 
 在项目根目录下，运行如下命令安装模块到node_modules目录
 > npm install
 
-**注意**：
-
-> 如果开发者在后续操作中遇到报错Cannot find module '.../node_modules/hap-tools/webpack.config.js'，请运行一次hap update --force（执行完毕后不需要按照提示再次运行npm install）
-这是由于高版本的npm（如：NodeJS v8版本使用npm5）在npm install时，会校验node_modules目录，并删除其中的hap-tools文件夹，从而导致报错；开发者运行hap update --force，会重新复制hap-tools文件夹到node_modules中  
-
 #### 编译  
 1、手动编译项目  
 
