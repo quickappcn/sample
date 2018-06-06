@@ -90,4 +90,4 @@ A project to demonstrate the use of quickapp, including demos of components and 
 #### 预览效果
 安装成功后，效果如下：  
 
-![](https://doc.quickapp.cn/readme.png)
+![](https://raw.githubusercontent.com/quickappcn/sample/master/src/Common/img/index_snapshot.png)
