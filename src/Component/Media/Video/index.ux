@@ -6,10 +6,10 @@
 
     <div class="video justify-content-center">
       <stack class="flex-column">
-        <video class="flex-1" poster="https://www.quickapp.cn/assets/images/home/video.png" autoplay="false"
-               onprepared="preparedfn" onstart="startfn" onpause="pausefn" onfinish="finishfn" onerror="errorfn"
-               onseeking="seekingfn" onseeked="seekedfn" ontimeupdate="timeupdatefn" id="video"
-               src="https://swsdl.vivo.com.cn/appstore/developer/uploadfile/20180323/20180323183010837.mp4"></video>
+        <video class="flex-1" poster="https://www.quickapp.cn/assets/images/home/video.png" autoplay="false" onprepared="preparedfn"
+          onstart="startfn" onpause="pausefn" onfinish="finishfn" onerror="errorfn" onseeking="seekingfn" onseeked="seekedfn"
+          ontimeupdate="timeupdatefn" id="video" src="https://swsdl.vivo.com.cn/appstore/developer/uploadfile/20180323/20180323183010837.mp4"
+          controls="{{showControls}}"></video>
         <image show="{{showmask}}" src="https://www.quickapp.cn/assets/images/home/video.png"></image>
         <div class="mask align-item-center justify-content-center flex-column" show="{{showmask}}">
           <image show="{{showicon}}" src="./start.png" class="start-icon" onclick="startVideo"></image>
@@ -20,25 +20,34 @@
         </div>
       </stack>
     </div>
+    <div class="item-container">
+      <div class="item-content">
+        <text class="item-content_title">是否显示播放控件</text>
+        <switch class="switch" checked="true" onchange="switchShowControls"></switch>
+      </div>
+    </div>
   </div>
 </template>
 
 <style>
-  @import '../../../Common/css/common.css';
-  @import '../../../Common/css/index.css';
+  @import '../../../common/css/common.css';
+  @import '../../../common/css/index.css';
 
   .video {
     height: 400px;
   }
+
   .mask {
     flex: 1;
     background-color: rgba(0, 0, 0, 0.1);
   }
+
   .start-icon {
     height: 100px;
     width: 100px;
     resize-mode: cover;
   }
+
   .tip .continue {
     padding: 15px 30px;
     border: 1px solid #ffffff;
@@ -47,30 +56,35 @@
     color: #ffffff;
     border-radius: 30px;
   }
+
+  .item-container {
+    margin-top: 20px;
+  }
 </style>
 
 <script>
   import prompt from '@system.prompt'
   import network from '@system.network'
 
-  export default{
+  export default {
     private: {
       componentName: 'video',
       showmask: true,
       showicon: true,
-      ignorenet: false
+      ignorenet: false,
+      showControls: true
     },
-    onInit () {
+    onInit() {
       this.$page.setTitleBar({ text: 'Video' })
     },
-    startVideo (e) {
+    startVideo(e) {
       if (e.usenet) {
         // 非wifi情况下继续播放
         this.ignorenet = true
       }
       this.networkstatus('video')
     },
-    networkstatus () {
+    networkstatus() {
       network.subscribe({
         callback: function (data) {
           if (data.type === 'wifi' || this.ignorenet) {
@@ -83,6 +97,9 @@
           }
         }.bind(this)
       })
+    },
+    switchShowControls(e) {
+      this.showControls = e.checked
     }
   }
 </script>

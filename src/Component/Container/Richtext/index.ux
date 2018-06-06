@@ -13,7 +13,7 @@
 </template>
 
 <style>
-  @import '../../../Common/css/common.css';
+  @import '../../../common/css/common.css';
 
   .item-container {
     margin-bottom: 30px;

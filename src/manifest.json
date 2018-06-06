@@ -1,9 +1,9 @@
 {
   "package": "org.hapjs.demo.sample",
   "name": "快应用组件展示",
-  "versionName": "1.0",
+  "versionName": "1.1",
   "versionCode": 1,
-  "icon": "/Common/logo.png",
+  "icon": "/common/logo.png",
   "features": [
     { "name": "system.webview" },
     { "name": "system.prompt" },
@@ -32,6 +32,7 @@
     { "name": "system.record" },
     { "name": "service.stats" },
     { "name": "service.account" },
+    {"name": "system.contact"},
     { "name": "service.app" },
     { "name": "service.share", "params": {"appSign": "", "wxKey": ""} },
     { "name": "service.pay" },
@@ -50,6 +51,31 @@
         "appId": "",
         "appKey": ""
       }
+    },
+    {
+      "name": "service.wxaccount",
+      "params": {
+        "appId": "",
+        "package": "",
+        "sign": ""
+      }
+    },
+    {
+      "name": "service.qqaccount",
+      "params": {
+        "package":"",
+        "appid": "",
+        "sign": "",
+        "client_id":"",
+        "redirect_uri":""
+      }
+    },
+    {
+      "name": "service.wbaccount",
+      "params": {
+        "sign": "",
+        "appKey": ""
+      }
     }
   ],
   "permissions": [
@@ -62,219 +88,225 @@
     }
   },
   "router": {
-    "entry": "Home",
+    "entry": "home",
     "pages": {
-      "Home": {
+      "home": {
         "component": "index"
       },
-      "Component/Basic/A": {
+      "component/basic/a": {
         "component": "index"
       },
-      "Component/Media/Web": {
+      "component/media/web": {
         "component": "index"
       },
-      "Component/Container/Div": {
+      "component/container/div": {
         "component": "index"
       },
-      "Component/Basic/Image": {
+      "component/basic/image": {
         "component": "index"
       },
-      "Component/Form/Input": {
+      "component/form/input": {
         "component": "index"
       },
-      "Component/Form/Label": {
+      "component/form/label": {
         "component": "index"
       },
-      "Component/Container/List": {
+      "component/container/list": {
         "component": "index"
       },
-      "Component/Form/Picker": {
+      "component/form/picker": {
         "component": "index"
       },
-      "Component/Basic/Progress": {
+      "component/basic/progress": {
         "component": "index"
       },
-      "Component/Container/Popup": {
+      "component/container/popup": {
         "component": "index"
       },
-      "Component/Container/Refresh": {
+      "component/container/refresh": {
         "component": "index"
       },
-      "Component/Container/Richtext": {
+      "component/container/richtext": {
         "component": "index"
       },
-      "Component/Form/Slider": {
+      "component/form/slider": {
         "component": "index"
       },
-      "Component/Basic/Span": {
+      "component/basic/span": {
         "component": "index"
       },
-      "Component/Container/Stack": {
+      "component/container/stack": {
         "component": "index"
       },
-      "Component/Container/Swiper": {
+      "component/container/swiper": {
         "component": "index"
       },
-      "Component/Form/Switch": {
+      "component/form/switch": {
         "component": "index"
       },
-      "Component/Container/Tabs": {
+      "component/container/tabs": {
         "component": "index"
       },
-      "Component/Basic/Text": {
+      "component/basic/text": {
         "component": "index"
       },
-      "Component/Basic/Rating": {
+      "component/basic/rating": {
         "component": "index"
       },
-      "Component/Form/Textarea": {
+      "component/form/textarea": {
         "component": "index"
       },
-     "Component/Media/Video": {
+     "component/media/video": {
         "component": "index"
       },
-      "Component/Media/Audio": {
+      "component/media/audio": {
         "component": "index"
       },
-      "Framework/DeepLink": {
+      "framework/deeplink": {
         "component": "index"
       },
-      "Framework/Lifecycle": {
+      "framework/lifecycle": {
         "component": "index"
       },
-      "Interface/ThirdParty/Alipay": {
+      "interface/thirdparty/alipay": {
         "component": "index"
       },
-      "Interface/System/Brightness": {
+      "interface/thirdparty/wxpay": {
         "component": "index"
       },
-      "Interface/System/Calendar": {
+      "interface/thirdparty/serviceshare": {
         "component": "index"
       },
-      "Interface/System/Clipboard": {
+      "interface/thirdparty/wxaccount": {
         "component": "index"
       },
-      "Interface/System/Device": {
+      "interface/thirdparty/qqaccount": {
         "component": "index"
       },
-      "Interface/System/App": {
+      "interface/thirdparty/wbaccount": {
         "component": "index"
       },
-      "Interface/System/Fetch": {
+      "interface/system/brightness": {
         "component": "index"
       },
-      "Interface/System/File": {
+      "interface/system/calendar": {
         "component": "index"
       },
-      "Interface/System/Geolocation": {
+      "interface/system/clipboard": {
         "component": "index"
       },
-      "Interface/System/Image": {
+      "interface/system/device": {
         "component": "index"
       },
-      "Interface/System/Media": {
+      "interface/system/app": {
         "component": "index"
       },
-      "Interface/System/Network": {
+      "interface/system/fetch": {
         "component": "index"
       },
-      "Interface/System/Notification": {
+      "interface/system/file": {
         "component": "index"
       },
-      "Interface/VendorService/Pay": {
+      "interface/system/filerw": {
         "component": "index"
       },
-      "Interface/System/Prompt": {
+      "interface/system/geolocation": {
         "component": "index"
       },
-      "Interface/VendorService/Push": {
+      "interface/system/image": {
         "component": "index"
       },
-      "Interface/System/Package": {
+      "interface/system/media": {
         "component": "index"
       },
-      "Interface/System/QRCode": {
+      "interface/system/network": {
         "component": "index"
       },
-      "Interface/System/Request": {
+      "interface/system/notification": {
         "component": "index"
       },
-      "Interface/System/Router": {
+      "interface/system/prompt": {
         "component": "index"
       },
-      "Interface/System/Router/Detail": {
+      "interface/system/package": {
         "component": "index"
       },
-      "Interface/System/Record": {
+      "interface/system/qrcode": {
         "component": "index"
       },
-      "Interface/System/Sensor": {
+      "interface/system/request": {
         "component": "index"
       },
-      "Interface/ThirdParty/Serviceshare": {
+      "interface/system/router": {
         "component": "index"
       },
-      "Interface/System/Share": {
+      "interface/system/router/detail": {
         "component": "index"
       },
-      "Interface/System/Shortcut": {
+      "interface/system/record": {
         "component": "index"
       },
-      "Interface/System/Storage": {
+      "interface/system/sensor": {
         "component": "index"
       },
-      "Interface/System/Vibrator": {
+      "interface/system/share": {
         "component": "index"
       },
-      "Interface/System/Volume": {
+      "interface/system/shortcut": {
         "component": "index"
       },
-      "Interface/System/Battery": {
+      "interface/system/storage": {
         "component": "index"
       },
-      "Interface/System/Webview": {
+      "interface/system/vibrator": {
         "component": "index"
       },
-      "Interface/ThirdParty/Wxpay": {
+      "interface/system/volume": {
         "component": "index"
       },
-      "Component/Style/Animation": {
+      "interface/system/battery": {
         "component": "index"
       },
-      "Component/Style/Transform": {
+      "interface/system/webview": {
         "component": "index"
       },
-      "Interface/VendorService/Account": {
+      "interface/system/contact": {
         "component": "index"
       },
-      "Functionality/form": {
+      "component/style/animation": {
         "component": "index"
       },
-      "Functionality/menutop": {
+      "component/style/transform": {
         "component": "index"
       },
-      "Functionality/ceiling": {
+      "functionality/form": {
         "component": "index"
       },
-      "Functionality/photo": {
+      "functionality/menutop": {
         "component": "index"
       },
-      "Functionality/qrcode": {
+      "functionality/ceiling": {
         "component": "index"
       },
-      "Functionality/titlebar": {
+      "functionality/photo": {
         "component": "index"
       },
-      "Functionality/listcombination/demo1": {
+      "functionality/qrcode": {
         "component": "index"
       },
-      "Functionality/verification": {
+      "functionality/titlebar": {
         "component": "index"
       },
-      "Functionality/simulateSwipe": {
+      "functionality/listcombination": {
         "component": "index"
       },
-      "Functionality/template/elec_business": {
+      "functionality/verification": {
+        "component": "index"
+      },
+      "functionality/simulate-swipe": {
+        "component": "index"
+      },
+      "functionality/template/elec-business": {
         "component": "index"
       }
     }
@@ -285,16 +317,16 @@
     "titleBarBackgroundColor": "#0faeff",
     "titleBarTextColor": "#ffffff",
     "pages": {
-      "Home": {
+      "home": {
         "titleBarText": "快应用组件展示"
       },
-      "Component/Web": {
+      "component/media/web": {
         "titleBar": false
       },
-      "Framework/Lifecycle": {
+      "framework/lifecycle": {
         "menu": true
       },
-      "Functionality/titlebar": {
+      "functionality/titlebar": {
         "titleBar": false
       }
     }

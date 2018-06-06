@@ -25,7 +25,7 @@
 </template>
 
 <style>
-  @import '../../../Common/css/common.css';
+  @import '../../../common/css/common.css';
 
   .item-container {
     margin: 0 50px 50px 50px;

@@ -15,7 +15,7 @@
 </template>
 
 <style>
-  @import '../../../Common/css/common.css';
+  @import '../../../common/css/common.css';
 
   .item-container{
     margin-bottom: 50px;
@@ -51,14 +51,14 @@
     },
     routeDetail () {
       router.push({
-        uri: '/Interface/Router/Detail',
+        uri: 'interface/system/router/detail',
         params: {pageInfo: '我是上个页面传递来的数据'}
       })
     },
     routeDetailObejct () {
       // params传递的数据为对象时，会被序列化为字符串，可以通过JSON.parse()反序列化
       router.push({
-        uri: '/Interface/Router/Detail',
+        uri: 'interface/system/router/detail',
         params: {
           pageInfoObject: {
             msg: '我是上个页面传递来的数据对象'

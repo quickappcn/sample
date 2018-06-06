@@ -31,7 +31,7 @@
           </div>
         </div>
         <div class="item-container-select" onclick="show">
-          <text class="label">选择方向——当前选择:</text>
+          <text class="label">选择popup出现的方向——当前选择:</text>
           <picker class="picker" type="text" range="{{posList}}" value="{{currentDire}}" onchange="selectDire" id="picker"></picker>
         </div>
 
@@ -62,7 +62,7 @@
 </template>
 
 <style lang="less">
-  @import '../../../Common/css/common.css';
+  @import '../../../common/css/common.css';
 
   .item-container {
     margin: 0 50px 50px 50px;

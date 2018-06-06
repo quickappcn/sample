@@ -1,4 +1,23 @@
 export const tabsData = {
+  framework: {
+    name: '框架',
+    desc: '以下将展示快应用框架能力，具体属性参数详见快应用开发文档',
+    groupList: [
+      {
+        name: '基础',
+        caseList: [
+          {
+            name: '页面生命周期',
+            path: 'framework/lifecycle'
+          },
+          {
+            name: '唤起应用(deepLink)',
+            path: 'framework/deeplink'
+          }
+        ]
+      }
+    ]
+  },
   component: {
     name: '组件',
     desc: '以下将展示快应用组件能力，组件样式仅供参考，开发者可根据自身需求自定义组件样式，具体属性参数详见快应用开发文档',
@@ -8,35 +27,35 @@ export const tabsData = {
         caseList: [
           {
             name: 'div',
-            path: 'Component/Container/Div'
+            path: 'component/container/div'
           },
           {
             name: 'list',
-            path: 'Component/Container/List'
+            path: 'component/container/list'
           },
           {
             name: 'popup',
-            path: 'Component/Container/Popup'
+            path: 'component/container/popup'
           },
           {
             name: 'refresh',
-            path: 'Component/Container/Refresh'
+            path: 'component/container/refresh'
           },
           {
             name: 'richtext',
-            path: 'Component/Container/Richtext'
+            path: 'component/container/richtext'
           },
           {
             name: 'stack',
-            path: 'Component/Container/Stack'
+            path: 'component/container/stack'
           },
           {
             name: 'swiper',
-            path: 'Component/Container/Swiper'
+            path: 'component/container/swiper'
           },
           {
             name: 'tabs',
-            path: 'Component/Container/Tabs'
+            path: 'component/container/tabs'
           }
         ]
       },
@@ -45,27 +64,27 @@ export const tabsData = {
         caseList: [
           {
             name: 'a',
-            path: 'Component/Basic/A'
+            path: 'component/basic/a'
           },
           {
             name: 'image',
-            path: 'Component/Basic/Image'
+            path: 'component/basic/image'
           },
           {
             name: 'progress',
-            path: 'Component/Basic/Progress'
+            path: 'component/basic/progress'
           },
           {
             name: 'rating',
-            path: 'Component/Basic/Rating'
+            path: 'component/basic/rating'
           },
           {
             name: 'span',
-            path: 'Component/Basic/Span'
+            path: 'component/basic/span'
           },
           {
             name: 'text',
-            path: 'Component/Basic/Text'
+            path: 'component/basic/text'
           }
         ]
       },
@@ -74,27 +93,27 @@ export const tabsData = {
         caseList: [
           {
             name: 'input',
-            path: 'Component/Form/Input'
+            path: 'component/form/input'
           },
           {
             name: 'label',
-            path: 'Component/Form/Label'
+            path: 'component/form/label'
           },
           {
             name: 'picker',
-            path: 'Component/Form/Picker'
+            path: 'component/form/picker'
           },
           {
             name: 'slider',
-            path: 'Component/Form/Slider'
+            path: 'component/form/slider'
           },
           {
             name: 'switch',
-            path: 'Component/Form/Switch'
+            path: 'component/form/switch'
           },
           {
             name: 'textarea',
-            path: 'Component/Form/Textarea'
+            path: 'component/form/textarea'
           }
         ]
       },
@@ -103,15 +122,15 @@ export const tabsData = {
         caseList: [
           {
             name: 'video',
-            path: 'Component/Media/Video'
+            path: 'component/media/video'
           },
           {
             name: 'audio',
-            path: 'Component/Media/Audio'
+            path: 'component/media/audio'
           },
           {
             name: 'web',
-            path: 'Component/Media/Web'
+            path: 'component/media/web'
           }
         ]
       },
@@ -120,24 +139,11 @@ export const tabsData = {
         caseList: [
           {
             name: 'animation',
-            path: 'Component/Style/Animation'
+            path: 'component/style/animation'
           },
           {
             name: 'transform',
-            path: 'Component/Style/Transform'
-          }
-        ]
-      },
-      {
-        name: '框架',
-        caseList: [
-          {
-            name: '页面生命周期',
-            path: 'Framework/Lifecycle'
-          },
-          {
-            name: '唤起应用(deepLink)',
-            path: 'Framework/DeepLink'
+            path: 'component/style/transform'
           }
         ]
       },
@@ -146,43 +152,43 @@ export const tabsData = {
         caseList: [
           {
             name: '表单',
-            path: 'Functionality/form'
+            path: 'functionality/form'
           },
           {
             name: '手机验证码',
-            path: 'Functionality/verification'
+            path: 'functionality/verification'
           },
           {
             name: '顶部菜单',
-            path: 'Functionality/menutop'
+            path: 'functionality/menutop'
           },
           {
             name: '图片展示',
-            path: 'Functionality/photo'
+            path: 'functionality/photo'
           },
           {
             name: '生成二维码',
-            path: 'Functionality/qrcode'
+            path: 'functionality/qrcode'
           },
           {
             name: '自定义titlebar',
-            path: 'Functionality/titlebar'
+            path: 'functionality/titlebar'
           },
           {
             name: 'list联动',
-            path: 'Functionality/listcombination/demo1'
+            path: 'functionality/listcombination'
           },
           {
             name: '监听手势方向',
-            path: 'Functionality/simulateSwipe'
+            path: 'functionality/simulate-swipe'
           },
           {
             name: '吸顶效果',
-            path: 'Functionality/ceiling'
+            path: 'functionality/ceiling'
           },
           {
             name: '电商模板',
-            path: 'Functionality/template/elec_business'
+            path: 'functionality/template/elec-business'
           }
         ]
       }
@@ -197,15 +203,15 @@ export const tabsData = {
         caseList: [
           {
             name:'页面路由',
-            path:'Interface/System/Router'
+            path:'interface/system/router'
           },
           {
             name:'应用上下文',
-            path:'Interface/System/App'
+            path:'interface/system/app'
           },
           {
             name:'应用管理',
-            path:'Interface/System/Package'
+            path:'interface/system/package'
           }
         ]
       },
@@ -214,23 +220,23 @@ export const tabsData = {
         caseList: [
           {
             name:'分享',
-            path:'Interface/System/Share'
+            path:'interface/system/share'
           },
           {
             name:'弹窗',
-            path:'Interface/System/Prompt'
+            path:'interface/system/prompt'
           },
           {
             name:'打开网页',
-            path:'Interface/System/Webview'
+            path:'interface/system/webview'
           },
           {
             name:'通知消息',
-            path:'Interface/System/Notification'
+            path:'interface/system/notification'
           },
           {
             name:'震动',
-            path:'Interface/System/Vibrator'
+            path:'interface/system/vibrator'
           }
         ]
       },
@@ -239,11 +245,11 @@ export const tabsData = {
         caseList: [
           {
             name:'上传下载',
-            path:'Interface/System/Request'
+            path:'interface/system/request'
           },
           {
             name:'数据请求',
-            path:'Interface/System/Fetch'
+            path:'interface/system/fetch'
           }
         ]
       },
@@ -252,11 +258,15 @@ export const tabsData = {
         caseList: [
           {
             name:'数据存储',
-            path:'Interface/System/Storage'
+            path:'interface/system/storage'
           },
           {
             name:'文件存储',
-            path:'Interface/System/File'
+            path:'interface/system/file'
+          },
+          {
+            name:'文件读写',
+            path:'interface/system/filerw'
           }
         ]
       },
@@ -265,51 +275,55 @@ export const tabsData = {
         caseList: [
           {
             name:'二维码',
-            path:'Interface/System/QRCode'
+            path:'interface/system/qrcode'
           },
           {
             name:'传感器',
-            path:'Interface/System/Sensor'
+            path:'interface/system/sensor'
           },
           {
             name:'剪贴板',
-            path:'Interface/System/Clipboard'
+            path:'interface/system/clipboard'
           },
           {
             name:'地理位置',
-            path:'Interface/System/Geolocation'
+            path:'interface/system/geolocation'
           },
           {
             name:'桌面图标',
-            path:'Interface/System/Shortcut'
+            path:'interface/system/shortcut'
           },
           {
             name:'日历事件',
-            path:'Interface/System/Calendar'
+            path:'interface/system/calendar'
           },
           {
             name:'网络状态',
-            path:'Interface/System/Network'
+            path:'interface/system/network'
           },
           {
             name:'设备信息',
-            path:'Interface/System/Device'
+            path:'interface/system/device'
           },
           {
             name:'屏幕亮度',
-            path:'Interface/System/Brightness'
+            path:'interface/system/brightness'
           },
           {
             name:'电量信息',
-            path:'Interface/System/Battery'
+            path:'interface/system/battery'
           },
           {
             name:'录音',
-            path:'Interface/System/Record'
+            path:'interface/system/record'
           },
           {
             name:'系统音量',
-            path:'Interface/System/Volume'
+            path:'interface/system/volume'
+          },
+          {
+            name:'联系人',
+            path:'interface/system/contact'
           }
         ]
       },
@@ -318,28 +332,11 @@ export const tabsData = {
         caseList: [
           {
             name:'图片编辑',
-            path:'Interface/System/Image'
+            path:'interface/system/image'
           },
           {
             name:'多媒体',
-            path:'Interface/System/Media'
-          }
-        ]
-      },
-      {
-        name: '厂商服务',
-        caseList: [
-          {
-            name:'推送',
-            path:'Interface/VendorService/Push'
-          },
-          {
-            name:'账号',
-            path:'Interface/VendorService/Account'
-          },
-          {
-            name:'支付',
-            path:'Interface/VendorService/Pay'
+            path:'interface/system/media'
           }
         ]
       },
@@ -348,15 +345,27 @@ export const tabsData = {
         caseList: [
           {
             name:'微信支付',
-            path:'Interface/ThirdParty/Wxpay'
+            path:'interface/thirdparty/wxpay'
           },
           {
             name:'支付宝支付',
-            path:'Interface/ThirdParty/Alipay'
+            path:'interface/thirdparty/alipay'
           },
           {
             name:'第三方分享',
-            path:'Interface/ThirdParty/Serviceshare'
+            path:'interface/thirdparty/serviceshare'
+          },
+          {
+            name: '微信账号',
+            path: 'interface/thirdparty/wxaccount'
+          },
+          {
+            name: 'QQ账号',
+            path: 'interface/thirdparty/qqaccount'
+          },
+          {
+            name: '微博账号',
+            path: 'interface/thirdparty/wbaccount'
           }
         ]
       }

@@ -15,7 +15,7 @@
               <block for="{{case in group.caseList}}">
                 <div class="item-li" onclick="routePath(case.path, {})">
                   <text class="item-li-detail">{{case.name}}</text>
-                  <image class="item_arrow_img" src="/Common/img/arrow_right.png"></image>
+                  <image class="item_arrow_img" src="arrow-right.png"></image>
                 </div>
               </block>
             </div>

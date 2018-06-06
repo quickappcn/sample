@@ -32,8 +32,8 @@
 
 <style>
 
-  @import '../../../Common/css/common.css';
-  @import '../../../Common/css/index.css';
+  @import '../../../common/css/common.css';
+  @import '../../../common/css/index.css';
 
   .label-item{
     align-items: center;

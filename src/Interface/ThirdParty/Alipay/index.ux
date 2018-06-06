@@ -12,7 +12,7 @@
 </template>
 
 <style>
-  @import '../../../Common/css/common.css';
+  @import '../../../common/css/common.css';
 
   .item-container {
     margin-top: 50px;

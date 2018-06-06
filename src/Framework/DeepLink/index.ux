@@ -9,7 +9,7 @@
 </template>
 
 <style>
-  @import '../../Common/css/common.css';
+  @import '../../common/css/common.css';
 
   .desc {
     margin: 0 0 30px 75px;

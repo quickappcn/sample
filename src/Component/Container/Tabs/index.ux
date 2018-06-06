@@ -22,7 +22,7 @@
 
           <div class="item-content">
             <text class="item-title">image</text>
-            <image src="../../Common/img/pic1.webp" class="image"></image>
+            <image src="pic.webp" class="image"></image>
           </div>
 
           <div class="item-content">
@@ -86,7 +86,7 @@
 </template>
 
 <style>
-  @import '../../../Common/css/common.css';
+  @import '../../../common/css/common.css';
 
   .tabs {
     flex: 1;

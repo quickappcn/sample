@@ -6,21 +6,24 @@
 
     <div class="item-container">
       <div class="item-content">
+        <text>可分享的平台：{{platforms}}</text>
+      </div>
+      <div class="item-content">
         <text class="txt">分享的标题：</text>
         <input type="text" class="input" value="{{title}}" placeholder="请输入分享的标题" onchange="updateTitle">
       </div>
-
       <div class="item-content">
         <text class="txt">分享的摘要：</text>
         <input type="text" class="input" value="{{summary}}" placeholder="请输入分享的摘要" onchange="updateSummary">
       </div>
       <input type="button" class="btn" onclick="share" value="点击分享"/>
+      <input type="button" class="btn" onclick="shareTo" value="分享到指定平台"/>
     </div>
   </div>
 </template>
 
 <style>
-  @import '../../../Common/css/common.css';
+  @import '../../../common/css/common.css';
 
   .item-container {
     margin-bottom: 50px;
@@ -52,10 +55,12 @@
     private: {
       componentName: 'service.share',
       title: '默认标题',
-      summary: '默认摘要'
+      summary: '默认摘要',
+      platforms: ''
     },
     onInit () {
       this.$page.setTitleBar({ text: 'Service Share' })
+      this.getAllThePlatforms()
     },
     updateTitle (e) {
       this.title = e.text
@@ -75,6 +80,33 @@
           prompt.showToast({
             message: `${errocode}: ${erromsg}`
           })
+        }
+      })
+    },
+    shareTo () {
+      const self = this
+      share.share({
+        shareType: 0,
+        title: self.title,
+        summary: self.summary,
+        targetUrl: 'https://www.quickapp.cn/',
+        platforms: ['SYSTEM'],
+        fail: function (erromsg, errocode) {
+          console.info(`### share.share ### ${errocode}: ${erromsg}`)
+          prompt.showToast({
+            message: `${errocode}: ${erromsg}`
+          })
+        }
+      })
+    },
+    getAllThePlatforms ()  {
+      const self = this
+      share.getAvailablePlatforms({
+        success: function(data) {
+          self.platforms = data.platforms.join(',')
+        },
+        fail: function(data, code) {
+          console.info(`### "handling fail ### code: ${ code }`)
         }
       })
     }

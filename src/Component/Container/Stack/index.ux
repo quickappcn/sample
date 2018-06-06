@@ -5,17 +5,17 @@
     </div>
 
     <stack class="stack">
-      <image class="image" src="../../Common/img/pic2.webp"></image>
+      <image class="image" src="pic2.webp"></image>
       <text class="title">stack容器排列方式为层叠，每个子组件按照先后顺序依次堆叠，覆盖前面的组件</text>
       <div class="wrap">
-        <image class="btn" src="../../Common/img/demo.png"></image>
+        <image class="btn" src="demo.png"></image>
       </div>
     </stack>
   </div>
 </template>
 
 <style>
-  @import '../../../Common/css/common.css';
+  @import '../../../common/css/common.css';
 
   .stack {
     height: 300px;

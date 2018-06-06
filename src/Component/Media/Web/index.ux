@@ -1,4 +1,4 @@
-<import name='titleBar' src='./component/titleBar'></import>
+<import name='titleBar' src='./component/titlebar'></import>
 
 <template>
   <div class="doc-page">
@@ -33,13 +33,13 @@
       this.$on('arrowRight', this.arrowRightIcon)
     },
     onPageStart (e) {
-      console.info('pagestart: '+e.url)
+      console.info('### pagestart ###'+e.url)
     },
     onTitleReceive (e) {
       this.titleBarParams.config.title = e.title
     },
     onError () {
-      console.info('pageError')
+      console.info('### pageError ###')
     },
     arrowLeftIcon () {
       this.isCanBack()

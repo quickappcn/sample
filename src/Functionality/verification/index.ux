@@ -16,7 +16,7 @@
 </template>
 
 <style>
-  @import "../../Common/css/index.css";
+  @import "../../common/css/index.css";
 
   .input-btn {
     background-color: #0faeff;

@@ -6,25 +6,22 @@
 
     <div class="item-container">
       <div class="item-content">
-        <text class="txt">{{fetchData}}</text>
+        <text class="txt">{{fetchedData}}</text>
       </div>
-      <div class="item-content">
-        <text class="txt">{{fetchLocal}}</text>
-      </div>
-      <input type="button" class="btn" onclick="refresh" value="测试1"/>
+      <input type="button" class="btn" onclick="fetchDataUseAsync" value="获取数据"/>
     </div>
 
-    <div class="item-container">
+    <!-- <div class="item-container">
       <div class="item-content">
         <text class="txt">{{fetchCookieData}}</text>
       </div>
       <input type="button" class="btn" onclick="fetchWithCookie" value="测试2"/>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <style>
-  @import '../../../Common/css/common.css';
+  @import '../../../common/css/common.css';
 
   .item-container {
     margin-bottom: 50px;
@@ -56,29 +53,47 @@
   export default {
     private: {
       componentName: 'fetch',
-      fetchData: '数据请求失败',
-      fetchLocal: '原始数据：{ "code": 0,"data": "count": 0,"loop": 1,"hasPop": 0,"popmsg": null},}',
+      fetchedData: 'init',
       fetchCookieData: '无'
     },
     onInit () {
       this.$page.setTitleBar({text: 'Fetch'})
-      this.refresh()
     },
-    fetch () {
+    // 获取数据 - 不使用 async 的写法
+    fetchDataNormal () {
       const self = this
+      this.fetchedData = 'fetching...'
       fetch.fetch({
-        url: 'http://news.baidu.com/widget?id=LocalNews&ajax=json',
+        url: 'http://news.baidu.com/widget',
+        data: {
+          id: 'LocalNews',
+          ajax: 'json'
+        },
         success: function (ret) {
-          // 注意self.fetchData与ret接收的数据类型保持一致
-          self.fetchData = '网络数据(jsonp)：' + JSON.stringify(ret.data)
+          // 注意self.fetchedData与ret接收的数据类型保持一致
+          self.fetchedData = '网络数据(jsonp)：' + JSON.stringify(ret.data)
           prompt.showToast({
             message: 'success'
           })
         }
       })
     },
-    refresh () {
-      this.fetch()
+    // 获取数据 - 使用 async 的写法
+    async fetchDataUseAsync () {
+      const self = this
+      this.fetchedData = 'fetching...'
+      //使用 async 的写法
+      const ret = await fetch.fetch({
+        url: 'http://news.baidu.com/widget',
+        data: {
+          id: 'LocalNews',
+          ajax: 'json'
+        },
+      })
+      self.fetchedData = '网络数据(jsonp)：' + JSON.stringify(ret.data)
+      prompt.showToast({
+        message: 'success'
+      })
     },
     fetchWithCookie () {
       const self = this

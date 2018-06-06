@@ -68,7 +68,7 @@
           'arrowLeftShow': true,
           'leftIconSrc': './images/back.png',
           'arrowRightShow': true,
-          'rightIconSrc': './images/more_#ffffff.png'
+          'rightIconSrc': './images/more-white.png'
         }
       },
       value: {}

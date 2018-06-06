@@ -7,6 +7,7 @@
         </div>
       </block>
     </swiper>
+    <text>点击放大图片后可滚动查看所有图片</text>
     <div class="content">
       <block for="{{imgList}}">
         <div class="image-container">
@@ -18,7 +19,7 @@
 </template>
 
 <style>
-  @import "../../Common/css/index.css";
+  @import "../../common/css/index.css";
 
   .swiper {
     position: fixed;

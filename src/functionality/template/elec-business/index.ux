@@ -5,12 +5,12 @@
     <div class="page">
       <!-- 顶部搜索栏 -->
       <div class="title-bar">
-        <image class="icon-normal" src="./img/template_scan.png"></image>
+        <image class="icon-normal" src="./img/template-scan.png"></image>
         <div class="search-wrap xui-col">
-          <image class="icon-normal" src="./img/template_search.png"></image>
+          <image class="icon-normal" src="./img/template-search.png"></image>
           <input class="search-input xui-col color-white" type="text" placeholder="搜索"></input>
         </div>
-        <image class="icon-normal" src="./img/template_news.png"></image>
+        <image class="icon-normal" src="./img/template-news.png"></image>
       </div>
 
       <!-- 主体内容 -->
@@ -123,19 +123,19 @@
     private: {
       tabBarData: [
         {
-          image: './img/template_home.png',
+          image: './img/template-home.png',
           text: '首页'
         },{
-          image: './img/template_sort.png',
+          image: './img/template-sort.png',
           text: '分类'
         },{
-          image: './img/template_recommend.png',
+          image: './img/template-recommend.png',
           text: '推荐'
         },{
-          image: './img/template_cart.png',
+          image: './img/template-cart.png',
           text: '购物车'
         },{
-          image: './img/template_user.png',
+          image: './img/template-user.png',
           text: '我的'
         }
       ],

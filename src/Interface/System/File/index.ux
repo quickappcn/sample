@@ -52,7 +52,7 @@
 </template>
 
 <style>
-  @import '../../../Common/css/common.css';
+  @import '../../../common/css/common.css';
 
   .item-container {
     margin-bottom: 50px;
@@ -85,7 +85,7 @@
 
   export default {
     private: {
-      componentName: 'file',
+      componentName: '文件存储',
       fileDownloadData: '',
       fileMoveData: '',
       fileMoveToFolderData: '',
@@ -95,7 +95,7 @@
       fileDeleteData: ''
     },
     onInit () {
-      this.$page.setTitleBar({ text: 'File' })
+      this.$page.setTitleBar({ text: '文件存储' })
     },
     downloadFile () {
       const self = this

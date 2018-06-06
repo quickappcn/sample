@@ -23,7 +23,7 @@
 </template>
 
 <style lang="less">
-  @import '../../../Common/css/common.css';
+  @import '../../../common/css/common.css';
 
   .audio-content {
     flex-direction: column;

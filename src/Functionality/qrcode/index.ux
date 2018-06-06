@@ -10,7 +10,7 @@
 </template>
 
 <style>
-  @import "../../Common/css/index.css";
+  @import "../../common/css/index.css";
 </style>
 
 <script>

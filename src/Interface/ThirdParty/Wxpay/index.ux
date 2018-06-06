@@ -11,7 +11,7 @@
 </template>
 
 <style>
-  @import '../../../Common/css/common.css';
+  @import '../../../common/css/common.css';
 
   .item-container {
     margin-top: 50px;
@@ -106,8 +106,8 @@
           message: '当前可用微信支付方式：网页支付'
         })
         wxpay.pay({
-          prepayid: 'xxxxxxxxxx',
           // 微信网页支付的prepayId
+          prepayid: 'xxxxxxxxxx',
           extra: {
             // 传递给支付页面的自定义参数, 根据需要进行设置, 需要被urlEncode, 会被拼接在配置的url尾部
             customeKey1: 'customeValue1',

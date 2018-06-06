@@ -1,4 +1,4 @@
-<import name='titleBar' src='./component_titleBar'></import>
+<import name='titleBar' src='./component-titlebar'></import>
 
 <template>
   <div class="doc-page">
@@ -21,7 +21,7 @@
 </template>
 
 <style>
-  @import "../../Common/css/index.css";
+  @import "../../common/css/index.css";
 
   .type-detail{
     background-color: #eeeeee;
@@ -67,7 +67,7 @@
           'index': 0
         },{
           'title': 'leftIconSrc',
-          'list': ['./images/back.png','./images/back_1.png','./images/back_2.png'],
+          'list': ['./images/back.png','./images/back-1.png','./images/back-2.png'],
           'index': -1
         },{
           'title': 'title',

@@ -13,7 +13,7 @@
 </template>
 
 <style>
-  @import '../../../Common/css/common.css';
+  @import '../../../common/css/common.css';
 
   .refresh{
     flex-direction: column;
