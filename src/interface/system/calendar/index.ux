@@ -1,0 +1,93 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+    <div class="content">
+      <div class="item">
+        <text>事件的标题</text>
+        <input class="item-input" type="text" value="{{title}}" placeholder="标题" onchange="updateData('title')"></input>
+      </div>
+      <div class="item">
+        <text>事件的描述</text>
+        <input class="item-input" type="text" value="{{description}}" placeholder="描述" onchange="updateData('description')"></input>
+      </div>
+      <div class="item">
+        <text>事件开始时间</text>
+        <input class="item-input" type="number" value="{{startDate}}" placeholder="从公元纪年开始的毫秒数" onchange="updateData('startDate')"></input>
+      </div>
+      <div class="item">
+        <text>事件结束时间</text>
+        <input class="item-input" type="number" value="{{endDate}}" placeholder="从公元纪年开始的毫秒数" onchange="updateData('endDate')"></input>
+      </div>
+      <input class="btn margin-50" type="button" value="插入日历事件" onclick="insertEvent"></input>
+    </div>
+  </div>
+</template>
+<style>
+  @import '../../../common/css/common.css';
+
+  .content {
+    flex-direction: column;
+    padding: 0 30px 30px 30px;
+  }
+  .item {
+    height: 100px;
+    border-bottom-width: 1px;
+    border-bottom-color: #cccccc;
+  }
+  .item-input {
+    flex: 1;
+    margin-left: 10px;
+    font-size: 30px;
+  }
+  .margin-50 {
+    margin-top: 50px;
+  }
+</style>
+<script>
+  import calendar from '@system.calendar'
+  import prompt from '@system.prompt'
+
+  export default {
+    private: {
+      componentName: 'calendar',
+      title: '',
+      description: '',
+      startDate: '',
+      endDate: ''
+    },
+    onInit () {
+      this.$page.setTitleBar({text: 'Calendar'})
+    },
+    updateData (name, e) {
+      this[name] = e.text
+    },
+    insertEvent () {
+      const self = this
+      if (self.title && self.startDate && self.endDate) {
+        calendar.insert({
+          title: self.title,
+          description: self.description,
+          startDate: self.startDate,
+          endDate: self.endDate,
+          success: function(ret){
+            prompt.showToast({
+              message: '插入成功，id:' + ret
+            })
+          },
+          fail: function(erromsg, errocode){
+            console.info(`### calendar.insert ### ${errocode}: ${erromsg}`)
+            prompt.showToast({
+              message: `${errocode}: ${erromsg}`
+            })
+          }
+        })
+      } else {
+        prompt.showToast({
+          message: '标题，开始时间，结束事件为必填项！'
+        })
+      }
+    }
+  }
+</script>

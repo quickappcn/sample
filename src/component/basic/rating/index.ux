@@ -1,0 +1,79 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+    <div class="item">
+      <text class="title">显示: {{starNum}}星</text>
+      <rating class="rating" onchange="onstarStatus"></rating>
+    </div>
+    <div class="item">
+      <text class="title">使用背景图片:</text>
+      <rating class="rating-bg4" numstars="8" rating="3" stepsize="0.5" indicator="false"></rating>
+      <rating class="rating-bg2" numstars="6" rating="3" stepsize="0.5" indicator="false"></rating>
+      <rating class="rating-bg3" numstars="5" rating="3" stepsize="0.5" indicator="false"></rating>
+      <rating class="rating-bg1" numstars="3" rating="1" stepsize="0.5" indicator="false"></rating>
+    </div>
+  </div>
+</template>
+
+<style>
+  @import '../../../common/css/common.css';
+
+  .item {
+    flex-direction: column;
+    margin-bottom: 20px;
+    padding: 20px;
+    align-items: center;
+  }
+  .title {
+    border:0px solid #dddddd;
+    border-bottom-width: 1px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+  }
+  .rating-bg1 {
+    star-background: url(./star/star-1-1.png);
+    star-secondary: url(./star/star-1-2.png);
+    star-foreground: url(./star/star-1-3.png);
+    margin-bottom: 20px;
+    width: 600px;
+    height: 200px;
+  }
+  .rating-bg2 {
+    star-background: url(./star/star-2-1.png);
+    star-secondary: url(./star/star-2-2.png);
+    star-foreground: url(./star/star-2-3.png);
+    margin-bottom: 20px;
+    width: 600px;
+  }
+  .rating-bg3 {
+    star-background: url(./star/star-3-1.png);
+    star-secondary: url(./star/star-3-2.png);
+    star-foreground: url(./star/star-3-3.png);
+    margin-bottom: 20px;
+    width: 600px;
+  }
+  .rating-bg4 {
+    star-background: url(./star/star-4-1.png);
+    star-secondary: url(./star/star-4-2.png);
+    star-foreground: url(./star/star-4-3.png);
+    margin-bottom: 20px;
+    width: 600px;
+  }
+</style>
+
+<script>
+  export default {
+    private: {
+      componentName: 'rating',
+      starNum: 0
+    },
+    onInit () {
+      this.$page.setTitleBar({text: 'Rating'})
+    },
+    onstarStatus (e) {
+      this.starNum = e.rating
+    }
+  }
+</script>

@@ -1,0 +1,28 @@
+<template>
+  <div>
+    <text if="pageInfo">{{pageInfo}}</text>
+    <text if="pageInfoObject">{{pageInfoObject}}</text>
+  </div>
+</template>
+
+<style>
+  text {
+    flex: 1;
+    font-size: 35px;
+    text-align: center;
+  }
+</style>
+
+<script>
+  export default {
+    public: {
+      pageInfo: '',
+      pageInfoObject: ''
+    },
+    onInit () {
+      this.$page.setTitleBar({text: 'Detail'})
+      this.pageInfo && console.info('pageInfo: ' + this.pageInfo)
+      this.pageInfoObject && console.info('pageInfoObject.msg: ' + JSON.parse(this.pageInfoObject).msg)
+    }
+  }
+</script>

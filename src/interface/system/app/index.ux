@@ -1,0 +1,50 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+
+    <div class="item-container">
+      <div class="item-content">
+        <text>应用信息:</text>
+        <text>{{info}}</text>
+      </div>
+      <input type="button" class="btn" onclick="getDeviceInfo" value="获取应用信息"/>
+    </div>
+
+  </div>
+</template>
+
+<style>
+  @import '../../../common/css/common.css';
+
+  .item-container {
+    margin-bottom: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+  .item-content {
+    flex-direction: column;
+    background-color: #ffffff;
+    padding: 30px;
+    margin-bottom: 50px;
+  }
+</style>
+
+<script>
+  import app from '@system.app'
+
+  export default {
+    private: {
+      componentName: 'App',
+      info: ''
+    },
+    onInit () {
+      this.$page.setTitleBar({text: '应用上下文'})
+    },
+    getDeviceInfo () {
+      this.info = app.getInfo()
+    }
+  }
+</script>

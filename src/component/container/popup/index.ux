@@ -1,0 +1,129 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+    <div class="item-container">
+      <div class="item-container-wrap">
+        <div class="item-container-wrap-inner">
+          <div class="item-container-wrap-inner-item" id="popup1">
+            <text class="item-container-wrap-inner-item-center">位置1</text>
+          </div>
+          <div class="item-container-wrap-inner-item" id="popup2">
+            <text class="item-container-wrap-inner-item-center">位置2</text>
+          </div>
+          <div class="item-container-wrap-inner-item" id="popup3">
+            <text class="item-container-wrap-inner-item-center">位置3</text>
+          </div>
+        </div>
+        <div class="item-container-wrap-inner-item" style="width:100%;" id="popup4">
+          <text class="item-container-wrap-inner-item-center">位置4</text>
+        </div>
+        <div class="item-container-wrap-inner">
+          <div class="item-container-wrap-inner-item" id="popup5" >
+            <text class="item-container-wrap-inner-item-center">位置5</text>
+          </div>
+          <div class="item-container-wrap-inner-item" id="popup6">
+            <text class="item-container-wrap-inner-item-center">位置6</text>
+          </div>
+          <div class="item-container-wrap-inner-item" id="popup7">
+            <text class="item-container-wrap-inner-item-center">位置7</text>
+          </div>
+        </div>
+        <div class="item-container-select" onclick="show">
+          <text class="label">选择popup出现的方向——当前选择:</text>
+          <picker class="picker" type="text" range="{{posList}}" value="{{currentDire}}" onchange="selectDire" id="picker"></picker>
+        </div>
+
+        <popup target="popup1" placement="{{currentDire}}" >
+          <text class="item-container-poptext">popup测试</text>
+        </popup>
+        <popup target="popup2" placement="{{currentDire}}">
+          <text class="item-container-poptext">popup测试</text>
+        </popup>
+        <popup target="popup3" placement="{{currentDire}}">
+          <text class="item-container-poptext">popup测试</text>
+        </popup>
+        <popup target="popup4" placement="{{currentDire}}" style="mask-color:#ff0000">
+          <text class="item-container-poptext">popup测试</text>
+        </popup>
+        <popup target="popup5" placement="{{currentDire}}">
+          <text class="item-container-poptext">popup测试</text>
+        </popup>
+        <popup target="popup6" placement="{{currentDire}}">
+          <text class="item-container-poptext">popup测试</text>
+        </popup>
+        <popup target="popup7" placement="{{currentDire}}">
+          <text class="item-container-poptext">popup测试</text>
+        </popup>
+      </div>
+    </div>
+  </div>
+</template>
+
+<style lang="less">
+  @import '../../../common/css/common.css';
+
+  .item-container {
+    margin: 0 50px 50px 50px;
+    flex-direction: column;
+    align-items: center;
+    &-wrap {
+      flex-direction: column;
+      position: fixed;
+      left: 0;
+      right: 0;
+      top: 500px;
+      bottom: 0;
+      justify-content: space-between;
+      z-index: 0;
+      &-inner {
+        flex-direction: row;
+        justify-content: space-between;
+        &-item {
+          height: 90px;
+          width: 200px;
+          border: 1px solid #dfdfdf;
+          &-center {
+            flex-grow: 1;
+            text-align: center;
+          }
+        }
+      }
+    }
+    &-select {
+      top: 300px;
+      position: fixed;
+      width: 100%;
+      padding: 30px;
+      border-top-width: 1px;
+      border-bottom-width: 1px;
+      border-color: #bbbbbb;
+      margin-bottom: 10px;
+    }
+    &-poptext {
+      padding: 30px
+    }
+  }
+</style>
+
+<script>
+  import prompt from '@system.prompt'
+
+  export default {
+    private: {
+      componentName: 'popup',
+      posList: ['top', 'left', 'bottom', 'right', 'topLeft', 'topRight', 'bottomLeft', 'bottomRight'],
+      currentDire: 'bottom'
+    },
+    onInit () {
+      this.$page.setTitleBar({text: 'popup'})
+    },
+    show () {
+      this.$element('picker').show()
+    },
+    selectDire (e) {
+      this.currentDire = e.newValue
+    }
+  }
+</script>

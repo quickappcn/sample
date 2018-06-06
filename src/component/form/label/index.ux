@@ -1,0 +1,61 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+
+    <div class="label-item">
+      <label>label标签:</label>
+    </div>
+
+    <div class="label-item">
+      <label target="input1">input:</label>
+      <input type="text" class="flex-1" id="input1" placeholder="请输入">
+    </div>
+
+    <div class="label-item">
+      <label target="textarea1">textarea:</label>
+      <textarea  class="flex-1 xui-padding-top-m" id="textarea1" placeholder="textarea..."></textarea>
+    </div>
+
+    <div class="label-item">
+      <label target="radio1">radio:</label>
+      <input type="radio" id="radio1" style="width: 60px;">
+    </div>
+
+    <div class="label-item" >
+      <label target="checkbox1">checkbox:</label>
+      <input class="flex-1" type="checkbox" id="checkbox1" style="width: 60px;">
+    </div>
+  </div>
+</template>
+
+<style>
+
+  @import '../../../common/css/common.css';
+  @import '../../../common/css/index.css';
+
+  .label-item{
+    align-items: center;
+    border-bottom-width: 1px;
+    border-color: #dddddd;
+  }
+  label{
+    padding: 30px;
+    font-size: 35px;
+    width: 250px;
+  }
+</style>
+
+<script>
+  import prompt from '@system.prompt'
+
+  export default {
+    private: {
+      componentName: 'label'
+    },
+    onInit () {
+      this.$page.setTitleBar({text: 'Label'})
+    }
+  }
+</script>

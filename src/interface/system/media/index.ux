@@ -1,0 +1,199 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+
+    <div class="item-container">
+      <!-- 拍摄/选择图片 -->
+      <div class="item-content">
+        <text class="txt">拍摄图片的路径: {{pathPhotoSave}}</text>
+        <text class="txt">选取图片的路径：{{pathPhotoPick}}</text>
+        <image src="{{photoUri}}" class="image"></image>
+        <input type="button" class="btn" onclick="takePhoto" value="拍摄照片"/>
+        <input type="button" class="btn" onclick="saveImageToAlbum" value="将拍摄的照片保存到本地"/>
+        <input type="button" class="btn" onclick="pickPhoto" value="选取图片"/>
+      </div>
+      <!-- 拍摄/选择视频 -->
+      <div class="item-content">
+        <text class="txt">拍摄视频的路径：{{pathVideoSave}}</text>
+        <text class="txt">选取视频的路径：{{pathVideoPick}}</text>
+        <video src="{{videoUri}}" class="video" autoplay="true"></video>
+        <input type="button" class="btn" onclick="takeVideo" value="拍摄视频"/>
+        <input type="button" class="btn" onclick="saveVideoToAlbum" value="将拍摄的视频保存到本地"/>
+        <input type="button" class="btn" onclick="pickVideo" value="选择视频"/>
+      </div>
+      <!-- 选取文件 -->
+      <div class="item-content">
+        <text class="txt">选取文件的路径：{{pathFilePick}}</text>
+        <input type="button" class="btn" onclick="pickFile" value="选取文件"/>
+      </div>
+    </div>
+  </div>
+</template>
+
+<style>
+  @import '../../../common/css/common.css';
+
+  .item-container {
+    margin-top: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+  .item-content {
+    flex-direction: column;
+    background-color: #ffffff;
+    padding: 30px;
+    margin-bottom: 20px;
+  }
+  .image {
+    margin: 50px 0;
+    width: 630px;
+    height: 300px;
+  }
+  .video {
+    margin: 50px 0;
+    width: 630px;
+    height: 300px;
+  }
+</style>
+
+<script>
+  import prompt from '@system.prompt'
+  import media from '@system.media'
+
+  export default {
+    private: {
+      componentName: 'media',
+      pathPhotoSave: '',
+      pathPhotoPick: '',
+      pathVideoSave: '',
+      pathVideoPick: '',
+      pathRecordStart: '',
+      pathRecordStop: '',
+      photoUri: '',
+      videoUri: '',
+      pathFilePick: '' // 选取文件的路径
+    },
+    onInit () {
+      this.$page.setTitleBar({text: 'Media'})
+    },
+    takePhoto () {
+      const self = this
+      media.takePhoto({
+        success: function (ret) {
+          self.pathPhotoSave = ret.uri
+          self.photoUri = ret.uri
+        },
+        fail: function (erromsg, errocode) {
+          console.info(`### media.takePhoto ### ${errocode}: ${erromsg}`)
+          prompt.showToast({
+            message: `${errocode}: ${erromsg}`
+          })
+        }
+      })
+    },
+    pickPhoto () {
+      const self = this
+      media.pickImage({
+        success: function (ret) {
+          self.pathPhotoPick = ret.uri
+          self.photoUri = ret.uri
+        },
+        fail: function (erromsg, errocode) {
+          console.info(`### media.pickImage ### ${errocode}: ${erromsg}`)
+          prompt.showToast({
+            message: `${errocode}: ${erromsg}`
+          })
+        }
+      })
+    },
+    takeVideo () {
+      const self = this
+      media.takeVideo({
+        success: function (ret) {
+          self.pathVideoSave = ret.uri
+          self.videoUri = ret.uri
+        },
+        fail: function (erromsg, errocode) {
+          console.info(`### media.takeVideo ### ${errocode}: ${erromsg}`)
+          prompt.showToast({
+            message: `${errocode}: ${erromsg}`
+          })
+        }
+      })
+    },
+    pickVideo () {
+      const self = this
+      media.pickVideo({
+        success: function (ret) {
+          self.pathVideoPick = ret.uri
+          self.videoUri = ret.uri
+        },
+        fail: function (erromsg, errocode) {
+          console.info(`### media.pickVideo ### ${errocode}: ${erromsg}`)
+          prompt.showToast({
+            message: `${errocode}: ${erromsg}`
+          })
+        }
+      })
+    },
+    pickFile () {
+      const self = this
+      media.pickFile({
+        success: function (ret) {
+          self.pathFilePick = ret.uri
+        },
+        fail: function (erromsg, errocode) {
+          console.info(`### media.pickFile ### ${errocode}: ${erromsg}`)
+          prompt.showToast({
+            message: `${errocode}: ${erromsg}`
+          })
+        }
+      })
+    },
+    saveImageToAlbum () {
+      if (!this.pathPhotoSave) {
+        prompt.showToast({
+          message: `please take a photo firstly`
+        })
+        return
+      }
+      media.saveToPhotosAlbum({
+        uri: this.pathPhotoSave,
+        success: function () {
+          prompt.showToast({
+            message: `save success`
+          })
+        },
+        fail: function (erromsg, errocode) {
+          prompt.showToast({
+            message: `${errocode}: ${erromsg}`
+          })
+        }
+      })
+    },
+    saveVideoToAlbum () {
+      if (!this.pathVideoSave) {
+        prompt.showToast({
+          message: `please record a video firstly`
+        })
+        return
+      }
+      media.saveToPhotosAlbum({
+        uri: this.pathVideoSave,
+        success: function () {
+          prompt.showToast({
+            message: `save success`
+          })
+        },
+        fail: function (erromsg, errocode) {
+          prompt.showToast({
+            message: `${errocode}: ${erromsg}`
+          })
+        }
+      })
+    }
+  }
+</script>
