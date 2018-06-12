@@ -1,7 +1,7 @@
 {
   "package": "org.hapjs.demo.sample",
   "name": "快应用组件展示",
-  "versionName": "1.1",
+  "versionName": "1.0",
   "versionCode": 1,
   "icon": "/common/logo.png",
   "features": [
@@ -32,7 +32,6 @@
     { "name": "system.record" },
     { "name": "service.stats" },
     { "name": "service.account" },
-    {"name": "system.contact"},
     { "name": "service.app" },
     { "name": "service.share", "params": {"appSign": "", "wxKey": ""} },
     { "name": "service.pay" },
@@ -49,31 +48,6 @@
       "name": "service.push",
       "params": {
         "appId": "",
-        "appKey": ""
-      }
-    },
-    {
-      "name": "service.wxaccount",
-      "params": {
-        "appId": "",
-        "package": "",
-        "sign": ""
-      }
-    },
-    {
-      "name": "service.qqaccount",
-      "params": {
-        "package":"",
-        "appid": "",
-        "sign": "",
-        "client_id":"",
-        "redirect_uri":""
-      }
-    },
-    {
-      "name": "service.wbaccount",
-      "params": {
-        "sign": "",
         "appKey": ""
       }
     }
@@ -171,21 +145,6 @@
       "interface/thirdparty/alipay": {
         "component": "index"
       },
-      "interface/thirdparty/wxpay": {
-        "component": "index"
-      },
-      "interface/thirdparty/serviceshare": {
-        "component": "index"
-      },
-      "interface/thirdparty/wxaccount": {
-        "component": "index"
-      },
-      "interface/thirdparty/qqaccount": {
-        "component": "index"
-      },
-      "interface/thirdparty/wbaccount": {
-        "component": "index"
-      },
       "interface/system/brightness": {
         "component": "index"
       },
@@ -205,9 +164,6 @@
         "component": "index"
       },
       "interface/system/file": {
-        "component": "index"
-      },
-      "interface/system/filerw": {
         "component": "index"
       },
       "interface/system/geolocation": {
@@ -249,6 +205,9 @@
       "interface/system/sensor": {
         "component": "index"
       },
+      "interface/thirdparty/serviceshare": {
+        "component": "index"
+      },
       "interface/system/share": {
         "component": "index"
       },
@@ -270,7 +229,7 @@
       "interface/system/webview": {
         "component": "index"
       },
-      "interface/system/contact": {
+      "interface/thirdparty/wxpay": {
         "component": "index"
       },
       "component/style/animation": {

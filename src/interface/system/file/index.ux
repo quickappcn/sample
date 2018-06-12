@@ -85,7 +85,7 @@
 
   export default {
     private: {
-      componentName: '文件存储',
+      componentName: 'file',
       fileDownloadData: '',
       fileMoveData: '',
       fileMoveToFolderData: '',
@@ -95,7 +95,7 @@
       fileDeleteData: ''
     },
     onInit () {
-      this.$page.setTitleBar({ text: '文件存储' })
+      this.$page.setTitleBar({ text: 'File' })
     },
     downloadFile () {
       const self = this

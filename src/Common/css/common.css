@@ -29,21 +29,3 @@
   font-size: 30px;
   background-color: #0faeff;
 }
-
-.text-center {
-  justify-content: center;
-}
-
-/* position */
-.m-bottom-lg {
-  margin-bottom: 40px;
-}
-.m-bottom-md {
-  margin-bottom: 20px;
-}
-.m-bottom-sm {
-  margin-bottom: 10px;
-}
-.m-bottom-xs {
-  margin-bottom: 5px;
-}

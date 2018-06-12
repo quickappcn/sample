@@ -263,10 +263,6 @@ export const tabsData = {
           {
             name:'文件存储',
             path:'interface/system/file'
-          },
-          {
-            name:'文件读写',
-            path:'interface/system/filerw'
           }
         ]
       },
@@ -320,10 +316,6 @@ export const tabsData = {
           {
             name:'系统音量',
             path:'interface/system/volume'
-          },
-          {
-            name:'联系人',
-            path:'interface/system/contact'
           }
         ]
       },
@@ -354,18 +346,6 @@ export const tabsData = {
           {
             name:'第三方分享',
             path:'interface/thirdparty/serviceshare'
-          },
-          {
-            name: '微信账号',
-            path: 'interface/thirdparty/wxaccount'
-          },
-          {
-            name: 'QQ账号',
-            path: 'interface/thirdparty/qqaccount'
-          },
-          {
-            name: '微博账号',
-            path: 'interface/thirdparty/wbaccount'
           }
         ]
       }
