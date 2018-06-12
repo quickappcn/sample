@@ -1,5 +1,6 @@
 # sample
 A project to demonstrate the use of quickapp, including demos of components and apis. https://www.quickapp.cn/
+**由于新版快应用还未发布，请先clone v1000分支进行使用。**
 ## 使用方法说明
 ### 配置快应用开发环境
 #### 安装NodeJS
