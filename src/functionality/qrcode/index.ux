@@ -1,0 +1,31 @@
+<template>
+  <div class="doc-page">
+    <div class="doc-row">
+      <text class="doc-row-desc">显示二维码</text>
+      <div class="flex-column">
+        <image src="{{dataBase64}}"></image>
+      </div>
+    </div>
+  </div>
+</template>
+
+<style>
+  @import "../../common/css/index.css";
+</style>
+
+<script>
+  import qrcode from 'qrcode-js'
+
+  export default {
+    private: {
+      dataBase64: ''
+    },
+    onInit () {
+      this.$page.setTitleBar({text: '生成二维码'})
+    },
+    onReady () {
+      let text = 'https://www.quickapp.cn/xxx'
+      this.dataBase64 = qrcode.toDataURL(text, 8)
+    }
+  }
+</script>

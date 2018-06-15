@@ -1,0 +1,144 @@
+<template>
+  <div class="doc-page">
+    <tabs>
+      <tab-content class="group-container">
+        <div class="group-content" for="{{tabItem in tabItemList}}">
+          <div class="introduce">
+            <text class="introduce-detail">{{dataMap[tabItem].desc}}</text>
+          </div>
+
+          <div class="item-container" for="{{(index, group) in dataMap[tabItem].groupList}}">
+            <div class="item-title">
+              <text class="item-title-detail {{selectedIdxMap[tabItem] === index ? 'selected-text': ''}}" onclick="selectConFn(tabItem, index)">{{group.name}}</text>
+            </div>
+            <div class="item-content {{selectedIdxMap[tabItem] === index ? 'selected-group': ''}}">
+              <block for="{{case in group.caseList}}">
+                <div class="item-li" onclick="routePath(case.path, {})">
+                  <text class="item-li-detail">{{case.name}}</text>
+                  <image class="item_arrow_img" src="arrow-right.png"></image>
+                </div>
+              </block>
+            </div>
+          </div>
+        </div>
+      </tab-content>
+
+      <tab-bar class="footer-container">
+        <text class="tab-text" for="{{tabItemList}}">{{dataMap[$item].name}}</text>
+      </tab-bar>
+    </tabs>
+  </div>
+</template>
+
+<style>
+  .doc-page {
+    background-color: #fbf9fe;
+    flex: 1;
+    flex-direction: column;
+  }
+  .footer-container {
+    height: 120px;
+    border-top-width: 1px;
+    border-color: #bbbbbb;
+    background-color: #ffffff;
+  }
+  .group-container {
+    flex: 1;
+    flex-direction: column;
+  }
+  .group-content {
+    flex-direction: column;
+    flex: 1;
+  }
+  .introduce {
+    padding-left: 80px;
+    padding-right: 80px;
+    margin-bottom: 80px;
+    margin-top: 60px;
+  }
+  .introduce-detail {
+    text-align: center;
+    flex: 1;
+    lines: 3;
+    line-height: 50px;
+    color: #888888;
+  }
+  .item-container {
+    margin-left: 30px;
+    margin-right: 30px;
+    background-color: #ffffff;
+    flex-direction: column;
+    margin-bottom: 30px;
+  }
+  .item-title-detail {
+    padding: 40px;
+    flex: 1;
+    color: #000000;
+  }
+  .item-content {
+    flex-direction: column;
+    padding: 30px;
+    display: none;
+  }
+  .item-li {
+    border-color: #bbbbbb;
+    border-bottom-width: 1px;
+    align-items: center;
+  }
+  .item_arrow_img {
+    height: 40px;
+    width: 20px;
+    margin-right: 30px;
+    resize-mode: contain;
+  }
+  .item-li-detail {
+    padding-top: 25px;
+    padding-bottom: 25px;
+    color: #000000;
+    flex: 1;
+  }
+  .tab-text {
+    text-align: center;
+  }
+  .tab-text:active {
+    color: #0faeff;
+  }
+  .selected-group {
+    display: flex;
+  }
+  .selected-text {
+    color: #cccccc;
+  }
+</style>
+
+<script>
+  import router from '@system.router'
+  import { tabsData } from './data'
+
+  export default {
+    /**
+     * @desc
+     * private内定义的属性不允许被覆盖
+     * protected内定义的属性，允许被应用内部页面请求传递的数据覆盖
+     * public内定义的属性允许被传入的数据覆盖
+     */
+    private: {
+      dataMap: tabsData,
+      tabItemList: [],
+      selectedIdxMap:{}
+    },
+    onInit() {
+      // 初始化tabItemList
+      this.tabItemList = [].concat(Object.keys(this.dataMap))
+      this.tabItemList.forEach(tabItem => {
+        this.$set(`selectedIdxMap.${tabItem}`, -1)
+      })
+    },
+    selectConFn (tabItem, index) {
+      this.selectedIdxMap[tabItem] = this.selectedIdxMap[tabItem] === index ? -1 : index
+    },
+    routePath (path, params) {
+      router.push({ uri: path, params: params })
+    }
+  }
+</script>

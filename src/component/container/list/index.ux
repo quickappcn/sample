@@ -1,0 +1,236 @@
+<template>
+    <div class="doc-page">
+      <div class="page-title-wrap">
+        <text class="page-title">{{componentName}}</text>
+      </div>
+
+      <div class="nav">
+        <text class="nav-item {{listClass}}" onclick="showListMethod">列表组件方法</text>
+        <text class="nav-item {{arrayClass}}" onclick="showArrayMethod">数组对象方法</text>
+      </div>
+
+      <!-- 列表组件方法 -->
+      <div class="btn-wrap-column" show="{{showListBtn}}">
+        <div class="input-number-wrap">
+          <text>请输入list的列数:</text>
+          <input id="columns" type="number" class="input-number" value="{{columnsNum}}" onchange="writeCloumnsNum">
+        </div>
+        <input type="button" class="btn" value="修改list列数" onclick="setCloumnsNum">
+        <input type="button" class="btn" name="" value="切换滚动模式" onclick="switchScrollMode">
+        <input type="button" class="btn" name="" value="回到第一个item" onclick="goIndex">
+      </div>
+
+      <!-- 数组对象方法 -->
+      <div class="btn-wrap-row" show="{{!showListBtn}}">
+        <input type="button" class="btn-little" onclick="clickPush" value="push"></input>
+        <input type="button" class="btn-little" onclick="clickPop" value="pop"></input>
+        <input type="button" class="btn-little" onclick="clickShift" value="shift"></input>
+        <input type="button" class="btn-little" onclick="clickUnshift" value="unshift"></input>
+      </div>
+      <div class="btn-wrap-row" show="{{!showListBtn}}">
+        <input type="button" class="btn-little" onclick="clickSplice" value="splice"></input>
+        <input type="button" class="btn-little" onclick="clickSort" value="sort"></input>
+        <input type="button" class="btn-little" onclick="clickReverse" value="reverse"></input>
+      </div>
+
+      <!-- 列表 -->
+      <list class="list-content" onscroll="handleScroll" onscrollbottom="scrollbottom" id="list" scrollpage="{{scrollPage}}" style="columns:{{columnsNum}}">
+        <!-- 列表元素，属性type值相同时，需要确保渲染中dom结构相同 -->
+        <list-item type="listItem" class="item item-color" for="{{listData}}">
+          <text class="txt">{{$item}}--{{$idx}}</text>
+        </list-item>
+
+        <!-- 加载更多 -->
+        <list-item type="loadMore" class="load-more" if="{{loadMore}}" style="column-span:{{columnsNum}}">
+          <progress type="circular"></progress>
+          <text>加载更多</text>
+        </list-item>
+      </list>
+    </div>
+  </template>
+  <style>
+    @import '../../../common/css/common.css';
+
+    .list-content {
+      flex: 1;
+      padding-left: 60px;
+      padding-right: 60px;
+    }
+    .item {
+      height: 150px;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 15px;
+    }
+    .input-number-wrap {
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      padding-left: 60px;
+      padding-right: 60px;
+      padding-bottom: 50px;
+    }
+    .input-number {
+      flex: 1;
+      margin-left: 50px;
+      font-size: 30px;
+    }
+    .load-more {
+      justify-content: center;
+      align-items: center;
+      height: 100px;
+      border-color: #bbbbbb;
+      border-bottom-width: 1px;
+    }
+    .btn-wrap-column {
+      flex-direction: column;
+      margin-right: 60px;
+      margin-left: 60px;
+    }
+    .btn-wrap-row {
+      margin-right: 60px;
+      margin-left: 45px;
+      margin-bottom: 30px;
+    }
+    .btn-little {
+      flex: 1;
+      height: 80px;
+      margin-left: 15px;
+      border-radius: 5px;
+      color: #ffffff;
+      font-size: 30px;
+      text-align: center;
+      border-width: 0px;
+      background-color: #0faeff;
+    }
+    .item-color {
+      background-color: #f76160;
+    }
+    .nav {
+      padding-left: 60px;
+      padding-right: 60px;
+      padding-bottom: 30px;
+    }
+    .nav-item {
+      flex: 1;
+      padding-bottom: 30px;
+      border-bottom-width: 5px;
+      border-color: #fbf9fe;
+      font-size: 35px;
+      color: #666666;
+      text-align: center;
+    }
+    .selected {
+      border-color: #0faeff;
+    }
+  </style>
+  <script>
+    import prompt from '@system.prompt'
+
+    export default {
+      private: {
+        componentName: 'list',
+        loadMore: true,
+        listAdd: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],
+        listData: [],
+        scrollPage: false,
+        showListBtn: true,
+        listClass: 'selected',
+        arrayClass: '',
+        columnsNum: 3,
+        columnsNumNew: 0
+      },
+      onInit () {
+        this.$page.setTitleBar({text: 'List'})
+        // 初始化列表数据
+        this.listData = [].concat(this.listAdd)
+        this.$page.setTitleBar({text: 'List'})
+      },
+      showListMethod () {
+        if (!this.showListBtn) {
+          this.showListBtn = true
+          this.listClass = 'selected'
+          this.arrayClass = ''
+        }
+      },
+      showArrayMethod () {
+        if (this.showListBtn) {
+          this.showListBtn = false
+          this.listClass = ''
+          this.arrayClass = 'selected'
+        }
+      },
+      scrollbottom () {
+        // 加载下一页
+        const self = this
+        const renderData = [].concat(self.listData, self.listAdd)
+        setTimeout(function () {
+          self.listData = renderData
+        }, 1000)
+      },
+      handleScroll (param) {
+        if (param.scrollState === 0) {
+          console.info(`### handleScroll ### scrollState: ${param.scrollState}, scrollX: ${param.scrollX}, scrollY: ${param.scrollY}`)
+        }
+      },
+      writeCloumnsNum (e) {
+        // 写入新的list行数
+        this.columnsNumNew = e.text || 0
+      },
+      setCloumnsNum () {
+        // 设置新的list行数
+        if (this.columnsNumNew && this.columnsNumNew != this.columnsNum) {
+          this.goIndex()
+          this.columnsNum = this.columnsNumNew
+        }
+        this.$element('columns').focus({ focus: false })
+      },
+      switchScrollMode () {
+        // 改变list滚动模式
+        this.goIndex()
+        this.scrollPage = !this.scrollPage
+      },
+      goIndex () {
+        this.$element('list').scrollTo({ index: 0, smooth: true })
+      },
+      clickPush () {
+        this.listData.push('push')
+        prompt.showToast({
+          message: '向数组的末尾添加一个"push"元素'
+        })
+      },
+      clickPop () {
+        prompt.showToast({
+          message: '删除数组的最后一个元素' + JSON.stringify(this.listData.pop())
+        })
+      },
+      clickShift () {
+        prompt.showToast({
+          message: '删除数组的第一个元素' + JSON.stringify(this.listData.shift())
+        })
+      },
+      clickUnshift () {
+        this.listData.unshift('unshift')
+        prompt.showToast({
+          message: '向数组的开头添加一个"unshift"元素'
+        })
+      },
+      clickSplice () {
+        prompt.showToast({
+          message: '删除第一个元素' + JSON.stringify(this.listData.splice(0, 1, 'splice')[0]) + '，并添加一个"splice元素"'
+        })
+      },
+      clickSort () {
+        this.listData.sort()
+        prompt.showToast({
+          message: 'sort'
+        })
+      },
+      clickReverse () {
+        this.listData.reverse()
+        prompt.showToast({
+          message: 'reverse'
+        })
+      }
+    }
+  </script>

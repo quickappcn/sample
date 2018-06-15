@@ -1,0 +1,244 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+
+    <div class="item-container">
+      <text class="item-title">Local image:./img/pic-240x160.webp</text>
+      <div class="item-content">
+        <image src="./img/pic-240x160.webp" class="image" style="resize-mode: cover"></image>
+      </div>
+    </div>
+
+    <!-- 细长型：指定图片的style宽度高度：750px,250px -->
+    <div class="img-layout-header">
+      <text>细长型：指定图片的style宽度高度：750px,250px</text>
+    </div>
+
+    <div class="item-container">
+      <text class="item-title">resize-mode: cover(默认值)</text>
+      <div class="item-content-with-height">
+        <image src="./img/pic-240x160.webp" class="fixed-size-wh" style="resize-mode: cover"></image>
+      </div>
+    </div>
+
+    <div class="item-container">
+      <text class="item-title">resize-mode: contain</text>
+      <div class="item-content-with-height">
+        <image src="./img/pic-240x160.webp" class="fixed-size-wh" style="resize-mode: contain"></image>
+      </div>
+    </div>
+
+    <div class="item-container">
+      <text class="item-title">resize-mode: stretch</text>
+      <div class="item-content-with-height">
+        <image src="./img/pic-240x160.webp" class="fixed-size-wh" style="resize-mode: stretch"></image>
+      </div>
+    </div>
+
+    <div class="item-container">
+      <text class="item-title">resize-mode: center</text>
+      <div class="item-content-with-height">
+        <image src="./img/pic-240x160.webp" class="fixed-size-wh" style="resize-mode: center"></image>
+      </div>
+    </div>
+
+    <div class="item-container">
+      <text class="item-title">resize-mode: center</text>
+      <div class="item-content-with-height">
+        <image src="./img/pic-240x160.webp" class="fixed-size-wh" style="width: 50px;height: 50px;resize-mode: center;"></image>
+      </div>
+    </div>
+
+
+    <!-- 细长型：仅指定图片的style高度：250px -->
+    <div class="img-layout-header">
+      <text>细长型：仅指定图片的style高度：250px</text>
+    </div>
+
+    <div class="item-container">
+      <text class="item-title">resize-mode: cover(默认值)</text>
+      <div class="item-content-with-height">
+        <image src="./img/pic-240x160.webp" class="fixed-size-h" style="resize-mode: cover"></image>
+      </div>
+    </div>
+
+    <div class="item-container">
+      <text class="item-title">resize-mode: contain</text>
+      <div class="item-content-with-height">
+        <image src="./img/pic-240x160.webp" class="fixed-size-h" style="resize-mode: contain"></image>
+      </div>
+    </div>
+
+    <div class="item-container">
+      <text class="item-title">resize-mode: stretch</text>
+      <div class="item-content-with-height">
+        <image src="./img/pic-240x160.webp" class="fixed-size-h" style="resize-mode: stretch"></image>
+      </div>
+    </div>
+
+    <div class="item-container">
+      <text class="item-title">resize-mode: center</text>
+      <div class="item-content-with-height">
+        <image src="./img/pic-240x160.webp" class="fixed-size-h" style="resize-mode: center"></image>
+      </div>
+    </div>
+
+
+    <!-- 胖矮型：指定图片的style宽度高度：750px,250px -->
+    <div class="img-layout-header">
+      <text>胖矮型：指定图片的style宽度高度：750px,250px</text>
+    </div>
+
+    <div class="item-container">
+      <text class="item-title">resize-mode: cover(默认值)</text>
+      <div class="item-content-with-height">
+        <image src="./img/pic-240x40.jpg" class="fixed-size-wh" style="resize-mode: cover"></image>
+      </div>
+    </div>
+
+    <div class="item-container">
+      <text class="item-title">resize-mode: contain</text>
+      <div class="item-content-with-height">
+        <image src="./img/pic-240x40.jpg" class="fixed-size-wh" style="resize-mode: contain"></image>
+      </div>
+    </div>
+
+    <div class="item-container">
+      <text class="item-title">resize-mode: stretch</text>
+      <div class="item-content-with-height">
+        <image src="./img/pic-240x40.jpg" class="fixed-size-wh" style="resize-mode: stretch"></image>
+      </div>
+    </div>
+
+    <div class="item-container">
+      <text class="item-title">style="resize-mode: center"</text>
+      <div class="item-content-with-height">
+        <image src="./img/pic-240x40.jpg" class="fixed-size-wh" style="resize-mode: center"></image>
+      </div>
+    </div>
+
+
+    <!-- 胖矮型：仅指定图片的style高度：250px -->
+    <div class="img-layout-header">
+      <text>胖矮型：仅指定图片的style高度：250px</text>
+    </div>
+
+    <div class="item-container">
+      <text class="item-title">resize-mode: cover(默认值)</text>
+      <div class="item-content-with-height">
+        <image src="./img/pic-240x40.jpg" class="fixed-size-wh" style="resize-mode: cover"></image>
+      </div>
+    </div>
+
+    <div class="item-container">
+      <text class="item-title">resize-mode: contain></text>
+      <div class="item-content-with-height">
+        <image src="./img/pic-240x40.jpg" class="fixed-size-wh" style="resize-mode: contain">></image>
+      </div>
+    </div>
+
+    <div class="item-container">
+      <text class="item-title">resize-mode: stretch</text>
+      <div class="item-content-with-height">
+        <image src="./img/pic-240x40.jpg" class="fixed-size-wh" style="resize-mode: stretch"></image>
+      </div>
+    </div>
+
+    <div class="item-container">
+      <text class="item-title">resize-mode: center</text>
+      <div class="item-content-with-height">
+        <image src="./img/pic-240x40.jpg" class="fixed-size-wh" style="resize-mode: center"></image>
+      </div>
+    </div>
+
+    <div class="img-layout-header">
+      <text>图片圆角样式： border-radius</text>
+    </div>
+
+    <div class="item-container">
+      <text class="item-title">resize-mode: cover(默认值)</text>
+      <div class="item-content-with-height">
+        <image src="./img/pic-160x160.jpg" class="fixed-size-h circle" style="resize-mode: cover"></image>
+      </div>
+    </div>
+
+    <div class="item-container">
+      <text class="item-title">resize-mode: contain</text>
+      <div class="item-content-with-height">
+        <image src="./img/pic-160x160.jpg" class="fixed-size-h circle" style="resize-mode: contain"></image>
+      </div>
+    </div>
+
+    <div class="item-container">
+      <text class="item-title">resize-mode: stretch</text>
+      <div class="item-content-with-height">
+        <image src="./img/pic-160x160.jpg" class="fixed-size-h circle" style="resize-mode: stretch"></image>
+      </div>
+    </div>
+
+    <div class="item-container">
+      <text class="item-title">resize-mode: center</text>
+      <div class="item-content-with-height">
+        <image src="./img/pic-160x160.jpg" class="fixed-size-h circle" style="resize-mode: center"></image>
+      </div>
+    </div>
+
+  </div>
+</template>
+
+<style>
+  @import '../../../common/css/common.css';
+
+  .img-layout-header {
+    padding: 20px;
+    border-bottom-width: 1px;
+    border-bottom-color: #808080;
+  }
+  .item-container{
+    margin-top: 40px;
+    margin-bottom: 40px;
+    flex-direction: column;
+  }
+  .item-title{
+    padding-left: 30px;
+    padding-bottom: 20px;
+    color: #aaaaaa;
+  }
+  .item-content{
+    height: 200px;
+    justify-content: center;
+  }
+  .image{
+    width: 240px;
+    height: 160px;
+    resize-mode: contain;
+  }
+  .item-content-with-height{
+    height: 250px;
+    justify-content: center;
+    align-items: center;
+  }
+  .fixed-size-wh {
+    width: 750px;
+    height: 250px;
+  }
+  .fixed-size-h {
+    height: 160px;
+  }
+  .circle {
+    border-radius: 80px;
+  }
+</style>
+
+<script>
+  export default {
+    private: {
+      componentName: 'image'
+    },
+    onInit () {
+      this.$page.setTitleBar({text: 'Image'})
+    }
+  }
+</script>

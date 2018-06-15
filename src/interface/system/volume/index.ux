@@ -1,0 +1,83 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+
+    <div class="item-container">
+      <div class="item-content">
+        <text>多媒体音量: {{mediaValue}}</text>
+      </div>
+      <input type="button" class="btn" onclick="getMediaValueFn" value="获取多媒体音量； "/>
+    </div>
+
+    <div class="item-container">
+      <div class="item-content">
+        <text>设置多媒体音量: {{sliderValue}}</text>
+        <slider min="0" max="10" value="{{mediaValue*10}}" step="1" onchange="sliderValueFn"></slider>
+        <text>音量设置状态：{{status}}</text>
+      </div>
+      <input type="button" class="btn" onclick="setMediaValueFn" value="设置多媒体音量"/>
+    </div>
+  </div>
+</template>
+
+<style>
+  @import '../../../common/css/common.css';
+
+  .item-container {
+    margin-bottom: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+
+  .item-content {
+    flex-direction: column;
+    background-color: #ffffff;
+    padding: 30px;
+    margin-bottom: 50px;
+  }
+</style>
+
+<script>
+  import volume from '@system.volume'
+
+  export default {
+    private: {
+      componentName: 'Volume',
+      mediaValue: 0,
+      setMediaValue: 0,
+      sliderValue: 0,
+      status: ''
+    },
+    onInit () {
+      this.$page.setTitleBar({text: '系统音量'})
+    },
+    getMediaValueFn () {
+      const self = this
+      volume.getMediaValue({
+        success: function (data) {
+          self.mediaValue = data.value.toFixed(1)
+          self.sliderValue = self.mediaValue
+        }
+      })
+    },
+    sliderValueFn (e) {
+      // slider最小单位为1
+      this.sliderValue = e.progress/10
+    },
+    setMediaValueFn () {
+      const self = this
+      volume.setMediaValue({
+        value: self.sliderValue,
+        success: function () {
+          self.status = '音量设置成功，volume = ' + self.sliderValue
+        },
+        fail: function (data, code) {
+          self.status = 'handling fail, code=' + code
+        }
+      })
+    }
+  }
+</script>

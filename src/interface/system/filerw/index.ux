@@ -1,0 +1,137 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+    <div class="text-center m-bottom-lg">
+      <text>以下示例所指文件：{{fileUri}}</text>
+    </div>
+    <div class="item-container">
+      <!-- 写文件 -->
+      <div class="item-content">
+        <input type="text" class="input" placeholder="请输入写入文件的内容" value="{{inputValue}}" onchange="keyFn">
+      </div>
+      <input type="button" class="btn" onclick="writeFile" value="写入文件" />
+      <!-- 读文件 -->
+      <div class="item-content">
+        <text class="txt">文件内容：{{fileContent}}</text>
+      </div>
+      <input type="button" class="btn" onclick="readFile" value="读取文件" />
+      <!-- 读文件Buffer -->
+      <div class="item-content">
+        <text class="txt">文件内容(Uint8Array)：{{fileArrayBuffer}}</text>
+      </div>
+      <input type="button" class="btn" onclick="readFileBuffer" value="读取文件Buffer" />
+      <!-- 写文件Buffer -->
+      <input type="button" class="btn" onclick="writeFileBuffer" value="将读取的Buffer写回文件" />
+    </div>
+</template>
+
+<style>
+  @import '../../../common/css/common.css';
+
+  .item-container {
+    margin-bottom: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+
+  .item-content {
+    flex-direction: column;
+    background-color: #ffffff;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+  }
+
+  .input {
+    flex: 1;
+    font-size: 30px;
+    padding-left: 20px;
+  }
+
+  .txt {
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+</style>
+
+<script>
+  import file from '@system.file'
+  import fetch from '@system.fetch'
+  import prompt from '@system.prompt'
+
+  export default {
+    private: {
+      componentName: '文件读写',
+      inputValue: '',
+      fileContent: '',
+      fileArrayBuffer: '', // 读取文件内容的buffer
+      fileUri: 'internal://files/testfile/file.txt'
+    },
+    onInit() {
+      this.$page.setTitleBar({ text: '文件读写' })
+    },
+    keyFn(e) {
+      this.inputValue = e.text
+    },
+    writeFile() {
+      const self = this
+      file.writeText({
+        uri: self.fileUri,
+        text: self.inputValue,
+        success: function () {
+          prompt.showToast({
+            message: `success`
+          })
+        },
+        fail: function (data, code) {
+          console.info(`### writeFile fail ### ${data}:${code}`)
+        }
+      })
+    },
+    readFile() {
+      const self = this
+      file.readText({
+        uri: self.fileUri,
+        success: function (data) {
+          self.fileContent = data.text
+        },
+        fail: function (data, code) {
+          console.info(`### readFile fail ### ${data}:${code}`)
+        }
+      })
+    },
+    readFileBuffer() {
+      const self = this
+      file.readArrayBuffer({
+        uri: self.fileUri,
+        success: function (data) {
+          // new TextDecoder("utf-8").decode(data.buffer)
+          self.fileArrayBuffer = data.buffer
+        },
+        fail: function (data, code) {
+          console.info(`### readFileBuffer fail ### ${data}:${code}`)
+        }
+      })
+    },
+    writeFileBuffer() {
+      const self = this
+      file.writeArrayBuffer({
+        uri: self.fileUri,
+        buffer: self.fileArrayBuffer,
+        success: function () {
+          prompt.showToast({
+            message: `success`
+          })
+        },
+        fail: function (data, code) {
+          console.info(`### writeFileBuffer fail ### ${data}:${code}`)
+        }
+      })
+    }
+  }
+</script>

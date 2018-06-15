@@ -1,0 +1,122 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+
+    <div class="item-container">
+      <div class="item-content">
+        <text class="txt">下载的token：{{token}}</text>
+      </div>
+      <input type="button" class="btn" onclick="downloadFile" value="下载文件"/>
+
+      <div class="item-content">
+        <text class="txt">下载文件的Uri：{{fileDownloadData}}</text>
+      </div>
+      <input type="button" class="btn" onclick="downloadFileComplete" value="监听下载任务"/>
+
+      <div class="item-content">
+        <text class="txt">上传文件：{{fileUploadData}}</text>
+      </div>
+      <input type="button" class="btn" onclick="uploadFile" value="上传文件"/>
+    </div>
+  </div>
+</template>
+
+<style>
+  @import '../../../common/css/common.css';
+
+  .item-container {
+    margin-bottom: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+  .item-content {
+    flex-direction: column;
+    background-color: #ffffff;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+    align-items: flex-start;
+  }
+  .txt {
+    lines: 5;
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+</style>
+
+<script>
+  import request from '@system.request'
+  import prompt from '@system.prompt'
+
+  export default {
+    private: {
+      componentName: 'request',
+      fileUploadData: '',
+      token: '',
+      fileDownloadData: ''
+    },
+    onInit () {
+      this.$page.setTitleBar({ text: 'Requst' })
+    },
+    downloadFile () {
+      const self = this
+      // 下载文件
+      request.download({
+        url: 'https://www.quickapp.cn/assets/images/home/logo.png',
+        success: function (ret) {
+          self.token = ret.token
+          console.info(`### request.download ### ${JSON.stringify(ret)}`)
+        }
+      })
+    },
+    downloadFileComplete () {
+      const self = this
+      request.onDownloadComplete({
+        token: self.token,
+        success: function (ret) {
+          self.fileDownloadData = ret.uri
+          self.fileUploadData = ret.uri
+        },
+        fail: function (msg, code) {
+          console.info(`### request.onDownloadComplete ### ${code}: ${msg}`)
+          prompt.showToast({
+            message: `${code}: ${msg}`
+          })
+        }
+      })
+    },
+    uploadFile () {
+      const self = this
+      request.upload({
+        url: 'https://www.quickapp.cn/',
+        files: [
+          {
+            uri: self.fileUploadData,
+            name: 'component_test.pdf'
+          }
+        ],
+        data: [
+          {
+            name: 'param1',
+            value: 'value1'
+          }
+        ],
+        success: function (ret) {
+          self.fileUploadData = ret.data
+        },
+        fail: function (msg, code) {
+          self.fileUploadData = `${code}: ${msg}`
+          console.info(`### request.upload ### ${code}: ${msg}`)
+          prompt.showToast({
+            message: `${code}: ${msg}`
+          })
+        }
+      })
+    }
+  }
+</script>

@@ -1,0 +1,36 @@
+<template>
+  <div class="doc-page">
+      <div class="content" onswipe="gestureFn">
+        <text>请在屏幕上滑动</text>
+        <text>手势方向：{{direction}}</text>
+      </div>
+  </div>
+</template>
+
+<style>
+  .doc-page {
+    flex: 1;
+    flex-direction: column;
+  }
+  .content {
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+</style>
+
+<script>
+
+  export default {
+    private: {
+      direction: ''
+    },
+    onInit () {
+      this.$page.setTitleBar({text: '监听手势方向'})
+    },
+    gestureFn (e) {
+      this.direction = e.direction
+    }
+  }
+</script>

@@ -1,0 +1,150 @@
+<template>
+    <div class="doc-page">
+      <div class="page-title-wrap">
+        <text class="page-title">{{componentName}}</text>
+      </div>
+
+      <div class="item-container">
+        <div class="item-content">
+          <div class="item-content-detail">
+            <text class="txt">key:</text>
+            <input type="text" class="input" placeholder="请输入key" value="{{storageKey}}" onchange="keyFn">
+          </div>
+
+          <div class="item-content-detail">
+            <text class="txt">value:</text>
+            <input type="text" class="input" placeholder="请输入value" value="{{storageValue}}" onchange="valueFn">
+          </div>
+        </div>
+        <input type="button" class="btn" onclick="setStorage" value="设置storage"/>
+        <input type="button" class="btn" onclick="getStorageUseAsync" value="读取storage key:{{storageKey}}"/>
+        <input type="button" class="btn" onclick="clearStorage" value="清除storage"/>
+      </div>
+    </div>
+  </template>
+
+  <style>
+    @import '../../../common/css/common.css';
+
+    .item-container {
+      margin-bottom: 50px;
+      margin-right: 60px;
+      margin-left: 60px;
+      flex-direction: column;
+    }
+    .item-content {
+      flex-direction: column;
+      background-color: #ffffff;
+      padding-left: 30px;
+      padding-right: 30px;
+      padding-top: 15px;
+      padding-bottom: 15px;
+      margin-bottom: 100px;
+    }
+    .item-content-detail {
+      align-items: center;
+    }
+    .input {
+      flex: 1;
+      font-size: 30px;
+      padding-left: 20px;
+    }
+    .txt {
+      width: 100px;
+      padding-top: 15px;
+      padding-bottom: 15px;
+      text-align: right;
+    }
+  </style>
+
+  <script>
+    import storage from '@system.storage'
+    import prompt from '@system.prompt'
+    import catching from 'catching'
+
+    export default {
+      private: {
+        componentName: 'storage',
+        storageKey: '',
+        storageValue: '',
+        inputKey: '',
+        inputValue: ''
+      },
+      onInit () {
+        this.$page.setTitleBar({text: 'Storage'})
+      },
+      keyFn (e) {
+        this.storageKey = e.text
+      },
+      valueFn (e) {
+        this.storageValue = e.text
+      },
+      async setStorage () {
+        const self = this
+        if (this.storageKey && this.storageValue) {
+          await storage.set({
+            key: this.storageKey,
+            value: this.storageValue,
+          })
+          prompt.showToast({
+            message: '{key:' + self.storageKey + ',value:' + self.storageValue + '}'
+          })
+        } else {
+          prompt.showToast({
+            message: '请输入key和value值'
+          })
+        }
+      },
+      // 获取storage - 使用 async 并用 catching 捕获错误的写法
+      async getStorageUseAsync () {
+        const ret = await catching(storage.get({ key: this.storageKey }))
+        prompt.showToast({
+          message: 'value: ' + ret.data
+        })
+      },
+      // 获取storage - 使用 async 并用try catch捕获错误的写法
+      async getStorageUseAsyncTryCatch () {
+        try{
+          const ret = await storage.get({
+            key: this.storageKey
+          })
+          prompt.showToast({
+            message: 'value: ' + ret.data
+          })
+        } catch(err) {
+          prompt.showToast({
+            message: 'err: ' + JSON.stringify(err)
+          })
+        }
+      },
+      // 获取storage - 不使用 async 的写法
+      getStorageNormal () {
+        storage.get({
+          key: this.storageKey,
+          success: function (ret) {
+            prompt.showToast({
+              message: 'value: ' + ret
+            })
+          }
+        })
+      },
+      clearStorage () {
+        const self = this
+        storage.clear({
+          success: function () {
+            // 删除变量中的值
+            self.storageKey = ''
+            // 删除变量中的值
+            self.storageValue = ''
+            // 删除input显示的值
+            self.inputKey = ''
+            // 删除input显示的值
+            self.inputValue = ''
+            prompt.showToast({
+              message: 'success'
+            })
+          }
+        })
+      }
+    }
+  </script>
