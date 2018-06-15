@@ -1,5 +1,0 @@
-<script>
-  import regenerator from './regenerator.js'
-  export default {
-  }
-</script>
