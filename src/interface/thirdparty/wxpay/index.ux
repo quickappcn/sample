@@ -1,0 +1,149 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+
+    <div class="item-container">
+      <input type="button" class="btn" onclick="useWxpay" value="微信支付"/>
+    </div>
+  </div>
+</template>
+
+<style>
+  @import '../../../common/css/common.css';
+
+  .item-container {
+    margin-top: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+</style>
+
+<script>
+  import wxpay from '@service.wxpay'
+  import prompt from '@system.prompt'
+  import fetch from '@system.fetch'
+
+  export default {
+    private: {
+      componentName: 'wxpay'
+    },
+    onInit () {
+      this.$page.setTitleBar({text: 'Wxpay'})
+    },
+    useWxpay () {
+      const payType = wxpay.getType()
+
+      if (payType == 'APP') {
+        prompt.showToast({
+          message: '当前可用微信支付方式：原生支付'
+        })
+        fetch.fetch({
+          url: 'https://www.quickapp.cn/', // 根据实际业务填写正确的地址
+          success: function (ret) {
+            const order = JSON.parse(ret.data)
+            console.info('WXPAY:prepayid:' + order.prepayid)
+            // console.info('WXPAY:timestamp:' + order.timestamp)
+            // console.info('WXPAY:noncestr:' + order.noncestr)
+            // console.info('WXPAY:appid:' + order.appid)
+            prompt.showToast({
+              message: 'fetch order success  ' + ret.data
+            })
+
+            wxpay.pay({
+              prepayid: order.prepayid,
+              //微信原生支付的prepayId
+              extra: {
+                app_id: order.appid,
+                partner_id: order.partnerid,
+                package_value: order.package,
+                nonce_str: order.noncestr,
+                time_stamp: order.timestamp,
+                order_sign: order.sign
+              },
+
+              fail: function (data, code) {
+                console.info('WXPAY handling fail, code=' + code + ' data:' + JSON.stringify(data))
+
+                if (code == '900') {
+                  prompt.showToast({
+                    message: '支付失败：签名错误'
+                  })
+                } else if (code == '901') {
+                  prompt.showToast({
+                    message: '支付失败：包名错误'
+                  })
+                } else if (code == '1000') {
+                  prompt.showToast({
+                    message: '支付失败：未安装微信'
+                  })
+                } else if (code == '2001') {
+                  prompt.showToast({
+                    message: '支付失败：微信app返回订单错误'
+                  })
+                } else {
+                  prompt.showToast({
+                    message: '支付失败：' + code
+                  })
+                }
+              },
+              cancel: function (data) {
+                console.info('WXPAY handling cancel' + ' data:' + JSON.stringify(data))
+              },
+              success: function (data) {
+                console.info('WXPAY handling success' + ' data:' + JSON.stringify(data))
+                prompt.showToast({
+                  message: '支付提交微信成功'
+                })
+              }
+            })
+          }
+        })
+      } else if (payType == 'MWEB') {
+        prompt.showToast({
+          message: '当前可用微信支付方式：网页支付'
+        })
+        wxpay.pay({
+          // 微信网页支付的prepayId
+          prepayid: 'xxxxxxxxxx',
+          extra: {
+            // 传递给支付页面的自定义参数, 根据需要进行设置, 需要被urlEncode, 会被拼接在配置的url尾部
+            customeKey1: 'customeValue1',
+            customeKey2: 'customeValue2'
+          },
+          fail: function (data, code) {
+            console.info('H5 WXPAY handling fail, code=' + code + ' data:' + JSON.stringify(data))
+            if (code == '1000') {
+              prompt.showToast({
+                message: '支付失败：未安装微信'
+              })
+            } else if (code == '1001') {
+              prompt.showToast({
+                message: '支付失败：url not found'
+              })
+            } else {
+              prompt.showToast({
+                message: '支付失败：' + code
+              })
+            }
+          },
+          cancel: function (data) {
+            console.info('H5 WXPAY handling cancel' + ' data:' + JSON.stringify(data))
+          },
+          success: function (data) {
+            console.info('H5 WXPAY handling success' + ' data:' + JSON.stringify(data))
+            prompt.showToast({
+              message: '支付提交微信成功'
+            })
+          }
+        })
+      } else {
+        prompt.showToast({
+          message: '当前无可用微信支付方式'
+        })
+      }
+    }
+  }
+</script>

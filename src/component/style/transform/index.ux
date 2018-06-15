@@ -1,0 +1,214 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+
+    <div class="item-container">
+      <div class="group">
+        <text class="header">rotate</text>
+        <div class="item">
+          <input type="button" class="button button-first" name="" value="rotate" onclick="rotate">
+          <input type="button" class="button" name="" value="rotateX" onclick="rotateX">
+          <input type="button" class="button" name="" value="rotateY" onclick="rotateY">
+        </div>
+        <div class="green-box {{r}}">
+          <text class="green-txt txt">rotate</text>
+        </div>
+        <div class="blue-box {{rx}}">
+          <text class="blue-text txt">rotateX</text>
+        </div>
+        <div class="red-box {{ry}}">
+          <text class="red-text txt">rotateY</text>
+        </div>
+      </div>
+
+      <div class="group">
+        <text class="header">translate</text>
+        <div class="item">
+          <input type="button" class="button button-first" name="" value="translateX" onclick="translateX">
+          <input type="button" class="button" name="" value="translateY" onclick="translateY">
+        </div>
+        <div class="green-box {{tx}}">
+          <text class="green-txt txt">translateX</text>
+        </div>
+        <div class="red-box {{ty}}">
+          <text class="red-text txt">translateY</text>
+        </div>
+      </div>
+
+      <div class="group">
+        <text class="header">scale</text>
+        <div class="item">
+          <input type="button" class="button button-first" name="" value="scaleX" onclick="scaleX">
+          <input type="button" class="button" name="" value="scaleY" onclick="scaleY">
+        </div>
+        <div class="green-box {{sx}}">
+          <text class="green-txt txt">scaleX</text>
+        </div>
+        <div class="red-box {{sy}}">
+          <text class="red-text txt">scaleY</text>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<style>
+  @import '../../../common/css/common.css';
+
+  .item-container {
+    margin-bottom: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+    align-items: center;
+  }
+  .group {
+    margin-bottom: 100px;
+    flex-direction: column;
+    align-items: center;
+  }
+  .header {
+    margin-bottom: 20px;
+  }
+  .txt {
+    text-align: center;
+    width: 200px;
+    height: 100px;
+  }
+  .item {
+    align-items: center;
+    margin-bottom: 100px;
+  }
+  .button {
+    flex: 1;
+    margin-left: 30px;
+    border-radius: 10px;
+    font-size: 30px;
+    color: #ffffff;
+    text-align: center;
+    background-color: #0faeff;
+  }
+  .button-first {
+    margin-left: 0px;
+  }
+  .green-box, .blue-box, .red-box {
+    margin-bottom: 50px;
+    border-style: dotted;
+    border-width: 2px;
+  }
+  .green-box {
+    border-color: #09ba07;
+  }
+  .green-txt {
+    color: #09ba07;
+  }
+  .blue-box {
+    border-color: #0faeff;
+    color: #0faeff;
+  }
+  .blue-text {
+    color: #0faeff;
+  }
+  .red-box {
+    border-color: #f76160;
+    color: #f76160;
+  }
+  .red-text {
+    color: #f76160;
+  }
+  .rotate {
+    transform: rotate(50deg);
+  }
+  .rotateX {
+    transform: rotateX(50deg);
+  }
+  .rotateY {
+    transform: rotateY(50deg);
+  }
+  .rotateRecovery {
+    transform: rotate(0deg);
+  }
+  .rotateXRecovery {
+    transform: rotateX(0deg);
+  }
+  .rotateYRecovery {
+    transform: rotateY(0deg);
+  }
+  .translateX {
+    transform: translateX(50px);
+  }
+  .translateY {
+    transform: translateY(50px);
+  }
+  .translateXRecovery {
+    transform: translateX(0px);
+  }
+  .translateYRecovery {
+    transform: translateY(0px);
+  }
+  .scaleX {
+    transform: scaleX(1.5);
+  }
+  .scaleY {
+    transform: scaleY(1.5);
+  }
+  .scaleXRecovery {
+    transform: scaleX(1);
+  }
+  .scaleYRecovery {
+    transform: scaleY(1);
+  }
+</style>
+
+<script>
+  export default {
+    private: {
+      componentName: 'transform',
+      r: '',
+      rx: '',
+      ry: '',
+      tx: '',
+      ty: '',
+      sx: '',
+      sy: ''
+    },
+    onInit () {
+      this.$page.setTitleBar({text: 'Transform'})
+    },
+    rotate () {
+      this.setClass('r', 'rotate')
+    },
+    rotateX () {
+      this.setClass('rx', 'rotateX')
+
+      setTimeout(() => {
+        this.setClass('rx', '')
+      }, 3000)
+    },
+    rotateY () {
+      this.setClass('ry', 'rotateY')
+    },
+    translateX () {
+      this.setClass('tx', 'translateX')
+    },
+    translateY () {
+      this.setClass('ty', 'translateY')
+    },
+    scaleX () {
+      this.setClass('sx', 'scaleX')
+    },
+    scaleY () {
+      this.setClass('sy', 'scaleY')
+    },
+    setClass (key, className) {
+      const self = this
+      if (self[key] == className) {
+        self[key] += 'Recovery'
+      } else {
+        self[key] = className
+      }
+    }
+  }
+</script>​

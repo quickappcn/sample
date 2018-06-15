@@ -1,0 +1,100 @@
+<template>
+  <div class="doc-page xui-y-c xui-x-c">
+    <swiper class="swiper" show="{{showSwiper}}" indicator="false" index="{{picId}}">
+      <block for="{{imgList}}">
+        <div class="swiper-image-container" onclick="showbPic(0)">
+          <image src="{{$item.src}}" style="resize-mode: contain;" class="xui-col-12"></image>
+        </div>
+      </block>
+    </swiper>
+    <text>点击放大图片后可滚动查看所有图片</text>
+    <div class="content">
+      <block for="{{imgList}}">
+        <div class="image-container">
+          <image src="{{$item.src}}" class="xui-col" style="resize-mode: contain;" onclick="showbPic($idx)"></image>
+        </div>
+      </block>
+    </div>
+  </div>
+</template>
+
+<style>
+  @import "../../common/css/index.css";
+
+  .swiper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    flex: 1;
+    width: 750px;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #000000;
+  }
+  .swiper-image-container {
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .content {
+    padding-left: 20px;
+    padding-right: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+  .image-container {
+    margin-bottom: 15px;
+    background-color: #ffffff;
+    width: 200px;
+    margin: 15px;
+  }
+</style>
+
+<script>
+  import prompt from '@system.prompt'
+
+  export default {
+    private: {
+      picId: 0,
+      showSwiper: false,
+      imgList: [
+        {
+          src: './img/pic1.webp'
+        }, {
+          src: './img/pic2.webp'
+        }, {
+          src: './img/pic3.webp'
+        }, {
+          src: './img/pic4.webp'
+        }, {
+          src: './img/pic5.webp'
+        }, {
+          src: './img/pic6.webp'
+        }, {
+          src: './img/pic7.webp'
+        }, {
+          src: './img/pic8.webp'
+        }, {
+          src: './img/pic9.webp'
+        }
+      ]
+    },
+    onInit () {
+      this.$page.setTitleBar({text: '展示图片'})
+    },
+    showbPic (id) {
+      this.picId = id
+      this.showSwiper = !this.showSwiper
+      this.setTitleBar()
+    },
+    setTitleBar () {
+      // 改变titleBar的状态
+      if (this.showSwiper === true) {
+        this.$page.setTitleBar({textColor: '#000000', backgroundColor: '#000000'})
+      } else {
+        this.$page.setTitleBar({textColor: '#ffffff', backgroundColor: '#0faeff'})
+      }
+    }
+  }
+</script>

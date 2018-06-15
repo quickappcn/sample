@@ -1,0 +1,42 @@
+<template>
+  <div class="doc-page">
+
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+
+    <div class="item-container">
+      <input type="button" class="btn" onclick="loadUrl" value="打开链接"/>
+    </div>
+
+  </div>
+</template>
+
+<style>
+  @import '../../../common/css/common.css';
+
+  .item-container {
+    margin-bottom: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+</style>
+
+<script>
+  import webview from '@system.webview'
+
+  export default {
+    private: {
+      componentName: 'webview'
+    },
+    onInit () {
+      this.$page.setTitleBar({text: 'Webview'})
+    },
+    loadUrl () {
+      webview.loadUrl({
+        url: 'https://www.quickapp.cn/'
+      })
+    }
+  }
+</script>
