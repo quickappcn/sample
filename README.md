@@ -4,8 +4,8 @@ A project to demonstrate the use of quickapp, including demos of components and 
 **由于新版快应用还未发布，请先clone v1000分支进行使用。**
 ## 使用方法说明
 ### 配置快应用开发环境
-#### 安装NodeJS
-需安装6.0以上版本的NodeJS，请从[Node.j官网](https://nodejs.org/en/)下载
+#### 安装Node.jS
+需安装6.0以上版本的Node.jS，请从[Node.js官网](https://nodejs.org/en/)下载
 #### 安装hap-toolkit
 通过npm仓库安装，在命令行中执行以下命令：
 > npm install -g hap-toolkit  
@@ -13,7 +13,7 @@ A project to demonstrate the use of quickapp, including demos of components and 
 在命令行中执行hap -V会输出版本信息表示hap-toolkit安装成功，如下命令所示：
 > hap -V
 #### 手机安装调试器
-调试器是一个Android应用程序，下载[调试器APK](https://statres.quickapp.cn/quickapp/quickapp/201803/file/quickapp_debugger.apk)
+调试器是一个Android应用程序，下载[调试器APK](https://statres.quickapp.cn/quickapp/quickapp/201806/file/quickapp_debugger.apk)
 
 在手机上安装并打开调试器，按钮功能如下：
 
