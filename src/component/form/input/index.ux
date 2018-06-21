@@ -165,11 +165,20 @@
     .color-1 {
       background-color: #09ba07;
     }
+    .color-1:active {
+      background-color: #098807;
+    }
     .color-2 {
       background-color: #f76160;
     }
+    .color-2:active {
+      background-color: #c55756;
+    }
     .color-3 {
       background-color: #0faeff;
+    }
+    .color-3:active {
+      background-color: #0f7dcd;
     }
   </style>
 

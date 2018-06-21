@@ -30,6 +30,7 @@
     { "name": "system.brightness" },
     { "name": "system.package" },
     { "name": "system.record" },
+    { "name": "system.sms" },
     { "name": "service.stats" },
     { "name": "service.account" },
     {"name": "system.contact"},
@@ -117,6 +118,9 @@
       "component/form/picker": {
         "component": "index"
       },
+      "component/form/multi-picker": {
+        "component": "index"
+      },
       "component/basic/progress": {
         "component": "index"
       },
@@ -167,6 +171,21 @@
       },
       "framework/lifecycle": {
         "component": "index"
+      },
+      "framework/exit": {
+        "component": "index"
+      },
+      "framework/exit/pages/page1": {
+        "component": "index",
+        "path": "/exit/page1"
+      },
+      "framework/exit/pages/page2": {
+        "component": "index",
+        "path": "/exit/page2"
+      },
+      "framework/exit/pages/page3": {
+        "component": "index",
+        "path": "/exit/page3"
       },
       "interface/thirdparty/alipay": {
         "component": "index"
@@ -270,6 +289,9 @@
       "interface/system/webview": {
         "component": "index"
       },
+      "interface/system/sms": {
+        "component": "index"
+      },
       "interface/system/contact": {
         "component": "index"
       },
@@ -277,6 +299,15 @@
         "component": "index"
       },
       "component/style/transform": {
+        "component": "index"
+      },
+      "component/style/translatepercent": {
+        "component": "index"
+      },
+      "component/style/backgroundposition": {
+        "component": "index"
+      },
+      "component/style/background9image": {
         "component": "index"
       },
       "functionality/form": {

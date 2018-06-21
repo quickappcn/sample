@@ -7,6 +7,10 @@
       <text>调节音量大小：{{valumeStatus}}</text>
     </div>
     <slider min="0" max="10" step="1" value="{{volume}}" onchange="adjustVolume"></slider>
+    <div class="audio-content" style="flex-direction: row">
+      <label target="checkbox1">显示/隐藏音频播放通知：</label>
+      <input id="checkbox1" type="checkbox" checked="true" onchange="changeAudioNotificationVisibility">
+    </div>
     <div class="audio-content">
       <text>自定义组件：</text>
       <div class="custom-audio">
@@ -146,6 +150,9 @@
     adjustVolume (e) {
       audio.volume = e.progress/10
       this.valumeStatus = e.progress/10
+    },
+    changeAudioNotificationVisibility (e) {
+      audio.notificationVisible = e.checked
     },
     // 格式化返回时间
     formatTime (time) {

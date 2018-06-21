@@ -1,0 +1,41 @@
+<template>
+  <!-- template里只能有一个根节点 -->
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+
+    <div class="item-container">
+      <text class="ninepatch">123</text>
+      <text class="ninepatch">abcdefg</text>
+      <text class="ninepatch">This is a test.</text>
+    </div>
+  </div>
+</template>
+
+<style>
+  @import '../../../common/css/common.css';
+
+  .item-container {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .ninepatch {
+    margin-bottom: 40px;
+    font-size: 40px;
+    background-image: url('./ninepatch.9.png');
+  }
+</style>
+
+<script>
+  export default {
+    data: {
+      componentName: 'background-image 支持.9.png'
+    },
+    onInit () {
+      this.$page.setTitleBar({text: this.componentName})
+    }
+  }
+</script>

@@ -1,5 +1,7 @@
 # v1.0.1
 此版本配套快应用平台版本为v1010
+## 框架
+1、新增$app.exit与$page.finish方法，退出应用/页面
 ## 组件
 1、input增加maxLength属性
 2、swiper增加loop开关
@@ -7,6 +9,10 @@
 4、文本编辑类组件增加selection能力
 5、list组件scroll事件参数增加scrollState
 6、video组件新增controls属性，控制是否显示播放控件
+7、首页及input组件页新增active伪类样式
+8、div组件新增justify-content, align-items, align-self样式的demo
+9、audio新增控制音频播放通知显隐的demo
+10、新增multi-picker组件，支持多列选择器
 ## 接口
 1、新增本地文件读写接口demo
 2、新增选择本地文件接口demo
@@ -15,6 +21,13 @@
 5、新增第三方分享指定渠道demo
 6、新增fetch对contenttype的处理demo
 7、新增联系人接口demo
+8、新增发送短信接口demo
+9、地理位置增加获取系统当前支持的定位类型的能力
+10、扩展record接口，支持设置录音时长，采样率，录音通道数，编码码率以及音频格式
+## 样式动画
+1、新增background-image支持.9图demo
+2、新增背景图片支持background-position的demo
+3、新增translate支持百分比demo
 
 
 

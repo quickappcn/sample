@@ -1,0 +1,80 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+    <div class="item-container">
+      <a @click="go('/Home')">去首页</a>
+    </div>
+    <div class="item-container">
+      <a @click="go('/exit/page2')">去第2页</a>
+    </div>
+    <div class="item-container">
+      <a @click="go('/exit/page3')">去第3页</a>
+    </div>
+    <div class="item-container">
+      <input type="button" value="退出页面" @click="destoryPage">
+    </div>
+    <div class="item-container">
+      <input type="button" value="退出应用" @click="destoryApp">
+    </div>
+  </div>
+</template>
+<style>
+  @import '../../../../common/css/common.css';
+
+  .item-container {
+    margin-bottom: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+</style>
+<script>
+  import router from '@system.router'
+  export default {
+    private: {
+      componentName: 'onHide时，我会把自己关掉',
+      isgo: false
+    },
+    onInit() {
+      this.$page.setTitleBar({ text: this.componentName })
+    },
+    onShow() {
+      this.isgo = false
+    },
+    onHide() {
+      console.log('第一页onHide触发')
+      if (this.isgo == false) {
+        console.log('第一页退出应用')
+        this.$app.exit()
+      } else {
+        this.isgo = false
+        this.$page.finish()
+      }
+    },
+    onBackPress() {
+      console.log('第一页onbackpress')
+      this.isgo = true
+      return false
+    },
+    onDestroy() {
+      console.log('退出第一页:onDestroy')
+    },
+    destoryPage() {
+      this.isgo = true
+      console.log('退出第一页:finish')
+      this.$page.finish()
+    },
+    destoryApp() {
+      console.log('第一页退出应用:exit')
+      this.$app.exit()
+    },
+    go(url) {
+      this.isgo = true
+      router.push({
+        uri: url
+      })
+    }
+  }
+</script>

@@ -19,6 +19,12 @@
       </div>
       <input type="button" class="btn" onclick="listenGeolocation" value="监听地理位置"/>
       <input type="button" class="btn" onclick="cancelGeolocation" value="取消地理位置监听"/>
+
+      <div class="item-content">
+        <text class="txt">定位类型:</text>
+        <text class="txt">locationType: {{locationType}}</text>
+      </div>
+      <input type="button" class="btn" onclick="getGeolocationType" value="获取系统当前支持的定位类型"/>
     </div>
   </div>
 </template>
@@ -55,7 +61,8 @@
       geolocationListenData: {
         latitude: '',
         longitude: ''
-      }
+      },
+      locationType: ''
     },
     onInit () {
       this.$page.setTitleBar({text: 'Geolocation'})
@@ -90,6 +97,19 @@
     },
     cancelGeolocation () {
       geolocation.unsubscribe()
+    },
+    getGeolocationType: function () {
+      let self = this;
+      geolocation.getLocationType({
+        success: function (data) {
+          self.locationType = data.types
+          console.log(`### handling success ### locationType: ${data.types}`)
+        },
+        fail: function (data, code) {
+          self.locationType = `获取失败，code: ${code}`
+          console.log(`### handling fail ### code: ${code}`)
+        }
+      })
     }
   }
 </script>

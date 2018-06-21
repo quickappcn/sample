@@ -1,0 +1,65 @@
+<template>
+  <!-- template里只能有一个根节点 -->
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+
+    <div class="item-container">
+      <text style="margin-bottom: 50px">background-position示例(365px*365px)</text>
+      <div class="container">
+        <div id="img" class="img" style="backgroundPosition:{{position}}"></div>
+      </div>
+
+      <input id="input" type="text" onchange="edit" placeholder="请输入backgound-position的值"></input>
+    </div>
+  </div>
+</template>
+
+<style>
+  @import '../../../common/css/common.css';
+
+  .item-container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .container {
+    width: 365px;
+    height: 365px;
+    margin-bottom: 50px;
+    background-color: #c7c7c7;
+  }
+
+  .img {
+    width: 365px;
+    height: 365px;
+    background-repeat: no-repeat;
+    background-size: 50px 50px;
+    background-position: 0px 0px;
+    background-image: url('./position_test.png');
+  }
+
+  #input {
+    width: 70%;
+    padding: 10px;
+    background-color: #eeeeee;
+    font-size: 30px;
+  }
+</style>
+
+<script>
+  export default {
+    private: {
+      componentName: 'background-position',
+      position: "0px 0px"
+    },
+    onInit() {
+      this.$page.setTitleBar({ text: this.componentName })
+    },
+    edit: function (e) {
+      this.position = e.text;
+    }
+  }
+</script>

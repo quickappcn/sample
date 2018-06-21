@@ -75,6 +75,9 @@
     flex: 1;
     color: #000000;
   }
+  .item-title-detail:active {
+    background-color: #dfdfdf;
+  }
   .item-content {
     flex-direction: column;
     padding: 30px;
@@ -84,6 +87,9 @@
     border-color: #bbbbbb;
     border-bottom-width: 1px;
     align-items: center;
+  }
+  .item-li:active {
+    background-color: #dfdfdf;
   }
   .item_arrow_img {
     height: 40px;

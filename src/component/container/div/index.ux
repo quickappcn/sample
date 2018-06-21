@@ -21,6 +21,33 @@
         <text class="item color-3">3</text>
       </div>
     </div>
+
+    <div class="item-container">
+      <text class="item-title">justify-content: flex-end;</text>
+      <div style="flex-direction: row; justify-content: flex-end;">
+        <text class="item color-1">1</text>
+        <text class="item color-2">2</text>
+        <text class="item color-3">3</text>
+      </div>
+    </div>
+
+    <div class="item-container">
+      <text class="item-title">align-items: center;</text>
+      <div style="flex-direction: column; align-items: center;">
+        <text class="item color-1">1</text>
+        <text class="item color-2">2</text>
+        <text class="item color-3">3</text>
+      </div>
+    </div>
+
+    <div class="item-container">
+      <text class="item-title">align-self: flex-end;</text>
+      <div style="flex-direction: column; align-items: center;">
+        <text class="item color-1">1</text>
+        <text class="item color-2" style="align-self: flex-end;">2</text>
+        <text class="item color-3">3</text>
+      </div>
+    </div>
   </div>
 </template>
 

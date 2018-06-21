@@ -1,0 +1,89 @@
+<template>
+  <!-- template里只能有一个根节点 -->
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+
+    <div class="item-container">
+      <div class="container" style="width:{{t}}">
+        <label class="target {{translate}}"></label>
+      </div>
+      <input class="btn" type="button" onclick="changeSize" value="调整大小"></input>
+      <input class="btn" type="button" onclick="switch" value="启动/暂停"></input>
+    </div>
+  </div>
+</template>
+
+<style>
+  @import '../../../common/css/common.css';
+
+  .item-container {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .container {
+    width: 50%;
+    height: 40%;
+    background-color: #999999;
+  }
+
+  .target {
+    width: 20%;
+    height: 20%;
+    background-color: #000000;
+  }
+
+  .btn {
+    width: 50%;
+    margin-top: 30px;
+  }
+
+  .translate {
+    animation-name: translate;
+    animation-duration: 2000ms;
+    animation-fill-mode: forwards;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+
+  @keyframes translate {
+    0% {
+      transform: translate(0px, 0px);
+    }
+    25% {
+      transform: translate(0%, 100%);
+    }
+    50% {
+      transform: translate(100%, 100%);
+    }
+    75% {
+      transform: translate(100%, 0%);
+    }
+    100% {
+      transform: translate(0%, 0%);
+    }
+  }
+</style>
+
+<script>
+  export default {
+    // 页面级组件的数据模型，影响传入数据的覆盖机制：private内定义的属性不允许被覆盖
+    private: {
+      componentName: 'translate 百分比的动画',
+      t: '50%',
+      translate: 'translate'
+    },
+    onInit () {
+      this.$page.setTitleBar({text: this.componentName})
+    },
+    changeSize: function () {
+      this.t = (this.t == '50%') ? '60%' : '50%';
+    },
+    switch: function () {
+      this.translate = (this.translate == 'translate') ? '' : 'translate';
+    }
+  }
+</script>

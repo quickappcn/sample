@@ -1,0 +1,79 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+    <div class="item-container">
+      <div class="item-content">
+        <text class="txt">手机号码：</text>
+        <input style="flex: 1; font-size: 30px;" value="{{input_key}}" placeholder="请输入手机号码" onchange="numberChange">
+      </div>
+      <div class="item-content">
+        <text class="txt">发送内容：</text>
+        <input style="flex: 1; font-size: 30px;" value="{{input_key}}" placeholder="请输入短信内容" onchange="contentChange">
+      </div>
+      <input type="button" class="btn" onclick="sendSMS" value="发送短信" />
+    </div>
+  </div>
+</template>
+
+<style>
+  @import '../../../common/css/common.css';
+
+  .item-container {
+    margin-bottom: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+
+  .item-content {
+    background-color: #ffffff;
+    padding: 30px;
+    margin-bottom: 100px;
+    align-items: center;
+  }
+
+  .txt {
+    width: 150px;
+    text-align: right;
+  }
+</style>
+
+<script>
+  import prompt from '@system.prompt'
+  import sms from '@system.sms'
+
+  export default {
+    data: {
+      componentName: 'Short Message',
+      number: '',
+      content: ''
+    },
+    onInit: function () {
+      this.$page.setTitleBar({ text: this.componentName })
+    },
+    numberChange: function (e) {
+      this.number = e.text;
+    },
+    contentChange: function (e) {
+      this.content = e.text;
+    },
+    sendSMS: function () {
+      sms.send({
+        address: this.number,
+        content: this.content,
+        success: function () {
+          prompt.showToast({
+            message: "发送成功"
+          })
+        },
+        fail: function () {
+          prompt.showToast({
+            message: "发送失败"
+          })
+        }
+      })
+    }
+  }
+</script>

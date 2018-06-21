@@ -8,9 +8,30 @@
       <div class="item-content">
         <text>录音文件路径: {{path}}</text>
       </div>
-      <input type="button" class="btn" onclick="start" value="开始录音"/>
-      <input type="button" class="btn" onclick="stop" value="录音完成"/>
-      <input type="button" class="btn" onclick="playAudio" value="播放当前录音"/>
+      <div class="item-content">
+        <label>duration:</label>
+        <input type="text" placeholder="duration" value="{{duration}}" @change="changeValue('duration')" />
+      </div>
+      <div class="item-content">
+        <label>sampleRate:</label>
+        <input type="text" placeholder="sampleRate" value="{{sampleRate}}" @change="changeValue('sampleRate')" />
+      </div>
+      <div class="item-content">
+        <label>numberOfChannels:</label>
+        <input type="text" placeholder="numberOfChannels" value="{{numberOfChannels}}" @change="changeValue('numberOfChannels')"
+        />
+      </div>
+      <div class="item-content">
+        <label>encodeBitRate:</label>
+        <input type="text" placeholder="encodeBitRate" value="{{encodeBitRate}}" @change="changeValue('encodeBitRate')" />
+      </div>
+      <div class="item-content">
+        <label>format:</label>
+        <input type="text" placeholder="3gpp/amr_nb/aac" value="{{format}}" @change="changeValue('format')" />
+      </div>
+      <input type="button" class="btn" @click="start" value="开始录音" />
+      <input type="button" class="btn" @click="stop" value="录音完成" />
+      <input type="button" class="btn" @click="playAudio" value="播放当前录音" />
     </div>
   </div>
 </template>
@@ -24,45 +45,73 @@
     margin-left: 60px;
     flex-direction: column;
   }
+
   .item-content {
     flex-direction: column;
     background-color: #ffffff;
     padding: 30px;
     margin-bottom: 50px;
   }
+
+  .item-content input {
+    width: 400px;
+    margin-left: 10px;
+    padding: 10px;
+    text-align: center;
+    border-width: 1px;
+    border-color: #dddddd;
+    background-color: #ffffff;
+    width: 350px;
+  }
 </style>
 
 <script>
   import record from '@system.record'
   import audio from '@system.audio'
+  import storage from '@system.storage'
 
   export default {
     private: {
       componentName: 'Record',
-      path: ''
+      path: '',
+      duration: 1000,
+      sampleRate: 8000,
+      numberOfChannels: 1,
+      encodeBitRate: 16000,
+      format: ''
     },
-    onInit () {
-      this.$page.setTitleBar({text: '录音'})
+    onInit() {
+      this.$page.setTitleBar({ text: this.componentName })
     },
-    start () {
+    start() {
       this.path = '录音中...'
-      const self = this
       record.start({
-        success: function (data) {
-          self.path = data.uri
+        duration: this.duration,
+        sampleRate: this.sampleRate,
+        numberOfChannels: this.numberOfChannels,
+        encodeBitRate: this.encodeBitRate,
+        format: this.format,
+        success: (data) => {
+          this.path = data.uri
         },
-        fail: function (err, code) {
-          self.path = 'handling fail, code=' + code
+        fail: (err, code) => {
+          this.path = 'handling fail, code=' + code
         }
       })
     },
-    stop () {
+    stop() {
       record.stop()
     },
-    // 播放音频
-    playAudio () {
+    playAudio() {
       audio.src = this.path
       audio.play()
+    },
+    changeValue(args, evt) {
+      this[args] = evt.value
+      storage.set({
+        key: args,
+        value: evt.value
+      })
     }
   }
 </script>

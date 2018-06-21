@@ -89,8 +89,8 @@
                   })
                 }
               },
-              cancel: function (data) {
-                console.info('WXPAY handling cancel' + ' data:' + JSON.stringify(data))
+              cancel: function () {
+                console.info('WXPAY handling cancel')
               },
               success: function (data) {
                 console.info('WXPAY handling success' + ' data:' + JSON.stringify(data))
@@ -129,8 +129,8 @@
               })
             }
           },
-          cancel: function (data) {
-            console.info('H5 WXPAY handling cancel' + ' data:' + JSON.stringify(data))
+          cancel: function () {
+            console.info('H5 WXPAY handling cancel')
           },
           success: function (data) {
             console.info('H5 WXPAY handling success' + ' data:' + JSON.stringify(data))

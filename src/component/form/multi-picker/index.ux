@@ -1,0 +1,186 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+    <div class="item-container">
+      <text class="item-title">3列Picker(无联动)</text>
+      <div class="item-content">
+        <picker class="picker" type="multi-text" range="{{range1.arr}}" value="{{curDate}}" selected="{{lastSelected}}" @change="getDate"
+          @cancel="cancel" id="picker1"></picker>
+      </div>
+      <div class="item-content">
+        <text>{{curDateTxt}}</text>
+      </div>
+      <input type="button" class="btn" style="margin-top: 50px;" value="打开无联动选择器" onclick="show('picker1')" />
+      <input type="button" class="btn" style="margin-top: 15px;" value="减少列数" onclick="reduce('picker1')" />
+      <input type="button" class="btn" style="margin-top: 15px;" value="增加列数" onclick="increase('picker1')" />
+      <input type="button" class="btn" style="margin-top: 15px;" value="selected设置负索引" onclick="invalidSelected('negative')" />
+      <input type="button" class="btn" style="margin-top: 15px;" value="selected设置字母索引" onclick="invalidSelected('letter')" />
+      <input type="button" class="btn" style="margin-top: 15px;" value="selected设置非法长度" onclick="invalidSelected('length')" />
+      <input type="button" class="btn" style="margin-top: 15px;" value="重置" onclick="restore('picker1')" />
+    </div>
+    <div class="item-container">
+      <text class="item-title">3列Picker(联动)</text>
+      <div class="item-content">
+        <picker class="picker" type="multi-text" range="{{range2.arr}}" value="{{curArea}}" selected="{{lastSelected}}" @columnchange="updatePicker"
+          @change="getArea" @cancel="cancel" id="picker2"></picker>
+      </div>
+      <div class="item-content">
+        <text>{{curAreaTxt}}</text>
+      </div>
+      <input type="button" class="btn" style="margin-top: 50px;" value="打开联动选择器" onclick="show('picker2')" />
+    </div>
+  </div>
+</template>
+
+<style>
+  @import '../../../common/css/common.css';
+
+  .item-container {
+    margin-top: 20px;
+    flex-direction: column;
+  }
+
+  .item-title {
+    padding-left: 30px;
+    padding-bottom: 30px;
+    padding-top: 30px;
+    border-bottom-width: 1px;
+    border-color: #bbbbbb;
+    color: #aaaaaa;
+  }
+
+  .item-content {
+    background-color: #ffffff;
+    border-bottom-width: 1px;
+    border-color: #bbbbbb;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  .picker {
+    flex: 1;
+  }
+
+  .label {
+    padding-bottom: 30px;
+    padding-top: 30px;
+    padding-right: 100px;
+    flex-wrap: wrap;
+  }
+</style>
+
+<script>
+  import pmt from '@system.prompt'
+  export default {
+    private: {
+      componentName: '多列选择器',
+      range1: {
+        arr: [['一月', '二月', '三月', '四月'], ['第一周', '第二周', '第三周', '第四周'], ['周一', '周二', '周三', '周四']]
+      },
+      range2: {
+        arr: []
+      },
+      curDate: ['一月', '第一周', '周一'],
+      curArea: ['北京', '北京市', '东城'],
+      curDateTxt: '',
+      curAreaTxt: '',
+      lastSelected: [0, 0, 0],
+      province: ['北京', '上海', '广东', '内蒙古自治区', '新疆维吾尔自治区'],
+      city: [['北京市'], ['上海市'], ['广州市', '深圳市'], ['呼和浩特', '鄂尔多斯'], ['乌鲁木齐', '克孜勒苏柯尔克孜自治州']],
+      dict: {
+        '北京市': ['东城区', '西城区', '宣武区', '崇文区'],
+        '上海市': ['徐汇区', '静安区', '闸北区', '闵行区'],
+        '广州市': ['越秀区', '天河区', '白云区', '黄埔区'],
+        '深圳市': ['罗湖区', '福田区', '南山区', '盐田区'],
+        '呼和浩特': ['新城区', '赛罕区', '和林格尔', '土默特左旗'],
+        '鄂尔多斯': ['东胜区', '康巴什区', '鄂托克前旗', '伊金霍洛旗'],
+        '乌鲁木齐': ['天山区', '沙依巴克区', '水磨沟区', '达坂城区'],
+        '克孜勒苏柯尔克孜自治州': ['阿图什市', '阿克陶县', '阿合奇县', '乌恰县']
+      },
+      picker1ColNum: 3
+    },
+    onInit() {
+      this.$page.setTitleBar({ text: this.componentName })
+      this.range2.arr = [
+        this.province,
+        this.city[0],
+        this.dict[this.city[0][0]]
+      ]
+      this.picker1ColNum = this.range1.arr.length
+    },
+    show(id) {
+      this.$element(id).show();
+    },
+    getDate(obj) {
+      this.curDate = obj.newValue
+      this.curDateTxt = eval('(' + obj.newValue + ')').join(',')
+    },
+    getArea(obj) {
+      this.curArea = obj.newValue
+      this.curAreaTxt = eval('(' + obj.newValue + ')').join(',')
+    },
+    updatePicker(arr) {
+      let a = Object.assign([], this.range2.arr)
+      if (arr.column == 0) {
+        a[1] = Object.assign([], this.city[arr.newSelected])
+        a[2] = Object.assign([], this.dict[a[1][0]])
+        this.lastSelected = [parseInt(arr.newSelected), 0, 0]
+      }
+      else if (arr.column == 1) {
+        a[2] = Object.assign([], this.dict[arr.newValue])
+        this.lastSelected[1] = parseInt(arr.newSelected)
+        this.lastSelected[2] = 0
+      }
+      this.range2.arr = a
+    },
+    reduce() {
+      if (this.picker1ColNum === 1) {
+        return
+      }
+      this.picker1ColNum = this.picker1ColNum - 1
+      let a = Object.assign([], this.range1.arr)
+      a.splice(this.picker1ColNum, 1)
+      this.range1.arr = a
+    },
+    increase() {
+      this.picker1ColNum = this.picker1ColNum + 1
+      let a = Object.assign([], this.range1.arr)
+      a.push([(new Date()).getTime()])
+      this.range1.arr = a
+    },
+    clean() {
+      this.range1.arr = []
+    },
+    invalidSelected(type) {
+      switch (type) {
+        case 'negative':
+          this.lastSelected = [-1, -1]
+          break;
+        case 'letter':
+          this.lastSelected = ['a', 'b', 'c']
+          break;
+        case 'length':
+          let a = []
+          for (var i = 0; i < 1000; i++) {
+            a.push(i)
+          }
+          this.lastSelected = a
+          break;
+        default:
+          return
+      }
+    },
+    cancel() {
+      pmt.showToast({
+        message: '放弃选择'
+      })
+    },
+    restore() {
+      this.picker1ColNum = 3
+      this.lastSelected = [0, 0, 0]
+      this.range1.arr = [['一月', '二月', '三月', '四月'], ['第一周', '第二周', '第三周', '第四周'], ['周一', '周二', '周三', '周四']]
+    }
+  }
+</script>

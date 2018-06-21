@@ -13,6 +13,10 @@ export const tabsData = {
           {
             name: '唤起应用(deepLink)',
             path: 'framework/deeplink'
+          },
+          {
+            name: '退出应用/页面',
+            path: 'framework/exit'
           }
         ]
       }
@@ -104,6 +108,10 @@ export const tabsData = {
             path: 'component/form/picker'
           },
           {
+            name: 'multi picker',
+            path: 'component/form/multi-picker'
+          },
+          {
             name: 'slider',
             path: 'component/form/slider'
           },
@@ -144,6 +152,18 @@ export const tabsData = {
           {
             name: 'transform',
             path: 'component/style/transform'
+          },
+          {
+            name: 'translate 百分比的动画',
+            path: 'component/style/translatepercent'
+          },
+          {
+            name: 'background-position 单独测试',
+            path: 'component/style/backgroundposition'
+          },
+          {
+            name: 'background-image 支持.9.png',
+            path: 'component/style/background9image'
           }
         ]
       },
@@ -320,6 +340,10 @@ export const tabsData = {
           {
             name:'系统音量',
             path:'interface/system/volume'
+          },
+          {
+            name:'发送短信',
+            path:'interface/system/sms'
           },
           {
             name:'联系人',
