@@ -1,7 +1,9 @@
 # sample
 A project to demonstrate the use of quickapp, including demos of components and apis. https://www.quickapp.cn/
+## 分支说明
+master分支：最新内容，需在快应用平台最新版本上使用。
 
-**由于新版快应用还未发布，请先clone v1000分支进行使用。**
+版本分支：例如v1000分支内容需在快应用平台v1000+版本上使用。
 ## 使用方法说明
 ### 配置快应用开发环境
 #### 安装Node.jS
