@@ -1,0 +1,137 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+
+    <div class="item-container">
+      <text class="txt">Wi-Fi连接状态:</text>
+      <div class="item-content">
+        <text class="txt">{{wifiState}}</text>
+      </div>
+    </div>
+
+    <div class="item-container">
+      <div class="item-content">
+        <text class="txt">{{wifiConnected}}</text>
+      </div>
+      <input type="button" class="btn" onclick="getConnectedWifiMsg" value="获取已连接中的Wi-Fi信息"/>
+    </div>
+
+    <div class="item-container">
+      <div class="item-content">
+        <text class="txt">{{wifiConnectRes}}</text>
+      </div>
+      <input type="button" class="btn" onclick="connectWifi" value="连接Wi-Fi"/>
+    </div>
+
+    <div class="item-container">
+      <div class="item-content">
+        <text class="txt">{{wifiScanRes}}</text>
+      </div>
+      <input type="button" class="btn" onclick="scanWifi" value="请求获取Wi-Fi列表"/>
+    </div>
+
+    <div class="item-container">
+      <text class="txt">Wi-Fi列表数据:</text>
+      <div class="item-content">
+        <text class="txt">{{wifiList}}</text>
+      </div>
+    </div>
+  </div>
+</template>
+
+<style>
+  @import '../../../common/css/common.css';
+
+  .item-container {
+    margin-bottom: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+
+  .item-content {
+    flex-direction: column;
+    background-color: #ffffff;
+    padding: 30px;
+    margin-bottom: 50px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .txt {
+    line-height: 45px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+</style>
+
+<script>
+  import wifi from '@system.wifi'
+
+  export default {
+    private: {
+      componentName: 'Wi-Fi',
+      wifiState: '',
+      wifiList: '',
+      wifiConnected: '',
+      wifiConnectRes: '请根据实际情况,配置参数进行连接',
+      wifiScanRes: ''
+    },
+    onInit () {
+      this.$page.setTitleBar({ text: 'Wi-Fi' })
+    },
+    onReady () {
+      // 监听连接和断开Wi-Fi的事件
+      wifi.onstatechanged = data => {
+        if (data.state === 0) {
+          this.wifiState = '连接断开' + JSON.stringify(data)
+        } else {
+          this.wifiState = '连接成功' + JSON.stringify(data)
+        }
+      }
+      // 监听在获取到Wi-Fi列表数据时的事件
+      wifi.onscanned = data => {
+        this.wifiList = JSON.stringify(data)
+      }
+    },
+    getConnectedWifiMsg () {
+      // 获取已连接中的Wi-Fi信息
+      wifi.getConnectedWifi({
+        success: data => {
+          this.wifiConnected = JSON.stringify(data)
+        },
+        fail: (data, code) => {
+          this.wifiConnected = `handling fail, code = ${code}`
+        }
+      })
+    },
+    connectWifi () {
+      // 连接Wi-Fi
+      // 请根据实际情况,配置参数进行连接
+      wifi.connect({
+        SSID: 'test',
+        BSSID: 'xxx',
+        password: 'xxx',
+        success: () => {
+          this.wifiConnectRes = 'connect success'
+        },
+        fail: (data, code) => {
+          this.wifiConnectRes = `handling fail, code = ${code}`
+        }
+      })
+    },
+    scanWifi () {
+      // 请求获取Wi-Fi列表，在onscanned事件中返回Wi-Fi列表数据
+      wifi.scan({
+        success: () => {
+          this.wifiScanRes = 'scan success'
+        },
+        fail: (data, code) => {
+          this.wifiScanRes = `handling fail, code = ${code}`
+        }
+      })
+    }
+  }
+</script>

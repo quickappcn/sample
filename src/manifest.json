@@ -31,6 +31,8 @@
     { "name": "system.package" },
     { "name": "system.record" },
     { "name": "system.sms" },
+    { "name": "system.websocketfactory" },
+    { "name": "system.wifi" },
     { "name": "service.stats" },
     { "name": "service.account" },
     {"name": "system.contact"},
@@ -56,19 +58,18 @@
     {
       "name": "service.wxaccount",
       "params": {
-        "appId": "",
-        "package": "",
-        "sign": ""
+        "appId": "xxx",
+        "package": "xxx",
+        "sign": "xxx"
       }
     },
     {
       "name": "service.qqaccount",
       "params": {
-        "package":"",
-        "appid": "",
-        "sign": "",
-        "client_id":"",
-        "redirect_uri":""
+        "package":"xxx",
+        "appId": "xxx",
+        "sign": "xxx",
+        "clientId":"xxx"
       }
     },
     {
@@ -163,7 +164,13 @@
      "component/media/video": {
         "component": "index"
       },
+      "component/media/canvas": {
+        "component": "index"
+      },
       "component/media/audio": {
+        "component": "index"
+      },
+      "component/basic/map": {
         "component": "index"
       },
       "framework/deeplink": {
@@ -295,6 +302,12 @@
       "interface/system/contact": {
         "component": "index"
       },
+      "interface/system/websocket": {
+        "component": "index"
+      },
+      "interface/system/wifi": {
+        "component": "index"
+      },
       "component/style/animation": {
         "component": "index"
       },
@@ -320,6 +333,12 @@
         "component": "index"
       },
       "functionality/photo": {
+        "component": "index"
+      },
+      "functionality/h5download": {
+        "component": "index"
+      },
+      "functionality/postMessage": {
         "component": "index"
       },
       "functionality/qrcode": {

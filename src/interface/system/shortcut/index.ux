@@ -11,6 +11,18 @@
     <div class="item-container">
       <input type="button" class="btn" onclick="installShortcut" value="创建桌面图标"/>
     </div>
+
+    <div class="item-container">
+      <input type="button" class="btn" onclick="openShortcut" value="开启创建快捷方式时的弹窗"/>
+    </div>
+
+    <div class="item-container">
+      <input type="button" class="btn" onclick="closeShortcut" value="关闭创建快捷方式时的弹窗"/>
+    </div>
+
+    <div class="item-container">
+      <input type="button" class="btn" onclick="getShortcutStatus" value="查看创建快捷方式时弹窗的状态"/>
+    </div>
   </div>
 </template>
 
@@ -60,6 +72,25 @@
             message: '桌面图标创建成功'
           })
         }
+      })
+    },
+    openShortcut () {
+      // 默认开启
+      shortcut.systemPromptEnabled = true
+      prompt.showToast({
+        message: '已开启弹窗'
+      })
+    },
+    closeShortcut () {
+      shortcut.systemPromptEnabled = false
+      prompt.showToast({
+        message: '已关闭弹窗'
+      })
+    },
+    getShortcutStatus () {
+      const status = shortcut.systemPromptEnabled
+      prompt.showToast({
+        message: status === true ? '已开启' : '已关闭'
       })
     }
   }

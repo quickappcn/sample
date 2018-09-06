@@ -52,7 +52,7 @@
         <div class="item-container">
           <div class="item-content">
             <text class="item-title item-title-first">input</text>
-            <input class="item-input" type="text" placeholder="I am input">
+            <input class="item-input" type="text" placeholder="I am input"/>
           </div>
 
           <div class="item-content">
@@ -68,8 +68,8 @@
 
         <!--列表组件-->
         <div class="item-container">
-          <input type="button" class="btn" name="" value="切换滚动模式" onclick="switchScrollMode">
-          <input type="button" class="btn" name="" value="回到第一个item" onclick="goIndex">
+          <input type="button" class="btn" name="" value="切换滚动模式" onclick="switchScrollMode"/>
+          <input type="button" class="btn" name="" value="回到第一个item" onclick="goIndex"/>
           <list class="list" onscrollbottom="scrollbottom" id="list" scrollpage="{{scrollPage}}">
             <list-item type="listItem" class="item item_color" for="{{listData}}">
               <text class="txt">{{$item.name}}--{{$idx}}</text>

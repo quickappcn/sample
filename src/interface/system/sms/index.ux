@@ -6,13 +6,13 @@
     <div class="item-container">
       <div class="item-content">
         <text class="txt">手机号码：</text>
-        <input style="flex: 1; font-size: 30px;" value="{{input_key}}" placeholder="请输入手机号码" onchange="numberChange">
+        <input style="flex: 1; font-size: 30px;" value="{{input_key}}" placeholder="请输入手机号码" onchange="numberChange"/>
       </div>
       <div class="item-content">
         <text class="txt">发送内容：</text>
-        <input style="flex: 1; font-size: 30px;" value="{{input_key}}" placeholder="请输入短信内容" onchange="contentChange">
+        <input style="flex: 1; font-size: 30px;" value="{{input_key}}" placeholder="请输入短信内容" onchange="contentChange"/>
       </div>
-      <input type="button" class="btn" onclick="sendSMS" value="发送短信" />
+      <input type="button" class="btn" onclick="sendSMS" value="发送短信"/>
     </div>
   </div>
 </template>

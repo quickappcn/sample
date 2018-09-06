@@ -6,7 +6,8 @@
 
     <div class="item-container">
       <text>此功能不便演示，请参考代码。需要在 manifest.json 里使用实际向微信开放平台申请的 app 账号对 service.wxaccount 进行相应设置。</text>
-      <!-- <input type="button" class="btn" onclick="useWXAccount" value="微信账号"/> -->
+      <!-- <input type="button" class="btn" onclick="useWXAccount" value="微信账号"/>
+      <input type="button" class="btn" onclick="fetchUserInfo" value="获取用户信息"/> -->
     </div>
   </div>
 </template>
@@ -24,33 +25,61 @@
 <script>
   import prompt from '@system.prompt'
   import wxaccount from '@service.wxaccount'
+  import fetch from '@system.fetch'
 
   export default {
     data: {
       componentName: '微信账号',
+      code: null
     },
     onInit: function () {
       this.$page.setTitleBar({ text: '微信账号' })
     },
 
-    useWXAccount: function () {
-      var type = wxaccount.getType();
-      console.info(`### wxaccount.getType ### ${ JSON.stringify(type) }`);
+    useWXAccount () {
+      let type = wxaccount.getType();
+      if (type === 'APP') {
+        wxaccount.authorize({
+          // 参考微信开平台的字段说明https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=open1419317851&token=7ddb5fdbdade83efaf4695baecb9b35649813583&lang=zh_CN
+          scope: 'snsapi_userinfo',
+          state: 'randomString',
+          fail: (data, code) => {
+            console.info(`### wxaccount fail ### data:${ JSON.stringify(data) }, code:${ code }`);
+          },
+          cancel: data => {
+            console.info(`### wxaccount cancel ### data:${ JSON.stringify(data) }`);
+          },
+          success: data => {
+            console.info(`### wxaccount success ### data:${ JSON.stringify(data) }`);
+            this.code = data.code
+          },
+        })
+      } else {
+        console.info(`### wxaccount not available ###`);
+      }
+    },
 
-      wxaccount.authorize({
-        // 参考微信开平台的字段说明https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=open1419317851&token=7ddb5fdbdade83efaf4695baecb9b35649813583&lang=zh_CN
-        scope: 'snsapi_userinfo',
-        state: 'wxaccount',
-        fail: function (data, code) {
-          console.info(`### wxaccount fail ### data:${ JSON.stringify(data) }, code:${ code }`);
-        },
-        cancel: function (data) {
-          console.info(`### wxaccount cancel ### data:${ JSON.stringify(data) }`);
-        },
-        success: function (data) {
-          console.info(`### wxaccount success ### data:${ JSON.stringify(data) }`);
-        },
-      });
+    fetchUserInfo () {
+      var appid = 'xxx'; // 根据实际情况填写
+      var secret = 'xxx'; // 根据实际情况填写
+      //换取Token的过程应该放在服务器，而不是客户端
+      var fetchTokenUrl = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid=' + appid + '&secret=' + secret + '&code=' + this.code + '&grant_type=authorization_code';
+      fetch.fetch({
+        url: fetchTokenUrl,
+        success: ret => {
+          var data = JSON.parse(ret.data);
+
+          //获取用户信息
+          var userInfoUrl = 'https://api.weixin.qq.com/sns/userinfo?access_token=' + data['access_token'] + '&openid=' + data['openid'];
+          fetch.fetch({
+            url:userInfoUrl,
+            success: ret => {
+              console.info(`### fetch userInfo ### result=${JSON.stringify(ret)}`);
+            }
+          })
+
+        }
+      })
     }
   }
 </script>

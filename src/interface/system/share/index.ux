@@ -6,7 +6,7 @@
     <div class="item-container">
       <div class="item-content">
         <text class="txt">分享文本：</text>
-        <input style="flex: 1; font-size: 30px;" value="{{input_key}}" placeholder="请输入要分享的内容" onchange="shareContent">
+        <input style="flex: 1; font-size: 30px;" value="{{input_key}}" placeholder="请输入要分享的内容" onchange="shareContent"/>
       </div>
       <input type="button" class="btn" onclick="shareText" value="点击分享文本"/>
       <input type="button" class="btn" onclick="shareImage" value="选取图片分享"/>

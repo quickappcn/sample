@@ -1,11 +1,15 @@
 <template>
-  <div>
+  <div class="doc-page">
     <text if="pageInfo">{{pageInfo}}</text>
     <text if="pageInfoObject">{{pageInfoObject}}</text>
+    <input type="button" class="btn" onclick="routeBack('/home')" value="跳转到首页" />
+    <input type="button" class="btn" onclick="routeBack('/interface/system/router')" value="返回上一页面" />
   </div>
 </template>
 
 <style>
+  @import '../../../../common/css/common.css';
+
   text {
     flex: 1;
     font-size: 35px;
@@ -14,6 +18,8 @@
 </style>
 
 <script>
+  import router from '@system.router'
+
   export default {
     public: {
       pageInfo: '',
@@ -23,6 +29,11 @@
       this.$page.setTitleBar({text: 'Detail'})
       this.pageInfo && console.info('pageInfo: ' + this.pageInfo)
       this.pageInfoObject && console.info('pageInfoObject.msg: ' + JSON.parse(this.pageInfoObject).msg)
+    },
+    routeBack () {
+      router.back({
+        path: arguments[0] //根据传入的页面路径，返回到指定页面
+      })
     }
   }
 </script>

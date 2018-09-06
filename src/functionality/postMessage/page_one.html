@@ -1,0 +1,26 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width,initial-scale=1" name="viewport">
+</head>
+<body>
+<h1>page_one.html</h1>
+<a href="./page_two.html">page_two.html</a>
+<p>
+  <input type="button" value="sendMessageToQucikapp" onclick="sendMsg"/>
+</p>
+<h2></h2>
+<script>
+  window.addEventListener('load', function(){
+    // system为框架注入window环境的对象,提供部分框架能力.
+    system.onmessage = function(data){
+      document.body.querySelector('h2').innerHTML = data
+    }
+    document.body.querySelector('input').addEventListener('click', sendMsg);
+    function sendMsg () {
+      system.postMessage('page_one.html: hello quickapp')
+    }
+  })
+</script>
+</body>
+</html>

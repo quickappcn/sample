@@ -1,0 +1,21 @@
+<template>
+  <div class="doc-page">
+    <web src="https://m.quickapp.cn/newEcology.html"></web>
+    </div>
+  </div>
+</template>
+
+<style>
+  @import "../../common/css/index.css";
+  web {
+    flex: 1;
+  }
+</style>
+
+<script>
+  export default {
+    onInit () {
+      this.$page.setTitleBar({text: '支持h5页面下载网络资源'})
+    }
+  }
+</script>

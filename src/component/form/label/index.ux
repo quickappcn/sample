@@ -10,7 +10,7 @@
 
     <div class="label-item">
       <label target="input1">input:</label>
-      <input type="text" class="flex-1" id="input1" placeholder="请输入">
+      <input type="text" class="flex-1" id="input1" placeholder="请输入"/>
     </div>
 
     <div class="label-item">
@@ -20,12 +20,12 @@
 
     <div class="label-item">
       <label target="radio1">radio:</label>
-      <input type="radio" id="radio1" style="width: 60px;">
+      <input type="radio" id="radio1" style="width: 60px;"/>
     </div>
 
     <div class="label-item" >
       <label target="checkbox1">checkbox:</label>
-      <input class="flex-1" type="checkbox" id="checkbox1" style="width: 60px;">
+      <input class="flex-1" type="checkbox" id="checkbox1" style="width: 60px;"/>
     </div>
   </div>
 </template>

@@ -10,6 +10,7 @@
       <input type="button" class="btn"  onclick="routeReplace" value="无返回的页面跳转" />
       <input type="button" class="btn"  onclick="routeDetail" value="带参数的页面跳转" />
       <input type="button" class="btn"  onclick="routeDetailObejct" value="参数为对象的页面跳转" />
+      <input type="button" class="btn"  onclick="routeApp" value="跳转到指定快应用" />
     </div>
   </div>
 </template>
@@ -64,6 +65,12 @@
             msg: '我是上个页面传递来的数据对象'
           }
         }
+      })
+    },
+    // 跳转到指定快应用，以饿了么为例
+    routeApp () {
+      router.push({
+        uri: 'hap://app/me.ele.xyy/'
       })
     }
   }

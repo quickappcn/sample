@@ -1,3 +1,15 @@
+# v1.0.2
+此版本配套快应用平台版本为v1020
+## 组件
+* 新增map组件
+* 新增canvas组件
+* web组件支持文件下载能力
+* web组件支持通信能力
+
+## 接口
+* 新增wifi接口
+* shortcut接口允许开启和禁止快应用平台创建快捷方式的弹窗提示
+
 # v1.0.1
 此版本配套快应用平台版本为v1010
 ## 框架
@@ -24,10 +36,9 @@
 8、新增发送短信接口demo
 9、地理位置增加获取系统当前支持的定位类型的能力
 10、扩展record接口，支持设置录音时长，采样率，录音通道数，编码码率以及音频格式
+11、下载文件时(request.download)可指定description、filename
+12、router接口可直接打开指定快应用
 ## 样式动画
 1、新增background-image支持.9图demo
 2、新增背景图片支持background-position的demo
 3、新增translate支持百分比demo
-
-
-

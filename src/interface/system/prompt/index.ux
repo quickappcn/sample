@@ -6,8 +6,8 @@
 
     <div class="item-container">
       <input type="button" class="btn" onclick="showToast" value="显示浮窗"/>
-      <input type="button" class="btn" onclick="showDialog" value="显示对话框">
-      <input type="button" class="btn" onclick="showContextMenu" value="显示上下文菜单">
+      <input type="button" class="btn" onclick="showDialog" value="显示对话框"/>
+      <input type="button" class="btn" onclick="showContextMenu" value="显示上下文菜单"/>
     </div>
   </div>
 </template>

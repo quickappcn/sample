@@ -13,11 +13,11 @@
       <div class="btn-wrap-column" show="{{showListBtn}}">
         <div class="input-number-wrap">
           <text>请输入list的列数:</text>
-          <input id="columns" type="number" class="input-number" value="{{columnsNum}}" onchange="writeCloumnsNum">
+          <input id="columns" type="number" class="input-number" value="{{columnsNum}}" onchange="writeCloumnsNum"/>
         </div>
-        <input type="button" class="btn" value="修改list列数" onclick="setCloumnsNum">
-        <input type="button" class="btn" name="" value="切换滚动模式" onclick="switchScrollMode">
-        <input type="button" class="btn" name="" value="回到第一个item" onclick="goIndex">
+        <input type="button" class="btn" value="修改list列数" onclick="setCloumnsNum"/>
+        <input type="button" class="btn" name="" value="切换滚动模式" onclick="switchScrollMode"/>
+        <input type="button" class="btn" name="" value="回到第一个item" onclick="goIndex"/>
       </div>
 
       <!-- 数组对象方法 -->

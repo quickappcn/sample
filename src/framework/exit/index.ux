@@ -13,10 +13,10 @@
       <a @click="go('/exit/page3')">去第三页</a>
     </div>
     <div class="item-container">
-      <input type="button" value="退出页面" @click="destoryPage">
+      <input type="button" value="退出页面" @click="destoryPage"/>
     </div>
     <div class="item-container">
-      <input type="button" value="退出应用" @click="destoryApp">
+      <input type="button" value="退出应用" @click="destoryApp"/>
     </div>
   </div>
 </template>

@@ -8,12 +8,12 @@
         <div class="item-content">
           <div class="item-content-detail">
             <text class="txt">key:</text>
-            <input type="text" class="input" placeholder="请输入key" value="{{storageKey}}" onchange="keyFn">
+            <input type="text" class="input" placeholder="请输入key" value="{{storageKey}}" onchange="keyFn"/>
           </div>
 
           <div class="item-content-detail">
             <text class="txt">value:</text>
-            <input type="text" class="input" placeholder="请输入value" value="{{storageValue}}" onchange="valueFn">
+            <input type="text" class="input" placeholder="请输入value" value="{{storageValue}}" onchange="valueFn"/>
           </div>
         </div>
         <input type="button" class="btn" onclick="setStorage" value="设置storage"/>

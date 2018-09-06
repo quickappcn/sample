@@ -6,6 +6,7 @@
 
     <div class="item-container">
       <text>此功能不便演示，请参考代码。需要在 manifest.json 里使用实际向QQ开放平台申请的 app 账号对 service.qqaccount 进行相应设置。</text>
+      <text>请在手机上对两种情况进行测试：1、不安装 QQ APP；2、安装 QQ APP</text>
       <!-- <input type="button" class="btn" onclick="useQQAccount" value="QQ账号"/> -->
     </div>
   </div>
@@ -34,23 +35,39 @@
     },
 
     useQQAccount: function () {
-      var type = qqaccount.getType();
-      console.log("qqaccount.getType() = " + JSON.stringify(type));
-
-      qqaccount.authorize({
-        // 参考QQ互联字段说明：http://wiki.connect.qq.com/%E4%BD%BF%E7%94%A8authorization_code%E8%8E%B7%E5%8F%96access_token
-        state: 'qqaccount',
-        scope: 'all',
-        fail: function (data, code) {
-          console.info(`### "qqaccount fail ### data:${ JSON.stringify(data) }, code: ${ code }`)
-        },
-        cancel: function (data) {
-          console.info(`### "qqaccount cancel ### data: ${ JSON.stringify(data) }`)
-        },
-        success: function (data) {
-          console.info(`### "qqaccount success ### data: ${ JSON.stringify(data) }`)
-        },
-      });
+      let type = qqaccount.getType();
+      if (type === 'APP') {
+        qqaccount.authorize({
+          scope: 'all',
+          success: function(ret) {
+            console.info(`### qqaccount authorize success ### data:${ JSON.stringify(ret) }`)
+          },
+          fail: function(errorMsg, errorCode) {
+            console.info(`### qqaccount authorize fail ### code:${ errorCode }, message:${ errorMsg }`)
+          },
+          cancel: function() {
+            console.info(`### qqaccount authorize cancelled ###`)
+          }
+        });
+      } else if (type === 'WEB') {
+        qqaccount.authorize({
+          // 参考QQ互联字段说明：http://wiki.connect.qq.com/%E4%BD%BF%E7%94%A8authorization_code%E8%8E%B7%E5%8F%96access_token
+          state: 'randomString', // 任意字符串
+          scope: 'all',
+          redirectUri: 'xxx', // 应用的重定向地址
+          fail: function (data, code) {
+            console.info(`### qqaccount fail ### data:${ JSON.stringify(data) }, code: ${ code }`)
+          },
+          cancel: function (data) {
+            console.info(`### qqaccount cancel ### data: ${ JSON.stringify(data) }`)
+          },
+          success: function (data) {
+            console.info(`### qqaccount success ### data: ${ JSON.stringify(data) }`)
+          },
+        });
+      } else {
+        console.info(`### qqaccount not available ###`);
+      }
     }
   }
 </script>

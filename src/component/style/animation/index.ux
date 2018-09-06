@@ -19,7 +19,7 @@
         <div class="item {{width}}">
           <text class="txt">width</text>
         </div>
-        <input class="button" type="button" name="" value="show" onclick="show01">
+        <input class="button" type="button" name="" value="show" onclick="show01"/>
       </div>
 
       <div class="group">
@@ -27,7 +27,7 @@
         <div class="item {{delay}}">
           <text class="txt">3s</text>
         </div>
-        <input class="button" type="button" name="" value="show" onclick="show02">
+        <input class="button" type="button" name="" value="show" onclick="show02"/>
       </div>
 
       <div class="group">
@@ -41,7 +41,7 @@
         <div class="item {{tenSec}}">
           <text class="txt">10s</text>
         </div>
-        <input class="button" type="button" name="" value="show" onclick="show03">
+        <input class="button" type="button" name="" value="show" onclick="show03"/>
       </div>
 
       <div class="group">
@@ -55,7 +55,7 @@
         <div class="item {{threeCount}}">
           <text class="txt">3</text>
         </div>
-        <input class="button" type="button" name="" value="show" onclick="show04">
+        <input class="button" type="button" name="" value="show" onclick="show04"/>
       </div>
 
       <div class="group">
@@ -75,7 +75,7 @@
         <div class="item {{easeInOut}}">
           <text class="txt">ease-in-out</text>
         </div>
-        <input class="button" type="button" name="" value="show" onclick="show05">
+        <input class="button" type="button" name="" value="show" onclick="show05"/>
       </div>
 
       <div class="group">
@@ -86,7 +86,7 @@
         <div class="item {{none}}">
           <text class="txt">none</text>
         </div>
-        <input class="button" type="button" name="" value="show" onclick="show06">
+        <input class="button" type="button" name="" value="show" onclick="show06"/>
       </div>
 
       <div class="group">
@@ -112,7 +112,7 @@
         <div class="item {{rotateY}}">
           <text class="txt">rotateY</text>
         </div>
-        <input class="button" type="button" name="" value="show" onclick="show07">
+        <input class="button" type="button" name="" value="show" onclick="show07"/>
       </div>
     </div>
   </div>

@@ -28,7 +28,7 @@
       </div>
     </div>
 
-    <input type="button" class="btn" style="margin-top: 50px;" value="通过代码调取地区选择器" onclick="show">
+    <input type="button" class="btn" style="margin-top: 50px;" value="通过代码调取地区选择器" onclick="show"/>
   </div>
 </template>
 

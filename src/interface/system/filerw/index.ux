@@ -9,21 +9,21 @@
     <div class="item-container">
       <!-- 写文件 -->
       <div class="item-content">
-        <input type="text" class="input" placeholder="请输入写入文件的内容" value="{{inputValue}}" onchange="keyFn">
+        <input type="text" class="input" placeholder="请输入写入文件的内容" value="{{inputValue}}" onchange="keyFn"/>
       </div>
-      <input type="button" class="btn" onclick="writeFile" value="写入文件" />
+      <input type="button" class="btn" onclick="writeFile" value="写入文件"/>
       <!-- 读文件 -->
       <div class="item-content">
         <text class="txt">文件内容：{{fileContent}}</text>
       </div>
-      <input type="button" class="btn" onclick="readFile" value="读取文件" />
+      <input type="button" class="btn" onclick="readFile" value="读取文件"/>
       <!-- 读文件Buffer -->
       <div class="item-content">
         <text class="txt">文件内容(Uint8Array)：{{fileArrayBuffer}}</text>
       </div>
-      <input type="button" class="btn" onclick="readFileBuffer" value="读取文件Buffer" />
+      <input type="button" class="btn" onclick="readFileBuffer" value="读取文件Buffer"/>
       <!-- 写文件Buffer -->
-      <input type="button" class="btn" onclick="writeFileBuffer" value="将读取的Buffer写回文件" />
+      <input type="button" class="btn" onclick="writeFileBuffer" value="将读取的Buffer写回文件"/>
     </div>
 </template>
 

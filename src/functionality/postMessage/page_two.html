@@ -1,0 +1,29 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width,initial-scale=1" name="viewport">
+    <meta http-equiv="cache-control" content="no-cache">
+</head>
+<body>
+<h1>page_two.html</h1>
+<input type="button" value="back" id="back">
+<p>
+  <input type="button" value="sendMessageToQucikapp" id="send">
+</p>
+<h2></h2>
+<script>
+  window.addEventListener('load', function () {
+    system.onmessage = function (data) {
+      document.body.querySelector('h2').innerHTML = data
+    }
+    document.body.querySelector('#back').addEventListener('click', function () {
+      window.history.back()
+    })
+    document.body.querySelector('#send').addEventListener('click', sendMsg);
+    function sendMsg() {
+      system.postMessage('page_two.html: hello quickapp')
+    }
+  })
+</script>
+</body>
+</html>

@@ -69,8 +69,10 @@
           id: 'LocalNews',
           ajax: 'json'
         },
+        responseType: 'json',// 支持返回类型是text、json、file和arraybuffer，默认返回字符串文本。
         success: function (ret) {
           // 注意self.fetchedData与ret接收的数据类型保持一致
+          // 设置responseType为json类型时，ret.data为json对象
           self.fetchedData = '网络数据(jsonp)：' + JSON.stringify(ret.data)
           prompt.showToast({
             message: 'success'
@@ -89,8 +91,9 @@
           id: 'LocalNews',
           ajax: 'json'
         },
+        responseType: 'json'
       })
-      self.fetchedData = '网络数据(jsonp)：' + JSON.stringify(ret.data)
+      self.fetchedData = '网络数据(jsonp)：' + JSON.stringify(ret.data.data)
       prompt.showToast({
         message: 'success'
       })

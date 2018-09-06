@@ -9,15 +9,15 @@
       <div class="item-content">
         <div class="item-content-detail">
           <text class="txt">消息标题:</text>
-          <input type="text" class="input" name="" placeholder="请输入title" onchange="titleFn">
+          <input type="text" class="input" name="" placeholder="请输入title" onchange="titleFn"/>
         </div>
 
         <div class="item-content-detail">
           <text class="txt">消息文本:</text>
-          <input type="text" class="input" name="" placeholder="请输入content" onchange="contentFn">
+          <input type="text" class="input" name="" placeholder="请输入content" onchange="contentFn"/>
         </div>
       </div>
-      <input type="button" class="btn" value="发送通知消息" onclick="show">
+      <input type="button" class="btn" value="发送通知消息" onclick="show"/>
     </div>
   </div>
 </template>

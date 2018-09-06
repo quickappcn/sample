@@ -89,6 +89,10 @@ export const tabsData = {
           {
             name: 'text',
             path: 'component/basic/text'
+          },
+          {
+            name: 'map',
+            path: 'component/basic/map'
           }
         ]
       },
@@ -128,6 +132,10 @@ export const tabsData = {
       {
         name: '媒体组件',
         caseList: [
+          {
+            name: 'canvas',
+            path: 'component/media/canvas'
+          },
           {
             name: 'video',
             path: 'component/media/video'
@@ -185,6 +193,14 @@ export const tabsData = {
           {
             name: '图片展示',
             path: 'functionality/photo'
+          },
+          {
+            name: '支持h5页面下载网络资源',
+            path: 'functionality/h5download'
+          },
+          {
+            name: 'web页面通信',
+            path: 'functionality/postMessage'
           },
           {
             name: '生成二维码',
@@ -270,6 +286,10 @@ export const tabsData = {
           {
             name:'数据请求',
             path:'interface/system/fetch'
+          },
+          {
+            name:'websocket',
+            path:'interface/system/websocket'
           }
         ]
       },
@@ -348,6 +368,10 @@ export const tabsData = {
           {
             name:'联系人',
             path:'interface/system/contact'
+          },
+          {
+            name:'Wi-Fi',
+            path:'interface/system/wifi'
           }
         ]
       },
