@@ -90,4 +90,4 @@ A project to demonstrate the use of quickapp, including demos of components and 
 #### 预览效果
 安装成功后，效果如下：  
 
-![](https://cnbj1.fds.api.xiaomi.com/dsg-static/index-snapshot.png)
+![](http://statres.quickapp.cn/quickapp/quickapp/201809/file/index-snapshot.png)
