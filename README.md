@@ -94,4 +94,4 @@ master分支：最新内容，需在快应用平台最新版本上使用。
 #### 预览效果
 安装成功后，效果如下：  
 
-![](https://cnbj1.fds.api.xiaomi.com/dsg-static/index-snapshot.png)
+![](http://statres.quickapp.cn/quickapp/quickapp/201809/file/index-snapshot.png)
