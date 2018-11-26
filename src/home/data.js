@@ -192,10 +192,6 @@ export const tabsData = {
             path: 'functionality/changestyle'
           },
           {
-            name: '动画animation api',
-            path: 'functionality/animationapi'
-          },
-          {
             name: '表单',
             path: 'functionality/form'
           },

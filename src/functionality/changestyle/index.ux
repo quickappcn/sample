@@ -29,7 +29,7 @@
   }
   .box {
     border:1px solid #000000;
-  },
+  }
   .btn {
     width: 500px;
     height: 70px;
