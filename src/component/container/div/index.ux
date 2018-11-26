@@ -32,6 +32,15 @@
     </div>
 
     <div class="item-container">
+      <text class="item-title">justify-content: space-around;</text>
+      <div style="flex-direction: row; justify-content: space-around;">
+        <text class="item color-1">1</text>
+        <text class="item color-2">2</text>
+        <text class="item color-3">3</text>
+      </div>
+    </div>
+
+    <div class="item-container">
       <text class="item-title">align-items: center;</text>
       <div style="flex-direction: column; align-items: center;">
         <text class="item color-1">1</text>
@@ -47,6 +56,37 @@
         <text class="item color-2" style="align-self: flex-end;">2</text>
         <text class="item color-3">3</text>
       </div>
+    </div>
+
+    <div class="item-container">
+      <text>background-image 加载网络图片【https】：png格式</text>
+      <div class="bg-png"></div>
+    </div>
+
+    <div class="item-container">
+      <text>background-image 加载网络图片【https】：webp格式</text>
+      <div class="bg-webp"></div>
+    </div>
+
+    <div class="item-container">
+      <text>background-image 加载网络图片【http】：gif格式</text>
+      <div class="bg-gif"></div>
+    </div>
+
+    <div class="item-container">
+      <text>background-image 加载网络图片【https】：jpg格式</text>
+      <div class="bg-jpg"></div>
+    </div>
+
+    <div class="item-container">
+      <text>background-image 加载错误的网络图片地址：加载错误，显示空白</text>
+      <div class="bg-load-error"></div>
+    </div>
+
+    <div class="item-container">
+      <text class="item-title">请触摸，滑动，长按，以下区域，查看事件类型</text>
+      <text>当前事件类型：{{state}}</text>
+      <div class="touch-region" ontouchstart="getEventType" onclick="getEventType" onlongpress="getEventType" ontouchmove="getEventType" ontouchend="getEventType"></div>
     </div>
   </div>
 </template>
@@ -76,15 +116,48 @@
   .color-3 {
     background-color: #0faeff;
   }
+  .bg-png {
+    height: 120px;
+    background-image: url("https://doc.quickapp.cn/assets/images/logo.png");
+  }
+  .bg-webp {
+    height: 480px;
+    width: 360px;
+    background-image: url("https://www.gstatic.com/webp/gallery/1.webp");
+  }
+  .bg-gif {
+    height: 480px;
+    width: 360px;
+    background-image: url("http://www.w3school.com.cn/i/eg_cute.gif");
+  }
+  .bg-jpg {
+    height: 480px;
+    width: 360px;
+    background-image: url("https://doc.quickapp.cn/tutorial/widgets/img/canvas_drawimage.jpg");
+  }
+  .bg-load-error {
+    height: 480px;
+    width: 360px;
+    background-image: url("https://doc.quickapp.cn/assets/images/l.png");
+  }
+  .touch-region {
+    width: 80%;
+    height: 200px;
+    background-color: #007dff;
+  }
 </style>
 
 <script>
   export default {
     private: {
-      componentName: 'div'
+      componentName: 'div',
+      state: '操作事件类型'
     },
     onInit () {
       this.$page.setTitleBar({text: 'Div'})
+    },
+    getEventType (event) {
+      this.state = event.type
     }
   }
 </script>

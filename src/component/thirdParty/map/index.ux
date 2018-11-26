@@ -1,6 +1,6 @@
 <template>
   <stack>
-    <map id="map" style="width:{{width}}; height:{{height}}" longitude="{{longitude}}" latitude="{{latitude}}" scale="{{scale}}"
+    <map id="map" style="width:{{width}}; height:{{height}};mylocation-fill-color: {{fillColor}}; mylocation-stroke-color: {{strokeColor}};" longitude="{{longitude}}" latitude="{{latitude}}" scale="{{scale}}"
       markers="{{markers}}" controls="{{controls}}" circles="{{circles}}" polylines="{{polylines}}" groundoverlays="{{groundoverlays}}"
       rotate="{{rotate}}" showmylocation="{{showmylocation}}" includePoints="{{includePoints}}" @regionchange="regionchange"
       @loaded="loaded" @tap="tap" @markertap="markerTap" @callouttap="calloutTap" @controltap="controlTap">
@@ -30,6 +30,9 @@
           <input type="button" value="顺时针" class="resize-btn" @click="rotateMapMinus"></input>
         </div>
         <input type="button" value="改变地图组件尺寸" class="btn" @click="resizeMap"></input>
+        <input placeholder="精度圈填充颜色" type="text" class="text-input" @change="changeColor('fill')"></input>
+        <input placeholder="精度圈描边颜色" type="text" class="text-input" @change="changeColor('stroke')"></input>
+        <input type="button" value="修改精度圈颜色" class="btn" @click="refreshLocationStyle"></input>
       </div>
 
       <div if="showList.methodShow" class="button-style">
@@ -49,6 +52,11 @@
       </div>
 
       <div if="showList.operateSingleMarker" class="button-style">
+        <text>{{markers && markers.length && markers[0].iconPath}}</text>
+        <input type="button" value="切换图片来源" class="btn" @click="toggleIconPath"></input>
+        <input placeholder="请输入 offsetX" type="number" class="text-input" @change="changeOffset('X')"></input>
+        <input placeholder="请输入 offsetY" type="number" class="text-input" @change="changeOffset('Y')"></input>
+        <input type="button" value="修改坐标" class="btn" @click="refreshOffset"></input>
         <input placeholder="透明度（0-1）" type="text" class="text-input" @change="changeMarkerAlpha"></input>
         <input placeholder="锚点X值（0-1）" type="text" class="text-input" @change="changeMarkerX"></input>
         <input placeholder="锚点Y值（0-1）" type="text" class="text-input" @change="changeMarkerY"></input>
@@ -134,8 +142,8 @@
         <input placeholder="纬度" value="39.9073728469" type="text" class="text-input" @change="changeLatitude">
         </input>
         <input placeholder="经度" value="116.3913445961" type="text" class="text-input" @change="changeLongitude"></input>
+        <text class="input-hint">转换为当前坐标系: {{currentCoordType}}</text>
         <input type="button" value="转换" class="btn" @click="convertCoord"></input>
-        <text class="input-hint">转换后的gcj02坐标:</text>
         <text class="input-hint">转换坐标纬度：{{latitudeConvert}}</text>
         <text class="input-hint">转换坐标经度：{{longitudeConvert}}</text>
       </div>
@@ -312,7 +320,15 @@
     borderWidth: 10,
     radius: 100
   }, TIAN_TAN_PARK_WGS)
+
+  let iconPathIndex = 0
+  const iconPathList = [
+    MARKER_PATH,
+    'https://doc.quickapp.cn/assets/images/logo.png'
+  ]
+
   let markTemp = {}
+  let locationTemp = {}
   let carTarget = {
     carA: 1,
     carB: 1
@@ -338,6 +354,7 @@
       width: "100%",
       height: "100%",
       rotate: 0,
+      currentCoordType: '',
       showmylocation: false,
       scale: DEFAULT_SCALE,
       latitude: null,
@@ -349,7 +366,12 @@
       controls: null,
       includePoints: [],
       latitudeConvert: null,
-      longitudeConvert: null
+      longitudeConvert: null,
+      fillColor: '',
+      strokeColor: ''
+    },
+    onReady () {
+      this.getCoord()
     },
     // select组件选择
     changeOption(e) {
@@ -607,8 +629,10 @@
     },
     // 获取组件中心点的坐标系
     getCoord: function () {
+      const self = this
       this.$element('map').getCoordType({
         success: function (res) {
+          self.currentCoordType = res.coordType
           prompt.showToast({
             message: "当前坐标系：" + res.coordType
           })
@@ -998,6 +1022,32 @@
 
       groundoverlay.visible = groundoverlay.visible ? false : true
       this.groundoverlays = [groundoverlay]
+    },
+    // 点击切换marker的图标
+    toggleIconPath () {
+      let mark = this.markers[0]
+      iconPathIndex++;
+      mark.iconPath = iconPathList[iconPathIndex % iconPathList.length]
+      this.markers = [mark]
+    },
+    changeOffset (type, e) {
+      markTemp[`offset${type}`] = Number(e.value)
+    },
+    // 修改marker位于屏幕的坐标
+    refreshOffset () {
+      let mark = this.markers[0]
+      mark[`offsetX`] = markTemp[`offsetX`]
+      mark[`offsetY`] = markTemp[`offsetY`]
+      this.markers = [mark]
+    },
+    changeColor (type, e) {
+      locationTemp[`${type}Color`] = e.value
+    },
+    // 修改定位点的精度圈颜色
+    refreshLocationStyle () {
+      this.fillColor = locationTemp.fillColor
+      this.strokeColor = locationTemp.strokeColor
+      this.showmylocation = true
     }
   }
 </script>

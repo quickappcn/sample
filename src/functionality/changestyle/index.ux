@@ -1,0 +1,94 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+        <text class="page-title">{{ text }}</text>
+    </div>
+    <div class="item-container" style="{{csstextJson}}">
+      <text style="{{csstextJson}}">我是对象</text>
+    </div>
+    <text>当前样式为:</text>
+    <text>{{str}}</text>
+    <div class="item-container" style="{{csstext}}">
+      <text style="{{csstext}}">我是字符串</text>
+    </div>
+    <text>当前样式为:</text>
+    <text>{{csstext}}</text>
+    <input type="button" class="btn" onclick="rolling" value="点我改变样式"></input>
+  </div>
+</template>
+
+<style>
+  @import "../../common/css/common.css";
+
+  .item-container {
+    margin-top: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+    height: 200px;
+  }
+  .box {
+    border:1px solid #000000;
+  },
+  .btn {
+    width: 500px;
+    height: 70px;
+    margin-top: 40px;
+    border-radius: 43px;
+    background-color: #007dff;
+    font-size: 30px;
+    color: #f2f2f2;
+  }
+
+</style>
+<script>
+  import prompt from '@system.prompt'
+  import router from '@system.router'
+
+  export default {
+    private: {
+      params: '',
+      times: 0,
+      text: 'style 属性的数据绑定',
+      str: '',
+      typeList: ['button', 'checkbox', 'radio', 'text', 'email', 'date', 'time', 'number', 'password'],
+      csstext: 'fontSize: 19px; backgroundColor: red; color: #123456;',
+      csstextJson: {
+        fontSize: '20px',
+        backgroundColor: 'yellow',
+        color: 'black'
+      },
+      csstextListJson: [
+        {
+          fontSize: '20px',
+          'background-color': 'black',
+          color: 'green'
+        },
+        {
+          fontSize: '40px',
+          backgroundColor: 'yellow',
+          color: 'blue'
+        },
+        {
+          'font-size': '60px',
+          backgroundColor: 'pink',
+          color: 'red'
+        }
+      ],
+      csstextList: [
+        'font-size: 40px; backgroundColor: green; color: black;',
+        'font-size: 80px; background-color: blue; color: white;',
+        'fontSize: 120px; background-color: red; color: pink;']
+    },
+    onInit: function () {
+      this.$page.setTitleBar({ text: this.text })
+      this.str = JSON.stringify(this.csstextJson)
+    },
+    rolling () {
+      this.times++
+      this.csstext = this.csstextList[this.times % this.csstextList.length]
+      this.csstextJson = this.csstextListJson[this.times % this.csstextListJson.length]
+      this.str = JSON.stringify(this.csstextJson)
+    }
+  }
+</script>

@@ -12,6 +12,14 @@
         <text class="txt" if="{{lifecycleObject[$item].params}}">参数: {{lifecycleObject[$item].params}}</text>
       </div>
     </div>
+    <div class="item-container">
+      <div class="item-content">
+        <text class="title">通过$page变量获取页面的元信息</text>
+        <text>name: {{pageInfo.name}}</text>
+        <text>path: {{pageInfo.path}}</text>
+        <text>component: {{pageInfo.component}}</text>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -70,7 +78,8 @@
           desc: `当用户点击菜单按钮时触发`
         }
       },
-      lifecycleList: []
+      lifecycleList: [],
+      pageInfo: {}
     },
     onInit () {
       this.$page.setTitleBar({text: 'Lifecycle'})
@@ -80,6 +89,7 @@
       })
       console.info(`### onInit ###`)
       ++this.lifecycleObject.onInit.count
+      this.pageInfo = this.$page
     },
     onReady () {
       console.info(`### onReady ###`)

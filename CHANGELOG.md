@@ -1,3 +1,26 @@
+# v1.3.0
+此版本配套快应用平台版本为v1030
+## 框架
+* 在 app.ux 中新增全局错误监听示例
+
+## 组件
+* 为 input 组件和 textarea 组件新增 selectionchange 事件示例
+* 为 image 组件增加 complete, error 事件示例
+* 为 video 组件增加 muted 属性示例
+* 为 tab-content 组件增加 scrollable 属性示例
+* 为 audio 组件增加 stop 方法示例
+* 新增 animation API 示例
+
+## 接口
+* 新增在创建图标的对话框中自定义提示信息示例
+* 新增短时振动示例
+* 为 WebSocket 新增支持 ArrayBuffer 示例
+
+## 样式
+* 新增 font-family, font-face 示例
+* 新增 jusify-content: space-around 示例
+* background-image 支持网络图片地址
+
 # v1.0.2
 此版本配套快应用平台版本为v1020
 ## 组件

@@ -1,0 +1,77 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+
+    <div class="item-container vertical">
+      <text class="container-header">设置系统字体</text>
+      <div class="container-content vertical">
+        <text class="normal">不设置字体：abcdefg</text>
+        <text class="serif">设置字体：abcdefg</text>
+      </div>
+    </div>
+
+    <div class="item-container vertical">
+      <text class="container-header">引入字体文件</text>
+      <div class="container-content vertical">
+        <text class="normal">不设置字体：abcdefg</text>
+        <text class="myfont">设置字体：abcdefg</text>
+      </div>
+    </div>
+
+    <div class="item-container vertical">
+      <text class="container-header">设置icon-font</text>
+      <div class="container-content vertical">
+        <text><span class="icon-font-span">&#xe900;</span></text>
+      </div>
+    </div>
+  </div>
+</template>
+
+<style>
+  @import '../../../common/css/common.css';
+
+  @font-face {
+    font-family: myfont;
+    src: url("/common/css/BenMoJinSong.ttf"); /*支持ttf或者otf字体文件*/
+  }
+
+  @font-face {
+    font-family: icomoon;
+    src: url('/common/css/icomoon.ttf');
+  }
+
+  .icon-font-span {
+    font-family: icomoon;
+    font-size: 40px;
+    color: #000000;
+  }
+
+  .container-header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .container-content {
+    width: 100%;
+    align-items: center;
+    padding: 0 20px 40px 20px;
+  }
+
+  .serif {
+    font-family: serif;
+  }
+
+  .myfont {
+    font-family: myfont;
+  }
+</style>
+
+<script>
+  export default {
+    private: {
+      componentName: 'font-family'
+    }
+  }
+</script>

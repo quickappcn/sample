@@ -1,0 +1,75 @@
+<import name='titleBar' src='../component/titlebar'></import>
+
+<template>
+  <div class="doc-comp">
+    <titleBar value="{{titleBarParams}}"></titleBar>
+    <web class="web-comp" src="{{websrc}}" allowthirdpartycookies="{{allow}}" onpagestart="onPageStart" onpagefinish="onPageFinish"  ontitlereceive="onTitleReceive" onerror="onError" id="web"></web>
+  </div>
+</template>
+
+<style>
+  .doc-comp {
+    flex: 1;
+    flex-direction: column;
+  }
+  .web-comp {
+    flex: 1;
+  }
+</style>
+<script>
+  import router from '@system.router'
+  export default {
+    data: {
+      websrc: '',
+      titleBarParams: {
+        type: 'titleBar',
+        config: {
+          'titleBarShow': true
+        }
+      },
+      allow: false
+    },
+    onInit () {
+      this.websrc = this.url
+      this.allow = this.allowthirdpartycookies === 'true'
+      this.$page.setTitleBar({ text: `allowthirdpartycookies=${this.allow}` })
+      this.$on('arrowLeft', this.arrowLeftIcon)
+      this.$on('arrowRight', this.arrowRightIcon)
+    },
+    onPageStart (e) {
+      console.info('### pagestart ###'+e.url)
+    },
+    onTitleReceive (e) {
+      this.titleBarParams.config.title = e.title
+    },
+    onError () {
+      console.info('### pageError ###')
+    },
+    arrowLeftIcon () {
+      this.isCanBack()
+    },
+    arrowRightIcon () {
+      this.isCanForward()
+    },
+    isCanForward () {
+      this.$element('web').canForward({
+        callback: function(e){
+          if(e){
+            this.$element('web').forward()
+          }
+        }.bind(this)
+      })
+    },
+    isCanBack () {
+      this.$element('web').canBack({
+        callback: function(e){
+          if (e) {
+            this.$element('web').back()
+          } else {
+            router.back()
+          }
+        }.bind(this)
+      })
+    }
+  }
+</script>

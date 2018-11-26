@@ -1,0 +1,53 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+    <div class="item-container">
+      <text class="title">禁止修改接口的方法</text>
+      <text>点击下面按钮会修改震动接口方法并执行，如果仍然有震动说明修改失败。</text>
+      <input type="button" class="btn" onclick="changeVibrator" value="改变震动接口" />
+      <text>原vibrator.vibrate方法： {{originFunction}}</text>
+      <text>修改后的vibrator.vibrate方法：{ console.log('override') }</text>
+    </div>
+  </div>
+</template>
+
+<style>
+  @import '../../../common/css/common.css';
+
+  .item-container {
+    margin-bottom: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+  .item-content {
+    flex-direction: column;
+    background-color: #ffffff;
+    padding: 30px;
+    margin-bottom: 50px;
+    align-items: flex-start;
+  }
+</style>
+
+<script>
+  import vibrator from '@system.vibrator'
+
+  export default {
+    private: {
+      componentName: 'Forbid modify',
+      originFunction: ''
+    },
+    onInit () {
+      this.originFunction = JSON.stringify(Object.getOwnPropertyDescriptor(vibrator, 'vibrate'))
+    },
+    changeVibrator() {
+      vibrator.vibrate = () => {
+        console.log('override')
+      }
+      console.log(vibrator)
+      vibrator.vibrate()
+    }
+  }
+</script>

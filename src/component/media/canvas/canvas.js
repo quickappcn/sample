@@ -239,3 +239,83 @@ export const drawLogo = ctx => {
   ctx.fillStyle = '#f9bc05'
   ctx.fill();
 }
+
+export const drawGradientLogo = ctx => {
+  const r = 20
+  const h = 380
+  const p = Math.PI
+
+  const linGrad1 = ctx.createLinearGradient(h, h, 0, 0)
+  linGrad1.addColorStop(0, '#FFFAFA')
+  linGrad1.addColorStop(0.8, '#E4C700')
+  linGrad1.addColorStop(1, 'rgba(228,199,0,0)')
+
+  ctx.fillStyle = linGrad1
+  ctx.fillRect(0, 0, h, h)
+
+  const linGrad2 = ctx.createLinearGradient(0, 0, h, h)
+  linGrad2.addColorStop(0, '#C1FFC1')
+  linGrad2.addColorStop(0.5, '#ffffff')
+  linGrad2.addColorStop(1, '#00BFFF')
+
+  ctx.beginPath()
+  ctx.moveTo(r * 2, r)
+  ctx.arc(r * 2, r * 2, r, -p / 2, -p, true)
+  ctx.lineTo(r, h - r * 2)
+  ctx.arc(r * 2, h - r * 2, r, p, p / 2, true)
+  ctx.lineTo(h - r * 2, h - r);
+  ctx.arc(h - r * 2, h - r * 2, r, p / 2, 0, true)
+  ctx.lineTo(h - r, r * 2)
+  ctx.arc(h - r * 2, r * 2, r, 0, -p / 2, true)
+  ctx.closePath()
+  ctx.lineWidth = 10
+  ctx.strokeStyle = linGrad2
+  ctx.stroke()
+
+  const s = 60
+
+  ctx.beginPath()
+  ctx.moveTo(h / 2 + s, h / 2)
+  ctx.arc(h / 2, h / 2, s, 0, -p / 2 * 3, true)
+  ctx.arc(h / 2, h / 2 + s + s / 2, s / 2, -p / 2, p / 2, false)
+  ctx.arc(h / 2, h / 2, s * 2, -p / 2 * 3, 0, false)
+  ctx.arc(h / 2 + s + s / 2, h / 2, s / 2, 0, p, false)
+  ctx.fillStyle = '#4286f5'
+  ctx.fill()
+
+  ctx.beginPath()
+  ctx.moveTo(h / 2 + s * 2, h / 2 + s + s / 2)
+  ctx.arc(h / 2 + s + s / 2, h / 2 + s + s / 2, s / 2, 0, p * 2, false)
+  ctx.fillStyle = 'rgb(234, 67, 53)'
+  ctx.fill()
+
+  ctx.beginPath()
+  ctx.moveTo(h / 2 + s / 4 * 3, h / 2 + s / 2)
+  ctx.arc(h / 2 + s / 2, h / 2 + s / 2, s / 4, 0, p * 2, false)
+  ctx.fillStyle = 'rgba(250, 188, 5, 1)'
+  ctx.fill()
+}
+
+export const grayFilter = ctx => {
+  const canvasW = 380
+  const canvasH = 380
+
+  // 得到场景像素数据
+  const imageData = ctx.getImageData(0, 0, canvasW, canvasH)
+  const data = imageData.data
+
+  const grayscale = () => {
+    for (let i = 0; i < data.length; i += 4) {
+      const avg = (data[i] + data[i + 1] + data[i + 2]) / 3
+
+      data[i] = avg // red
+      data[i + 1] = avg // green
+      data[i + 2] = avg // blue
+    }
+
+    // 在场景中写入像素数据
+    ctx.putImageData(imageData, 0, 0)
+  }
+
+  grayscale()
+}

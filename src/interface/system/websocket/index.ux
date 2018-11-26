@@ -5,10 +5,13 @@
     </div>
 
     <div class="item-container">
-      <input type="button" class="btn" onclick="create" value="创建websocket实例" />
+      <input type="button" class="btn" onclick="create('websock1', false)" value="创建实例websocket1" />
+      <input type="button" class="btn" onclick="create('websock2', true)" value="创建buffer实例websocket2" />
       <input type="text" class="input-text" onchange="handleChange" placeholder="请输入" />
-      <input type="button" class="btn" onclick="send" value="发送消息" />
-      <input type="button" class="btn" onclick="close" value="关闭连接" />
+      <input type="button" class="btn" onclick="send('websock1')" value="websock1发送消息" />
+      <input type="button" class="btn" onclick="send('websock2')" value="websock2发送消息" />
+      <input type="button" class="btn" onclick="close('websock1')" value="websock1关闭连接" />
+      <input type="button" class="btn" onclick="close('websock2')" value="websock2关闭连接" />
     </div>
   </div>
 </template>
@@ -43,7 +46,10 @@
   import prompt from '@system.prompt'
   import websocketfactory from '@system.websocketfactory'
 
-  let ws = null
+  let ws = {
+    websock1: null,
+    websock2: null,
+  }
 
   export default {
     data: {
@@ -53,68 +59,109 @@
     onInit() {
       this.$page.setTitleBar({ text: this.componentName })
     },
-    create() {
-      ws = websocketfactory.create({
-        url: 'wss://echo.websocket.org',
+    create(name, isbuffer) {
+      if(ws[name]) {
+        prompt.showToast({
+          message: `[client ${name}] has been existed`
+        })
+        return false
+      }
+      prompt.showToast({
+        message: `[client ${name}] is creating, wait please.`
+      })
+
+      let _ws = websocketfactory.create({
+        url: isbuffer === true ? 'ws://demos.kaazing.com/echo' : 'wss://echo.websocket.org',
         header: {
           'content-type': 'application/json'
         },
         protocols: ['protocol']
       })
 
-      ws.onopen = function () {
+      if(isbuffer === true) {
+        _ws.binaryType = 'arraybuffer'
+      }
+      _ws.onopen = function () {
         prompt.showToast({
-          message: 'connect open'
+          message: `[client ${name}] connect open`
         })
       }
 
-      ws.onmessage = function (data) {
+      _ws.onmessage = function (data) {
+        let res = data.data
+        let type = Object.prototype.toString.call(res)
+        function ab2str(buf) {
+          return String.fromCharCode.apply(null, new Uint16Array(buf))
+        }
+        if (Object.prototype.toString.call(res) === '[object ArrayBuffer]') {
+          res = ab2str(res)
+        }
         prompt.showToast({
-          message: `message is ${data.data}`
+          message: `[client ${name}] has received,type: ${type}; message: ${res} from server`
         })
       }
 
-      ws.onerror = function (data) {
+      _ws.onerror = function (data) {
         prompt.showToast({
-          message: `onerror data.data = ${data.data}`
+          message: `onerror [client ${name}] data.data = ${data.data}`
         })
       }
 
-      ws.onclose = function (data) {
+      _ws.onclose = function (data) {
         prompt.showToast({
-          message: `onclose data.code = ${data.code}, data.reason = ${data.reason}, data.wasClean = ${data.wasClean}`
+          message: `onclose [client ${name}] data.code = ${data.code}, data.reason = ${data.reason}, data.wasClean = ${data.wasClean}`
         })
       }
+
+      ws[name] = _ws
     },
     handleChange(e) {
       this.message = e.value
     },
-    send() {
-      ws && ws.send({
-        data: this.message,
+    send(name) {
+      let _ws = ws[name]
+      if(!_ws) {
+        return false
+      }
+
+      function str2ab(str) {
+        var buf = new ArrayBuffer(str.length * 2) // 每个字符占用2个字节
+        var bufView = new Uint16Array(buf)
+        for (var i = 0, strLen = str.length; i < strLen; i++) {
+          bufView[i] = str.charCodeAt(i)
+        }
+        return buf
+      }
+      let msg = _ws.binaryType !== 'arraybuffer' ? this.message : str2ab(this.message)
+
+      _ws.send({
+        data: msg,
         success: function () {
           prompt.showToast({
-            message: 'send success'
+            message: `[client ${name}] send success`
           })
         },
         fail: function (data, code) {
           prompt.showToast({
-            message: `handling fail, code = ${code}`
+            message: `[client ${name}] handling fail, code = ${code}`
           })
         }
       })
     },
-    close() {
-      ws && ws.close({
+    close(name) {
+      if(!ws[name]) {
+        return false
+      }
+      ws[name].close({
         success: function () {
           prompt.showToast({
-            message: 'close success'
+            message: `[client ${name}] close success`
           })
-          ws = null
+          ws[name] = null
         },
         fail: function (data, code) {
           prompt.showToast({
-            message: `handling fail, code = ${code}`
+            message: `[client ${name}] handling fail, code = ${code}`
           })
         }
       })

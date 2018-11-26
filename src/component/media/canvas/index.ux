@@ -15,11 +15,21 @@
       <text>canvas绘制图片</text>
       <canvas id="canvas3"></canvas>
     </div>
+    <div class="content">
+      <text>canvas绘制元素</text>
+      <image id="image" src="/common/logo.png"></image>
+      <canvas id="canvas4"></canvas>
+    </div>
+    <div class="content">
+      <text>canvas像素操作</text>
+      <canvas id="canvas5"></canvas>
+    </div>
   </div>
 </template>
 
 <style>
   @import '../../../common/css/common.css';
+
   .content {
     flex-direction: column;
     align-items: center;
@@ -27,34 +37,46 @@
     background-color: #ffffff;
     padding: 30px 0px 10px 0px;
   }
+
   canvas {
     height: 400px;
     width: 400px;
   }
+
   #canvas2 {
     height: 300px;
   }
+
   #canvas3 {
     height: 200px;
   }
+
+  #canvas4 {
+    width: 380px;
+    height: 380px;
+  }
+
   .content text {
     margin-top: 20px;
   }
 </style>
 
 <script>
-  import { drawClock, drawLogo } from './canvas'
+  import { drawClock, drawLogo, drawGradientLogo, grayFilter } from './canvas'
+
   export default {
     private: {
       componentName: 'canvas'
     },
     onInit () {
-      this.$page.setTitleBar({text: 'Canvas'})
+      this.$page.setTitleBar({ text: 'Canvas' })
     },
     onShow () {
       this.drawCanvas1()
       this.drawCanvas2()
       this.drawCanvas3()
+      this.drawCanvas4()
+      this.drawCanvas5()
     },
     drawCanvas1 () {
       const conf = {
@@ -85,6 +107,17 @@
       img.onload = function () {
         ctx.drawImage(img, 40, 40, 300, 100)
       }
+    },
+    drawCanvas4 () {
+      const canvas = this.$element('canvas4')
+      const ctx = canvas.getContext('2d')
+      ctx.drawImage(this.$element('image'),0, 0, 300, 300)
+    },
+    drawCanvas5 () {
+      const canvas = this.$element('canvas5')
+      const ctx = canvas.getContext('2d')
+      drawGradientLogo(ctx)
+      grayFilter(ctx)
     }
   }
 </script>

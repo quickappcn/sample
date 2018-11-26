@@ -13,6 +13,10 @@
     </div>
 
     <div class="item-container">
+      <input type="button" class="btn" onclick="installShortcutWithCustomMessage" value="创建桌面图标并自定义弹窗提示信息"/>
+    </div>
+
+    <div class="item-container">
       <input type="button" class="btn" onclick="openShortcut" value="开启创建快捷方式时的弹窗"/>
     </div>
 
@@ -67,6 +71,16 @@
     },
     installShortcut () {
       shortcut.install({
+        success: function () {
+          prompt.showToast({
+            message: '桌面图标创建成功'
+          })
+        }
+      })
+    },
+    installShortcutWithCustomMessage () {
+      shortcut.install({
+        message: '自定义提示信息',
         success: function () {
           prompt.showToast({
             message: '桌面图标创建成功'

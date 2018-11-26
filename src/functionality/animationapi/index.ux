@@ -1,0 +1,179 @@
+<template>
+  <div class="doc-page">
+    <div flex-direction="column">
+      <div>
+        <input type="button" class="btn" onclick="onChangeWH" value="宽高" />
+        <input type="button" class="btn" onclick="onScale" value="放大" />
+        <input type="button" class="btn" onclick="onTranslate" value="移动" />
+        <input type="button" class="btn" onclick="onRotate" value="旋转" />
+      </div>
+      <div>
+        <input type="button" class="btn" onclick="pauseAnimation" value="pause" />
+        <input type="button" class="btn" onclick="cancelAnimation" value="cancel" />
+        <input type="button" class="btn" onclick="reverseAnimation" value="reverse" />
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="widget" id="test">
+        <text color="#FFFFFF">{{state}}</text>
+      </div>
+    </div>
+  </div>
+</template>
+
+<style>
+  @import "../../common/css/common.css";
+
+  .btn {
+    margin-right: 30px;
+    margin-left: 30px;
+    margin-top: 10px;
+  }
+
+  .container {
+    width: max-content;
+    height: max-content;
+    flex: 1;
+    align-items: center;
+    background-color: #0faeff;
+    justify-content: center;
+    align-content: center;
+  }
+
+  .widget {
+    width: 120px;
+    height: 120px;
+    background-color: rgb(80, 209, 28);
+    border-color: #dddddd;
+    border-width: 1px;
+    color: #FFFFFF;
+    justify-content: center;
+  }
+</style>
+
+<script>
+  let animate
+
+  export default {
+    private: {
+      state: 'idle',
+      currentRotate: 0
+    },
+    onInit() {
+      this.$page.setTitleBar({
+        text: 'Animation api'
+      })
+    },
+    play(_anime) {
+      this.cancelAnimation()
+      animate = _anime
+      if (animate) {
+        animate.play()
+        this.state = animate.playState
+        animate.oncancel = () => {
+          this.state = animate.playState
+          console.info('### animate canceled ###')
+        }
+        animate.onfinish = () => {
+          this.state = animate.playState
+          console.info('### animate finished ###')
+        }
+      }
+    },
+    // 改变宽高
+    onChangeWH() {
+      var testEl = this.$element('test')
+      var keyframes = [{
+        width: '120px',
+        height: '120px',
+        time: 0
+      }, {
+        width: '300px',
+        height: '300px',
+        time: 100
+      }]
+      var options = {
+        duration: 1000,
+        easing: 'cubic-bezier(0, 0.9, 0.9, 0)',
+        delay: 0,
+        fill: 'none',
+        iterations: 5,
+        needLayout: true
+      }
+      this.play(testEl.animate(keyframes, options))
+    },
+    // 移动
+    onTranslate() {
+      var testEl = this.$element('test')
+      var keyframes = [{
+        transform: '{translateX:0px}',
+        time: 0
+      }, {
+        transform: '{translateX:100px}',
+        time: 100
+      }]
+      var options = {
+        duration: 1000,
+        easing: 'linear',
+        delay: 0,
+        fill: 'none',
+        iterations: 5,
+        needLayout: true
+      }
+      this.play(testEl.animate(keyframes, options))
+    },
+    // 放大缩小
+    onScale() {
+      var testEl = this.$element('test')
+      var keyframes = [{
+        transform: '{scaleX:1, scaleY:1}',
+        time: 0
+      }, {
+        transform: '{scaleX:2, scaleY:2}',
+        time: 100
+      }]
+      var options = {
+        duration: 1000,
+        easing: 'linear',
+        delay: 0,
+        fill: 'none',
+        iterations: 5,
+        needLayout: true
+      }
+      this.play(testEl.animate(keyframes, options))
+    },
+    // 旋转
+    onRotate() {
+      var testEl = this.$element('test')
+      var keyframes = [{
+        'transform-origin': '0px 10px',
+        transform: '{rotate:10deg}',
+        time: 0
+      }, {
+        'transform-origin': '0px 10px',
+        transform: '{rotate:360deg}',
+        time: 100
+      }]
+      var options = {
+        duration: 1000,
+        easing: 'cubic-bezier(0, 0.9, 0.9, 0)',
+        delay: 0,
+        fill: 'none',
+        iterations: 5,
+        needLayout: true
+      }
+      this.play(testEl.animate(keyframes, options))
+    },
+    pauseAnimation() {
+      animate && animate.pause()
+    },
+    cancelAnimation() {
+      animate && animate.cancel()
+    },
+    // 反转动画
+    reverseAnimation() {
+      animate && animate.reverse()
+    }
+  }
+</script>

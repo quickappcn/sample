@@ -6,6 +6,27 @@
 
     <div class="item-container">
       <div class="item-content">
+        <text>windowWidth(可用宽度):</text>
+        <text>{{windowWidth}}</text>
+      </div>
+    </div>
+
+    <div class="item-container">
+      <div class="item-content">
+        <text>windowHeight(可用高度):</text>
+        <text>{{windowHeight}}</text>
+      </div>
+    </div>
+
+    <div class="item-container">
+      <div class="item-content">
+        <text>statusBarHeight(通知栏高度):</text>
+        <text>{{statusBarHeight}}</text>
+      </div>
+    </div>
+
+    <div class="item-container">
+      <div class="item-content">
         <text>设备信息:</text>
         <text>{{deviceInfo}}</text>
       </div>
@@ -67,7 +88,13 @@
       </div>
       <input type="button" class="btn" onclick="getCpuInfo" value="获取CPU信息"/>
     </div>
-
+    <div class="item-container">
+      <div class="item-content">
+        <text>平台版本信息:</text>
+        <text>{{platformInfo}}</text>
+      </div>
+      <input type="button" class="btn" onclick="getPlatformInfo" value="同步方法获取平台版本信息"/>
+    </div>
   </div>
 </template>
 
@@ -103,10 +130,26 @@
       advertisingId: '',
       totalStorage: '',
       availableStorage: '',
-      cpuInfo: ''
+      cpuInfo: '',
+      platformInfo: '',
+      windowWidth: 0,
+      windowHeight: 0,
+      statusBarHeight: 0
     },
     onInit () {
       this.$page.setTitleBar({text: '设备信息'})
+    },
+    onShow() {
+      device.getInfo({
+        success: (ret) => {
+          this.windowWidth = ret.windowWidth
+          this.windowHeight = ret.windowHeight
+          this.statusBarHeight = ret.statusBarHeight
+        },
+        fail: (data, code) => {
+          console.log(`getinfo handling fail, code = ${code}`)
+        }
+      })
     },
     getDeviceInfo () {
       const self = this
@@ -193,6 +236,11 @@
           self.cpuInfo = 'handling fail, code=' + code
         }
       })
+    },
+    getPlatformInfo () {
+      const self = this
+      var data = device.platform;
+      self.platformInfo = JSON.stringify(data)
     }
   }
 </script>

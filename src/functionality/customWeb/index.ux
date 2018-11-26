@@ -1,0 +1,42 @@
+<template>
+  <div class="doc-page">
+    <text class="item" onclick="openWeb">快应用官网一</text>
+    <a class="item" href="/functionality/web?url=https%3A%2F%2Fwww.quickapp.cn%2F&titleBarText=%E5%BF%AB%E5%BA%94%E7%94%A8%E5%AE%98%E7%BD%91%E4%BA%8C&titleBarTextColor=%230faeff&titleBarBackgroundColor=%23FFFFFF">快应用官网二</a>
+    <a class="item" href="/functionality/web?url=https%3A%2F%2Fwww.quickapp.cn%2F&titleBarText=快应用官网三&titleBarTextColor=%23FFFFFF&titleBarBackgroundColor=%23543db9">快应用官网三</a>
+  </div>
+</template>
+
+<style>
+  .doc-page {
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .item {
+    padding: 20px;
+    text-decoration: underline;
+    text-align: center;
+    margin-bottom: 50px;
+  }
+</style>
+
+<script>
+  import router from '@system.router'
+  export default {
+    onInit () {
+      this.$page.setTitleBar({ text: '自定义web组件' })
+    },
+    openWeb () {
+      router.push({
+        uri: '/functionality/web',
+        params: {
+          url: 'https://www.quickapp.cn/',
+          titleBarText: '',
+          titleBarTextColor: '',
+          titleBarBackgroundColor: ''
+        }
+      })
+    }
+  }
+</script>

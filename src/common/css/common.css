@@ -47,3 +47,7 @@
 .m-bottom-xs {
   margin-bottom: 5px;
 }
+
+.vertical {
+  flex-direction: column;
+}

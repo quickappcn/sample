@@ -8,7 +8,8 @@
       <div class="item-content">
         <text class="txt">{{vibratorInfo}}</text>
       </div>
-      <input type="button" class="btn" onclick="vibrator" value="开启震动"/>
+      <input type="button" class="btn" onclick="vibratorLong" value="开启长时震动"/>
+      <input type="button" class="btn" onclick="vibratorShort" value="开启短时震动"/>
     </div>
   </div>
 </template>
@@ -38,14 +39,20 @@
   export default {
     private: {
       componentName: 'vibrator',
-      // 目前只支持默认1秒钟震动
-      vibratorInfo: '触发震动，持续1秒',
+      vibratorInfo: '触发震动，支持长时和短时两种',
     },
     onInit () {
       this.$page.setTitleBar({text: 'Vibrator'})
     },
-    vibrator () {
-      vibrator.vibrate()
+    vibratorLong () {
+      vibrator.vibrate({
+         mode: 'long' // 默认值，可不加
+      })
+    },
+    vibratorShort () {
+      vibrator.vibrate({
+        mode: 'short'
+      })
     }
   }
 </script>

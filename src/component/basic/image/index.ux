@@ -322,6 +322,20 @@
       </div>
     </div>
 
+    <!-- 网络图片获取状态回调 -->
+    <div class="img-layout-header">
+      <text>网络图片获取状态回调：</text>
+    </div>
+
+    <input class="input-text" type="text" onchange="onImageUrlChange" value="{{inputImageURL}}"></input>
+    <input class="input-button" type="button" onclick="onImageGetClick" value="获取图片"></input>
+
+    <div class="item-container">
+      <text class="item-title">网络图片</text>
+      <div class="item-content-without-height">
+        <image src="{{requestImageURL}}" style="resize-mode: contain" oncomplete="onImageComplete" onerror="onImageError"></image>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -357,6 +371,10 @@
     justify-content: center;
     align-items: center;
   }
+  .item-content-without-height{
+    justify-content: center;
+    align-items: center;
+  }
   .fixed-size-wh {
     width: 750px;
     height: 250px;
@@ -371,16 +389,57 @@
   .circle {
     border-radius: 80px;
   }
+  .input-button {
+    flex: 1;
+    padding: 10px 30px;
+    margin: 0px 30px;
+    font-size: 30px;
+    color: #ffffff;
+    background-color: #0faeff;
+    }
+  .input-text {
+    height: 80px;
+    line-height: 80px;
+    padding: 0px 30px;
+    margin: 30px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-color: #999999;
+    font-size: 30px;
+    background-color: #ffffff;
+  }
 </style>
 
 <script>
+  import prompt from '@system.prompt'
   export default {
     private: {
       componentName: 'image',
-      remoteURL: 'http://www.w3school.com.cn/svg/'
+      remoteURL: 'http://www.w3school.com.cn/svg/',
+      inputImageURL: 'http://www.w3school.com.cn/svg/rect1.svg',
+      requestImageURL: ''
     },
     onInit () {
       this.$page.setTitleBar({text: 'Image'})
+    },
+    onImageUrlChange(data) {
+      this.inputImageURL = data.value
+    },
+    onImageGetClick() {
+      this.requestImageURL = this.inputImageURL
+      prompt.showToast({
+        message: '加载' + this.requestImageURL + '图片'
+      })
+    },
+    onImageComplete(data) {
+      prompt.showToast({
+        message: '图片获取成功\n' + '高度：' + data.height + 'px  ' + '宽度：' + data.width + 'px'
+      })
+    },
+    onImageError() {
+      prompt.showToast({
+        message: '图片获取失败'
+      })
     }
   }
 </script>

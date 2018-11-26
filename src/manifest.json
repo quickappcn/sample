@@ -1,8 +1,8 @@
 {
   "package": "org.hapjs.demo.sample",
   "name": "快应用组件展示",
-  "versionName": "1.1",
-  "versionCode": 1,
+  "versionName": "1.0.3",
+  "versionCode": 103,
   "icon": "/common/logo.png",
   "features": [
     { "name": "system.webview" },
@@ -33,9 +33,10 @@
     { "name": "system.sms" },
     { "name": "system.websocketfactory" },
     { "name": "system.wifi" },
+    { "name": "system.animation" },
     { "name": "service.stats" },
     { "name": "service.account" },
-    {"name": "system.contact"},
+    { "name": "system.contact"},
     { "name": "service.app" },
     { "name": "service.share", "params": {"appSign": "", "wxKey": ""} },
     { "name": "service.pay" },
@@ -96,6 +97,9 @@
         "component": "index"
       },
       "component/basic/a": {
+        "component": "index"
+      },
+      "component/media/web/detail": {
         "component": "index"
       },
       "component/media/web": {
@@ -170,7 +174,7 @@
       "component/media/audio": {
         "component": "index"
       },
-      "component/basic/map": {
+      "component/thirdParty/map": {
         "component": "index"
       },
       "framework/deeplink": {
@@ -257,6 +261,9 @@
       "interface/system/package": {
         "component": "index"
       },
+      "interface/system/forbid": {
+        "component": "index"
+      },
       "interface/system/qrcode": {
         "component": "index"
       },
@@ -323,6 +330,15 @@
       "component/style/background9image": {
         "component": "index"
       },
+      "component/style/font-family": {
+        "component": "index"
+      },
+      "functionality/animationapi": {
+        "component": "index"
+      },
+      "functionality/changestyle": {
+        "component": "index"
+      },
       "functionality/form": {
         "component": "index"
       },
@@ -358,6 +374,12 @@
       },
       "functionality/template/elec-business": {
         "component": "index"
+      },
+      "functionality/customWeb": {
+        "component": "index"
+      },
+      "functionality/web": {
+        "component": "index"
       }
     }
   },
@@ -375,10 +397,8 @@
       },
       "framework/lifecycle": {
         "menu": true
-      },
-      "functionality/titlebar": {
-        "titleBar": false
       }
-    }
+    },
+    "windowSoftInputMode": "adjustResize"
   }
 }

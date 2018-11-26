@@ -9,7 +9,7 @@
         <video class="flex-1" poster="https://www.quickapp.cn/assets/images/home/video.png" autoplay="false" onprepared="preparedfn"
           onstart="startfn" onpause="pausefn" onfinish="finishfn" onerror="errorfn" onseeking="seekingfn" onseeked="seekedfn"
           ontimeupdate="timeupdatefn" id="video" src="https://swsdl.vivo.com.cn/appstore/developer/uploadfile/20180323/20180323183010837.mp4"
-          controls="{{showControls}}"></video>
+          controls="{{showControls}}" muted="{{muted}}"></video>
         <image show="{{showmask}}" src="https://www.quickapp.cn/assets/images/home/video.png"></image>
         <div class="mask align-item-center justify-content-center flex-column" show="{{showmask}}">
           <image show="{{showicon}}" src="./start.png" class="start-icon" onclick="startVideo"></image>
@@ -20,11 +20,15 @@
         </div>
       </stack>
     </div>
-    <div class="item-container">
+    <div class="item-container " style="flex-direction:column">
       <div class="item-content">
         <text class="item-content_title">是否显示播放控件</text>
         <switch class="switch" checked="true" onchange="switchShowControls"></switch>
       </div>
+      <div class="item-content">
+          <text class="item-content_title">是否静音</text>
+          <switch class="switch" style="margin-left:120px" checked="false" onchange="onMutedSwitched"></switch>
+        </div>
     </div>
   </div>
 </template>
@@ -72,7 +76,8 @@
       showmask: true,
       showicon: true,
       ignorenet: false,
-      showControls: true
+      showControls: true,
+      muted: false
     },
     onInit() {
       this.$page.setTitleBar({ text: 'Video' })
@@ -100,6 +105,9 @@
     },
     switchShowControls(e) {
       this.showControls = e.checked
+    },
+    onMutedSwitched(e) {
+      this.muted = e.checked
     }
   }
 </script>

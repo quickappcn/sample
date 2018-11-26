@@ -89,10 +89,6 @@ export const tabsData = {
           {
             name: 'text',
             path: 'component/basic/text'
-          },
-          {
-            name: 'map',
-            path: 'component/basic/map'
           }
         ]
       },
@@ -151,6 +147,15 @@ export const tabsData = {
         ]
       },
       {
+        name: '第三方组件',
+        caseList: [
+          {
+            name: 'map',
+            path: 'component/thirdParty/map'
+          }
+        ]
+      },
+      {
         name: '样式动画',
         caseList: [
           {
@@ -172,12 +177,24 @@ export const tabsData = {
           {
             name: 'background-image 支持.9.png',
             path: 'component/style/background9image'
+          },
+          {
+            name: 'font字体设置',
+            path: 'component/style/font-family'
           }
         ]
       },
       {
         name: '功能示例',
         caseList: [
+          {
+            name: 'style数据绑定',
+            path: 'functionality/changestyle'
+          },
+          {
+            name: '动画animation api',
+            path: 'functionality/animationapi'
+          },
           {
             name: '表单',
             path: 'functionality/form'
@@ -225,6 +242,10 @@ export const tabsData = {
           {
             name: '电商模板',
             path: 'functionality/template/elec-business'
+          },
+          {
+            name: '自定义web页面',
+            path: 'functionality/customWeb'
           }
         ]
       }
@@ -238,16 +259,20 @@ export const tabsData = {
         name: '基本功能',
         caseList: [
           {
-            name:'页面路由',
-            path:'interface/system/router'
+            name: '页面路由',
+            path: 'interface/system/router'
           },
           {
-            name:'应用上下文',
-            path:'interface/system/app'
+            name: '应用上下文',
+            path: 'interface/system/app'
           },
           {
             name:'应用管理',
             path:'interface/system/package'
+          },
+          {
+            name:'禁止修改接口',
+            path:'interface/system/forbid'
           }
         ]
       },
@@ -255,24 +280,24 @@ export const tabsData = {
         name: '界面交互',
         caseList: [
           {
-            name:'分享',
-            path:'interface/system/share'
+            name: '分享',
+            path: 'interface/system/share'
           },
           {
-            name:'弹窗',
-            path:'interface/system/prompt'
+            name: '弹窗',
+            path: 'interface/system/prompt'
           },
           {
-            name:'打开网页',
-            path:'interface/system/webview'
+            name: '打开网页',
+            path: 'interface/system/webview'
           },
           {
-            name:'通知消息',
-            path:'interface/system/notification'
+            name: '通知消息',
+            path: 'interface/system/notification'
           },
           {
-            name:'震动',
-            path:'interface/system/vibrator'
+            name: '震动',
+            path: 'interface/system/vibrator'
           }
         ]
       },
@@ -280,16 +305,16 @@ export const tabsData = {
         name: '网络访问',
         caseList: [
           {
-            name:'上传下载',
-            path:'interface/system/request'
+            name: '上传下载',
+            path: 'interface/system/request'
           },
           {
-            name:'数据请求',
-            path:'interface/system/fetch'
+            name: '数据请求',
+            path: 'interface/system/fetch'
           },
           {
-            name:'websocket',
-            path:'interface/system/websocket'
+            name: 'websocket',
+            path: 'interface/system/websocket'
           }
         ]
       },
@@ -297,16 +322,16 @@ export const tabsData = {
         name: '文件数据',
         caseList: [
           {
-            name:'数据存储',
-            path:'interface/system/storage'
+            name: '数据存储',
+            path: 'interface/system/storage'
           },
           {
-            name:'文件存储',
-            path:'interface/system/file'
+            name: '文件存储',
+            path: 'interface/system/file'
           },
           {
-            name:'文件读写',
-            path:'interface/system/filerw'
+            name: '文件读写',
+            path: 'interface/system/filerw'
           }
         ]
       },
@@ -314,64 +339,64 @@ export const tabsData = {
         name: '系统能力',
         caseList: [
           {
-            name:'二维码',
-            path:'interface/system/qrcode'
+            name: '二维码',
+            path: 'interface/system/qrcode'
           },
           {
-            name:'传感器',
-            path:'interface/system/sensor'
+            name: '传感器',
+            path: 'interface/system/sensor'
           },
           {
-            name:'剪贴板',
-            path:'interface/system/clipboard'
+            name: '剪贴板',
+            path: 'interface/system/clipboard'
           },
           {
-            name:'地理位置',
-            path:'interface/system/geolocation'
+            name: '地理位置',
+            path: 'interface/system/geolocation'
           },
           {
-            name:'桌面图标',
-            path:'interface/system/shortcut'
+            name: '桌面图标',
+            path: 'interface/system/shortcut'
           },
           {
-            name:'日历事件',
-            path:'interface/system/calendar'
+            name: '日历事件',
+            path: 'interface/system/calendar'
           },
           {
-            name:'网络状态',
-            path:'interface/system/network'
+            name: '网络状态',
+            path: 'interface/system/network'
           },
           {
-            name:'设备信息',
-            path:'interface/system/device'
+            name: '设备信息',
+            path: 'interface/system/device'
           },
           {
-            name:'屏幕亮度',
-            path:'interface/system/brightness'
+            name: '屏幕亮度',
+            path: 'interface/system/brightness'
           },
           {
-            name:'电量信息',
-            path:'interface/system/battery'
+            name: '电量信息',
+            path: 'interface/system/battery'
           },
           {
-            name:'录音',
-            path:'interface/system/record'
+            name: '录音',
+            path: 'interface/system/record'
           },
           {
-            name:'系统音量',
-            path:'interface/system/volume'
+            name: '系统音量',
+            path: 'interface/system/volume'
           },
           {
-            name:'发送短信',
-            path:'interface/system/sms'
+            name: '发送短信',
+            path: 'interface/system/sms'
           },
           {
-            name:'联系人',
-            path:'interface/system/contact'
+            name: '联系人',
+            path: 'interface/system/contact'
           },
           {
-            name:'Wi-Fi',
-            path:'interface/system/wifi'
+            name: 'Wi-Fi',
+            path: 'interface/system/wifi'
           }
         ]
       },
@@ -379,12 +404,12 @@ export const tabsData = {
         name: '图形图像',
         caseList: [
           {
-            name:'图片编辑',
-            path:'interface/system/image'
+            name: '图片编辑',
+            path: 'interface/system/image'
           },
           {
-            name:'多媒体',
-            path:'interface/system/media'
+            name: '多媒体',
+            path: 'interface/system/media'
           }
         ]
       },
@@ -392,16 +417,16 @@ export const tabsData = {
         name: '第三方服务',
         caseList: [
           {
-            name:'微信支付',
-            path:'interface/thirdparty/wxpay'
+            name: '微信支付',
+            path: 'interface/thirdparty/wxpay'
           },
           {
-            name:'支付宝支付',
-            path:'interface/thirdparty/alipay'
+            name: '支付宝支付',
+            path: 'interface/thirdparty/alipay'
           },
           {
-            name:'第三方分享',
-            path:'interface/thirdparty/serviceshare'
+            name: '第三方分享',
+            path: 'interface/thirdparty/serviceshare'
           },
           {
             name: '微信账号',

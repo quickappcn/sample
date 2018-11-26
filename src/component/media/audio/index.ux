@@ -23,6 +23,12 @@
         <slider class="audio-slider" min="0" max="{{duration}}" step="1" value="{{currentTime}}" onchange="sliderChange"></slider>
       </div>
     </div>
+    <div class="btn-container">
+      <div class="btn-content">
+        <text class="txt">当前状态：{{status}}</text>
+      </div>
+      <input type="button" class="btn" onclick="stopAudio" value="停止" />
+    </div>
   </div>
 </template>
 
@@ -37,6 +43,20 @@
       height: 120px;
       flex: 1;
     }
+  }
+  .btn-container {
+    margin-bottom: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+
+  .btn-content {
+    flex-direction: column;
+    background-color: #ffffff;
+    padding: 30px;
+    margin-bottom: 100px;
+    align-items: center;
   }
   .custom-audio {
     flex-direction: row;
@@ -79,6 +99,7 @@
       currentTime: 0,
       volume: 0,
       valumeStatus: 0,
+      status: 'stop',
       playerStatus: true
     },
     onInit () {
@@ -98,28 +119,43 @@
         audio.loop = false
         self.duration = audio.duration
         self.totalTime = self.formatTime(audio.duration)
-        // 添加监听
-        // currentTime变化时触发
-        audio.ontimeupdate = function () {
-          self.updateAudio()
-        }
-        // 暂停时触发
-        audio.onpause = function () {
-          console.info('pause')
-        }
-        // 播放完毕触发
-        audio.onended = function () {
-          // 图标回到可播放状态
-          self.playerStatus = true
-        }
-        // 出错时触发
-        audio.onerror = function () {
-          console.info('error')
-        }
-        // 播放时长变化触发
-        audio.ondurationchange = function () {
-          console.info('change')
-        }
+      }
+      // 添加监听
+      // currentTime变化时触发
+      audio.ontimeupdate = function () {
+        self.updateAudio()
+      }
+      // 暂停时触发
+      audio.onpause = function () {
+        self.status = 'audio pause'
+        console.info('pause')
+      }
+      // 播放完毕触发
+      audio.onended = function () {
+        // 图标回到可播放状态
+        self.status = 'audio end'
+        self.playerStatus = true
+      }
+      // 出错时触发
+      audio.onerror = function () {
+        self.status = 'audio error'
+        console.info('error')
+      }
+      // 播放时长变化触发
+      audio.ondurationchange = function () {
+        console.info('change')
+      }
+      // 播放时触发
+      audio.onplay = function () {
+        self.status = 'audio play'
+        self.playerStatus = false
+      }
+      // 停止时触发
+      audio.onstop = function () {
+        self.currentTime = 0
+        self.spendTime = '00:00'
+        self.status = 'audio stop'
+        self.playerStatus = true
       }
     },
     playerStart () {
@@ -131,6 +167,11 @@
         audio.pause()
       }
       this.playerStatus = !this.playerStatus
+    },
+    stopAudio () {
+      if (!this.playerStatus) {
+        audio.stop()
+      }
     },
     updateAudio () {
       // 更新播放时间

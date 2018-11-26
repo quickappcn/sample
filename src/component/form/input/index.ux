@@ -43,7 +43,7 @@
       <!-- 示范input的相关select方法 -->
       <div class="input-item">
         <text class="input-hint">示范input的相关select方法 (textarea也有同类方法)</text>
-        <input class="input-text" type="text" value="这里有一段文字" id="input" style="margin-bottom:20px;"></input>
+        <input class="input-text" type="text" value="这里有一段文字" id="input" style="margin-bottom:20px;" onselectionchange="onSelectionChange"></input>
         <div class="doc-row">
           <input class="input-button input-button-first color-1" type="button" value="选中全部" onclick="selectAll"></input>
           <input class="input-button color-2" type="button" value="选中部分" onclick="selectPart"></input>
@@ -109,6 +109,15 @@
       <div class="input-item">
         <text class="input-hint">控制占位符颜色的input:</text>
         <input class="input-text" type="text" placeholder="占位符字体是红色的" style="placeholder-color: #FF0000"></input>
+      </div>
+
+      <!-- input组件支持动态切换type类型 -->
+      <div class="input-item">
+        <text class="input-hint">点击改变InputType按钮，可将下面输入框的InputType切换为password形式</text>
+        <input class="input-text" type="{{inputType}}" value="123456" /></input>
+        <div class="doc-row" style="margin-top: 30px;">
+          <input class="input-button color-1" type="button" value="改变InputType" onclick="changeInputType" /></input>
+        </div>
       </div>
     </div>
   </template>
@@ -188,10 +197,18 @@
     export default {
       private: {
         componentName: 'input',
-        inputValue: ''
+        inputValue: '',
+        inputType: 'text'
       },
       onInit () {
         this.$page.setTitleBar({text: 'Input'})
+      },
+      changeInputType () {
+        if (this.inputType === 'text') {
+          this.inputType = 'password'
+        } else {
+          this.inputType = 'text'
+        }
       },
       updateValue (e) {
         this.inputValue = e.text
@@ -230,6 +247,18 @@
             prompt.showToast({
               message: '当前选中区域为：' + start + '~' + end
             })
+          }
+        })
+      },
+      // 选中文本发生改变时触发
+      onSelectionChange () {
+        this.$element('input').getSelectionRange({
+          callback: function (start, end) {
+            if (end - start > 3) {
+              prompt.showToast({
+                message: '当前选中文本字符数大于3个'
+              })
+            }
           }
         })
       }
