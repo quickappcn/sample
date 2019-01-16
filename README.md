@@ -6,7 +6,7 @@
 [![hap-toolkit version][hap-toolkit-image]][hap-toolkit-url]
 
 
-[node-image]: https://img.shields.io/badge/node.js-%3E=_10-green.svg?style=flat-square
+[node-image]: https://img.shields.io/badge/node.js-%3E=_6-green.svg?style=flat-square
 [node-url]: http://nodejs.org/download/
 [hap-toolkit-image]: https://img.shields.io/badge/hap--toolkit-%3E=_0.1-blue.svg
 [hap-toolkit-url]: https://www.npmjs.com/package/hap-toolkit
