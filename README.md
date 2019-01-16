@@ -42,7 +42,7 @@ $ hap -v
 
 **安装成功如图**
 
-![](./images/img2.png)
+![](./images/img2.png){:width="600px"}
 
 
 #### 项目运行
