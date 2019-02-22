@@ -11,6 +11,13 @@
       <label target="checkbox1">显示/隐藏音频播放通知：</label>
       <input id="checkbox1" type="checkbox" checked="true" onchange="changeAudioNotificationVisibility"/>
     </div>
+    <div class="audio-content" style="flex-direction: row">
+      <label target="checkbox1">指定音频类型：</label>
+      <select class="select" @change="changeOption">
+        <option value="music" class="option">使用扬声器播放</option>
+        <option value="voicecall" class="option">使用听筒播放</option>
+      </select>
+    </div>
     <div class="audio-content">
       <text>自定义组件：</text>
       <div class="custom-audio">
@@ -34,6 +41,18 @@
 
 <style lang="less">
   @import '../../../common/css/common.css';
+
+  .select {
+    border: 1px solid #333333;
+    border-radius: 5px;
+    margin-left: 20px;
+    width: 200px;
+  }
+
+  .option {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
 
   .audio-content {
     flex-direction: column;
@@ -88,11 +107,32 @@
 
 <script>
   import audio from '@system.audio'
+  import prompt from '@system.prompt'
 
   export default {
     private: {
       componentName: 'Audio',
-      audioSrc: 'http://www.w3school.com.cn/i/song.mp3',
+      curIndex: 0,
+      audioArr: [
+        {
+          src: '/common/audio/music-1.mp3',
+          cover: '/common/audio/music-1.png',
+          artist: '作者1',
+          title: '歌曲1'
+        },
+        {
+          src: '/common/audio/music-2.mp3',
+          cover: '/common/audio/music-2.png',
+          artist: '作者2',
+          title: '歌曲2'
+        },
+        {
+          src: '/common/audio/music-3.mp3',
+          cover: '/common/audio/music-3.png',
+          artist: '作者3',
+          title: '歌曲3'
+        }
+      ],
       duration: 100,
       spendTime: '00:00',
       totalTime: '00:00',
@@ -102,9 +142,13 @@
       status: 'stop',
       playerStatus: true
     },
-    onInit () {
+    onReady () {
       this.$page.setTitleBar({text: 'Audio'})
-      audio.src = this.audioSrc
+      audio.src = this.audioArr[this.curIndex].src
+      audio.title = this.audioArr[this.curIndex].title
+      audio.artist = this.audioArr[this.curIndex].artist
+      audio.cover = this.audioArr[this.curIndex].cover
+
       // 自动播放
       audio.autoplay = false
       this.volume = parseInt(audio.volume*10)
@@ -157,6 +201,35 @@
         self.status = 'audio stop'
         self.playerStatus = true
       }
+      // 通知栏点击上一首按钮回调事件
+      audio.onprevious = function() {
+        if (self.curIndex > 0) {
+          self.curIndex--
+        }
+        else {
+          self.curIndex = self.audioArr.length - 1
+        }
+        audio.src = self.audioArr[self.curIndex].src
+        audio.title = self.audioArr[self.curIndex].title
+        audio.artist = self.audioArr[self.curIndex].artist
+        audio.cover = self.audioArr[self.curIndex].cover
+        audio.play()
+      }
+
+      // 通知栏点击下一首按钮回调事件
+      audio.onnext = function() {
+        if (self.curIndex < self.audioArr.length - 1) {
+          self.curIndex++
+        }
+        else {
+          self.curIndex = 0
+        }
+        audio.src = self.audioArr[self.curIndex].src
+        audio.title = self.audioArr[self.curIndex].title
+        audio.artist = self.audioArr[self.curIndex].artist
+        audio.cover = self.audioArr[self.curIndex].cover
+        audio.play()
+      }
     },
     playerStart () {
       if (this.playerStatus) {
@@ -204,6 +277,14 @@
       const min = m >= 10 ? m : '0' + m
       const sec = se >= 10 ? se : '0' + se
       return min + ':' + sec
+    },
+    // 切换音频类型
+    changeOption (e) {
+      let streamType = e.newValue
+      audio.streamType = streamType
+      prompt.showToast({
+        message: `音频类型切换为 ${streamType}`
+      })
     }
   }
 </script>

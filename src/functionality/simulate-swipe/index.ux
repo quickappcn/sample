@@ -7,19 +7,6 @@
   </div>
 </template>
 
-<style>
-  .doc-page {
-    flex: 1;
-    flex-direction: column;
-  }
-  .content {
-    flex: 1;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-</style>
-
 <script>
 
   export default {
@@ -34,3 +21,16 @@
     }
   }
 </script>
+
+<style>
+  .doc-page {
+    flex: 1;
+    flex-direction: column;
+  }
+  .content {
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+</style>

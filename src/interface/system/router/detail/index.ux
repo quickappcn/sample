@@ -7,16 +7,6 @@
   </div>
 </template>
 
-<style>
-  @import '../../../../common/css/common.css';
-
-  text {
-    flex: 1;
-    font-size: 35px;
-    text-align: center;
-  }
-</style>
-
 <script>
   import router from '@system.router'
 
@@ -37,3 +27,13 @@
     }
   }
 </script>
+
+<style>
+  @import '../../../../common/css/common.css';
+
+  text {
+    flex: 1;
+    font-size: 35px;
+    text-align: center;
+  }
+</style>

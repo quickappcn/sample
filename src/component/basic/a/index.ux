@@ -9,6 +9,17 @@
   </div>
 </template>
 
+<script>
+  export default {
+    private: {
+      componentName: 'a'
+    },
+    onInit () {
+      this.$page.setTitleBar({text: 'A'})
+    }
+  }
+</script>
+
 <style>
   @import '../../../common/css/common.css';
 
@@ -23,14 +34,3 @@
     text-align: center;
   }
 </style>
-
-<script>
-  export default {
-    private: {
-      componentName: 'a'
-    },
-    onInit () {
-      this.$page.setTitleBar({text: 'A'})
-    }
-  }
-</script>

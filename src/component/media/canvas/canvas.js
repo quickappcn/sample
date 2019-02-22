@@ -319,3 +319,20 @@ export const grayFilter = ctx => {
 
   grayscale()
 }
+
+export const drawRectByGloComOperation = (ctx, gloComOperation) => {
+  // 清除画布
+  ctx.clearRect(0, 0, 320, 320)
+
+  // 正常绘制第一个矩形
+  ctx.globalCompositeOperation = 'source-over'
+  ctx.fillStyle = 'skyblue'
+  ctx.fillRect(10, 10, 200, 200)
+
+  // 设置canvas的合成类型
+  ctx.globalCompositeOperation = gloComOperation
+
+  // 绘制第二个矩形
+  ctx.fillStyle = 'rgba(255, 0, 0, 0.5)'
+  ctx.fillRect(110, 110, 200, 200)
+}

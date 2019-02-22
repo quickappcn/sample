@@ -32,38 +32,6 @@
   </div>
 </template>
 
-<style>
-  @import '../../../common/css/common.css';
-
-  .item-container {
-    margin-top: 20px;
-    flex-direction: column;
-  }
-  .item-title {
-    padding-left: 30px;
-    padding-bottom: 30px;
-    padding-top: 30px;
-    border-bottom-width: 1px;
-    border-color: #bbbbbb;
-    color: #aaaaaa;
-  }
-  .item-content {
-    background-color: #ffffff;
-    border-bottom-width: 1px;
-    border-color: #bbbbbb;
-    padding-left: 30px;
-    padding-right: 30px;
-  }
-  .picker {
-    flex: 1;
-  }
-  .label {
-    padding-bottom: 30px;
-    padding-top: 30px;
-    padding-right: 100px;
-  }
-</style>
-
 <script>
   export default {
     private: {
@@ -98,3 +66,35 @@
     }
   }
 </script>
+
+<style>
+  @import '../../../common/css/common.css';
+
+  .item-container {
+    margin-top: 20px;
+    flex-direction: column;
+  }
+  .item-title {
+    padding-left: 30px;
+    padding-bottom: 30px;
+    padding-top: 30px;
+    border-bottom-width: 1px;
+    border-color: #bbbbbb;
+    color: #aaaaaa;
+  }
+  .item-content {
+    background-color: #ffffff;
+    border-bottom-width: 1px;
+    border-color: #bbbbbb;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+  .picker {
+    flex: 1;
+  }
+  .label {
+    padding-bottom: 30px;
+    padding-top: 30px;
+    padding-right: 100px;
+  }
+</style>

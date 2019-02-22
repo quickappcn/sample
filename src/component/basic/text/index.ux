@@ -27,9 +27,23 @@
       <text class="txt" style="lines: 3; text-overflow: ellipsis;">{{loneText}}</text>
       <text class="item-title">line-height: 设置为50px</text>
       <text class="txt" style="line-height: 50px;">{{loneText}}</text>
+      <text class="item-title">text-indent: 设置为100px</text>
+      <text class="txt" style="text-indent: 100px;">{{loneText}}</text>
     </div>
   </div>
 </template>
+
+<script>
+  export default {
+    private: {
+      componentName: 'text',
+      loneText: '本框架是一套以前端开发技术栈为主进行应用开发的框架，采用流行的前端开发模式，贴合主流前端开发者的思维习惯，同时大幅提升应用的性能，提供大量前端环境无法使用的系统能力，以及很多第三方服务的对接能力。'
+    },
+    onInit () {
+      this.$page.setTitleBar({text: 'Text'})
+    }
+  }
+</script>
 
 <style>
   @import '../../../common/css/common.css';
@@ -46,15 +60,3 @@
     color: #aaaaaa;
   }
 </style>
-
-<script>
-  export default {
-    private: {
-      componentName: 'text',
-      loneText: '本框架是一套以前端开发技术栈为主进行应用开发的框架，采用流行的前端开发模式，贴合主流前端开发者的思维习惯，同时大幅提升应用的性能，提供大量前端环境无法使用的系统能力，以及很多第三方服务的对接能力。'
-    },
-    onInit () {
-      this.$page.setTitleBar({text: 'Text'})
-    }
-  }
-</script>

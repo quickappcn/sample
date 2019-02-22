@@ -50,6 +50,17 @@
   </div>
 </template>
 
+<script>
+  export default {
+    private: {
+      componentName: 'progress'
+    },
+    onInit () {
+      this.$page.setTitleBar({text: 'Progress'})
+    }
+  }
+</script>
+
 <style>
   @import '../../../common/css/common.css';
 
@@ -95,14 +106,3 @@
     height: 100px;
   }
 </style>
-
-<script>
-  export default {
-    private: {
-      componentName: 'progress'
-    },
-    onInit () {
-      this.$page.setTitleBar({text: 'Progress'})
-    }
-  }
-</script>

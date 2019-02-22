@@ -59,6 +59,14 @@
 
     <div class="item-container">
       <div class="item-content">
+        <text>获取设备序列号:</text>
+        <text>{{serial}}</text>
+      </div>
+      <input type="button" class="btn" onclick="getSerial" value="获取设备序列号"/>
+    </div>
+
+    <div class="item-container">
+      <div class="item-content">
         <text>获取广告唯一标识:</text>
         <text>{{advertisingId}}</text>
       </div>
@@ -98,25 +106,6 @@
   </div>
 </template>
 
-<style>
-  @import '../../../common/css/common.css';
-
-  .item-container {
-    margin-bottom: 50px;
-    margin-right: 60px;
-    margin-left: 60px;
-    flex-direction: column;
-  }
-
-  .item-content {
-    flex-direction: column;
-    background-color: #ffffff;
-    padding: 30px;
-    margin-bottom: 50px;
-    align-items: flex-start;
-  }
-</style>
-
 <script>
   import device from '@system.device'
 
@@ -127,6 +116,7 @@
       deviceIdList: '',
       deviceId: '',
       userId: '',
+      serial: '',
       advertisingId: '',
       totalStorage: '',
       availableStorage: '',
@@ -193,6 +183,17 @@
         }
       })
     },
+    getSerial () {
+      const self = this
+      device.getSerial({
+        success: function (data) {
+          self.serial = JSON.stringify(data)
+        },
+        fail: function (data, code) {
+          self.serial = 'handling fail, code=' + code
+        }
+      })
+    },
     getAdvertisingId () {
       const self = this
       device.getAdvertisingId({
@@ -244,3 +245,22 @@
     }
   }
 </script>
+
+<style>
+  @import '../../../common/css/common.css';
+
+  .item-container {
+    margin-bottom: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+
+  .item-content {
+    flex-direction: column;
+    background-color: #ffffff;
+    padding: 30px;
+    margin-bottom: 50px;
+    align-items: flex-start;
+  }
+</style>

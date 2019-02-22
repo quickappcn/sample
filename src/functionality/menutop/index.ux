@@ -25,25 +25,6 @@
   </div>
 </template>
 
-<style>
-  @import "../../common/css/index.css";
-
-  .demo-head {
-    position: fixed;
-    top: 0;
-  }
-  .demo-head-block {
-    flex-grow: 1;
-    justify-content: center;
-    height: 100px;
-    background-color: #d3d3d3;
-  }
-  .menu-item-row {
-    border-bottom-width: 1px;
-    padding: 20px;
-  }
-</style>
-
 <script>
   export default {
     private: {
@@ -79,3 +60,22 @@
     }
   }
 </script>
+
+<style>
+  @import "../../common/css/index.css";
+
+  .demo-head {
+    position: fixed;
+    top: 0;
+  }
+  .demo-head-block {
+    flex-grow: 1;
+    justify-content: center;
+    height: 100px;
+    background-color: #d3d3d3;
+  }
+  .menu-item-row {
+    border-bottom-width: 1px;
+    padding: 20px;
+  }
+</style>

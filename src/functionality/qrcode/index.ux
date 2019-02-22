@@ -9,10 +9,6 @@
   </div>
 </template>
 
-<style>
-  @import "../../common/css/index.css";
-</style>
-
 <script>
   import qrcode from 'qrcode-js'
 
@@ -29,3 +25,7 @@
     }
   }
 </script>
+
+<style>
+  @import "../../common/css/index.css";
+</style>

@@ -30,6 +30,24 @@
   </div>
 </template>
 
+<script>
+  export default {
+    private: {
+      componentName: 'slider',
+      step: 10,
+      currentValue1: 50,
+      currentValue2: 50,
+      currentValue3: 50
+    },
+    onInit () {
+      this.$page.setTitleBar({text: 'Slider'})
+    },
+    getValue (name, e) {
+      this[name] = e.progress
+    }
+  }
+</script>
+
 <style>
   @import '../../../common/css/common.css';
 
@@ -53,21 +71,3 @@
     padding-right: 30px;
   }
 </style>
-
-<script>
-  export default {
-    private: {
-      componentName: 'slider',
-      step: 10,
-      currentValue1: 50,
-      currentValue2: 50,
-      currentValue3: 50
-    },
-    onInit () {
-      this.$page.setTitleBar({text: 'Slider'})
-    },
-    getValue (name, e) {
-      this[name] = e.progress
-    }
-  }
-</script>

@@ -16,6 +16,21 @@
   </div>
 </template>
 
+<script>
+  export default {
+    private: {
+      componentName: 'background-position',
+      position: "0px 0px"
+    },
+    onInit() {
+      this.$page.setTitleBar({ text: this.componentName })
+    },
+    edit: function (e) {
+      this.position = e.text;
+    }
+  }
+</script>
+
 <style>
   @import '../../../common/css/common.css';
 
@@ -48,18 +63,3 @@
     font-size: 30px;
   }
 </style>
-
-<script>
-  export default {
-    private: {
-      componentName: 'background-position',
-      position: "0px 0px"
-    },
-    onInit() {
-      this.$page.setTitleBar({ text: this.componentName })
-    },
-    edit: function (e) {
-      this.position = e.text;
-    }
-  }
-</script>

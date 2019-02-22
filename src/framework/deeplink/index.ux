@@ -8,6 +8,17 @@
   </div>
 </template>
 
+<script>
+  export default {
+    private: {
+      componentName: 'deepLink'
+    },
+    onInit () {
+      this.$page.setTitleBar({text: 'DeepLink'})
+    }
+  }
+</script>
+
 <style>
   @import '../../common/css/common.css';
 
@@ -26,14 +37,3 @@
     text-align: center;
   }
 </style>
-
-<script>
-  export default {
-    private: {
-      componentName: 'deepLink'
-    },
-    onInit () {
-      this.$page.setTitleBar({text: 'DeepLink'})
-    }
-  }
-</script>

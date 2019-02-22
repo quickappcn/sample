@@ -15,21 +15,6 @@
   </div>
 </template>
 
-<style>
-  @import "../../common/css/index.css";
-
-  .input-btn {
-    background-color: #0faeff;
-    color: #ffffff;
-    border-radius: 10px;
-    margin-left: 30px;
-  }
-
-  .disabled {
-    background-color: #999999;
-  }
-</style>
-
 <script>
   export default {
     private: {
@@ -88,3 +73,18 @@
     }
   }
 </script>
+
+<style>
+  @import "../../common/css/index.css";
+
+  .input-btn {
+    background-color: #0faeff;
+    color: #ffffff;
+    border-radius: 10px;
+    margin-left: 30px;
+  }
+
+  .disabled {
+    background-color: #999999;
+  }
+</style>

@@ -13,6 +13,31 @@
   </div>
 </template>
 
+<script>
+  import prompt from '@system.prompt'
+
+  export default {
+    private: {
+      componentName: 'textarea'
+    },
+    onInit () {
+      this.$page.setTitleBar({text: 'Textarea'})
+    },
+    // 选中文本发生改变时触发
+    onSelectionChange () {
+      this.$element('textarea').getSelectionRange({
+        callback: function (start, end) {
+          if (end - start > 3) {
+            prompt.showToast({
+              message: '当前选中文本字符数大于3个'
+            })
+          }
+        }
+      })
+    }
+  }
+</script>
+
 <style>
   @import '../../../common/css/common.css';
 
@@ -38,28 +63,3 @@
     justify-content: center;
   }
 </style>
-
-<script>
-  import prompt from '@system.prompt'
-
-  export default {
-    private: {
-      componentName: 'textarea'
-    },
-    onInit () {
-      this.$page.setTitleBar({text: 'Textarea'})
-    },
-    // 选中文本发生改变时触发
-    onSelectionChange () {
-      this.$element('textarea').getSelectionRange({
-        callback: function (start, end) {
-          if (end - start > 3) {
-            prompt.showToast({
-              message: '当前选中文本字符数大于3个'
-            })
-          }
-        }
-      })
-    }
-  }
-</script>

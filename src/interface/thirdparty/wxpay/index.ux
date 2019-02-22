@@ -6,20 +6,11 @@
 
     <div class="item-container">
       <input type="button" class="btn" onclick="useWxpay" value="微信支付"/>
+      <input type="button" class="btn" onclick="useWxpay('referer')" value="微信支付(直接设置referer)" />
+
     </div>
   </div>
 </template>
-
-<style>
-  @import '../../../common/css/common.css';
-
-  .item-container {
-    margin-top: 50px;
-    margin-right: 60px;
-    margin-left: 60px;
-    flex-direction: column;
-  }
-</style>
 
 <script>
   import wxpay from '@service.wxpay'
@@ -33,7 +24,7 @@
     onInit () {
       this.$page.setTitleBar({text: 'Wxpay'})
     },
-    useWxpay () {
+    useWxpay (type) {
       const payType = wxpay.getType()
 
       if (payType == 'APP') {
@@ -105,14 +96,34 @@
         prompt.showToast({
           message: '当前可用微信支付方式：网页支付'
         })
-        wxpay.pay({
-          // 微信网页支付的prepayId
-          prepayid: 'xxxxxxxxxx',
-          extra: {
-            // 传递给支付页面的自定义参数, 根据需要进行设置, 需要被urlEncode, 会被拼接在配置的url尾部
-            customeKey1: 'customeValue1',
-            customeKey2: 'customeValue2'
-          },
+
+        let param = {}
+
+        if (type === 'referer') {
+          param = {
+            // 微信网页支付的prepayId
+            prepayid: 'xxxxxxxxxx',
+            // 微信后台注册的服务器地址
+            referer: 'http://****',
+            extra: {
+              // 支付服务器下单后，微信返回的MWEB_URL
+              mweb_url: 'http://****'
+            }
+          }
+        }
+        else {
+          param = {
+            // 微信网页支付的prepayId
+            prepayid: 'xxxxxxxxxx',
+            extra: {
+              // 传递给支付页面的自定义参数, 根据需要进行设置, 需要被urlEncode, 会被拼接在配置的url尾部
+              customeKey1: 'customeValue1',
+              customeKey2: 'customeValue2'
+            }
+          }
+        }
+
+        const callbackFn = {
           fail: function (data, code) {
             console.info('H5 WXPAY handling fail, code=' + code + ' data:' + JSON.stringify(data))
             if (code == '1000') {
@@ -138,7 +149,9 @@
               message: '支付提交微信成功'
             })
           }
-        })
+        }
+
+        wxpay.pay(Object.assign({}, param, callbackFn))
       } else {
         prompt.showToast({
           message: '当前无可用微信支付方式'
@@ -147,3 +160,14 @@
     }
   }
 </script>
+
+<style>
+  @import '../../../common/css/common.css';
+
+  .item-container {
+    margin-top: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+</style>

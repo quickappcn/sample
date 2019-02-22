@@ -31,9 +31,11 @@
     { "name": "system.package" },
     { "name": "system.record" },
     { "name": "system.sms" },
+    { "name": "system.alarm" },
+    { "name": "system.bluetooth" },
     { "name": "system.websocketfactory" },
     { "name": "system.wifi" },
-    { "name": "system.animation" },
+    { "name": "android.settings" },
     { "name": "service.stats" },
     { "name": "service.account" },
     { "name": "system.contact"},
@@ -174,6 +176,9 @@
       "component/media/audio": {
         "component": "index"
       },
+      "component/media/camera": {
+        "component": "index"
+      },
       "component/thirdParty/map": {
         "component": "index"
       },
@@ -197,6 +202,9 @@
       "framework/exit/pages/page3": {
         "component": "index",
         "path": "/exit/page3"
+      },
+      "framework/screenorientation": {
+        "component": "index"
       },
       "interface/thirdparty/alipay": {
         "component": "index"
@@ -315,6 +323,15 @@
       "interface/system/wifi": {
         "component": "index"
       },
+      "interface/system/setting": {
+        "component": "index"
+      },
+      "interface/system/alarm": {
+        "component": "index"
+      },
+      "interface/system/bluetooth": {
+        "component": "index"
+      },
       "component/style/animation": {
         "component": "index"
       },
@@ -380,6 +397,24 @@
       }
     }
   },
+  "subpackages": [
+    {
+      "name": "pkgFunc",
+      "resource": "functionality"
+    },
+    {
+      "name": "pkgComp",
+      "resource": "component"
+    },
+    {
+      "name": "pkgInterface",
+      "resource": "interface"
+    },
+    {
+      "name": "pkgFrame",
+      "resource": "framework"
+    }
+  ],
   "display": {
     "backgroundColor": "#fbf9fe",
     "titleBar": true,

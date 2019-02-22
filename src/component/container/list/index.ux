@@ -34,7 +34,7 @@
       </div>
 
       <!-- 列表 -->
-      <list class="list-content" onscroll="handleScroll" onscrollbottom="scrollbottom" id="list" scrollpage="{{scrollPage}}" style="columns:{{columnsNum}}">
+      <list class="list-content" onscroll="handleScroll" onscrollbottom="scrollbottom" id="list" onscrolltouchup="scrolltouchup" onscrollend="scrollend" scrollpage="{{scrollPage}}" style="columns:{{columnsNum}}">
         <!-- 列表元素，属性type值相同时，需要确保渲染中dom结构相同 -->
         <list-item type="listItem" class="item item-color" for="{{listData}}">
           <text class="txt">{{$item}}--{{$idx}}</text>
@@ -47,83 +47,6 @@
         </list-item>
       </list>
     </div>
-  </template>
-  <style>
-    @import '../../../common/css/common.css';
-
-    .list-content {
-      flex: 1;
-      padding-left: 60px;
-      padding-right: 60px;
-    }
-    .item {
-      height: 150px;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 15px;
-    }
-    .input-number-wrap {
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-      padding-left: 60px;
-      padding-right: 60px;
-      padding-bottom: 50px;
-    }
-    .input-number {
-      flex: 1;
-      margin-left: 50px;
-      font-size: 30px;
-    }
-    .load-more {
-      justify-content: center;
-      align-items: center;
-      height: 100px;
-      border-color: #bbbbbb;
-      border-bottom-width: 1px;
-    }
-    .btn-wrap-column {
-      flex-direction: column;
-      margin-right: 60px;
-      margin-left: 60px;
-    }
-    .btn-wrap-row {
-      margin-right: 60px;
-      margin-left: 45px;
-      margin-bottom: 30px;
-    }
-    .btn-little {
-      flex: 1;
-      height: 80px;
-      margin-left: 15px;
-      border-radius: 5px;
-      color: #ffffff;
-      font-size: 30px;
-      text-align: center;
-      border-width: 0px;
-      background-color: #0faeff;
-    }
-    .item-color {
-      background-color: #f76160;
-    }
-    .nav {
-      padding-left: 60px;
-      padding-right: 60px;
-      padding-bottom: 30px;
-    }
-    .nav-item {
-      flex: 1;
-      padding-bottom: 30px;
-      border-bottom-width: 5px;
-      border-color: #fbf9fe;
-      font-size: 35px;
-      color: #666666;
-      text-align: center;
-    }
-    .selected {
-      border-color: #0faeff;
-    }
-  </style>
   <script>
     import prompt from '@system.prompt'
 
@@ -231,6 +154,93 @@
         prompt.showToast({
           message: 'reverse'
         })
+      },
+      scrolltouchup () {
+        prompt.showToast({
+          message: 'touch up'
+        })
+      },
+      scrollend () {
+        prompt.showToast({
+          message: 'scroll end'
+        })
       }
     }
   </script>
+  </template>
+  <style>
+    @import '../../../common/css/common.css';
+
+    .list-content {
+      flex: 1;
+      padding-left: 60px;
+      padding-right: 60px;
+    }
+    .item {
+      height: 150px;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 15px;
+    }
+    .input-number-wrap {
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      padding-left: 60px;
+      padding-right: 60px;
+      padding-bottom: 50px;
+    }
+    .input-number {
+      flex: 1;
+      margin-left: 50px;
+      font-size: 30px;
+    }
+    .load-more {
+      justify-content: center;
+      align-items: center;
+      height: 100px;
+      border-color: #bbbbbb;
+      border-bottom-width: 1px;
+    }
+    .btn-wrap-column {
+      flex-direction: column;
+      margin-right: 60px;
+      margin-left: 60px;
+    }
+    .btn-wrap-row {
+      margin-right: 60px;
+      margin-left: 45px;
+      margin-bottom: 30px;
+    }
+    .btn-little {
+      flex: 1;
+      height: 80px;
+      margin-left: 15px;
+      border-radius: 5px;
+      color: #ffffff;
+      font-size: 30px;
+      text-align: center;
+      border-width: 0px;
+      background-color: #0faeff;
+    }
+    .item-color {
+      background-color: #f76160;
+    }
+    .nav {
+      padding-left: 60px;
+      padding-right: 60px;
+      padding-bottom: 30px;
+    }
+    .nav-item {
+      flex: 1;
+      padding-bottom: 30px;
+      border-bottom-width: 5px;
+      border-color: #fbf9fe;
+      font-size: 35px;
+      color: #666666;
+      text-align: center;
+    }
+    .selected {
+      border-color: #0faeff;
+    }
+  </style>

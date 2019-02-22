@@ -29,6 +29,14 @@
   </div>
 </template>
 
+<script>
+  export default {
+    private: {
+      componentName: 'font-family'
+    }
+  }
+</script>
+
 <style>
   @import '../../../common/css/common.css';
 
@@ -67,11 +75,3 @@
     font-family: myfont;
   }
 </style>
-
-<script>
-  export default {
-    private: {
-      componentName: 'font-family'
-    }
-  }
-</script>

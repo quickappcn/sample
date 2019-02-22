@@ -54,70 +54,6 @@
 </tabs>
 </template>
 
-<style>
-  @import "../../util/index.css";
-
-  .color-white {
-    color: #ffffff;
-    placeholder-color: #ffffff;
-  }
-  .icon-normal {
-    flex-shrink: 0;
-    resize-mode: contain;
-    width: 50px;
-    height: 50px;
-  }
-  #tabs {
-    flex-direction: column;
-  }
-  #tabContent {
-    flex: 1;
-  }
-  .page {
-    flex: 1;
-    flex-direction: column;
-  }
-  .title-bar {
-    flex-shrink: 0;
-    height: 100px;
-    padding: 20px 30px;
-    background-color: #333333;
-  }
-  .content {
-    flex-shrink: 0;
-    justify-content: center;
-  }
-  .search-wrap {
-    margin: 0 30px;
-    padding: 10px;
-    border-bottom-color: #ffffff;
-    border-bottom-width: 1px;
-  }
-  .search-input {
-    margin-left: 10px;
-    font-size: 32px;
-  }
-  #tabBar {
-    height: 120px;
-    border-top-width: 1px;
-    border-top-color: #cccccc;
-    background-color: #ffffff;
-  }
-  .tab-bar-item {
-    flex: 1;
-    flex-direction: column;
-    align-items: center;
-  }
-  .tab-bar-image {
-    width: 50px;
-    height: 50px;
-    resize-mode: contain;
-  }
-  .tab-bar-text:active {
-    color: #0faeff;
-  }
-</style>
-
 <script>
   export default {
     private: {
@@ -175,3 +111,67 @@
     }
   }
 </script>
+
+<style>
+  @import "../../util/index.css";
+
+  .color-white {
+    color: #ffffff;
+    placeholder-color: #ffffff;
+  }
+  .icon-normal {
+    flex-shrink: 0;
+    object-fit: contain;
+    width: 50px;
+    height: 50px;
+  }
+  #tabs {
+    flex-direction: column;
+  }
+  #tabContent {
+    flex: 1;
+  }
+  .page {
+    flex: 1;
+    flex-direction: column;
+  }
+  .title-bar {
+    flex-shrink: 0;
+    height: 100px;
+    padding: 20px 30px;
+    background-color: #333333;
+  }
+  .content {
+    flex-shrink: 0;
+    justify-content: center;
+  }
+  .search-wrap {
+    margin: 0 30px;
+    padding: 10px;
+    border-bottom-color: #ffffff;
+    border-bottom-width: 1px;
+  }
+  .search-input {
+    margin-left: 10px;
+    font-size: 32px;
+  }
+  #tabBar {
+    height: 120px;
+    border-top-width: 1px;
+    border-top-color: #cccccc;
+    background-color: #ffffff;
+  }
+  .tab-bar-item {
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+  }
+  .tab-bar-image {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+  }
+  .tab-bar-text:active {
+    color: #0faeff;
+  }
+</style>

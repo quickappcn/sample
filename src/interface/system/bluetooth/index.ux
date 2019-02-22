@@ -1,0 +1,278 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+    <div class="item-container">
+      <input type="button" class="btn" onclick="openAdapter" value="开始扫描" />
+      <input type="button" class="btn" onclick="stopDevicesDiscovery" value="停止扫描" />
+      <input type="button" class="btn" onclick="closeAdapter" value="结束流程" />
+
+      <text class="devices-title">{{'已发现' + deviceLen + '个外围设备，点击设备进行连接'}}</text>
+      <list class="list">
+        <list-item class="device" for="{{devices}}" onclick="createBLEConnection($item)" type="{{$idx}}">
+          <text class="device-name">{{$item.name}}:{{$item.deviceId}}</text>
+        </list-item>
+      </list>
+
+      <input type="button" class="btn" onclick="closeBLEConnection" value="断开连接" />
+    </div>
+  </div>
+</template>
+
+<style>
+  @import '../../../common/css/common.css';
+
+  .item-container {
+    flex-direction: column;
+    margin-bottom: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+  }
+
+  .column {
+    flex-direction: column;
+  }
+
+  .desc {
+    flex-direction: column;
+    padding: 0 60px 20px 60px;
+  }
+
+  .devices-title {
+    width: 100%;
+    text-align: center;
+  }
+
+  .list {
+    width: 100%;
+    height: 500px;
+  }
+
+  .device {
+    flex-direction: column;
+    margin: 10px 0;
+  }
+
+  .device-name {
+    width: 100%;
+    line-height: 50px;
+    text-align: center;
+    border: 1px solid #eee;
+  }
+
+  .list text {
+    color: #333;
+  }
+</style>
+
+<script>
+  import bluetooth from '@system.bluetooth'
+  import prompt from '@system.prompt'
+
+  export default {
+    private: {
+      componentName: 'Bluetooth',
+      devices: [],
+      deviceLen: 0,
+      deviceId: ''
+    },
+    onInit () {
+      this.$page.setTitleBar({ text: '蓝牙' })
+    },
+    openAdapter () {
+      let _this = this
+
+      bluetooth.openAdapter({
+        operateAdapter: true,
+        success(res) {
+          prompt.showToast({
+            message: '蓝牙初始化成功'
+          })
+
+          setTimeout(() => {
+            _this.startDevicesDiscovery()
+          }, 2000)
+        },
+        fail(data, code) {
+          prompt.showToast({
+            message: '蓝牙初始化失败'
+          })
+        }
+      })
+    },
+    startDevicesDiscovery () {
+      let _this = this
+
+      bluetooth.startDevicesDiscovery({
+        allowDuplicatesKey: true,
+        success(res) {
+          prompt.showToast({
+            message: '开始搜寻附近的蓝牙外围设备'
+          })
+          _this.ondevicefound()
+        }
+      })
+    },
+    stopDevicesDiscovery () {
+      bluetooth.stopDevicesDiscovery({
+        success() {
+          prompt.showToast({
+            message: '停止扫描'
+          })
+        }
+      })
+    },
+    ondevicefound () {
+      let _this = this
+
+      bluetooth.ondevicefound = (res) => {
+        res.devices.forEach(device => {
+          if (!device.name && !device.localName) {
+            return
+          }
+
+          const foundDevices = _this.devices
+          const idx = _this.inArray(foundDevices, 'deviceId', device.deviceId)
+
+          if (idx === -1) {
+            _this.devices.push(device)
+          } else {
+            _this.devices.splice(idx, 1, device)
+          }
+
+          _this.deviceLen = _this.devices.length
+        })
+      }
+    },
+    writeBLECharacteristicValue () {
+      const _this = this
+
+      // 向蓝牙设备发送一个0x00的16进制数据
+      const buffer = new ArrayBuffer(1)
+      const dataView = new DataView(buffer)
+      dataView.setUint8(0, Math.random() * 255 | 0)
+      bluetooth.writeBLECharacteristicValue({
+        deviceId: _this._deviceId,
+        serviceId: _this._serviceId,
+        characteristicId: _this._characteristicId,
+        value: buffer,
+        success() {
+          prompt.showToast({
+            message: '写入成功'
+          })
+        }
+      })
+    },
+    closeAdapter () {
+      bluetooth.closeAdapter()
+    },
+    createBLEConnection(data) {
+      const _this = this
+      const deviceId = data.deviceId
+      const name = data.name
+
+      bluetooth.createBLEConnection({
+        deviceId,
+        success(res) {
+          _this.connected = true
+
+          prompt.showToast({
+            message: '连接成功'
+          })
+          _this.deviceId = deviceId
+          _this.getBLEDeviceServices(deviceId)
+        }
+      })
+    },
+
+    getBLEDeviceServices (deviceId) {
+      const _this = this
+
+      bluetooth.getBLEDeviceServices({
+        deviceId,
+        success(res) {
+          for (let i = 0; i < res.services.length; i++) {
+            if (res.services[i].isPrimary) {
+              _this.getBLEDeviceCharacteristics(deviceId, res.services[i].uuid)
+            }
+          }
+        }
+      })
+    },
+
+    getBLEDeviceCharacteristics (deviceId, serviceId) {
+      const _this = this
+
+      bluetooth.getBLEDeviceCharacteristics({
+        deviceId,
+        serviceId,
+        success(res) {
+          for (let i = 0; i < res.characteristics.length; i++) {
+            let item = res.characteristics[i]
+
+            if (item.properties.read) {
+              bluetooth.readBLECharacteristicValue({
+                deviceId,
+                serviceId,
+                characteristicId: item.uuid,
+                success() {
+                  prompt.showToast({
+                    message: '读取成功'
+                  })
+                }
+              })
+            }
+
+            if (item.properties.write) {
+              _this._deviceId = deviceId
+              _this._serviceId = serviceId
+              _this._characteristicId = item.uuid
+
+              _this.writeBLECharacteristicValue()
+            }
+
+            if (item.properties.notify || item.properties.indicate) {
+              bluetooth.notifyBLECharacteristicValueChange({
+                deviceId,
+                serviceId,
+                characteristicId: item.uuid,
+                state: true,
+                success() {
+                  prompt.showToast({
+                    message: '订阅成功'
+                  })
+                }
+              })
+            }
+          }
+        }
+      })
+    },
+    closeBLEConnection () {
+      const _this = this
+
+      bluetooth.closeBLEConnection({
+        deviceId: _this.deviceId,
+        success() {
+          prompt.showToast({
+            message: '已断开连接'
+          })
+        },
+        fail(err) {
+          prompt.showToast({
+            message: err
+          })
+        }
+      })
+    },
+    inArray (arr, key, val) {
+      for (let i = 0; i < arr.length; i++) {
+        if (arr[i][key] === val) {
+          return i;
+        }
+      }
+      return -1;
+    }
+  }
+</script>

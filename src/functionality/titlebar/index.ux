@@ -31,15 +31,6 @@
   </div>
 </template>
 
-<style>
-  .doc-page {
-    flex-direction: column;
-  }
-  .item {
-    margin-top: 50px;
-  }
-</style>
-
 <script>
   import prompt from '@system.prompt'
   export default {
@@ -58,3 +49,12 @@
     }
   }
 </script>
+
+<style>
+  .doc-page {
+    flex-direction: column;
+  }
+  .item {
+    margin-top: 50px;
+  }
+</style>

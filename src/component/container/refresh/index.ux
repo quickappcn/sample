@@ -1,32 +1,17 @@
 <template>
   <div class="doc-page">
     <!-- 属性refreshing用于标识refresh组件的加载状态 -->
-    <refresh class="refresh" onrefresh="refresh" refreshing="{{isRefreshing}}">
+    <refresh class="refresh" onrefresh="refresh" refreshing="{{isRefreshing}}" type="{{refreshType}}">
       <div class="page-title-wrap">
           <text class="page-title ">{{componentName}}</text>
       </div>
       <div class="item-container">
         <input class="btn" type="button" value="停止刷新" onclick="stopRefresh"/>
+        <input class="btn" type="button" value="{{refreshType === 'auto' ? '开启下拉回弹效果' : '关闭下拉回弹效果'}}" onclick="changeType"/>
       </div>
     </refresh>
   </div>
 </template>
-
-<style>
-  @import '../../../common/css/common.css';
-
-  .refresh{
-    flex-direction: column;
-    flex: 1;
-  }
-
-  .item-container{
-    margin-bottom: 50px;
-    margin-right: 60px;
-    margin-left: 60px;
-    flex-direction: column;
-  }
-</style>
 
 <script>
   import prompt from '@system.prompt'
@@ -34,10 +19,14 @@
   export default {
     private: {
       componentName: 'refresh',
-      isRefreshing: false
+      isRefreshing: false,
+      refreshType: 'auto'
     },
     onInit () {
       this.$page.setTitleBar({text: 'Refresh'})
+    },
+    changeType () {
+      this.refreshType = this.refreshType === 'auto' ? 'pulldown' : 'auto'
     },
     refresh (e) {
       const self = this
@@ -56,3 +45,19 @@
     },
   }
 </script>
+
+<style>
+  @import '../../../common/css/common.css';
+
+  .refresh{
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .item-container{
+    margin-bottom: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+</style>

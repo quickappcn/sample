@@ -1,8 +1,8 @@
 {
   "name": "Sample",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "subversion": {
-    "toolkit": "0.1.0"
+    "toolkit": "0.2.2"
   },
   "description": "Quickapp Samples",
   "scripts": {
@@ -16,7 +16,7 @@
   "devDependencies": {
     "@babel/runtime": "^7.2.0",
     "catching": "^1.0.2",
-    "hap-toolkit": "^0.1.0",
+    "hap-toolkit": "^0.2.2",
     "less": "^3.0.4",
     "less-loader": "^4.1.0",
     "qrcode-js": "0.0.2"

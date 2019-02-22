@@ -22,40 +22,6 @@
   </div>
 </template>
 
-<style>
-  @import '../../../common/css/common.css';
-
-  .item-container {
-    margin-top: 50px;
-    margin-right: 60px;
-    margin-left: 60px;
-    flex-direction: column;
-  }
-  .item-content {
-    flex-direction: column;
-    background-color: #ffffff;
-    padding-left: 30px;
-    padding-right: 30px;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    margin-bottom: 100px;
-  }
-  .item-content-detail {
-    align-items: center;
-  }
-  .input {
-    flex: 1;
-    font-size: 30px;
-    padding-left: 20px;
-  }
-  .txt {
-    width: 150px;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    text-align: right;
-  }
-</style>
-
 <script>
   import prompt from '@system.prompt'
   import notification from '@system.notification'
@@ -90,3 +56,37 @@
     }
   }
 </script>
+
+<style>
+  @import '../../../common/css/common.css';
+
+  .item-container {
+    margin-top: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+  .item-content {
+    flex-direction: column;
+    background-color: #ffffff;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin-bottom: 100px;
+  }
+  .item-content-detail {
+    align-items: center;
+  }
+  .input {
+    flex: 1;
+    font-size: 30px;
+    padding-left: 20px;
+  }
+  .txt {
+    width: 150px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    text-align: right;
+  }
+</style>

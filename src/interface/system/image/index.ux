@@ -19,6 +19,23 @@
 
       <div class="item-container">
         <div class="item-content">
+          <text class="txt">设置图片的exif信息:</text>
+          <image src="{{exifimageUri}}"></image>
+        </div>
+        <input type="button" class="btn" onclick="setImageExif" value="设置图片的exif信息"/>
+      </div>
+
+      <div class="item-container">
+        <div class="item-content">
+          <text class="txt">获取图片的exif信息:</text>
+          <image src="{{exifimageUri}}"></image>
+          <text class="txt">attributes: {{attributes}}</text>
+        </div>
+        <input type="button" class="btn" onclick="getImageExif" value="获取图片的exif信息"/>
+      </div>
+
+      <div class="item-container">
+        <div class="item-content">
           <text class="txt">压缩图片:</text>
           <image src="{{imageCompressInfo.uri || ''}}"></image>
           <text class="txt">uri: {{imageCompressInfo.uri || ''}}</text>
@@ -53,42 +70,6 @@
   </stack>
 </template>
 
-<style>
-  @import '../../../common/css/common.css';
-
-  .main {
-    flex-direction: column;
-  }
-  .mask {
-    flex: 1;
-    flex-direction: column;
-    align-content: center;
-    padding-top: 400px;
-    background-color: rgba(0, 0, 0, 0.5);
-  }
-  .color-white {
-    color: #FFFFFF;
-  }
-  .font-m {
-    margin-bottom: 100px;
-    text-align: center;
-    font-size: 40px;
-  }
-  .item-container {
-    margin-bottom: 50px;
-    margin-right: 60px;
-    margin-left: 60px;
-    flex-direction: column;
-  }
-  .item-content {
-    flex-direction: column;
-    background-color: #ffffff;
-    padding: 30px;
-    margin-bottom: 100px;
-    align-items: flex-start;
-  }
-</style>
-
 <script>
   import image from '@system.image'
   import request from '@system.request'
@@ -103,7 +84,9 @@
       imageGetInfo: {},
       imageCompressInfo: {},
       imageOperateInfo: {},
-      imageEditInfo: {}
+      imageEditInfo: {},
+      exifimageUri: '/interface/system/image/img/pic-160x160.jpg',
+      attributes: ''
     },
     onInit () {
       this.$page.setTitleBar({ text: 'Image' })
@@ -155,6 +138,43 @@
         complete: function () {
           prompt.showToast({
             message: `complete`
+          })
+        }
+      })
+    },
+    setImageExif () {
+      // 设置图片的exif信息
+      image.setExifAttributes({
+        uri: this.exifimageUri,
+        attributes:{
+          Orientation:'1',
+          Make:'quick app'
+        },
+        success: function (data) {
+          prompt.showToast({
+            message: `handling success`
+          })
+        },
+        fail: function (data, code) {
+          prompt.showToast({
+            message: `handling fail, code = ${code}`
+          })
+        }
+      })
+    },
+    getImageExif () {
+      // 获取图片的exif信息
+      image.getExifAttributes({
+        uri: this.exifimageUri,
+        success: (data)=> {
+          this.attributes = JSON.stringify(data.attributes)
+          prompt.showToast({
+            message: `handling success`
+          })
+        },
+        fail: function (data, code) {
+          prompt.showToast({
+            message: `handling fail, code = ${code}`
           })
         }
       })
@@ -247,3 +267,39 @@
     }
   }
 </script>
+
+<style>
+  @import '../../../common/css/common.css';
+
+  .main {
+    flex-direction: column;
+  }
+  .mask {
+    flex: 1;
+    flex-direction: column;
+    align-content: center;
+    padding-top: 400px;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  .color-white {
+    color: #FFFFFF;
+  }
+  .font-m {
+    margin-bottom: 100px;
+    text-align: center;
+    font-size: 40px;
+  }
+  .item-container {
+    margin-bottom: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+  .item-content {
+    flex-direction: column;
+    background-color: #ffffff;
+    padding: 30px;
+    margin-bottom: 100px;
+    align-items: flex-start;
+  }
+</style>
