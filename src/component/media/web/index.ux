@@ -16,17 +16,12 @@
         <div class="item-container">
           <input type="button" value="进入淘宝拉起支付宝支付" @click="gotoPay('zhifubao')"/>
         </div>
+        <div class="item-container">
+          <input type="button" value="web组件h5页面支持定位功能" @click="gotoMap"/>
+        </div>
     </div>
 </template>
-<style>
-  @import '../../../common/css/common.css';
-  .item-container {
-    margin-bottom: 50px;
-    margin-right: 60px;
-    margin-left: 60px;
-    flex-direction: column;
-  }
-</style>
+
 <script>
   import router from "@system.router"
 
@@ -54,6 +49,24 @@
           allowthirdpartycookies: false
         }
       })
+    },
+    gotoMap () {
+      router.push({
+        uri: '/component/media/web/detail',
+        params: {
+          url: 'https://m.amap.com/',
+        }
+      })
     }
   }
 </script>
+
+<style>
+  @import '../../../common/css/common.css';
+  .item-container {
+    margin-bottom: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+</style>

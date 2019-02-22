@@ -1,116 +1,162 @@
 <template>
-    <div class="doc-page">
-      <div class="page-title-wrap">
-        <text class="page-title">{{componentName}}</text>
-      </div>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
 
-      <div class="item-container">
-        <div class="swiper-container">
-          <swiper class="swiper" autoplay="{{autoPlay}}" interval="{{sliderValue}}" indicator="{{indicator}}" loop="{{loopPlay}}">
-            <text class="item color-1">A</text>
-            <text class="item color-2">B</text>
-            <text class="item color-3">C</text>
-          </swiper>
-        </div>
-      </div>
-      <div class="item-container">
-        <div class="item-content">
-          <text class="item-content_title">指示点</text>
-          <switch class="switch" checked="true" onchange="showIndicator"></switch>
-        </div>
-        <div class="item-content">
-          <text class="item-content_title">自动播放</text>
-          <switch class="switch" checked="true" onchange="startAutoPlay"></switch>
-        </div>
-        <div class="item-content">
-          <text class="item-content_title">循环播放</text>
-          <switch class="switch" checked="true" onchange="switchLoopPlay"></switch>
-        </div>
-      </div>
-      <div class="item-container">
-        <div class="item-content">
-          <text class="item-content_title">自动播放间隔时长(ms)</text>
-          <text class="item_left">{{sliderValue}}</text>
-        </div>
-        <slider class="slider" min="1000" max="3000" onchange="setSliderValue"></slider>
+    <div class="item-container">
+      <div class="swiper-container">
+        <swiper class="swiper" autoplay="{{autoPlay}}" interval="{{sliderValue}}" indicator="{{indicator}}" duration="{{durationValue}}" vertical="{{isVertical}}" previousmargin="{{marginValue}}" nextmargin="{{marginValue}}" loop="{{loopPlay}}" style="indicatorTop: {{topValue}}">
+          <text class="item color-1">A</text>
+          <text class="item color-2">B</text>
+          <text class="item color-3">C</text>
+        </swiper>
       </div>
     </div>
-  </template>
+    <div class="item-container">
+      <div class="item-content">
+        <text class="item-content_title">指示点</text>
+        <switch class="switch" checked="true" onchange="showIndicator"></switch>
+      </div>
+      <div class="item-content">
+        <text class="item-content_title">自动播放</text>
+        <switch class="switch" checked="true" onchange="startAutoPlay"></switch>
+      </div>
+      <div class="item-content">
+        <text class="item-content_title">循环播放</text>
+        <switch class="switch" checked="true" onchange="switchLoopPlay"></switch>
+      </div>
+      <div class="item-content">
+        <text class="item-content_title">竖直方向</text>
+        <switch class="switch" checked="false" onchange="switchDirection"></switch>
+      </div>
+    </div>
+    <div class="item-container">
+      <div class="item-content">
+        <text class="item-content_title">自动播放间隔时长(ms)</text>
+        <text class="item_left">{{sliderValue}}</text>
+      </div>
+      <slider class="slider" min="1000" max="3000" onchange="setSliderValue"></slider>
+    </div>
+    <div class="item-container">
+      <div class="item-content">
+        <text class="item-content_title">滑动动画时长(ms)</text>
+        <text class="item_left">{{durationValue}}</text>
+      </div>
+      <slider class="slider" min="1000" max="3000" onchange="setDurationValue"></slider>
+    </div>
+    <div class="item-container">
+      <div class="item-content">
+        <text class="item-content_title">设置前后边距</text>
+        <text class="item_left">{{marginValue}}</text>
+      </div>
+      <slider class="slider" min="0" max="50" onchange="setMarginValue"></slider>
+    </div>
+    <div class="item-container">
+      <div class="item-content">
+        <text class="item-content_title">设置控制器位置（indicator-top）</text>
+        <text class="item_left">{{topValue}}</text>
+      </div>
+      <slider class="slider" min="0" max="250" onchange="setTopValue"></slider>
+    </div>
+  </div>
+</template>
 
-  <style>
-    @import '../../../common/css/common.css';
+<script>
+  export default {
+    private: {
+      componentName: 'swiper',
+      autoPlay: true,
+      indicator: true,
+      loopPlay: true,
+      sliderValue: 1000,
+      durationValue: 1000,
+      isVertical: false,
+      marginValue: '0px',
+      topValue: '210px',
+    },
+    onInit () {
+      this.$page.setTitleBar({text: 'Swiper'})
+    },
+    startAutoPlay (e) {
+      this.autoPlay = e.checked
+    },
+    showIndicator (e) {
+      this.indicator = e.checked
+    },
+    switchLoopPlay (e) {
+      this.loopPlay = e.checked
+    },
+    switchDirection (e) {
+      this.isVertical = e.checked
 
-    .item-container {
-      margin-bottom: 50px;
-      margin-right: 60px;
-      margin-left: 60px;
-      flex-direction: column;
-    }
-    .swiper-container {
-      flex-direction: column;
-    }
-    .swiper {
-      flex-direction: column;
-      height: 250px;
-    }
-    .item-content {
-    }
-    .item-content_title {
-      flex: 1;
-      padding-top: 20px;
-      padding-bottom: 20px;
-    }
-    .item_left {
-      padding: 20px;
-    }
-    .switch {
-      height: 50px;
-      width: 320px;
-    }
-    .slider {
-      width: 100%;
-      padding-left: 50px;
-      padding-right: 50px;
-    }
-    .item {
-      height: 250px;
-      text-align: center;
-      color: #ffffff;
-    }
-    .color-1 {
-      background-color: #09ba07;
-    }
-    .color-2 {
-      background-color: #f76160;
-    }
-    .color-3 {
-      background-color: #0faeff;
-    }
-  </style>
-
-  <script>
-    export default {
-      private: {
-        componentName: 'swiper',
-        autoPlay: true,
-        indicator: true,
-        loopPlay: true,
-        sliderValue: 1000
-      },
-      onInit () {
-        this.$page.setTitleBar({text: 'Swiper'})
-      },
-      startAutoPlay: function (e) {
-        this.autoPlay = e.checked
-      },
-      showIndicator: function (e) {
-        this.indicator = e.checked
-      },
-      switchLoopPlay: function (e) {
-        this.loopPlay = e.checked
-      },
-      setSliderValue: function (e) {
-        this.sliderValue = e.progress
+      if (e.checked) {
+        this.topValue = 68 + 'px'
+      } else {
+        this.topValue = 195 + 'px'
       }
+    },
+    setSliderValue (e) {
+      this.sliderValue = e.progress
+    },
+    setDurationValue (e) {
+      this.durationValue = e.progress
+    },
+    setMarginValue (e) {
+      this.marginValue = e.progress + 'px'
+    },
+    setTopValue (e) {
+      this.topValue = e.progress + 'px'
     }
-  </script>
+  }
+</script>
+
+<style>
+  @import '../../../common/css/common.css';
+
+  .item-container {
+    margin-bottom: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+  .swiper-container {
+    flex-direction: column;
+  }
+  .swiper {
+    flex-direction: column;
+    height: 250px;
+    indicator-top: 210px;
+  }
+  .item-content_title {
+    flex: 1;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+  .item_left {
+    padding: 20px;
+  }
+  .switch {
+    height: 50px;
+    width: 320px;
+  }
+  .slider {
+    width: 100%;
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+  .item {
+    height: 250px;
+    text-align: center;
+    color: #ffffff;
+  }
+  .color-1 {
+    background-color: #09ba07;
+  }
+  .color-2 {
+    background-color: #f76160;
+  }
+  .color-3 {
+    background-color: #0faeff;
+  }
+</style>

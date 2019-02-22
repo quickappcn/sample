@@ -9,25 +9,6 @@
   </div>
 </template>
 
-<style>
-  @import "../../common/css/index.css";
-
-  .content {
-    flex-direction: column;
-    align-items: flex-start;
-    border:1px solid #cccccc;
-    margin: 20px;
-  }
-  web {
-    flex: 1;
-    margin: 20px;
-  }
-  input {
-    padding: 10px;
-    margin-bottom: 20px;
-  }
-</style>
-
 <script>
   export default {
     data: {
@@ -55,3 +36,22 @@
     }
   }
 </script>
+
+<style>
+  @import "../../common/css/index.css";
+
+  .content {
+    flex-direction: column;
+    align-items: flex-start;
+    border:1px solid #cccccc;
+    margin: 20px;
+  }
+  web {
+    flex: 1;
+    margin: 20px;
+  }
+  input {
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+</style>

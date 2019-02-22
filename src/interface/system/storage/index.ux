@@ -23,40 +23,6 @@
     </div>
   </template>
 
-  <style>
-    @import '../../../common/css/common.css';
-
-    .item-container {
-      margin-bottom: 50px;
-      margin-right: 60px;
-      margin-left: 60px;
-      flex-direction: column;
-    }
-    .item-content {
-      flex-direction: column;
-      background-color: #ffffff;
-      padding-left: 30px;
-      padding-right: 30px;
-      padding-top: 15px;
-      padding-bottom: 15px;
-      margin-bottom: 100px;
-    }
-    .item-content-detail {
-      align-items: center;
-    }
-    .input {
-      flex: 1;
-      font-size: 30px;
-      padding-left: 20px;
-    }
-    .txt {
-      width: 100px;
-      padding-top: 15px;
-      padding-bottom: 15px;
-      text-align: right;
-    }
-  </style>
-
   <script>
     import storage from '@system.storage'
     import prompt from '@system.prompt'
@@ -148,3 +114,37 @@
       }
     }
   </script>
+
+  <style>
+    @import '../../../common/css/common.css';
+
+    .item-container {
+      margin-bottom: 50px;
+      margin-right: 60px;
+      margin-left: 60px;
+      flex-direction: column;
+    }
+    .item-content {
+      flex-direction: column;
+      background-color: #ffffff;
+      padding-left: 30px;
+      padding-right: 30px;
+      padding-top: 15px;
+      padding-bottom: 15px;
+      margin-bottom: 100px;
+    }
+    .item-content-detail {
+      align-items: center;
+    }
+    .input {
+      flex: 1;
+      font-size: 30px;
+      padding-left: 20px;
+    }
+    .txt {
+      width: 100px;
+      padding-top: 15px;
+      padding-bottom: 15px;
+      text-align: right;
+    }
+  </style>

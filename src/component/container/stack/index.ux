@@ -14,6 +14,17 @@
   </div>
 </template>
 
+<script>
+  export default {
+    private: {
+      componentName: 'stack'
+    },
+    onInit () {
+      this.$page.setTitleBar({text: 'Stack'})
+    }
+  }
+</script>
+
 <style>
   @import '../../../common/css/common.css';
 
@@ -38,14 +49,3 @@
     align-items: center;
   }
 </style>
-
-<script>
-  export default {
-    private: {
-      componentName: 'stack'
-    },
-    onInit () {
-      this.$page.setTitleBar({text: 'Stack'})
-    }
-  }
-</script>

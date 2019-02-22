@@ -1,0 +1,45 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+
+    <div class="item-container">
+      <div class="item-content">
+        <text class="txt">屏幕方向：{{orientation}}</text>
+      </div>
+    </div>
+  </div>
+</template>
+
+<style>
+  @import '../../common/css/common.css';
+
+  .item-container {
+    margin-bottom: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+
+  .item-content {
+    background-color: #ffffff;
+    padding: 30px;
+    margin-bottom: 100px;
+    align-items: flex-start;
+  }
+</style>
+
+<script>
+  export default {
+    private: {
+      componentName: 'Screen Orientation',
+      orientation: '',
+    },
+    onInit () {
+      this.$page.setTitleBar({ text: 'Screen Orientation' })
+
+      this.orientation = this.$page.orientation === 'portrait' ? '竖屏' : '横屏'
+    }
+  }
+</script>

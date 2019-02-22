@@ -36,35 +36,6 @@
   </div>
 </template>
 
-<style>
-  @import '../../../common/css/common.css';
-
-  .item-container {
-    margin-bottom: 50px;
-    margin-right: 60px;
-    margin-left: 60px;
-    flex-direction: column;
-  }
-
-  .item-content {
-    flex-direction: column;
-    background-color: #ffffff;
-    padding: 30px;
-    margin-bottom: 50px;
-  }
-
-  .item-content input {
-    width: 400px;
-    margin-left: 10px;
-    padding: 10px;
-    text-align: center;
-    border-width: 1px;
-    border-color: #dddddd;
-    background-color: #ffffff;
-    width: 350px;
-  }
-</style>
-
 <script>
   import record from '@system.record'
   import audio from '@system.audio'
@@ -115,3 +86,32 @@
     }
   }
 </script>
+
+<style>
+  @import '../../../common/css/common.css';
+
+  .item-container {
+    margin-bottom: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+
+  .item-content {
+    flex-direction: column;
+    background-color: #ffffff;
+    padding: 30px;
+    margin-bottom: 50px;
+  }
+
+  .item-content input {
+    width: 400px;
+    margin-left: 10px;
+    padding: 10px;
+    text-align: center;
+    border-width: 1px;
+    border-color: #dddddd;
+    background-color: #ffffff;
+    width: 350px;
+  }
+</style>

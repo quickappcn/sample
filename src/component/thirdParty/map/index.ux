@@ -3,16 +3,20 @@
     <map id="map" style="width:{{width}}; height:{{height}};mylocation-fill-color: {{fillColor}}; mylocation-stroke-color: {{strokeColor}};" longitude="{{longitude}}" latitude="{{latitude}}" scale="{{scale}}"
       markers="{{markers}}" controls="{{controls}}" circles="{{circles}}" polylines="{{polylines}}" groundoverlays="{{groundoverlays}}"
       rotate="{{rotate}}" showmylocation="{{showmylocation}}" includePoints="{{includePoints}}" @regionchange="regionchange"
+      showcompass="{{compassSwitch}}" enableoverlooking="{{lookingSwitch}}"
+      enablezoom="{{zoomSwitch}}" enablescroll="{{dragSwitch}}" enablerotate="{{rotateSwitch}}"
       @loaded="loaded" @tap="tap" @markertap="markerTap" @callouttap="calloutTap" @controltap="controlTap">
     </map>
     <div class="card-container">
       <div class="item-container">
         <select class="select" @change="changeOption">
           <option value="mapShow" selected="true" class="option">地图展示</option>
+          <option value="guestureShow" class="option">手势功能</option>
           <option value="methodShow" class="option">方法</option>
           <option value="viewportShow" class="option">最佳视口</option>
           <option value="operateSingleMarker" class="option">单一Marker操作</option>
           <option value="calloutShow" class="option">Callout操作</option>
+          <option value="labelShow" class="option">Label 展示</option>
           <option value="moveShow" class="option">Marker移动</option>
           <option value="polylineShow" class="option">Polyline</option>
           <option value="circleShow" class="option">Circle</option>
@@ -33,6 +37,14 @@
         <input placeholder="精度圈填充颜色" type="text" class="text-input" @change="changeColor('fill')"></input>
         <input placeholder="精度圈描边颜色" type="text" class="text-input" @change="changeColor('stroke')"></input>
         <input type="button" value="修改精度圈颜色" class="btn" @click="refreshLocationStyle"></input>
+      </div>
+
+      <div if="showList.guestureShow" class="button-style">
+        <input type="button" value="显示/隐藏指南针" class="btn" @click="switchCompass"></input>
+        <input type="button" value="开启/关闭俯视功能" class="btn" @click="switchLooking"></input>
+        <input type="button" value="开启/关闭缩放功能" class="btn" @click="switchZoom"></input>
+        <input type="button" value="开启/关闭拖动功能" class="btn" @click="switchDrag"></input>
+        <input type="button" value="开启/关闭旋转功能" class="btn" @click="switchRotate"></input>
       </div>
 
       <div if="showList.methodShow" class="button-style">
@@ -151,6 +163,833 @@
   </stack>
 </template>
 
+<script>
+  import prompt from '@system.prompt'
+
+  const MARKER_PATH = "./img/marker.png"
+  const DEFAULT_SCALE = 17
+  const TIAN_TAN_PARK_WGS = {
+    latitude: 39.8812273482,
+    longitude: 116.4105388182,
+  }
+  const POINT1 = {
+    latitude: 39.9090371069,
+    longitude: 116.3953853161
+  }
+  const POINT2 = {
+    latitude: 39.9089550115,
+    longitude: 116.3992842749
+  }
+  const POINT3 = {
+    latitude: 39.9061293143,
+    longitude: 116.3995796987
+  }
+  const POINT4 = {
+    latitude: 39.9061694220,
+    longitude: 116.3953937341
+  }
+  const MARKER = {
+    iconPath: MARKER_PATH,
+    width: 100,
+    callout: {
+      convertHtml: true,
+      content: "这里是<font color='#ff0000'>天坛公园</font>",
+      padding: 20,
+      borderRadius: 20
+    }
+  }
+  const POLYLINE = {
+    points: [
+      POINT1,
+      POINT2,
+      POINT3,
+      POINT4,
+      POINT1
+    ],
+    dotted: false,
+    width: 10
+  }
+  const CIRCLE = Object.assign({
+    fillColor: "#666666",
+    borderColor: "#ffffff",
+    borderWidth: 10,
+    radius: 100
+  }, TIAN_TAN_PARK_WGS)
+
+  let iconPathIndex = 0
+  const iconPathList = [
+    MARKER_PATH,
+    'https://doc.quickapp.cn/assets/images/logo.png'
+  ]
+
+  let markTemp = {}
+  let locationTemp = {}
+  let carTarget = {
+    carA: 1,
+    carB: 1
+  }
+  let latitudeTemp = TIAN_TAN_PARK_WGS.latitude
+  let longitudeTemp = TIAN_TAN_PARK_WGS.longitude
+
+  export default {
+    private: {
+      showList: {
+        mapShow: true,
+        guestureShow: false,
+        methodShow: false,
+        viewportShow: false,
+        operateSingleMarker: false,
+        calloutShow: false,
+        labelShow: false,
+        moveShow: false,
+        polylineShow: false,
+        circleShow: false,
+        groundoverlayShow: false,
+        controlShow: false,
+        coordShow: false
+      },
+      width: "100%",
+      height: "100%",
+      rotate: 0,
+      currentCoordType: '',
+      showmylocation: false,
+      scale: DEFAULT_SCALE,
+      latitude: null,
+      longitude: null,
+      polylines: null,
+      circles: null,
+      markers: null,
+      groundoverlays: null,
+      controls: null,
+      includePoints: [],
+      latitudeConvert: null,
+      longitudeConvert: null,
+      fillColor: '',
+      strokeColor: '',
+      compassSwitch: true,
+      lookingSwitch: true,
+      zoomSwitch: true,
+      dragSwitch: true,
+      rotateSwitch: true
+    },
+    onReady () {
+      this.getCoord()
+    },
+    // select组件选择
+    changeOption (e) {
+      const newValue = e.newValue
+
+      for (let key in this.showList) {
+        this.showList[key] = false
+      }
+
+      this.showList[newValue] = true
+      this.polylines = null
+      this.markers = null
+      this.circles = null
+      this.includePoints = []
+      this.controls = null
+      this.groundoverlays = null
+      this.scale = null // 手动缩放后进行缩放比例重置
+      this.scale = DEFAULT_SCALE
+      this.rotate = 0
+      markTemp = {
+        markerAlpha: 1,
+        markerX: 0.5,
+        markerY: 1
+      }
+
+      switch (newValue) {
+        case "viewportShow":
+          const pointList = [POINT1, POINT2, POINT3, POINT4]
+
+          this.width = "100%"
+          this.height = "100%"
+          this.markers = pointList.map(item => Object.assign({}, item, { iconPath: MARKER_PATH, width: 20 }))
+          this.includePoints = pointList
+          break
+        case "operateSingleMarker":
+        case "calloutShow":
+          this.moveToCenter()
+          this.markers = [Object.assign({
+            iconPath: MARKER_PATH,
+            width: 100,
+            id: 1,
+            rotate: 0,
+            callout: {
+              convertHtml: true,
+              content: "这里是<font color='#ff0000'>天坛公园</font>",
+              padding: 0,
+              borderRadius: 0
+            }
+          }, TIAN_TAN_PARK_WGS)]
+          break
+        case "labelShow":
+          this.moveToCenter()
+          this.markers = [Object.assign({
+            iconPath: MARKER_PATH,
+            width: 100,
+            id: 1,
+            rotate: 0,
+            label: {
+              content: '当前位置(label)',
+              color: '#ff981a',
+              fontSize: '25px',
+              anchorX: 0,
+              anchorY: 0,
+              borderRadius: '10px',
+              padding: '10px',
+              backgroundColor: '#ffffff',
+              textAlign: 'center'
+            }
+          }, TIAN_TAN_PARK_WGS)]
+          break
+        case "moveShow":
+          this.moveToCenter()
+          this.markers = [{
+            id: 1,
+            iconPath: "./img/carA.png"
+          }, {
+            id: 2,
+            iconPath: "./img/carB.png"
+          }].map(item => Object.assign(item, POINT1, {
+            width: 100,
+            anchor: { x: 0.5, y: 0.5 }
+          }))
+        case "polylineShow":
+          this.moveToCenter()
+          this.polylines = [POLYLINE]
+          break
+        case "circleShow":
+          this.moveToCenter()
+          this.circles = [CIRCLE]
+          break
+        case "groundoverlayShow":
+          this.moveToCenter()
+          this.groundoverlays = [{
+            northEast: POINT2,
+            southWest: POINT4,
+            iconPath: "./../../../common/logo.png",
+            opacity: 1,
+            visible: true
+          }]
+          break
+        case "controlShow":
+          this.controls = [{
+            id: 1,
+            position: {
+              left: "50px",
+              bottom: "200px",
+              width: "70px"
+            },
+            iconPath: "./img/location.png"
+          }, {
+            id: 2,
+            position: {
+              right: "50px",
+              bottom: "200px",
+              width: "70px"
+            },
+            iconPath: "./img/minus.png"
+          }, {
+            id: 3,
+            position: {
+              right: "50px",
+              bottom: "300px",
+              width: "70px"
+            },
+            iconPath: "./img/plus.png"
+          }]
+          break
+      }
+    },
+    // 视野中心点重置
+    moveToCenter () {
+      this.latitude = null //地图视野发生变化后进行视野中心重置
+      this.longitude = null
+      this.latitude = TIAN_TAN_PARK_WGS.latitude
+      this.longitude = TIAN_TAN_PARK_WGS.longitude
+    },
+    // 地图点击监听
+    tap () {
+      prompt.showToast({
+        message: "地图被点击"
+      })
+    },
+    // 地图渲染完成监听
+    loaded () {
+      prompt.showToast({
+        message: "地图组件加载完毕"
+      })
+    },
+    // 获取视野中心点坐标
+    getCenter () {
+      this.$element('map').getCenterLocation({
+        success (res) {
+          prompt.showToast({
+            message: "中心点纬度：" + res.latitude + "\n" + "中心点经度：" + res.longitude
+          })
+        },
+        fail (reason) {
+          prompt.showToast({
+            message: `获取失败，reason = ${reason}`
+          });
+        },
+        complete () {
+          console.log('complete')
+        }
+      })
+    },
+    // 获取地图缩放级别
+    getScale () {
+      this.$element('map').getScale({
+        success (res) {
+          prompt.showToast({
+            message: "缩放级别：" + res.scale
+          })
+        },
+        fail (reason) {
+          prompt.showToast({
+            message: `获取失败，reason = ${reason}`
+          });
+        },
+        complete () {
+          console.log('complete')
+        }
+      })
+    },
+    // 获取当前视野范围
+    getRegion () {
+      this.$element('map').getRegion({
+        success (res) {
+          prompt.showToast({
+            message: "西南角：\n" + res.southwest + "\n" + "东北角：\n" + res.northeast
+          })
+        },
+        fail (reason) {
+          prompt.showToast({
+            message: `获取失败，reason = ${reason}`
+          });
+        },
+        complete () {
+          console.log('complete')
+        }
+      })
+    },
+    // 地图视野变化监听
+    regionchange () {
+      prompt.showToast({
+        message: "地图视野发生变化"
+      })
+    },
+    // 控件点击监听
+    controlTap (res) {
+      const that = this
+
+      switch (res.controlId) {
+        case 1:
+          this.showmylocation = true
+          this.$element('map').moveToMyLocation()
+          prompt.showToast({
+            message: "控件：移动到当前位置并显示定位UI"
+          })
+          break
+        case 2:
+          this.scale = this.scale - 1
+          this.$element('map').getScale({
+            success (res) {
+              that.scale = res.scale
+            },
+            fail (reason) {
+              prompt.showToast({
+                message: `获取失败，reason = ${reason}`
+              });
+            },
+            complete () {
+              console.log('complete')
+            }
+          })
+          prompt.showToast({
+            message: "控件：缩小地图"
+          })
+          break
+        case 3:
+          this.scale = this.scale + 1
+          this.$element('map').getScale({
+            success (res) {
+              that.scale = res.scale
+            },
+            fail (reason) {
+              prompt.showToast({
+                message: `获取失败，reason = ${reason}`
+              });
+            },
+            complete () {
+              console.log('complete')
+            }
+          })
+          prompt.showToast({
+            message: "控件：放大地图"
+          })
+          break
+        default:
+      }
+    },
+    // 切换polyline的虚实
+    switchDotted () {
+      let polyline = this.polylines[0]
+
+      polyline.dotted = polyline.dotted ? false : true
+      this.polylines = [polyline]
+    },
+    // 切换是否展示当前定位点
+    showMyLocation () {
+      this.showmylocation = this.showmylocation ? false : true
+    },
+    // 移动到当前定位点
+    moveToMyLocation () {
+      this.$element('map').moveToMyLocation()
+    },
+    // 获取组件中心点的坐标系
+    getCoord () {
+      const self = this
+      this.$element('map').getCoordType({
+        success (res) {
+          self.currentCoordType = res.coordType
+          prompt.showToast({
+            message: "当前坐标系：" + res.coordType
+          })
+        },
+        fail (reason) {
+          prompt.showToast({
+            message: `获取失败，reason = ${reason}`
+          });
+        },
+        complete () {
+          console.log('complete')
+        }
+      })
+    },
+    // 获取当前支持的坐标系
+    getSupportedCoordTypes () {
+      this.$element('map').getSupportedCoordTypes({
+        success (res) {
+          let msg = JSON.stringify(res);
+          prompt.showToast({
+            message: `当前支持的坐标系：${msg}`
+          })
+        },
+        fail (reason) {
+          prompt.showToast({
+            message: `获取失败，reason = ${reason}`
+          });
+        },
+        complete () {
+          console.log('complete')
+        }
+      })
+    },
+    // 在指定区域内展示指定点
+    limitViewPort () {
+      this.$element('map').includePoints({
+        points: [POINT1, POINT2, POINT3, POINT4],
+        padding: "0px 530px 200px 300px",
+        success () {
+          console.log('success')
+        },
+        fail (reason) {
+          prompt.showToast({
+            message: `reason = ${reason}`
+          });
+        },
+        complete () {
+          console.log('complete')
+        }
+      })
+    },
+    // 增加polyline的线宽
+    polylinePlus () {
+      let polyline = this.polylines[0]
+
+      polyline.width++
+      this.polylines = [polyline]
+    },
+    // 减少polyline的线宽
+    polylineMinus () {
+      let polyline = this.polylines[0]
+
+      polyline.width--
+      if (polyline.width <= 0) {
+        polyline.width = 1
+      }
+      this.polylines = [polyline]
+    },
+    // 增加circle描边线宽
+    circleLinePlus () {
+      let circle = this.circles[0]
+
+      circle.borderWidth++
+      this.circles = [circle]
+    },
+    // 减少circle描边线宽
+    circleLineMinus () {
+      let circle = this.circles[0]
+
+      circle.borderWidth--
+      if (circle.borderWidth <= 0) {
+        circle.borderWidth = 1
+      }
+      this.circles = [circle]
+    },
+    // 增加circle半径
+    circleRadiusPlus () {
+      let circle = this.circles[0]
+
+      circle.radius += 10
+      this.circles = [circle]
+    },
+    // 减少circle半径
+    circleRadiusMinus () {
+      let circle = this.circles[0]
+
+      circle.radius -= 10
+      if (circle.radius <= 0) {
+        circle.radius = 10
+      }
+      this.circles = [circle]
+    },
+    // 增加marker尺寸
+    markerSizePlus () {
+      let mark = this.markers[0]
+
+      mark.width += 10
+      this.markers = [mark]
+    },
+    // 减小marker尺寸
+    markerSizeMinus () {
+      let mark = this.markers[0]
+
+      mark.width -= 10
+      if (mark.width <= 0) {
+        mark.width <= 10
+      }
+      this.markers = [mark]
+    },
+    // 改变marker透明度
+    changeMarkerAlpha (value) {
+      markTemp.markerAlpha = value.text
+    },
+    // 改变marker锚点的x轴坐标
+    changeMarkerX (value) {
+      markTemp.markerX = value.text
+    },
+    // 改变marker锚点的y轴坐标
+    changeMarkerY (value) {
+      markTemp.markerY = value.text
+    },
+    // 刷新marker属性
+    refreshMarker () {
+      let mark = this.markers[0]
+
+      mark.opacity = markTemp.markerAlpha
+      mark.anchor = { x: markTemp.markerX, y: markTemp.markerY }
+      this.markers = [mark]
+    },
+    // 逆时针旋转marker
+    rotateMarkerPlus () {
+      let mark = this.markers[0]
+
+      mark.rotate += 10
+      this.markers = [mark]
+    },
+    // 顺时针旋转marker
+    rotateMarkerMinus () {
+      let mark = this.markers[0]
+
+      mark.rotate -= 10
+      this.markers = [mark]
+    },
+    // 增加callout的圆角半径
+    calloutRadiusPlus () {
+      let mark = this.markers[0]
+
+      mark.callout.borderRadius += 10
+      this.markers = [mark]
+    },
+    // 减少callout的圆角半径
+    calloutRadiusMinus () {
+      let mark = this.markers[0]
+
+      mark.callout.borderRadius -= 10
+      if (mark.callout.borderRadius <= 0) {
+        mark.callout.borderRadius = 0
+      }
+      this.markers = [mark]
+    },
+    // 增加callout的padding
+    calloutPaddingPlus () {
+      let mark = this.markers[0]
+
+      mark.callout.padding += 10
+      this.markers = [mark]
+    },
+    // 减少callout的padding
+    calloutPaddingMinus () {
+      let mark = this.markers[0]
+
+      mark.callout.padding -= 10
+      if (mark.callout.padding <= 0) {
+        mark.callout.padding = 0
+      }
+      this.markers = [mark]
+    },
+    // 切换callout显示模式
+    displayChange (e) {
+      let mark = this.markers[0]
+
+      mark.callout.display = e.value
+      this.markers = [mark]
+    },
+    // callout文本修改存储
+    calloutContentChange (e) {
+      let mark = this.markers[0]
+
+      mark.callout.content = e.text === "" ? "这里是<font color='#ff0000'>天坛公园</font>" : e.text
+      this.markers = [mark]
+    },
+    // callout文本对齐方式切换
+    textAlignChange (e) {
+      let mark = this.markers[0]
+
+      mark.callout.textAlign = e.value
+      this.markers = [mark]
+    },
+    // 移动A车
+    moveA () {
+      let target
+      switch (carTarget.carA) {
+        case 1:
+          carTarget.carA = 2
+          target = POINT2
+          break
+        case 2:
+          carTarget.carA = 3
+          target = POINT3
+          break
+        case 3:
+          carTarget.carA = 4
+          target = POINT4
+          break
+        case 4:
+          carTarget.carA = 1
+          target = POINT1
+          break
+      }
+      this.$element("map").translateMarker({
+        markerId: 1,
+        destination: target,
+        autoRotate: true,
+        duration: 3000,
+        animationEnd () {
+          prompt.showToast({
+            message: "小车A移动结束"
+          })
+        },
+        success () {
+          console.log('success')
+        },
+        fail (reason) {
+          prompt.showToast({
+            message: `移动失败，reason = ${reason}`
+          });
+        },
+        complete () {
+          console.log('complete')
+        }
+      })
+    },
+    // 移动B车
+    moveB () {
+      let target
+      switch (carTarget.carB) {
+        case 1:
+          carTarget.carB = 4
+          target = POINT4
+          break
+        case 2:
+          carTarget.carB = 1
+          target = POINT1
+          break
+        case 3:
+          carTarget.carB = 2
+          target = POINT2
+          break
+        case 4:
+          carTarget.carB = 3
+          target = POINT3
+          break
+      }
+      this.$element("map").translateMarker({
+        markerId: 2,
+        destination: target,
+        autoRotate: true,
+        duration: 3000,
+        animationEnd () {
+          prompt.showToast({
+            message: "小车B移动结束"
+          })
+        },
+        success () {
+          console.log('success')
+        },
+        fail (reason) {
+          prompt.showToast({
+            message: `移动失败，reason = ${reason}`
+          });
+        },
+        complete () {
+          console.log('complete')
+        }
+      })
+    },
+    // 调整map组件的尺寸
+    resizeMap () {
+      this.width = this.width === "80%" ? "100%" : "80%"
+      this.height = this.height === "80%" ? "100%" : "80%"
+    },
+    // 逆时针旋转map
+    rotateMapPlus () {
+      this.rotate += 10;
+    },
+    // 顺时针旋转map
+    rotateMapMinus () {
+      this.rotate -= 10;
+    },
+    // 文本修改监听：待转换的纬度坐标
+    changeLatitude (e) {
+      const text = e.text
+
+      if (text === "") {
+        latitudeTemp = ""
+      } else {
+        latitudeTemp = text
+      }
+    },
+    // 文本修改监听：待转换的经度坐标
+    changeLongitude (e) {
+      const text = e.text
+
+      if (text === "") {
+        longitudeTemp = ""
+      } else {
+        longitudeTemp = text
+      }
+    },
+    // 指定点进行坐标系转换
+    convertCoord () {
+      if (latitudeTemp && longitudeTemp) {
+        const that = this
+        this.$element("map").convertCoord({
+          latitude: latitudeTemp,
+          longitude: longitudeTemp,
+          success (res) {
+            that.latitudeConvert = res.latitude
+            that.longitudeConvert = res.longitude
+          },
+          fail (reason) {
+            prompt.showToast({
+              message: `转换失败，reason = ${reason}`
+            });
+          },
+          complete () {
+            console.log('complete')
+          }
+        })
+      }
+    },
+    // marker点击事件监听
+    markerTap (res) {
+      prompt.showToast({
+        message: "Marker被点击, id：" + res.markerId
+      })
+    },
+    // callout点击事件监听
+    calloutTap (res) {
+      prompt.showToast({
+        message: "Callout被点击, marker id：" + res.markerId
+      })
+    },
+    // 降低groundoverlay的透明度
+    goOpacityMinus () {
+      let groundoverlay = this.groundoverlays[0]
+
+      groundoverlay.opacity -= 0.1
+      if (groundoverlay.opacity < 0) {
+        groundoverlay.opacity = 0
+      }
+      this.groundoverlays = [groundoverlay]
+    },
+    // 提高groundoverlay的透明度
+    goOpacityPlus () {
+      let groundoverlay = this.groundoverlays[0]
+
+      groundoverlay.opacity += 0.1
+      if (groundoverlay.opacity > 1) {
+        groundoverlay.opacity = 1
+      }
+      this.groundoverlays = [groundoverlay]
+    },
+    // 改变groundoverlay的可见性
+    switchGoVisible () {
+      let groundoverlay = this.groundoverlays[0]
+
+      groundoverlay.visible = groundoverlay.visible ? false : true
+      this.groundoverlays = [groundoverlay]
+    },
+    // 点击切换marker的图标
+    toggleIconPath () {
+      let mark = this.markers[0]
+      iconPathIndex++;
+      mark.iconPath = iconPathList[iconPathIndex % iconPathList.length]
+      this.markers = [mark]
+    },
+    changeOffset (type, e) {
+      markTemp[`offset${type}`] = Number(e.value)
+    },
+    // 修改marker位于屏幕的坐标
+    refreshOffset () {
+      let mark = this.markers[0]
+      mark[`offsetX`] = markTemp[`offsetX`]
+      mark[`offsetY`] = markTemp[`offsetY`]
+      this.markers = [mark]
+    },
+    changeColor (type, e) {
+      locationTemp[`${type}Color`] = e.value
+    },
+    // 修改定位点的精度圈颜色
+    refreshLocationStyle () {
+      this.fillColor = locationTemp.fillColor
+      this.strokeColor = locationTemp.strokeColor
+      this.showmylocation = true
+    },
+    switchCompass () {
+      this.compassSwitch = !this.compassSwitch
+    },
+    switchLooking () {
+      this.lookingSwitch = !this.lookingSwitch
+    },
+    switchZoom () {
+      this.zoomSwitch = !this.zoomSwitch
+    },
+    switchDrag () {
+      this.dragSwitch = !this.dragSwitch
+    },
+    switchRotate () {
+      this.rotateSwitch = !this.rotateSwitch
+    }
+  }
+</script>
+
 <style>
   .card-container {
     width: 100%;
@@ -268,786 +1107,3 @@
     flex-grow: 1;
   }
 </style>
-
-<script>
-  import prompt from '@system.prompt'
-
-  const MARKER_PATH = "./img/marker.png"
-  const DEFAULT_SCALE = 17
-  const TIAN_TAN_PARK_WGS = {
-    latitude: 39.8812273482,
-    longitude: 116.4105388182,
-  }
-  const POINT1 = {
-    latitude: 39.9090371069,
-    longitude: 116.3953853161
-  }
-  const POINT2 = {
-    latitude: 39.9089550115,
-    longitude: 116.3992842749
-  }
-  const POINT3 = {
-    latitude: 39.9061293143,
-    longitude: 116.3995796987
-  }
-  const POINT4 = {
-    latitude: 39.9061694220,
-    longitude: 116.3953937341
-  }
-  const MARKER = {
-    iconPath: MARKER_PATH,
-    width: 100,
-    callout: {
-      content: "这里是\n天坛公园",
-      padding: 20,
-      borderRadius: 20
-    }
-  }
-  const POLYLINE = {
-    points: [
-      POINT1,
-      POINT2,
-      POINT3,
-      POINT4,
-      POINT1
-    ],
-    dotted: false,
-    width: 10
-  }
-  const CIRCLE = Object.assign({
-    fillColor: "#666666",
-    borderColor: "#ffffff",
-    borderWidth: 10,
-    radius: 100
-  }, TIAN_TAN_PARK_WGS)
-
-  let iconPathIndex = 0
-  const iconPathList = [
-    MARKER_PATH,
-    'https://doc.quickapp.cn/assets/images/logo.png'
-  ]
-
-  let markTemp = {}
-  let locationTemp = {}
-  let carTarget = {
-    carA: 1,
-    carB: 1
-  }
-  let latitudeTemp = TIAN_TAN_PARK_WGS.latitude
-  let longitudeTemp = TIAN_TAN_PARK_WGS.longitude
-
-  export default {
-    private: {
-      showList: {
-        mapShow: true,
-        methodShow: false,
-        viewportShow: false,
-        operateSingleMarker: false,
-        calloutShow: false,
-        moveShow: false,
-        polylineShow: false,
-        circleShow: false,
-        groundoverlayShow: false,
-        controlShow: false,
-        coordShow: false
-      },
-      width: "100%",
-      height: "100%",
-      rotate: 0,
-      currentCoordType: '',
-      showmylocation: false,
-      scale: DEFAULT_SCALE,
-      latitude: null,
-      longitude: null,
-      polylines: null,
-      circles: null,
-      markers: null,
-      groundoverlays: null,
-      controls: null,
-      includePoints: [],
-      latitudeConvert: null,
-      longitudeConvert: null,
-      fillColor: '',
-      strokeColor: ''
-    },
-    onReady () {
-      this.getCoord()
-    },
-    // select组件选择
-    changeOption(e) {
-      const newValue = e.newValue
-
-      for (let key in this.showList) {
-        this.showList[key] = false
-      }
-
-      this.showList[newValue] = true
-      this.polylines = null
-      this.markers = null
-      this.circles = null
-      this.includePoints = []
-      this.controls = null
-      this.groundoverlays = null
-      this.scale = null // 手动缩放后进行缩放比例重置
-      this.scale = DEFAULT_SCALE
-      this.rotate = 0
-      markTemp = {
-        markerAlpha: 1,
-        markerX: 0.5,
-        markerY: 1
-      }
-
-      switch (newValue) {
-        case "viewportShow":
-          const pointList = [POINT1, POINT2, POINT3, POINT4]
-
-          this.width = "100%"
-          this.height = "100%"
-          this.markers = pointList.map(item => Object.assign({}, item, { iconPath: MARKER_PATH, width: 20 }))
-          this.includePoints = pointList
-          break
-        case "operateSingleMarker":
-        case "calloutShow":
-          this.moveToCenter()
-          this.markers = [Object.assign({
-            iconPath: MARKER_PATH,
-            width: 100,
-            id: 1,
-            rotate: 0,
-            callout: {
-              content: "这里是\n天坛公园",
-              padding: 0,
-              borderRadius: 0
-            }
-          }, TIAN_TAN_PARK_WGS)]
-          break
-        case "moveShow":
-          this.moveToCenter()
-          this.markers = [{
-            id: 1,
-            iconPath: "./img/carA.png"
-          }, {
-            id: 2,
-            iconPath: "./img/carB.png"
-          }].map(item => Object.assign(item, POINT1, {
-            width: 100,
-            anchor: { x: 0.5, y: 0.5 }
-          }))
-        case "polylineShow":
-          this.moveToCenter()
-          this.polylines = [POLYLINE]
-          break
-        case "circleShow":
-          this.moveToCenter()
-          this.circles = [CIRCLE]
-          break
-        case "groundoverlayShow":
-          this.moveToCenter()
-          this.groundoverlays = [{
-            northEast: POINT2,
-            southWest: POINT4,
-            iconPath: "./../../../common/logo.png",
-            opacity: 1,
-            visible: true
-          }]
-          break
-        case "controlShow":
-          this.controls = [{
-            id: 1,
-            position: {
-              left: "50px",
-              bottom: "200px",
-              width: "70px"
-            },
-            iconPath: "./img/location.png"
-          }, {
-            id: 2,
-            position: {
-              right: "50px",
-              bottom: "200px",
-              width: "70px"
-            },
-            iconPath: "./img/minus.png"
-          }, {
-            id: 3,
-            position: {
-              right: "50px",
-              bottom: "300px",
-              width: "70px"
-            },
-            iconPath: "./img/plus.png"
-          }]
-          break
-      }
-    },
-    // 视野中心点重置
-    moveToCenter() {
-      this.latitude = null //地图视野发生变化后进行视野中心重置
-      this.longitude = null
-      this.latitude = TIAN_TAN_PARK_WGS.latitude
-      this.longitude = TIAN_TAN_PARK_WGS.longitude
-    },
-    // 地图点击监听
-    tap: function () {
-      prompt.showToast({
-        message: "地图被点击"
-      })
-    },
-    // 地图渲染完成监听
-    loaded: function () {
-      prompt.showToast({
-        message: "地图组件加载完毕"
-      })
-    },
-    // 获取视野中心点坐标
-    getCenter: function () {
-      this.$element('map').getCenterLocation({
-        success: function (res) {
-          prompt.showToast({
-            message: "中心点纬度：" + res.latitude + "\n" + "中心点经度：" + res.longitude
-          })
-        },
-        fail: function (reason) {
-          prompt.showToast({
-            message: `获取失败，reason = ${reason}`
-          });
-        },
-        complete: function () {
-          console.log('complete')
-        }
-      })
-    },
-    // 获取地图缩放级别
-    getScale: function () {
-      this.$element('map').getScale({
-        success: function (res) {
-          prompt.showToast({
-            message: "缩放级别：" + res.scale
-          })
-        },
-        fail: function (reason) {
-          prompt.showToast({
-            message: `获取失败，reason = ${reason}`
-          });
-        },
-        complete: function () {
-          console.log('complete')
-        }
-      })
-    },
-    // 获取当前视野范围
-    getRegion: function () {
-      this.$element('map').getRegion({
-        success: function (res) {
-          prompt.showToast({
-            message: "西南角：\n" + res.southwest + "\n" + "东北角：\n" + res.northeast
-          })
-        },
-        fail: function (reason) {
-          prompt.showToast({
-            message: `获取失败，reason = ${reason}`
-          });
-        },
-        complete: function () {
-          console.log('complete')
-        }
-      })
-    },
-    // 地图视野变化监听
-    regionchange: function () {
-      prompt.showToast({
-        message: "地图视野发生变化"
-      })
-    },
-    // 控件点击监听
-    controlTap: function (res) {
-      const that = this
-
-      switch (res.controlId) {
-        case 1:
-          this.showmylocation = true
-          this.$element('map').moveToMyLocation()
-          prompt.showToast({
-            message: "控件：移动到当前位置并显示定位UI"
-          })
-          break
-        case 2:
-          this.scale = this.scale - 1
-          this.$element('map').getScale({
-            success: function (res) {
-              that.scale = res.scale
-            },
-            fail: function (reason) {
-              prompt.showToast({
-                message: `获取失败，reason = ${reason}`
-              });
-            },
-            complete: function () {
-              console.log('complete')
-            }
-          })
-          prompt.showToast({
-            message: "控件：缩小地图"
-          })
-          break
-        case 3:
-          this.scale = this.scale + 1
-          this.$element('map').getScale({
-            success: function (res) {
-              that.scale = res.scale
-            },
-            fail: function (reason) {
-              prompt.showToast({
-                message: `获取失败，reason = ${reason}`
-              });
-            },
-            complete: function () {
-              console.log('complete')
-            }
-          })
-          prompt.showToast({
-            message: "控件：放大地图"
-          })
-          break
-        default:
-      }
-    },
-    // 切换polyline的虚实
-    switchDotted: function () {
-      let polyline = this.polylines[0]
-
-      polyline.dotted = polyline.dotted ? false : true
-      this.polylines = [polyline]
-    },
-    // 切换是否展示当前定位点
-    showMyLocation: function () {
-      this.showmylocation = this.showmylocation ? false : true
-    },
-    // 移动到当前定位点
-    moveToMyLocation: function () {
-      this.$element('map').moveToMyLocation()
-    },
-    // 获取组件中心点的坐标系
-    getCoord: function () {
-      const self = this
-      this.$element('map').getCoordType({
-        success: function (res) {
-          self.currentCoordType = res.coordType
-          prompt.showToast({
-            message: "当前坐标系：" + res.coordType
-          })
-        },
-        fail: function (reason) {
-          prompt.showToast({
-            message: `获取失败，reason = ${reason}`
-          });
-        },
-        complete: function () {
-          console.log('complete')
-        }
-      })
-    },
-    // 获取当前支持的坐标系
-    getSupportedCoordTypes: function () {
-      this.$element('map').getSupportedCoordTypes({
-        success: function (res) {
-          let msg = JSON.stringify(res);
-          prompt.showToast({
-            message: `当前支持的坐标系：${msg}`
-          })
-        },
-        fail: function (reason) {
-          prompt.showToast({
-            message: `获取失败，reason = ${reason}`
-          });
-        },
-        complete: function () {
-          console.log('complete')
-        }
-      })
-    },
-    // 在指定区域内展示指定点
-    limitViewPort: function () {
-      this.$element('map').includePoints({
-        points: [POINT1, POINT2, POINT3, POINT4],
-        padding: "0px 530px 200px 300px",
-        success: function () {
-          console.log('success')
-        },
-        fail: function (reason) {
-          prompt.showToast({
-            message: `reason = ${reason}`
-          });
-        },
-        complete: function () {
-          console.log('complete')
-        }
-      })
-    },
-    // 增加polyline的线宽
-    polylinePlus: function () {
-      let polyline = this.polylines[0]
-
-      polyline.width++
-      this.polylines = [polyline]
-    },
-    // 减少polyline的线宽
-    polylineMinus: function () {
-      let polyline = this.polylines[0]
-
-      polyline.width--
-      if (polyline.width <= 0) {
-        polyline.width = 1
-      }
-      this.polylines = [polyline]
-    },
-    // 增加circle描边线宽
-    circleLinePlus() {
-      let circle = this.circles[0]
-
-      circle.borderWidth++
-      this.circles = [circle]
-    },
-    // 减少circle描边线宽
-    circleLineMinus() {
-      let circle = this.circles[0]
-
-      circle.borderWidth--
-      if (circle.borderWidth <= 0) {
-        circle.borderWidth = 1
-      }
-      this.circles = [circle]
-    },
-    // 增加circle半径
-    circleRadiusPlus() {
-      let circle = this.circles[0]
-
-      circle.radius += 10
-      this.circles = [circle]
-    },
-    // 减少circle半径
-    circleRadiusMinus() {
-      let circle = this.circles[0]
-
-      circle.radius -= 10
-      if (circle.radius <= 0) {
-        circle.radius = 10
-      }
-      this.circles = [circle]
-    },
-    // 增加marker尺寸
-    markerSizePlus() {
-      let mark = this.markers[0]
-
-      mark.width += 10
-      this.markers = [mark]
-    },
-    // 减小marker尺寸
-    markerSizeMinus() {
-      let mark = this.markers[0]
-
-      mark.width -= 10
-      if (mark.width <= 0) {
-        mark.width <= 10
-      }
-      this.markers = [mark]
-    },
-    // 改变marker透明度
-    changeMarkerAlpha(value) {
-      markTemp.markerAlpha = value.text
-    },
-    // 改变marker锚点的x轴坐标
-    changeMarkerX(value) {
-      markTemp.markerX = value.text
-    },
-    // 改变marker锚点的y轴坐标
-    changeMarkerY(value) {
-      markTemp.markerY = value.text
-    },
-    // 刷新marker属性
-    refreshMarker() {
-      let mark = this.markers[0]
-
-      mark.opacity = markTemp.markerAlpha
-      mark.anchor = { x: markTemp.markerX, y: markTemp.markerY }
-      this.markers = [mark]
-    },
-    // 逆时针旋转marker
-    rotateMarkerPlus() {
-      let mark = this.markers[0]
-
-      mark.rotate += 10
-      this.markers = [mark]
-    },
-    // 顺时针旋转marker
-    rotateMarkerMinus() {
-      let mark = this.markers[0]
-
-      mark.rotate -= 10
-      this.markers = [mark]
-    },
-    // 增加callout的圆角半径
-    calloutRadiusPlus() {
-      let mark = this.markers[0]
-
-      mark.callout.borderRadius += 10
-      this.markers = [mark]
-    },
-    // 减少callout的圆角半径
-    calloutRadiusMinus() {
-      let mark = this.markers[0]
-
-      mark.callout.borderRadius -= 10
-      if (mark.callout.borderRadius <= 0) {
-        mark.callout.borderRadius = 0
-      }
-      this.markers = [mark]
-    },
-    // 增加callout的padding
-    calloutPaddingPlus() {
-      let mark = this.markers[0]
-
-      mark.callout.padding += 10
-      this.markers = [mark]
-    },
-    // 减少callout的padding
-    calloutPaddingMinus() {
-      let mark = this.markers[0]
-
-      mark.callout.padding -= 10
-      if (mark.callout.padding <= 0) {
-        mark.callout.padding = 0
-      }
-      this.markers = [mark]
-    },
-    // 切换callout显示模式
-    displayChange(e) {
-      let mark = this.markers[0]
-
-      mark.callout.display = e.value
-      this.markers = [mark]
-    },
-    // callout文本修改存储
-    calloutContentChange(e) {
-      let mark = this.markers[0]
-
-      mark.callout.content = e.text === "" ? "这里是\n天坛公园" : e.text
-      this.markers = [mark]
-    },
-    // callout文本对齐方式切换
-    textAlignChange(e) {
-      let mark = this.markers[0]
-
-      mark.callout.textAlign = e.value
-      this.markers = [mark]
-    },
-    // 移动A车
-    moveA() {
-      let target
-      switch (carTarget.carA) {
-        case 1:
-          carTarget.carA = 2
-          target = POINT2
-          break
-        case 2:
-          carTarget.carA = 3
-          target = POINT3
-          break
-        case 3:
-          carTarget.carA = 4
-          target = POINT4
-          break
-        case 4:
-          carTarget.carA = 1
-          target = POINT1
-          break
-      }
-      this.$element("map").translateMarker({
-        markerId: 1,
-        destination: target,
-        autoRotate: true,
-        duration: 3000,
-        animationEnd: function () {
-          prompt.showToast({
-            message: "小车A移动结束"
-          })
-        },
-        success: function () {
-          console.log('success')
-        },
-        fail: function (reason) {
-          prompt.showToast({
-            message: `移动失败，reason = ${reason}`
-          });
-        },
-        complete: function () {
-          console.log('complete')
-        }
-      })
-    },
-    // 移动B车
-    moveB() {
-      let target
-      switch (carTarget.carB) {
-        case 1:
-          carTarget.carB = 4
-          target = POINT4
-          break
-        case 2:
-          carTarget.carB = 1
-          target = POINT1
-          break
-        case 3:
-          carTarget.carB = 2
-          target = POINT2
-          break
-        case 4:
-          carTarget.carB = 3
-          target = POINT3
-          break
-      }
-      this.$element("map").translateMarker({
-        markerId: 2,
-        destination: target,
-        autoRotate: true,
-        duration: 3000,
-        animationEnd: function () {
-          prompt.showToast({
-            message: "小车B移动结束"
-          })
-        },
-        success: function () {
-          console.log('success')
-        },
-        fail: function (reason) {
-          prompt.showToast({
-            message: `移动失败，reason = ${reason}`
-          });
-        },
-        complete: function () {
-          console.log('complete')
-        }
-      })
-    },
-    // 调整map组件的尺寸
-    resizeMap() {
-      this.width = this.width === "80%" ? "100%" : "80%"
-      this.height = this.height === "80%" ? "100%" : "80%"
-    },
-    // 逆时针旋转map
-    rotateMapPlus() {
-      this.rotate += 10;
-    },
-    // 顺时针旋转map
-    rotateMapMinus() {
-      this.rotate -= 10;
-    },
-    // 文本修改监听：待转换的纬度坐标
-    changeLatitude(e) {
-      const text = e.text
-
-      if (text === "") {
-        latitudeTemp = ""
-      } else {
-        latitudeTemp = text
-      }
-    },
-    // 文本修改监听：待转换的经度坐标
-    changeLongitude(e) {
-      const text = e.text
-
-      if (text === "") {
-        longitudeTemp = ""
-      } else {
-        longitudeTemp = text
-      }
-    },
-    // 指定点进行坐标系转换
-    convertCoord() {
-      if (latitudeTemp && longitudeTemp) {
-        const that = this
-        this.$element("map").convertCoord({
-          latitude: latitudeTemp,
-          longitude: longitudeTemp,
-          success: function (res) {
-            that.latitudeConvert = res.latitude
-            that.longitudeConvert = res.longitude
-          },
-          fail: function (reason) {
-            prompt.showToast({
-              message: `转换失败，reason = ${reason}`
-            });
-          },
-          complete: function () {
-            console.log('complete')
-          }
-        })
-      }
-    },
-    // marker点击事件监听
-    markerTap(res) {
-      prompt.showToast({
-        message: "Marker被点击, id：" + res.markerId
-      })
-    },
-    // callout点击事件监听
-    calloutTap(res) {
-      prompt.showToast({
-        message: "Callout被点击, marker id：" + res.markerId
-      })
-    },
-    // 降低groundoverlay的透明度
-    goOpacityMinus() {
-      let groundoverlay = this.groundoverlays[0]
-
-      groundoverlay.opacity -= 0.1
-      if (groundoverlay.opacity < 0) {
-        groundoverlay.opacity = 0
-      }
-      this.groundoverlays = [groundoverlay]
-    },
-    // 提高groundoverlay的透明度
-    goOpacityPlus() {
-      let groundoverlay = this.groundoverlays[0]
-
-      groundoverlay.opacity += 0.1
-      if (groundoverlay.opacity > 1) {
-        groundoverlay.opacity = 1
-      }
-      this.groundoverlays = [groundoverlay]
-    },
-    // 改变groundoverlay的可见性
-    switchGoVisible() {
-      let groundoverlay = this.groundoverlays[0]
-
-      groundoverlay.visible = groundoverlay.visible ? false : true
-      this.groundoverlays = [groundoverlay]
-    },
-    // 点击切换marker的图标
-    toggleIconPath () {
-      let mark = this.markers[0]
-      iconPathIndex++;
-      mark.iconPath = iconPathList[iconPathIndex % iconPathList.length]
-      this.markers = [mark]
-    },
-    changeOffset (type, e) {
-      markTemp[`offset${type}`] = Number(e.value)
-    },
-    // 修改marker位于屏幕的坐标
-    refreshOffset () {
-      let mark = this.markers[0]
-      mark[`offsetX`] = markTemp[`offsetX`]
-      mark[`offsetY`] = markTemp[`offsetY`]
-      this.markers = [mark]
-    },
-    changeColor (type, e) {
-      locationTemp[`${type}Color`] = e.value
-    },
-    // 修改定位点的精度圈颜色
-    refreshLocationStyle () {
-      this.fillColor = locationTemp.fillColor
-      this.strokeColor = locationTemp.strokeColor
-      this.showmylocation = true
-    }
-  }
-</script>

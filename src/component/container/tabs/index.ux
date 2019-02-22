@@ -90,6 +90,57 @@
   </div>
 </template>
 
+<script>
+  export default {
+    private: {
+      componentName: 'tabs',
+      time: '',
+      loadMore: true,
+      scrollPage: false,
+      scrollable: true,
+      listData: [
+        { name: 'A' },
+        { name: 'B' },
+        { name: 'C' },
+        { name: 'D' }
+      ]
+    },
+    onInit () {
+      this.$page.setTitleBar({text: 'Tabs'})
+      // 初始化time
+      this.time = new Date().getHours() + ':' + new Date().getMinutes()
+    },
+    changeTabactive (e) {
+      // 切换tab
+      console.info('切换tab: ' + e.index)
+    },
+    setTime (e) {
+      // time picker选择值后设置time
+      this.time = e.hour + ':' + e.minute
+    },
+    scrollbottom () {
+      const self = this
+      // list滚动到底部事件
+      setTimeout(function () {
+        self.listData = self.listData.concat([{name: 'A'}, {name: 'B'}, {name: 'C'}, {name: 'D'}])
+      }, 1000)
+    },
+    goIndex () {
+      // list滚动到指定index位置
+      this.$element('list').scrollTo({index: 0, smooth: true})
+    },
+    switchScrollMode () {
+      // 切换滚动模式
+      this.goIndex()
+      this.scrollPage = !this.scrollPage
+    },
+    switchScrollable (e) {
+      // 设置是否可以通过用户滑动切换页面
+      this.scrollable = e.checked
+    }
+  }
+</script>
+
 <style>
   @import '../../../common/css/common.css';
 
@@ -190,54 +241,3 @@
     width: 320px;
   }
 </style>
-
-<script>
-  export default {
-    private: {
-      componentName: 'tabs',
-      time: '',
-      loadMore: true,
-      scrollPage: false,
-      scrollable: true,
-      listData: [
-        { name: 'A' },
-        { name: 'B' },
-        { name: 'C' },
-        { name: 'D' }
-      ]
-    },
-    onInit () {
-      this.$page.setTitleBar({text: 'Tabs'})
-      // 初始化time
-      this.time = new Date().getHours() + ':' + new Date().getMinutes()
-    },
-    changeTabactive (e) {
-      // 切换tab
-      console.info('切换tab: ' + e.index)
-    },
-    setTime (e) {
-      // time picker选择值后设置time
-      this.time = e.hour + ':' + e.minute
-    },
-    scrollbottom () {
-      const self = this
-      // list滚动到底部事件
-      setTimeout(function () {
-        self.listData = self.listData.concat([{name: 'A'}, {name: 'B'}, {name: 'C'}, {name: 'D'}])
-      }, 1000)
-    },
-    goIndex () {
-      // list滚动到指定index位置
-      this.$element('list').scrollTo({index: 0, smooth: true})
-    },
-    switchScrollMode () {
-      // 切换滚动模式
-      this.goIndex()
-      this.scrollPage = !this.scrollPage
-    },
-    switchScrollable (e) {
-      // 设置是否可以通过用户滑动切换页面
-      this.scrollable = e.checked
-    }
-  }
-</script>

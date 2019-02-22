@@ -136,42 +136,6 @@
 .xui-col {
   flex-grow: 1;
 }
-.xui-col-1 {
-  flex-basis: 8.333333%;
-}
-.xui-col-2 {
-  flex-basis: 16.666667%;
-}
-.xui-col-3 {
-  flex-basis: 25%;
-}
-.xui-col-4 {
-  flex-basis: 33.333333%;
-}
-.xui-col-5 {
-  flex-basis: 41.666667%;
-}
-.xui-col-6 {
-  flex-basis: 50%;
-}
-.xui-col-7 {
-  flex-basis: 58.333333%;
-}
-.xui-col-8 {
-  flex-basis: 66.666667%;
-}
-.xui-col-9 {
-  flex-basis: 75%;
-}
-.xui-col-10 {
-  flex-basis: 83.333333%;
-}
-.xui-col-11 {
-  flex-basis: 91.666667%;
-}
-.xui-col-12 {
-  flex-basis: 100%;
-}
 
 /* 表单元素 */
 .xui-input-group-col {

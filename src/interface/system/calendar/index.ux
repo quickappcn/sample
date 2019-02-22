@@ -24,27 +24,7 @@
     </div>
   </div>
 </template>
-<style>
-  @import '../../../common/css/common.css';
 
-  .content {
-    flex-direction: column;
-    padding: 0 30px 30px 30px;
-  }
-  .item {
-    height: 100px;
-    border-bottom-width: 1px;
-    border-bottom-color: #cccccc;
-  }
-  .item-input {
-    flex: 1;
-    margin-left: 10px;
-    font-size: 30px;
-  }
-  .margin-50 {
-    margin-top: 50px;
-  }
-</style>
 <script>
   import calendar from '@system.calendar'
   import prompt from '@system.prompt'
@@ -91,3 +71,25 @@
     }
   }
 </script>
+
+<style>
+  @import '../../../common/css/common.css';
+
+  .content {
+    flex-direction: column;
+    padding: 0 30px 30px 30px;
+  }
+  .item {
+    height: 100px;
+    border-bottom-width: 1px;
+    border-bottom-color: #cccccc;
+  }
+  .item-input {
+    flex: 1;
+    margin-left: 10px;
+    font-size: 30px;
+  }
+  .margin-50 {
+    margin-top: 50px;
+  }
+</style>

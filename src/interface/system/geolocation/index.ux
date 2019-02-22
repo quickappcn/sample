@@ -9,6 +9,8 @@
         <text class="txt">获取地理位置:</text>
         <text class="txt">latitude: {{geolocationGetData.latitude}}</text>
         <text class="txt">longitude: {{geolocationGetData.longitude}}</text>
+        <text class="txt">accuracy: {{geolocationGetData.accuracy}}</text>
+        <text class="txt">time: {{geolocationGetData.time}}</text>
       </div>
       <input type="button" class="btn" onclick="getGeolocation" value="获取地理位置"/>
 
@@ -16,6 +18,8 @@
         <text class="txt">地理位置:</text>
         <text class="txt">latitude: {{geolocationListenData.latitude}}</text>
         <text class="txt">longitude: {{geolocationListenData.longitude}}</text>
+        <text class="txt">accuracy: {{geolocationListenData.accuracy}}</text>
+        <text class="txt">time: {{geolocationListenData.time}}</text>
       </div>
       <input type="button" class="btn" onclick="listenGeolocation" value="监听地理位置"/>
       <input type="button" class="btn" onclick="cancelGeolocation" value="取消地理位置监听"/>
@@ -29,24 +33,6 @@
   </div>
 </template>
 
-<style>
-  @import '../../../common/css/common.css';
-
-  .item-container {
-    margin-bottom: 50px;
-    margin-right: 60px;
-    margin-left: 60px;
-    flex-direction: column;
-  }
-  .item-content {
-    flex-direction: column;
-    background-color: #ffffff;
-    padding: 30px;
-    margin-bottom: 100px;
-    align-items: flex-start;
-  }
-</style>
-
 <script>
   import geolocation from '@system.geolocation'
   import prompt from '@system.prompt'
@@ -56,11 +42,15 @@
       componentName: 'geolocation',
       geolocationGetData: {
         latitude: '',
-        longitude: ''
+        longitude: '',
+        accuracy: '',
+        time: ''
       },
       geolocationListenData: {
         latitude: '',
-        longitude: ''
+        longitude: '',
+        accuracy: '',
+        time: ''
       },
       locationType: ''
     },
@@ -113,3 +103,21 @@
     }
   }
 </script>
+
+<style>
+  @import '../../../common/css/common.css';
+
+  .item-container {
+    margin-bottom: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+  .item-content {
+    flex-direction: column;
+    background-color: #ffffff;
+    padding: 30px;
+    margin-bottom: 100px;
+    align-items: flex-start;
+  }
+</style>

@@ -4,17 +4,6 @@
   </div>
 </template>
 
-<style>
-  .doc-page{
-    flex-direction: column;
-  }
-  .web-page{
-    width: 100%;
-    height: 0px;
-    flex: 1;
-  }
-</style>
-
 <script>
   export default {
     protected: {
@@ -36,3 +25,14 @@
     }
   }
 </script>
+
+<style>
+  .doc-page{
+    flex-direction: column;
+  }
+  .web-page{
+    width: 100%;
+    height: 0px;
+    flex: 1;
+  }
+</style>

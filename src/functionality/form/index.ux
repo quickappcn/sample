@@ -216,10 +216,6 @@
   </tabs>
 </template>
 
-<style>
-  @import "../../common/css/index.css";
-</style>
-
 <script>
   export default {
     onInit(){
@@ -250,3 +246,7 @@
     }
   }
 </script>
+
+<style>
+  @import "../../common/css/index.css";
+</style>

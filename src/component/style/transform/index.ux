@@ -54,6 +54,57 @@
   </div>
 </template>
 
+<script>
+  export default {
+    private: {
+      componentName: 'transform',
+      r: '',
+      rx: '',
+      ry: '',
+      tx: '',
+      ty: '',
+      sx: '',
+      sy: ''
+    },
+    onInit () {
+      this.$page.setTitleBar({text: 'Transform'})
+    },
+    rotate () {
+      this.setClass('r', 'rotate')
+    },
+    rotateX () {
+      this.setClass('rx', 'rotateX')
+
+      setTimeout(() => {
+        this.setClass('rx', '')
+      }, 3000)
+    },
+    rotateY () {
+      this.setClass('ry', 'rotateY')
+    },
+    translateX () {
+      this.setClass('tx', 'translateX')
+    },
+    translateY () {
+      this.setClass('ty', 'translateY')
+    },
+    scaleX () {
+      this.setClass('sx', 'scaleX')
+    },
+    scaleY () {
+      this.setClass('sy', 'scaleY')
+    },
+    setClass (key, className) {
+      const self = this
+      if (self[key] == className) {
+        self[key] += 'Recovery'
+      } else {
+        self[key] = className
+      }
+    }
+  }
+</script>​
+
 <style>
   @import '../../../common/css/common.css';
 
@@ -161,54 +212,3 @@
     transform: scaleY(1);
   }
 </style>
-
-<script>
-  export default {
-    private: {
-      componentName: 'transform',
-      r: '',
-      rx: '',
-      ry: '',
-      tx: '',
-      ty: '',
-      sx: '',
-      sy: ''
-    },
-    onInit () {
-      this.$page.setTitleBar({text: 'Transform'})
-    },
-    rotate () {
-      this.setClass('r', 'rotate')
-    },
-    rotateX () {
-      this.setClass('rx', 'rotateX')
-
-      setTimeout(() => {
-        this.setClass('rx', '')
-      }, 3000)
-    },
-    rotateY () {
-      this.setClass('ry', 'rotateY')
-    },
-    translateX () {
-      this.setClass('tx', 'translateX')
-    },
-    translateY () {
-      this.setClass('ty', 'translateY')
-    },
-    scaleX () {
-      this.setClass('sx', 'scaleX')
-    },
-    scaleY () {
-      this.setClass('sy', 'scaleY')
-    },
-    setClass (key, className) {
-      const self = this
-      if (self[key] == className) {
-        self[key] += 'Recovery'
-      } else {
-        self[key] = className
-      }
-    }
-  }
-</script>​

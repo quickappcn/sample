@@ -53,6 +53,17 @@
   </div>
 </template>
 
+<script>
+  export default {
+    private: {
+      componentName: 'span'
+    },
+    onInit () {
+      this.$page.setTitleBar({text: 'Span'})
+    }
+  }
+</script>
+
 <style>
   @import '../../../common/css/common.css';
 
@@ -69,14 +80,3 @@
   }
 
 </style>
-
-<script>
-  export default {
-    private: {
-      componentName: 'span'
-    },
-    onInit () {
-      this.$page.setTitleBar({text: 'Span'})
-    }
-  }
-</script>
