@@ -1,4 +1,4 @@
-# Sample 
+# Sample
 
 [快应用](https://www.quickapp.cn/)官方示例项目
 
@@ -6,14 +6,14 @@
 [![hap-toolkit version][hap-toolkit-image]][hap-toolkit-url]
 
 
-[node-image]: https://img.shields.io/badge/node.js-%3E=_6-green.svg?style=flat-square
+[node-image]: https://img.shields.io/badge/node.js-%3E=_8-green.svg?style=flat-square
 [node-url]: http://nodejs.org/download/
-[hap-toolkit-image]: https://img.shields.io/badge/hap--toolkit-%3E=_0.1-blue.svg
+[hap-toolkit-image]: https://img.shields.io/badge/hap--toolkit-%3E=_0.2-blue.svg
 [hap-toolkit-url]: https://www.npmjs.com/package/hap-toolkit
 
 ## 简介
 2018年3月份，由小米，中兴，华为等10家厂商成立了快应用联盟，共同发布了快应用的标准。
-自此我们可以采用一套标准去开发应用，而无缝的运行在各个手机厂商上。一次开发，一次上传，自动分发到所有联盟厂商的设备。
+自此我们可以采用一套标准去开发应用，无缝的运行在各个手机厂商上。一次开发，一次上传，自动分发到所有联盟厂商的设备
 
 快应用官方是采用前端的技术栈来开发的，此项目为示例项目,帮助开发者快速入门快应用的开发
 
