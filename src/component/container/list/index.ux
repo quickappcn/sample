@@ -47,6 +47,8 @@
         </list-item>
       </list>
     </div>
+  </template>
+
   <script>
     import prompt from '@system.prompt'
 
@@ -114,7 +116,7 @@
         this.scrollPage = !this.scrollPage
       },
       goIndex () {
-        this.$element('list').scrollTo({ index: 0, smooth: true })
+        this.$element('list').scrollTo({ index: 0 })
       },
       clickPush () {
         this.listData.push('push')
@@ -167,7 +169,7 @@
       }
     }
   </script>
-  </template>
+
   <style>
     @import '../../../common/css/common.css';
 

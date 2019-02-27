@@ -126,7 +126,6 @@
   .swiper {
     flex-direction: column;
     height: 250px;
-    indicator-top: 210px;
   }
   .item-content_title {
     flex: 1;
