@@ -10,21 +10,17 @@
       <input type="button" class="btn"  onclick="routeReplace" value="无返回的页面跳转" />
       <input type="button" class="btn"  onclick="routeDetail" value="带参数的页面跳转" />
       <input type="button" class="btn"  onclick="routeDetailObejct" value="参数为对象的页面跳转" />
+      <input type="button" class="btn"  onclick="routeTel" value="跳转到拨打电话" />
+      <input type="button" class="btn"  onclick="routeMail" value="跳转到发送邮件" />
+      <input type="button" class="btn"  onclick="routeSms" value="跳转到发送短信(指定联系人)" />
+      <input type="button" class="btn"  onclick="routeMsg" value="跳转到发送短信(带内容)" />
       <input type="button" class="btn"  onclick="routeApp" value="跳转到指定快应用" />
+      <input type="button" class="btn"  onclick="routeLocation" value="跳到手机定位页面"/>
+      <input type="button" class="btn"  onclick="routeWlan" value="跳到Wifi设置页面"/>
+      <input type="button" class="btn"  onclick="routeBluetooth" value="跳到蓝牙设置页面"/>
     </div>
   </div>
 </template>
-
-<style>
-  @import '../../../common/css/common.css';
-
-  .item-container{
-    margin-bottom: 50px;
-    margin-right: 60px;
-    margin-left: 60px;
-    flex-direction: column;
-  }
-</style>
 
 <script>
   import router from '@system.router'
@@ -72,6 +68,59 @@
       router.push({
         uri: 'hap://app/me.ele.xyy/'
       })
+    },
+    // 跳转到电话
+    routeTel () {
+      router.push({
+        uri: 'tel:10086'
+      })
+    },
+    // 跳转到邮件
+    routeMail () {
+      router.push({
+        uri: 'mailto:xxx@163.com'
+      })
+    },
+    // 跳转到短信发送(指定联系人)
+    routeSms () {
+      router.push({
+        uri: 'sms:10086'
+      })
+    },
+    // 跳转到短信发送(带内容)
+    routeMsg () {
+      router.push({
+        uri: 'sms:',
+        params: {
+          body:"hello world"
+        }
+      })
+    },
+    routeLocation () {
+      router.push({
+        uri: 'hap://settings/location_source_manager'
+      })
+    },
+    routeWlan () {
+      router.push({
+        uri: 'hap://settings/wlan_manager'
+      })
+    },
+    routeBluetooth () {
+      router.push({
+        uri: 'hap://settings/bluetooth_manager'
+      })
     }
   }
 </script>
+
+<style>
+  @import '../../../common/css/common.css';
+
+  .item-container{
+    margin-bottom: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+</style>

@@ -24,7 +24,7 @@
     .left-icon {
       height: 50px;
       width: 50px;
-      resize-mode: contain;
+      object-fit: contain;
     }
     .left-button {
       width: 80px;
@@ -42,7 +42,7 @@
     .right-icon {
       height: 50px;
       width: 50px;
-      resize-mode: contain;
+      object-fit: contain;
     }
   }
 

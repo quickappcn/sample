@@ -8,11 +8,20 @@
       <!-- 拍摄/选择图片 -->
       <div class="item-content">
         <text class="txt">拍摄图片的路径: {{pathPhotoSave}}</text>
-        <text class="txt">选取图片的路径：{{pathPhotoPick}}</text>
-        <image src="{{photoUri}}" class="image"></image>
+        <block if="{{isDisplayOneImage}}">
+          <text class="txt">选取图片的路径：{{pathPhotoPick}}</text>
+          <image src="{{photoUri}}" class="image"></image>
+        </block>
+        <block else>
+          <block for="{{pathFilePickArr}}">
+              <text class="txt">选取图片的路径：{{$item}}</text>
+              <image src="{{$item}}" class="image"></image>
+          </block>
+        </block>
         <input type="button" class="btn" onclick="takePhoto" value="拍摄照片"/>
         <input type="button" class="btn" onclick="saveImageToAlbum" value="将拍摄的照片保存到本地"/>
         <input type="button" class="btn" onclick="pickPhoto" value="选取图片"/>
+        <input type="button" class="btn" onclick="pickPhotos" value="多选图片"/>
       </div>
       <!-- 拍摄/选择视频 -->
       <div class="item-content">
@@ -23,41 +32,31 @@
         <input type="button" class="btn" onclick="saveVideoToAlbum" value="将拍摄的视频保存到本地"/>
         <input type="button" class="btn" onclick="pickVideo" value="选择视频"/>
       </div>
+      <!-- 系统铃声设置 -->
+      <div class="item-content">
+        <text class="txt">闹钟铃声：{{alarmName}}</text>
+        <text class="txt">来电铃声：{{ringtoneName}}</text>
+        <text class="txt">通知铃声：{{notificationName}}</text>
+        <input type="button" class="btn" onclick="getRingtone('alarm')" value="获取闹钟铃声"/>
+        <input type="button" class="btn" onclick="getRingtone('ringtone')" value="获取来电铃声"/>
+        <input type="button" class="btn" onclick="getRingtone('notification')" value="获取通知铃声"/>
+        <input type="button" class="btn" onclick="setRingtone('alarm')" value="设置闹钟铃声"/>
+        <input type="button" class="btn" onclick="setRingtone('ringtone')" value="设置来电铃声"/>
+        <input type="button" class="btn" onclick="setRingtone('notification')" value="设置通知铃声"/>
+      </div>
       <!-- 选取文件 -->
       <div class="item-content">
         <text class="txt">选取文件的路径：{{pathFilePick}}</text>
         <input type="button" class="btn" onclick="pickFile" value="选取文件"/>
       </div>
+      <!-- 预览图片 -->
+      <div class="item-content">
+        <text class="txt">预览图片</text>
+        <input type="button" class="btn" onclick="previewImage" value="预览图片"/>
+      </div>
     </div>
   </div>
 </template>
-
-<style>
-  @import '../../../common/css/common.css';
-
-  .item-container {
-    margin-top: 50px;
-    margin-right: 60px;
-    margin-left: 60px;
-    flex-direction: column;
-  }
-  .item-content {
-    flex-direction: column;
-    background-color: #ffffff;
-    padding: 30px;
-    margin-bottom: 20px;
-  }
-  .image {
-    margin: 50px 0;
-    width: 630px;
-    height: 300px;
-  }
-  .video {
-    margin: 50px 0;
-    width: 630px;
-    height: 300px;
-  }
-</style>
 
 <script>
   import prompt from '@system.prompt'
@@ -74,7 +73,12 @@
       pathRecordStop: '',
       photoUri: '',
       videoUri: '',
-      pathFilePick: '' // 选取文件的路径
+      alarmName: '',
+      ringtoneName: '',
+      notificationName: '',
+      pathFilePick: '', // 选取文件的路径
+      isDisplayOneImage: true, // 是否显示一张图片
+      pathFilePickArr: [] // 多选图片,选取文件列表图片路径数组
     },
     onInit () {
       this.$page.setTitleBar({text: 'Media'})
@@ -100,6 +104,7 @@
         success: function (ret) {
           self.pathPhotoPick = ret.uri
           self.photoUri = ret.uri
+          self.isDisplayOneImage = true;
         },
         fail: function (erromsg, errocode) {
           console.info(`### media.pickImage ### ${errocode}: ${erromsg}`)
@@ -107,6 +112,22 @@
             message: `${errocode}: ${erromsg}`
           })
         }
+      })
+    },
+    pickPhotos () {
+      // 多选图片
+      media.pickImages({
+        success: (data) => {
+          this.pathFilePickArr = data.uris
+          this.isDisplayOneImage = false;
+        },
+        fail: function (erromsg, errocode) {
+          console.info(`### media.pickImages ### ${errocode}: ${erromsg}`)
+          prompt.showToast({
+            message: `${errocode}: ${erromsg}`
+          })
+        }
+        
       })
     },
     takeVideo () {
@@ -194,6 +215,85 @@
           })
         }
       })
+    },
+    setRingtone (type) {
+      const _this = this
+
+      media.pickFile({
+        success(data) {
+          media.setRingtone({
+            uri: data.uri,
+            type,
+            success() {
+              prompt.showToast({
+                message: '设置成功'
+              })
+              type = type + 'Name'
+              _this[type] = data.uri.replace(/(.*\/)*([^.]+).*/ig, '$2')
+            },
+            fail(erromsg) {
+              prompt.showToast({
+                message: erromsg
+              })
+            }
+          })
+        }
+      })
+    },
+    getRingtone (type) {
+      const _this = this
+
+      media.getRingtone({
+        type,
+        success(data) {
+          type = type + 'Name'
+          _this[type] = data.title
+        },
+        fail(erromsg) {
+          prompt.showToast({
+            message: erromsg
+          })
+        }
+      })
+    },
+    previewImage () {
+      media.previewImage({
+        current: 'https://via.placeholder.com/300.png/',
+        uris: [
+        'https://via.placeholder.com/500.png/',
+        'https://via.placeholder.com/400.png/',
+        'https://via.placeholder.com/300.png/',
+        'https://via.placeholder.com/200.png/',
+        'https://via.placeholder.com/100.png/'
+        ]
+      })
     }
   }
 </script>
+
+<style>
+  @import '../../../common/css/common.css';
+
+  .item-container {
+    margin-top: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+  .item-content {
+    flex-direction: column;
+    background-color: #ffffff;
+    padding: 30px;
+    margin-bottom: 20px;
+  }
+  .image {
+    margin: 50px 0;
+    width: 630px;
+    height: 300px;
+  }
+  .video {
+    margin: 50px 0;
+    width: 630px;
+    height: 300px;
+  }
+</style>

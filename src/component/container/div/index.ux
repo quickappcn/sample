@@ -14,8 +14,26 @@
     </div>
 
     <div class="item-container">
+      <text class="item-title">flex-direction: row-reverse;</text>
+      <div style="flex-direction: row-reverse;">
+        <text class="item color-1">1</text>
+        <text class="item color-2">2</text>
+        <text class="item color-3">3</text>
+      </div>
+    </div>
+
+    <div class="item-container">
       <text class="item-title">flex-direction: column;</text>
       <div style="flex-direction: column; align-items: flex-start;">
+        <text class="item color-1">1</text>
+        <text class="item color-2">2</text>
+        <text class="item color-3">3</text>
+      </div>
+    </div>
+
+    <div class="item-container">
+      <text class="item-title">flex-direction: column-reverse;</text>
+      <div style="flex-direction: column-reverse; align-items: flex-start;">
         <text class="item color-1">1</text>
         <text class="item color-2">2</text>
         <text class="item color-3">3</text>
@@ -91,6 +109,21 @@
   </div>
 </template>
 
+<script>
+  export default {
+    private: {
+      componentName: 'div',
+      state: '操作事件类型'
+    },
+    onInit () {
+      this.$page.setTitleBar({text: 'Div'})
+    },
+    getEventType (event) {
+      this.state = event.type
+    }
+  }
+</script>
+
 <style>
   @import '../../../common/css/common.css';
 
@@ -146,18 +179,3 @@
     background-color: #007dff;
   }
 </style>
-
-<script>
-  export default {
-    private: {
-      componentName: 'div',
-      state: '操作事件类型'
-    },
-    onInit () {
-      this.$page.setTitleBar({text: 'Div'})
-    },
-    getEventType (event) {
-      this.state = event.type
-    }
-  }
-</script>

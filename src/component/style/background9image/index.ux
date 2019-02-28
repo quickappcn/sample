@@ -13,6 +13,17 @@
   </div>
 </template>
 
+<script>
+  export default {
+    data: {
+      componentName: 'background-image 支持.9.png'
+    },
+    onInit () {
+      this.$page.setTitleBar({text: this.componentName})
+    }
+  }
+</script>
+
 <style>
   @import '../../../common/css/common.css';
 
@@ -28,14 +39,3 @@
     background-image: url('./ninepatch.9.png');
   }
 </style>
-
-<script>
-  export default {
-    data: {
-      componentName: 'background-image 支持.9.png'
-    },
-    onInit () {
-      this.$page.setTitleBar({text: this.componentName})
-    }
-  }
-</script>

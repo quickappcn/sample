@@ -5,13 +5,6 @@
   </div>
 </template>
 
-<style>
-  @import "../../common/css/index.css";
-  web {
-    flex: 1;
-  }
-</style>
-
 <script>
   export default {
     onInit () {
@@ -19,3 +12,10 @@
     }
   }
 </script>
+
+<style>
+  @import "../../common/css/index.css";
+  web {
+    flex: 1;
+  }
+</style>

@@ -30,6 +30,19 @@
   </div>
 </template>
 
+<script>
+  import prompt from '@system.prompt'
+
+  export default {
+    private: {
+      componentName: 'label'
+    },
+    onInit () {
+      this.$page.setTitleBar({text: 'Label'})
+    }
+  }
+</script>
+
 <style>
 
   @import '../../../common/css/common.css';
@@ -46,16 +59,3 @@
     width: 250px;
   }
 </style>
-
-<script>
-  import prompt from '@system.prompt'
-
-  export default {
-    private: {
-      componentName: 'label'
-    },
-    onInit () {
-      this.$page.setTitleBar({text: 'Label'})
-    }
-  }
-</script>

@@ -6,21 +6,6 @@
   </div>
 </template>
 
-<style>
-  .doc-page {
-    flex: 1;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  .item {
-    padding: 20px;
-    text-decoration: underline;
-    text-align: center;
-    margin-bottom: 50px;
-  }
-</style>
-
 <script>
   import router from '@system.router'
   export default {
@@ -40,3 +25,18 @@
     }
   }
 </script>
+
+<style>
+  .doc-page {
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .item {
+    padding: 20px;
+    text-decoration: underline;
+    text-align: center;
+    margin-bottom: 50px;
+  }
+</style>

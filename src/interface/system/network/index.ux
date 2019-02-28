@@ -20,24 +20,6 @@
   </div>
 </template>
 
-<style>
-  @import '../../../common/css/common.css';
-
-  .item-container {
-    margin-bottom: 50px;
-    margin-right: 60px;
-    margin-left: 60px;
-    flex-direction: column;
-  }
-  .item-content {
-    flex-direction: column;
-    background-color: #ffffff;
-    padding: 30px;
-    margin-bottom: 100px;
-    align-items: flex-start;
-  }
-</style>
-
 <script>
   import network from '@system.network'
   import prompt from '@system.prompt'
@@ -68,7 +50,7 @@
     listenNetwork () {
       const self = this
       network.subscribe({
-        success: function (ret) {
+        callback: function (ret) {
           self.currentType = JSON.stringify(ret)
         },
         fail: function (erromsg, errocode) {
@@ -84,3 +66,21 @@
     }
   }
 </script>
+
+<style>
+  @import '../../../common/css/common.css';
+
+  .item-container {
+    margin-bottom: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+  .item-content {
+    flex-direction: column;
+    background-color: #ffffff;
+    padding: 30px;
+    margin-bottom: 100px;
+    align-items: flex-start;
+  }
+</style>

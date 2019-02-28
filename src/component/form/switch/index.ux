@@ -28,6 +28,17 @@
   </div>
 </template>
 
+<script>
+  export default {
+    private: {
+      componentName: 'switch'
+    },
+    onInit () {
+      this.$page.setTitleBar({text: 'Switch'})
+    }
+  }
+</script>
+
 <style>
   @import '../../../common/css/common.css';
 
@@ -67,14 +78,3 @@
     border-bottom-width: 1px;
   }
 </style>
-
-<script>
-  export default {
-    private: {
-      componentName: 'switch'
-    },
-    onInit () {
-      this.$page.setTitleBar({text: 'Switch'})
-    }
-  }
-</script>

@@ -122,75 +122,6 @@
     </div>
   </template>
 
-  <style>
-    @import '../../../common/css/common.css';
-
-    .input-item {
-      margin-bottom: 80px;
-      flex-direction: column;
-    }
-    .input-hint {
-      margin-left: 30px;
-      margin-bottom: 30px;
-      margin-right: 30px;
-    }
-    .doc-row {
-      justify-content: center;
-      margin-left: 30px;
-      margin-right: 30px;
-    }
-    .flex-grow {
-      flex-grow: 1;
-    }
-    .input-text {
-      height: 80px;
-      line-height: 80px;
-      padding-left: 30px;
-      padding-right: 30px;
-      margin-left: 30px;
-      margin-right: 30px;
-      border-top-width: 1px;
-      border-bottom-width: 1px;
-      border-color: #999999;
-      font-size: 30px;
-      background-color: #ffffff;
-    }
-    .input-text:focus {
-      border-color: #f76160;
-    }
-    .input-button {
-      flex: 1;
-      padding-top: 10px;
-      padding-right: 30px;
-      padding-bottom: 10px;
-      padding-left: 30px;
-      margin-left: 30px;
-      font-size: 30px;
-      color: #ffffff;
-    }
-    .input-button-first {
-      margin-left: 0px;
-    }
-    .color-1 {
-      background-color: #09ba07;
-    }
-    .color-1:active {
-      background-color: #098807;
-    }
-    .color-2 {
-      background-color: #f76160;
-    }
-    .color-2:active {
-      background-color: #c55756;
-    }
-    .color-3 {
-      background-color: #0faeff;
-    }
-    .color-3:active {
-      background-color: #0f7dcd;
-    }
-  </style>
-
   <script>
     import prompt from '@system.prompt'
 
@@ -264,3 +195,72 @@
       }
     }
   </script>
+
+  <style>
+    @import '../../../common/css/common.css';
+
+    .input-item {
+      margin-bottom: 80px;
+      flex-direction: column;
+    }
+    .input-hint {
+      margin-left: 30px;
+      margin-bottom: 30px;
+      margin-right: 30px;
+    }
+    .doc-row {
+      justify-content: center;
+      margin-left: 30px;
+      margin-right: 30px;
+    }
+    .flex-grow {
+      flex-grow: 1;
+    }
+    .input-text {
+      height: 80px;
+      line-height: 80px;
+      padding-left: 30px;
+      padding-right: 30px;
+      margin-left: 30px;
+      margin-right: 30px;
+      border-top-width: 1px;
+      border-bottom-width: 1px;
+      border-color: #999999;
+      font-size: 30px;
+      background-color: #ffffff;
+    }
+    .input-text:focus {
+      border-color: #f76160;
+    }
+    .input-button {
+      flex: 1;
+      padding-top: 10px;
+      padding-right: 30px;
+      padding-bottom: 10px;
+      padding-left: 30px;
+      margin-left: 30px;
+      font-size: 30px;
+      color: #ffffff;
+    }
+    .input-button-first {
+      margin-left: 0px;
+    }
+    .color-1 {
+      background-color: #09ba07;
+    }
+    .color-1:active {
+      background-color: #098807;
+    }
+    .color-2 {
+      background-color: #f76160;
+    }
+    .color-2:active {
+      background-color: #c55756;
+    }
+    .color-3 {
+      background-color: #0faeff;
+    }
+    .color-3:active {
+      background-color: #0f7dcd;
+    }
+  </style>

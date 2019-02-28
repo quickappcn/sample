@@ -17,6 +17,10 @@ export const tabsData = {
           {
             name: '退出应用/页面',
             path: 'framework/exit'
+          },
+          {
+            name: '屏幕方向',
+            path: 'framework/screenorientation'
           }
         ]
       }
@@ -143,6 +147,10 @@ export const tabsData = {
           {
             name: 'web',
             path: 'component/media/web'
+          },
+          {
+            name: 'camera',
+            path: 'component/media/camera'
           }
         ]
       },
@@ -393,6 +401,18 @@ export const tabsData = {
           {
             name: 'Wi-Fi',
             path: 'interface/system/wifi'
+          },
+          {
+            name: '闹钟设置',
+            path: 'interface/system/alarm'
+          },
+          {
+            name: '蓝牙',
+            path: 'interface/system/bluetooth'
+          },
+          {
+            name: '读取设置',
+            path: 'interface/system/setting'
           }
         ]
       },

@@ -17,6 +17,21 @@
   </div>
 </template>
 
+<script>
+  export default {
+    private: {
+      componentName: 'rating',
+      starNum: 0
+    },
+    onInit () {
+      this.$page.setTitleBar({text: 'Rating'})
+    },
+    onstarStatus (e) {
+      this.starNum = e.rating
+    }
+  }
+</script>
+
 <style>
   @import '../../../common/css/common.css';
 
@@ -62,18 +77,3 @@
     width: 600px;
   }
 </style>
-
-<script>
-  export default {
-    private: {
-      componentName: 'rating',
-      starNum: 0
-    },
-    onInit () {
-      this.$page.setTitleBar({text: 'Rating'})
-    },
-    onstarStatus (e) {
-      this.starNum = e.rating
-    }
-  }
-</script>

@@ -24,49 +24,21 @@
       <text>canvas像素操作</text>
       <canvas id="canvas5"></canvas>
     </div>
+    <div class="content">
+      <text class=glo-type>{{globalCompositeOperation}}</text>
+      <canvas id="canvas6"></canvas>
+      <input class="btn" value="切换合成方式" type="button" onclick="changeGlobalCompositeOperation"></input>
+    </div>
   </div>
 </template>
 
-<style>
-  @import '../../../common/css/common.css';
-
-  .content {
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    background-color: #ffffff;
-    padding: 30px 0px 10px 0px;
-  }
-
-  canvas {
-    height: 400px;
-    width: 400px;
-  }
-
-  #canvas2 {
-    height: 300px;
-  }
-
-  #canvas3 {
-    height: 200px;
-  }
-
-  #canvas4 {
-    width: 380px;
-    height: 380px;
-  }
-
-  .content text {
-    margin-top: 20px;
-  }
-</style>
-
 <script>
-  import { drawClock, drawLogo, drawGradientLogo, grayFilter } from './canvas'
+  import { drawClock, drawLogo, drawGradientLogo, grayFilter, drawRectByGloComOperation } from './canvas'
 
   export default {
     private: {
-      componentName: 'canvas'
+      componentName: 'canvas',
+      globalCompositeOperation: 'source-over'
     },
     onInit () {
       this.$page.setTitleBar({ text: 'Canvas' })
@@ -77,6 +49,7 @@
       this.drawCanvas3()
       this.drawCanvas4()
       this.drawCanvas5()
+      this.drawCanvas6()
     },
     drawCanvas1 () {
       const conf = {
@@ -118,6 +91,78 @@
       const ctx = canvas.getContext('2d')
       drawGradientLogo(ctx)
       grayFilter(ctx)
+    },
+    drawCanvas6 () {
+      const canvas = this.$element('canvas6')
+      const ctx = canvas.getContext('2d')
+      drawRectByGloComOperation(ctx, this.globalCompositeOperation)
+    },
+    // 切换canvas合成类型
+    changeGlobalCompositeOperation () {
+      const globalCompositeOperationArr = ['source-over', 'source-atop',
+        'source-in', 'source-out',
+        'destination-over', 'destination-atop',
+        'destination-in', 'destination-out',
+        'lighter', 'copy', 'xor']
+
+      const index = globalCompositeOperationArr.indexOf(this.globalCompositeOperation)
+      if (index < globalCompositeOperationArr.length - 1) {
+        this.globalCompositeOperation = globalCompositeOperationArr[index + 1]
+      }
+      else {
+        this.globalCompositeOperation = globalCompositeOperationArr[0]
+      }
+
+      this.drawCanvas6()
     }
   }
 </script>
+
+<style>
+  @import '../../../common/css/common.css';
+
+  .content {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    background-color: #ffffff;
+    padding: 30px 0px 10px 0px;
+  }
+
+  canvas {
+    height: 400px;
+    width: 400px;
+  }
+
+  #canvas2 {
+    height: 300px;
+  }
+
+  #canvas3 {
+    height: 200px;
+  }
+
+  #canvas4 {
+    width: 380px;
+    height: 380px;
+  }
+
+  .glo-type {
+    margin: 20px;
+  }
+
+  #canvas6 {
+    width: 320px;
+    height: 320px;
+    border: 1px solid red;
+  }
+
+  .btn {
+    width: 320px;
+    margin: 20px;
+  }
+
+  .content text {
+    margin-top: 20px;
+  }
+</style>

@@ -3,52 +3,19 @@
     <block if="{{titleBar.config.titleBarShow}}">
       <div class="titleBar" style="height:{{titleBar.config.height}};background-color:{{titleBar.config.backgroundColor}};">
         <div class="arrow-content" onclick="back" if="{{titleBar.config.arrowLeftShow}}">
-          <image src="{{titleBar.config.leftIconSrc}}" class="arrow-left" style="resize-mode:contain;"></image>
+          <image src="{{titleBar.config.leftIconSrc}}" class="arrow-left" style="object-fit:contain;"></image>
         </div>
         <text class="titleBar-title" style="color: {{titleBar.config.color}};text-align: {{titleBar.config.textAlign}}">
           {{titleBar.config.title}}
         </text>
         <div class="arrow-content" onclick="share" if="{{titleBar.config.arrowRightShow}}">
-          <image src="{{titleBar.config.rightIconSrc}}" class="flex-1" style="resize-mode:contain;"></image>
+          <image src="{{titleBar.config.rightIconSrc}}" class="flex-1" style="object-fit:contain;"></image>
         </div>
       </div>
     </block>
   </div>
 </template>
-<style>
-  .doc-page{
-    flex-direction: column;
-  }
-  .titleBar{
-    flex-direction: row;
-    padding: 20px;
-    height: 100px;
-    width: 100%;
-    align-items: center;
-  }
-  .arrow-content{
-    height: 80px;
-    width: 80px;
-    padding: 15px;
-  }
-  .arrow-left{
-    height: 50px;
-    width: 50px;
-    padding: 10px;
-    border-radius: 25px;
-  }
-  .titleBar-title{
-    lines: 1;
-    text-overflow: ellipsis;
-    text-align: center;
-    flex: 1;
-    font-size: 40px;
-    color: #ffffff;
-  }
-  .flex-1{
-    flex: 1;
-  }
-</style>
+
 <script>
   export default {
     data: {
@@ -84,3 +51,38 @@
     }
   }
 </script>
+
+<style>
+  .doc-page{
+    flex-direction: column;
+  }
+  .titleBar{
+    flex-direction: row;
+    padding: 20px;
+    height: 100px;
+    width: 100%;
+    align-items: center;
+  }
+  .arrow-content{
+    height: 80px;
+    width: 80px;
+    padding: 15px;
+  }
+  .arrow-left{
+    height: 50px;
+    width: 50px;
+    padding: 10px;
+    border-radius: 25px;
+  }
+  .titleBar-title{
+    lines: 1;
+    text-overflow: ellipsis;
+    text-align: center;
+    flex: 1;
+    font-size: 40px;
+    color: #ffffff;
+  }
+  .flex-1{
+    flex: 1;
+  }
+</style>

@@ -1,0 +1,78 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+
+    <div class="item-container">
+      <div class="item-content">
+        <text class="txt">设置名称：</text>
+        <input class="name-input" value="{{settingName}}" placeholder="请输入key" onchange="nameChange"/>
+      </div>
+      <div class="item-content">
+        <text class="txt">读取到的值：{{settingValue}}</text>
+      </div>
+      <input type="button" class="btn" onclick="getSettingValue" value="获取设置的值" />
+    </div>
+  </div>
+</template>
+
+<style>
+  @import '../../../common/css/common.css';
+
+  .item-container {
+    margin-bottom: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+
+  .item-content {
+    background-color: #ffffff;
+    padding: 30px;
+    margin-bottom: 100px;
+    align-items: flex-start;
+  }
+
+  .name-input {
+    flex: 1;
+    color: #666;
+    font-size: 30px;
+  }
+</style>
+
+<script>
+  import prompt from '@system.prompt'
+  import settings from '@android.settings'
+
+  export default {
+    private: {
+      componentName: 'System Setting',
+      settingName: 'ringtone',
+      settingValue: ''
+    },
+    onInit () {
+      this.$page.setTitleBar({ text: 'System Setting' })
+    },
+    nameChange (e) {
+      this.settingName = e.text;
+    },
+    getSettingValue (e) {
+      const self = this
+
+      settings.getString({
+        key: self.settingName,
+        success(ret) {
+          self.settingValue = ret.value
+        },
+        fail(msg, code) {
+          self.settingValue = code + ': ' + msg
+
+          prompt.showToast({
+            message: `${code}: ${msg}`
+          })
+        }
+      })
+    }
+  }
+</script>

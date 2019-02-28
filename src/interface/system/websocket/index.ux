@@ -16,32 +16,6 @@
   </div>
 </template>
 
-<style>
-  @import '../../../common/css/common.css';
-
-  .item-container {
-    margin-top: 50px;
-    margin-right: 60px;
-    margin-left: 60px;
-    flex-direction: column;
-  }
-
-  .input-text {
-    height: 80px;
-    line-height: 80px;
-    padding-left: 30px;
-    padding-right: 30px;
-    margin-left: 30px;
-    margin-right: 30px;
-    margin-bottom: 50px;
-    border-top-width: 1px;
-    border-bottom-width: 1px;
-    border-color: #999999;
-    font-size: 30px;
-    background-color: #ffffff;
-  }
-</style>
-
 <script>
   import prompt from '@system.prompt'
   import websocketfactory from '@system.websocketfactory'
@@ -168,3 +142,29 @@
     }
   }
 </script>
+
+<style>
+  @import '../../../common/css/common.css';
+
+  .item-container {
+    margin-top: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+
+  .input-text {
+    height: 80px;
+    line-height: 80px;
+    padding-left: 30px;
+    padding-right: 30px;
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-bottom: 50px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-color: #999999;
+    font-size: 30px;
+    background-color: #ffffff;
+  }
+</style>

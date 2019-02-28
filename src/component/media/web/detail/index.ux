@@ -7,15 +7,6 @@
   </div>
 </template>
 
-<style>
-  .doc-comp {
-    flex: 1;
-    flex-direction: column;
-  }
-  .web-comp {
-    flex: 1;
-  }
-</style>
 <script>
   import router from '@system.router'
   export default {
@@ -73,3 +64,13 @@
     }
   }
 </script>
+
+<style>
+  .doc-comp {
+    flex: 1;
+    flex-direction: column;
+  }
+  .web-comp {
+    flex: 1;
+  }
+</style>

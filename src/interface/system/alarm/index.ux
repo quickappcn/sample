@@ -1,0 +1,147 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+    <div class="item-container">
+      <div class="item-content line">
+        <text class="title">服务提供商：</text>
+        <text>{{provider}}</text>
+      </div>
+      <div class="item-content">
+        <text class="title">时间：{{hour}}点</text>
+        <slider class="slider" min="0" max="23" onchange="setAlarmHour"></slider>
+      </div>
+      <div class="item-content">
+        <text class="title">时间：{{minute}}分</text>
+        <slider class="slider" min="0" max="59" onchange="setAlarmMinute"></slider>
+      </div>
+      <div class="item-content">
+        <text class="title">闹钟名称</text>
+        <input class="message" onchange="setAlarmMsg" value="{{message}}"></input>
+      </div>
+      <div class="item-content line">
+        <text class="title">震动</text>
+        <switch class="switch" checked="true" onchange="switchAlarmVibrate"></switch>
+      </div>
+      <div class="item-content line">
+        <text class="title">重复</text>
+        <switch class="switch" checked="false" onchange="switchAlarmRepeat"></switch>
+      </div>
+      <input type="button" class="btn alarm-btn" onclick="pickVideo" value="选择闹钟铃声"/>
+      <input type="button" class="btn alarm-btn" onclick="setAlarm" value="设置闹钟"/>
+    </div>
+  </div>
+</template>
+
+<style>
+  @import '../../../common/css/common.css';
+
+  .item-container {
+    flex-direction: column;
+    margin-bottom: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+  }
+  .item-content {
+    flex-direction: column;
+    width: 100%;
+    padding: 10px;
+  }
+  .item-container .line {
+    flex-direction: row;
+  }
+  .item-content .title {
+    margin: 30px 0;
+    height: 30px;
+  }
+  .message {
+    width: 100%;
+    height: 60px;
+    border: 1px solid #3ec26a;
+    border-left-width: 0;
+    border-right-width: 0;
+  }
+  .alarm-btn {
+    margin-top: 50px;
+  }
+</style>
+
+<script>
+  import alarm from '@system.alarm'
+  import media from '@system.media'
+  import prompt from '@system.prompt'
+
+  export default {
+    private: {
+      componentName: 'Alarm',
+      hour: 0,
+      minute: 0,
+      message: '快应用闹钟',
+      vibrate: true,
+      repeat: false,
+      days: [],
+      provider: '',
+      ringtone: ''
+    },
+    onInit () {
+      this.$page.setTitleBar({text: '闹钟设置'})
+
+      this.provider = alarm.getProvider()
+    },
+    setAlarm () {
+      const day = [new Date().getDay() - 1]
+
+      this.days = this.repeat ? [0, 1, 2, 3, 4, 5, 6] : day
+
+      alarm.setAlarm({
+        hour: this.hour,
+        minute: this.minute,
+        message: this.message,
+        vibrate: this.vibrate,
+        ringtone: this.ringtone,
+        days: this.days,
+        success() {
+          prompt.showToast({
+            message: '设置闹钟成功'
+          })
+        },
+        fail(data, code) {
+          console.log('set alarm failed：code' + code.code)
+        },
+      })
+    },
+    pickVideo () {
+      const _this = this
+
+      media.pickFile({
+        success(data) {
+          prompt.showToast({
+            message: 'data.uri:' + data.uri
+          })
+          _this.ringtone = data.uri
+        },
+        fail(data, code) {
+          prompt.showToast({
+            message: '选择铃声失败:' + code
+          })
+        }
+      })
+    },
+    setAlarmHour (e) {
+      this.hour = e.progress
+    },
+    setAlarmMinute (e) {
+      this.minute = e.progress
+    },
+    setAlarmMsg (e) {
+      this.message = e.value
+    },
+    switchAlarmVibrate (e) {
+      this.vibrate = e.checked
+    },
+    switchAlarmRepeat (e) {
+      this.repeat = e.checked
+    }
+  }
+</script>

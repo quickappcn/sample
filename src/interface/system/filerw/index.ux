@@ -27,38 +27,6 @@
     </div>
 </template>
 
-<style>
-  @import '../../../common/css/common.css';
-
-  .item-container {
-    margin-bottom: 50px;
-    margin-right: 60px;
-    margin-left: 60px;
-    flex-direction: column;
-  }
-
-  .item-content {
-    flex-direction: column;
-    background-color: #ffffff;
-    padding-left: 30px;
-    padding-right: 30px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    margin-bottom: 30px;
-  }
-
-  .input {
-    flex: 1;
-    font-size: 30px;
-    padding-left: 20px;
-  }
-
-  .txt {
-    padding-top: 15px;
-    padding-bottom: 15px;
-  }
-</style>
-
 <script>
   import file from '@system.file'
   import fetch from '@system.fetch'
@@ -135,3 +103,35 @@
     }
   }
 </script>
+
+<style>
+  @import '../../../common/css/common.css';
+
+  .item-container {
+    margin-bottom: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+
+  .item-content {
+    flex-direction: column;
+    background-color: #ffffff;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+  }
+
+  .input {
+    flex: 1;
+    font-size: 30px;
+    padding-left: 20px;
+  }
+
+  .txt {
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+</style>

@@ -11,16 +11,6 @@
   </div>
 </template>
 
-<style>
-  @import '../../../common/css/common.css';
-
-  .item-container {
-    margin-top: 50px;
-    margin-right: 60px;
-    margin-left: 60px;
-    flex-direction: column;
-  }
-</style>
 <script>
   import prompt from '@system.prompt'
   import wbaccount from '@service.wbaccount'
@@ -50,3 +40,14 @@
     }
   }
 </script>
+
+<style>
+  @import '../../../common/css/common.css';
+
+  .item-container {
+    margin-top: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+</style>
