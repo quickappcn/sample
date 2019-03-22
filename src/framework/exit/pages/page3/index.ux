@@ -4,7 +4,7 @@
       <text class="page-title">{{componentName}}</text>
     </div>
     <div class="item-container">
-      <a @click="go('/Home')">去首页</a>
+      <a @click="go('/home')">去首页</a>
     </div>
     <div class="item-container">
       <a @click="go('/exit/page1')">去第1页</a>
