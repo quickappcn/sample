@@ -12,7 +12,7 @@
         <text class="txt">accuracy: {{geolocationGetData.accuracy}}</text>
         <text class="txt">time: {{geolocationGetData.time}}</text>
       </div>
-      <input type="button" class="btn" onclick="getGeolocation" value="获取地理位置"/>
+      <input type="button" class="btn" onclick="getGeolocation" value="获取地理位置" />
 
       <div class="item-content">
         <text class="txt">地理位置:</text>
@@ -21,14 +21,14 @@
         <text class="txt">accuracy: {{geolocationListenData.accuracy}}</text>
         <text class="txt">time: {{geolocationListenData.time}}</text>
       </div>
-      <input type="button" class="btn" onclick="listenGeolocation" value="监听地理位置"/>
-      <input type="button" class="btn" onclick="cancelGeolocation" value="取消地理位置监听"/>
+      <input type="button" class="btn" onclick="listenGeolocation" value="监听地理位置" />
+      <input type="button" class="btn" onclick="cancelGeolocation" value="取消地理位置监听" />
 
       <div class="item-content">
         <text class="txt">定位类型:</text>
         <text class="txt">locationType: {{locationType}}</text>
       </div>
-      <input type="button" class="btn" onclick="getGeolocationType" value="获取系统当前支持的定位类型"/>
+      <input type="button" class="btn" onclick="getGeolocationType" value="获取系统当前支持的定位类型" />
     </div>
   </div>
 </template>
@@ -54,10 +54,23 @@
       },
       locationType: ''
     },
-    onInit () {
-      this.$page.setTitleBar({text: 'Geolocation'})
+    onInit() {
+      this.$page.setTitleBar({
+        text: 'Geolocation'
+      })
     },
-    getGeolocation () {
+    changeOption(e) {
+      this.coordTypeValue = e.newValue
+      prompt.showToast({
+        message: `坐标系类型切换为 ${e.newValue}`
+      })
+    },
+    getCoordTypes() {
+      let self = this;
+      let SupportedCoordTypesArr = geolocation.getSupportedCoordTypes();
+      self.coordTypes = SupportedCoordTypesArr.join()
+    },
+    getGeolocation() {
       const self = this
       geolocation.getLocation({
         success: function (ret) {
@@ -71,7 +84,7 @@
         }
       })
     },
-    listenGeolocation () {
+    listenGeolocation() {
       const self = this
       geolocation.subscribe({
         success: function (ret) {
@@ -85,7 +98,7 @@
         }
       })
     },
-    cancelGeolocation () {
+    cancelGeolocation() {
       geolocation.unsubscribe()
     },
     getGeolocationType: function () {
@@ -113,6 +126,7 @@
     margin-left: 60px;
     flex-direction: column;
   }
+
   .item-content {
     flex-direction: column;
     background-color: #ffffff;

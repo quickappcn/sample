@@ -1,0 +1,60 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{ text }}</text>
+    </div>
+    <div class="doc-page text-center center">
+      <div class="doc-shell m-bottom-md">
+        <div class="doc-target" onresize="getOffset">目标</div>
+      </div>
+      <text class="m-bottom-xs">offsetWidth: {{offsetWidth}}</text>
+      <text class="m-bottom-xs">offsetHeight: {{offsetHeight}}</text>
+      <text class="m-bottom-xs">offsetLeft: {{offsetLeft}}</text>
+      <text class="m-bottom-xs">offsetTop: {{offsetTop}}</text>
+    </div>
+  </div>
+</template>
+
+<script>
+  import prompt from '@system.prompt'
+  import router from '@system.router'
+
+  export default {
+    private: {
+      text: '获取元素宽高及位置',
+      offsetWidth: 0,
+      offsetHeight: 0,
+      offsetLeft: 0,
+      offsetTop: 0
+    },
+    onInit() {
+      this.$page.setTitleBar({
+        text: this.text
+      })
+    },
+    getOffset(e) {
+      this.offsetWidth = e.offsetWidth
+      this.offsetHeight = e.offsetHeight
+      this.offsetLeft = e.offsetLeft
+      this.offsetTop = e.offsetTop
+    }
+  }
+</script>
+
+<style lang="less">
+  @import "../../../common/css/common.css";
+
+  .doc-shell {
+    width: 200px;
+    height: 200px;
+    border: 2px solid #808080;
+    padding: 30px;
+
+    .doc-target {
+      width: 100%;
+      height: 100%;
+      background-color: red;
+      text-align: center;
+    }
+  }
+</style>

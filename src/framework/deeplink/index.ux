@@ -4,7 +4,7 @@
       <text class="page-title">{{componentName}}</text>
     </div>
     <text class="desc">hap://app/packageName/[path][?key=value]</text>
-    <a href="hap://app/com.xiangkan.android.lite">想看视频</a>
+    <a href="hap://app/com.autohome.quickapp">汽车之家极速版</a>
   </div>
 </template>
 
@@ -13,8 +13,8 @@
     private: {
       componentName: 'deepLink'
     },
-    onInit () {
-      this.$page.setTitleBar({text: 'DeepLink'})
+    onInit() {
+      this.$page.setTitleBar({ text: 'DeepLink' })
     }
   }
 </script>

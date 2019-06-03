@@ -5,10 +5,11 @@
     </div>
 
     <div class="video justify-content-center">
-      <stack class="flex-column video-container">
-        <video class="flex-1 {{objectFitClass}}" poster="https://www.quickapp.cn/assets/images/home/video.png" autoplay="false" onprepared="preparedfn"
-          onstart="startfn" onpause="pausefn" onfinish="finishfn" onerror="errorfn" onseeking="seekingfn" onseeked="seekedfn"
-          ontimeupdate="timeupdatefn" id="video" src="https://swsdl.vivo.com.cn/appstore/developer/uploadfile/20180323/20180323183010837.mp4"
+      <stack id="stackDemo01" class="flex-column video-container">
+        <video class="flex-1 {{objectFitClass}}" poster="https://www.quickapp.cn/assets/images/home/video.png"
+          autoplay="false" onprepared="preparedfn" onstart="startfn" onpause="pausefn" onfinish="finishfn"
+          onerror="errorfn" onseeking="seekingfn" onseeked="seekedfn" ontimeupdate="timeupdatefn" id="video"
+          src="https://swsdl.vivo.com.cn/appstore/developer/uploadfile/20180323/20180323183010837.mp4"
           controls="{{showControls}}" muted="{{muted}}"></video>
         <image show="{{showmask}}" src="https://www.quickapp.cn/assets/images/home/video.png"></image>
         <div class="mask align-item-center justify-content-center flex-column" show="{{showmask}}">
@@ -26,9 +27,13 @@
         <switch class="switch" checked="true" onchange="switchShowControls"></switch>
       </div>
       <div class="item-content">
-          <text class="item-content_title">是否静音</text>
-          <switch class="switch" style="margin-left:120px" checked="false" onchange="onMutedSwitched"></switch>
-        </div>
+        <text class="item-content_title">是否静音</text>
+        <switch class="switch" style="margin-left:120px" checked="false" onchange="onMutedSwitched"></switch>
+      </div>
+      <div class="item-content">
+        <text class="item-content_title">是否添加覆盖物</text>
+        <switch class="switch" style="margin-left:120px" checked="false" onchange="onMulchSwitched"></switch>
+      </div>
     </div>
 
     <div class="item-container">
@@ -39,7 +44,7 @@
         </select>
       </div>
     </div>
-    
+
   </div>
 </template>
 
@@ -56,7 +61,7 @@
       showControls: true,
       muted: false,
       objectFitValues: [
-        "cover","contain","fill","none","scale-down"
+        "cover", "contain", "fill", "none", "scale-down"
       ],
       objectFitClass: ''
     },
@@ -89,6 +94,9 @@
     },
     onMutedSwitched(e) {
       this.muted = e.checked
+    },
+    onMulchSwitched(e) {
+      this.$element('stackDemo01').requestFullscreen({ screenOrientation: "landscape" })
     },
     changeOption(e) {
       this.objectFitClass = e.newValue
@@ -136,6 +144,7 @@
   .item-container {
     margin-top: 20px;
   }
+
   .select {
     border: 1px solid #333333;
     border-radius: 5px;
@@ -147,18 +156,23 @@
     padding-bottom: 20px;
     padding-left: 20px;
   }
+
   .contain {
     object-fit: contain;
   }
+
   .cover {
     object-fit: cover;
   }
+
   .fill {
     object-fit: fill;
   }
+
   .none {
     object-fit: none;
   }
+
   .scale-down {
     object-fit: scale-down;
   }

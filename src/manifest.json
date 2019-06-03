@@ -43,6 +43,8 @@
     { "name": "service.share", "params": {"appSign": "", "wxKey": ""} },
     { "name": "service.pay" },
     { "name": "service.alipay" },
+    { "name": "service.exchange" },
+    { "name": "hap.io.MessageChannel" },
     {
       "name": "service.wxpay",
       "params": {
@@ -206,6 +208,63 @@
       "framework/screenorientation": {
         "component": "index"
       },
+<<<<<<< HEAD
+=======
+      "framework/pageWH": {
+        "component": "index"
+      },
+      "framework/style-layout/style": {
+        "component": "index"
+      },
+      "framework/style-layout/less": {
+        "component": "index"
+      },
+      "framework/style-layout/layout": {
+        "component": "index"
+      },
+      "framework/style-layout/update-style": {
+        "component": "index"
+      },
+      "framework/filter": {
+        "component": "index"
+      },
+      "framework/computed": {
+        "component": "index"
+      },
+      "framework/directive/for": {
+        "component": "index"
+      },
+      "framework/directive/if-show": {
+        "component": "index"
+      },
+      "framework/directive/data": {
+        "component": "index"
+      },
+      "framework/directive/block": {
+        "component": "index"
+      },
+      "framework/directive/slot": {
+        "component": "index"
+      },
+      "framework/events/native-events": {
+        "component": "index"
+      },
+      "framework/events/custom-events": {
+        "component": "index"
+      },
+      "framework/events/event-bubble": {
+        "component": "index"
+      },
+      "framework/optimization/JSONparse": {
+        "component": "index"
+      },
+      "framework/optimization/bindPage": {
+        "component": "index"
+      },
+      "framework/componentlifecycle": {
+        "component": "index"
+      },
+>>>>>>> 89f63b6... sample 1050相关BUG修改
       "interface/thirdparty/alipay": {
         "component": "index"
       },
