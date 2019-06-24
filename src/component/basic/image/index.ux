@@ -47,7 +47,8 @@
     <div class="item-container">
       <text class="item-title">object-fit: scale-down</text>
       <div class="item-content-with-height">
-        <image src="./img/pic-240x160.webp" class="fixed-size-wh" style="width: 100px;height: 100px;object-fit: scale-down;"></image>
+        <image src="./img/pic-240x160.webp" class="fixed-size-wh"
+          style="width: 100px;height: 100px;object-fit: scale-down;"></image>
       </div>
     </div>
 
@@ -216,133 +217,133 @@
 
     <div class="item-container">
       <text class="item-title">矩形: </text>
-      <div class="item-content">
+      <div class="item-content-with-height-bk">
         <image src="{{remoteURL}}rect1.svg" class="fixed-size-wh" style="object-fit: contain"></image>
       </div>
     </div>
 
     <div class="item-container">
       <text class="item-title">带透明度的矩形: </text>
-      <div class="item-content">
+      <div class="item-content-with-height-bk">
         <image src="{{remoteURL}}rect2.svg" class="fixed-size-wh" style="object-fit: contain"></image>
       </div>
     </div>
 
     <div class="item-container">
       <text class="item-title">带透明度的矩形2: </text>
-      <div class="item-content">
+      <div class="item-content-with-height-bk">
         <image src="{{remoteURL}}rect3.svg" class="fixed-size-wh" style="object-fit: contain"></image>
       </div>
     </div>
 
     <div class="item-container">
       <text class="item-title">带圆角的矩形: </text>
-      <div class="item-content">
+      <div class="item-content-with-height-bk">
         <image src="{{remoteURL}}rect4.svg" class="fixed-size-wh" style="object-fit: contain"></image>
       </div>
     </div>
 
     <div class="item-container">
       <text class="item-title">圆形: </text>
-      <div class="item-content">
+      <div class="item-content-with-height-bk">
         <image src="{{remoteURL}}circle1.svg" class="fixed-size-wh" style="object-fit: contain"></image>
       </div>
     </div>
 
     <div class="item-container">
       <text class="item-title">椭圆: </text>
-      <div class="item-content">
+      <div class="item-content-with-height-bk">
         <image src="{{remoteURL}}ellipse1.svg" class="fixed-size-wh" style="object-fit: contain"></image>
       </div>
     </div>
 
     <div class="item-container">
       <text class="item-title">累叠的椭圆: </text>
-      <div class="item-content">
+      <div class="item-content-with-height-bk">
         <image src="{{remoteURL}}ellipse2.svg" class="fixed-size-wh" style="object-fit: contain"></image>
       </div>
     </div>
 
     <div class="item-container">
       <text class="item-title">两个椭圆: </text>
-      <div class="item-content">
+      <div class="item-content-with-height-bk">
         <image src="{{remoteURL}}ellipse3.svg" class="fixed-size-wh" style="object-fit: contain"></image>
       </div>
     </div>
 
     <div class="item-container">
       <text class="item-title">一条线: </text>
-      <div class="item-content">
+      <div class="item-content-with-height-bk">
         <image src="{{remoteURL}}line1.svg" class="fixed-size-wh" style="object-fit: contain"></image>
       </div>
     </div>
 
     <div class="item-container">
       <text class="item-title">三角形: </text>
-      <div class="item-content">
+      <div class="item-content-with-height-bk">
         <image src="{{remoteURL}}polygon1.svg" class="fixed-size-wh" style="object-fit: contain"></image>
       </div>
     </div>
 
     <div class="item-container">
       <text class="item-title">四边形: </text>
-      <div class="item-content">
+      <div class="item-content-with-height-bk">
         <image src="{{remoteURL}}polygon2.svg" class="fixed-size-wh" style="object-fit: contain"></image>
       </div>
     </div>
 
     <div class="item-container">
       <text class="item-title">折线: </text>
-      <div class="item-content">
+      <div class="item-content-with-height-bk">
         <image src="{{remoteURL}}polyline1.svg" class="fixed-size-wh" style="object-fit: contain"></image>
       </div>
     </div>
 
     <div class="item-container">
       <text class="item-title">路径: </text>
-      <div class="item-content">
+      <div class="item-content-with-height-bk">
         <image src="{{remoteURL}}path1.svg" class="fixed-size-wh" style="object-fit: contain"></image>
       </div>
     </div>
 
     <div class="item-container">
       <text class="item-title">螺旋: </text>
-      <div class="item-content">
+      <div class="item-content-with-height-bk">
         <image src="img/path2.svg" class="fixed-size-wh" style="object-fit: contain;"></image>
       </div>
     </div>
 
     <div class="item-container">
       <text class="item-title">线形渐变 (水平渐变): </text>
-      <div class="item-content">
+      <div class="item-content-with-height-bk">
         <image src="{{remoteURL}}linear1.svg" class="fixed-size-wh" style="object-fit: contain"></image>
       </div>
     </div>
 
     <div class="item-container">
       <text class="item-title">线形渐变 (垂直渐变): </text>
-      <div class="item-content">
+      <div class="item-content-with-height-bk">
         <image src="{{remoteURL}}linear3.svg" class="fixed-size-wh" style="object-fit: contain"></image>
       </div>
     </div>
 
     <div class="item-container">
       <text class="item-title">放射性渐变: </text>
-      <div class="item-content">
+      <div class="item-content-with-height-bk">
         <image src="img/radial1.svg" class="fixed-size-wh" style="object-fit: cover"></image>
       </div>
     </div>
 
     <div class="item-container">
       <text class="item-title">放射性渐变 2: </text>
-      <div class="item-content">
+      <div class="item-content-with-height-bk">
         <image src="img/radial2.svg" class="fixed-size-wh" style="object-fit: cover"></image>
       </div>
     </div>
 
     <div class="item-container">
       <text class="item-title">机器人: </text>
-      <div class="item-content">
+      <div class="item-content-with-height-bk">
         <image src="img/robot.svg" class="fixed-size-wh" style="object-fit: contain"></image>
       </div>
     </div>
@@ -358,7 +359,8 @@
     <div class="item-container">
       <text class="item-title">网络图片</text>
       <div class="item-content-without-height">
-        <image src="{{requestImageURL}}" style="object-fit: contain" oncomplete="onImageComplete" onerror="onImageError"></image>
+        <image src="{{requestImageURL}}" style="object-fit: contain" oncomplete="onImageComplete"
+          onerror="onImageError"></image>
       </div>
     </div>
   </div>
@@ -373,8 +375,8 @@
       inputImageURL: 'http://www.w3school.com.cn/svg/rect1.svg',
       requestImageURL: ''
     },
-    onInit () {
-      this.$page.setTitleBar({text: 'Image'})
+    onInit() {
+      this.$page.setTitleBar({ text: 'Image' })
     },
     onImageUrlChange(data) {
       this.inputImageURL = data.value
@@ -403,51 +405,68 @@
 
   .img-layout-header {
     padding: 20px;
-    border-bottom-width: 1px;
-    border-bottom-color: #808080;
+    border-bottom: 1px #808080;
   }
-  .item-container{
+
+  .item-container {
     margin-top: 40px;
     margin-bottom: 40px;
     flex-direction: column;
   }
-  .item-title{
+
+  .item-title {
     padding-left: 30px;
     padding-bottom: 20px;
     color: #aaaaaa;
   }
-  .item-content{
+
+  .item-content {
     height: 200px;
     justify-content: center;
   }
-  .image{
+
+  .image {
     width: 240px;
     height: 160px;
     object-fit: contain;
   }
-  .item-content-with-height{
+
+  .item-content-with-height {
     height: 250px;
     justify-content: center;
     align-items: center;
   }
-  .item-content-without-height{
+
+  .item-content-with-height-bk {
+    height: 250px;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+  }
+
+  .item-content-without-height {
     justify-content: center;
     align-items: center;
   }
+
   .fixed-size-wh {
     width: 750px;
     height: 250px;
   }
+
   .fixed-size-wh2 {
     width: 250px;
     height: 750px;
   }
+
   .fixed-size-h {
     height: 160px;
   }
+
   .circle {
     border-radius: 80px;
   }
+
   .input-button {
     flex: 1;
     padding: 10px 30px;
@@ -455,7 +474,8 @@
     font-size: 30px;
     color: #ffffff;
     background-color: #0faeff;
-    }
+  }
+
   .input-text {
     height: 80px;
     line-height: 80px;

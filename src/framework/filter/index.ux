@@ -1,0 +1,46 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+
+    <text>原数据：{{ beforeFilterMsg }}</text>
+    <text>过滤后：{{ beforeFilterMsg | capitalize }}</text>
+    <text>还原：{{ beforeFilterMsg | capitalize | normalize }}</text>
+    <text>添加参数：{{ beforeFilterMsg | ModifyFrontAndBehind(front, 'B') }}</text>
+  </div>
+</template>
+
+<script>
+  export default {
+    private: {
+      componentName: 'filter',
+      beforeFilterMsg: 'quickapp',
+      front: 'A'
+    },
+    onInit() {
+      this.$page.setTitleBar({ text: 'Filter' })
+    },
+    capitalize(value) {
+      if (!value) return ''
+      value = value.toString()
+      return value.charAt(0).toUpperCase() + value.slice(1)
+    },
+    normalize(value) {
+      if (!value) return ''
+      value = value.toString()
+      return value.charAt(0).toLowerCase() + value.slice(1)
+    },
+    ModifyFrontAndBehind(value, front, behind) {
+      return front + value + behind
+    }
+  }
+</script>
+
+<style>
+  @import '../../common/css/common.css';
+
+  .doc-page {
+    padding: 10px;
+  }
+</style>

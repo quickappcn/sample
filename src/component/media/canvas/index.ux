@@ -6,6 +6,8 @@
     <div class="content">
       <text>canvas绘制时钟</text>
       <canvas id="canvas1"></canvas>
+      <image show="{{imageUrl}}" src="{{imageUrl}}"></image>
+      <input type="button" class="btn" value="保存图片" onclick="savePic"></input>
     </div>
     <div class="content">
       <text>canvas绘制图形</text>
@@ -29,16 +31,22 @@
       <canvas id="canvas6"></canvas>
       <input class="btn" value="切换合成方式" type="button" onclick="changeGlobalCompositeOperation"></input>
     </div>
+    <div class="content">
+      <text>canvas绘制虚线</text>
+      <canvas id="canvas7"></canvas>
+    </div>
   </div>
 </template>
 
 <script>
   import { drawClock, drawLogo, drawGradientLogo, grayFilter, drawRectByGloComOperation } from './canvas'
+  import prompt from '@system.prompt'
 
   export default {
     private: {
       componentName: 'canvas',
-      globalCompositeOperation: 'source-over'
+      globalCompositeOperation: 'source-over',
+      imageUrl: ''
     },
     onInit () {
       this.$page.setTitleBar({ text: 'Canvas' })
@@ -50,6 +58,7 @@
       this.drawCanvas4()
       this.drawCanvas5()
       this.drawCanvas6()
+      this.drawCanvas7()
     },
     drawCanvas1 () {
       const conf = {
@@ -114,6 +123,48 @@
       }
 
       this.drawCanvas6()
+    },
+    drawCanvas7() {
+      const canvas = this.$element('canvas7')
+      const ctx = canvas.getContext('2d')
+
+      let offset = 0
+
+      // 绘制蚂蚁线
+      setInterval(() => {
+        offset++
+
+        if (offset > 16) {
+          offset = 0
+        }
+
+        ctx.clearRect(0, 0, 300, 300)
+        // 设置虚线线段和间隙长度 分别为 4px 2px
+        ctx.setLineDash([4, 2])
+        // 设置虚线的起始偏移量
+        ctx.lineDashOffset = -offset
+        ctx.strokeRect(10, 10, 200, 200)
+      }, 20)
+    },
+    savePic () {
+      this.$element('canvas1').toTempFilePath({
+        x: 50,
+        y: 50,
+        width: 350,
+        height: 350,
+        destWidth: 200,
+        destHeight: 200,
+        fileType: 'png',
+        quality: 0.5,
+        success: (res) => {
+          this.imageUrl = res.uri
+        },
+        fail: (err, code) => {
+          prompt.showToast({
+            message: `错误原因：${err}, 错误代码：${code}`
+          })
+        }
+      })
     }
   }
 </script>
@@ -155,6 +206,65 @@
     width: 320px;
     height: 320px;
     border: 1px solid red;
+  }
+
+  .btn {
+    width: 320px;
+    margin: 20px;
+  }
+
+  .content text {
+    margin-top: 20px;
+  }
+</style>
+
+
+<style>
+  @import '../../../common/css/common.css';
+
+  .content {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    background-color: #ffffff;
+    padding: 30px 0px 10px 0px;
+  }
+
+  canvas {
+    height: 400px;
+    width: 400px;
+  }
+
+  #canvas2 {
+    height: 300px;
+  }
+
+  #canvas3 {
+    height: 200px;
+  }
+
+  #canvas4 {
+    width: 380px;
+    height: 380px;
+  }
+  #canvas6 {
+    width: 380px;
+    height: 380px;
+  }
+
+  .glo-type {
+    margin: 20px;
+  }
+
+  #canvas6 {
+    width: 320px;
+    height: 320px;
+    border: 1px solid red;
+  }
+
+  #canvas7 {
+    width: 302px;
+    height: 302px;
   }
 
   .btn {

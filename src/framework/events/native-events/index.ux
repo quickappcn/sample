@@ -1,0 +1,52 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{ componentName }}</text>
+    </div>
+
+    <div class="item-container">
+      <input id="elNode1" type="button" class="btn" onclick="onClickHandler1" value="按钮1" disabled="false" />
+
+      <input id="elNode2" type="button" class="btn" onclick="onClickHandler2('参数1', argName)" value="按钮2" />
+
+      <input type="button" class="btn" onclick="emitElement" value="触发按钮1的点击事件" />
+    </div>
+  </div>
+</template>
+
+<script>
+  import prompt from '@system.prompt'
+  export default {
+    private: {
+      argName: '动态参数',
+      componentName: '原生组件事件'
+    },
+    onInit() {
+      this.$page.setTitleBar({ text: this.componentName })
+    },
+    onClickHandler1(evt) {
+      prompt.showToast({ message: `点击了按钮1` })
+
+      // 事件类型，参数详情
+      console.log(`触发事件：类型：${evt.type}, 详情： ${JSON.stringify(evt.detail)}`)
+
+      if (evt.target) {
+        console.log(`触发事件：节点：${evt.target.id}, ${evt.target.attr.disabled}`)
+      }
+    },
+    onClickHandler2(arg1, arg2, evt) {
+      prompt.showToast({ message: `点击了按钮2` })
+
+      // 事件类型，事件参数，target
+     console.log( `触发事件：类型：${evt.type}, 参数： ${arg1}, ${arg2}` )
+    },
+    emitElement() {
+      // 注意：通过此类方式的事件不会携带target属性，开发者可以通过detail参数实现
+      this.$emitElement('click', { params: '参数内容' }, 'elNode1')
+    }
+  }
+</script>
+
+<style lang="less">
+  @import '../../../common/css/common.css';
+</style>

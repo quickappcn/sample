@@ -8,15 +8,14 @@
       <div class="item-content">
         <text>检测应用是否存在: {{status}}</text>
       </div>
-      <input type="button" class="btn" onclick="hasInstalled" value="检测应用是否存在"/>
+      <input type="button" class="btn" onclick="hasInstalled" value="检测应用是否存在" />
     </div>
 
     <div class="item-container">
       <div class="item-content">
         <text>安装应用: {{packageName}}</text>
-        <text>状态： {{installStatus}}</text>
       </div>
-      <input type="button" class="btn" onclick="install" value="安装应用"/>
+      <input type="button" class="btn" onclick="install" value="安装应用" />
     </div>
 
 
@@ -30,34 +29,33 @@
     private: {
       componentName: 'Package',
       status: '',
-      installStatus: '',
       // 以想看视频(原生安卓包名)为例
       packageName: 'com.xiangkan.android',
       packageStatus: ''
     },
-    onInit () {
-      this.$page.setTitleBar({text: '应用管理'})
+    onInit() {
+      this.$page.setTitleBar({ text: '应用管理' })
     },
-    hasInstalled () {
+    hasInstalled() {
       const self = this
       pkg.hasInstalled({
         package: self.packageName,
-        success: function(data) {
+        success: function (data) {
           self.status = data.result
         },
-        fail: function(data, code) {
+        fail: function (data, code) {
           self.status = 'handling fail, code=' + code
         }
       })
     },
-    install () {
+    install() {
       const self = this
       pkg.install({
         package: self.packageName,
-        success: function(data) {
-          self.packageStatus = (data.result === true ? '安装成功': '安装失败')
+        success: function (data) {
+          self.packageStatus = (data.result === true ? '安装成功' : '安装失败')
         },
-        fail: function(err, code) {
+        fail: function (err, code) {
           self.packageStatus = 'handling fail, code=' + code
         }
       })
@@ -74,6 +72,7 @@
     margin-left: 60px;
     flex-direction: column;
   }
+
   .item-content {
     flex-direction: column;
     background-color: #ffffff;

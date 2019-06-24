@@ -19,11 +19,13 @@
     data: {
       componentName: '微博账号',
     },
-    onInit: function () {
-      this.$page.setTitleBar({ text: '微博账号' })
+    onInit() {
+      this.$page.setTitleBar({
+        text: '微博账号'
+      })
     },
 
-    useWBAccount: function () {
+    useWBAccount() {
       wbaccount.authorize({
         redirectUri: 'https://api.weibo.com/oauth2/default.html',
         scope: 'follow_app_official_microblog', // 请查阅微博开放平台文档http://open.weibo.com/wiki/Scope?sudaref=www.google.com&display=0&retcode=6102

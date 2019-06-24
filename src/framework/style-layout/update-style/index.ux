@@ -1,0 +1,66 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{ componentName }}</text>
+    </div>
+    <div class="item-container">
+      <div style="flex-direction: column; align-items: center;">
+        <!-- 修改 class -->
+        <text class="normal-text {{ className }}" onclick="changeClassName">点击我修改文字颜色</text>
+        <!-- 修改内联 style -->
+        <text style="color: {{ textColor }}" onclick="changeInlineStyle">点击我修改文字颜色</text>
+        <!-- 修改绑定的对象 (1030+) -->
+        <text style="{{ styleObj }}" onclick="changeStyleObj">点击我修改文字颜色</text>
+        <!-- 修改绑定的样式字符串 (1030+) -->
+        <text style="{{ styleText }}" onclick="changeStyleText">点击我修改文字颜色</text>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+  export default {
+    private: {
+      className: 'text-blue',
+      textColor: '#0faeff',
+      styleObj: {
+        color: 'red'
+      },
+      styleText: 'color: blue',
+      componentName: '动态修改样式'
+    },
+    onInit () {
+      this.$page.setTitleBar({ text: this.componentName })
+    },
+    changeClassName () {
+      this.className = 'text-red'
+    },
+    changeInlineStyle () {
+      this.textColor = '#f76160'
+    },
+    changeStyleObj () {
+      this.styleObj = {
+        color: 'yellow'
+      }
+    },
+    changeStyleText () {
+      this.styleText = 'color: green'
+    }
+  }
+</script>
+
+<style>
+  @import '../../../common/css/common.css';
+  text {
+    margin: 20px;
+  }
+  .normal-text {
+    font-weight: bold;
+  }
+  .text-blue {
+    color: #0faeff;
+  }
+  .text-red {
+    color: #f76160;
+  }
+</style>

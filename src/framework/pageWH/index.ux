@@ -1,0 +1,49 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+
+    <div class="item-container">
+      <div class="item-content">
+        <text>windowWidth(可用宽度):</text>
+        <text>{{pageInfo.windowWidth}}</text>
+      </div>
+    </div>
+
+    <div class="item-container">
+      <div class="item-content">
+        <text>windowHeight(可用高度):</text>
+        <text>{{pageInfo.windowHeight}}</text>
+      </div>
+    </div>
+
+    <div class="item-container">
+      <div class="item-content">
+        <text>statusBarHeight(通知栏高度):</text>
+        <text>{{pageInfo.statusBarHeight}}</text>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+  export default {
+    private: {
+      componentName: '页面宽高',
+      beforeFilterMsg: 'quickapp',
+      pageInfo: {}
+    },
+    onInit() {
+      this.$page.setTitleBar({ text: '页面宽高' })
+
+      this.pageInfo.windowWidth = this.$page.windowWidth
+      this.pageInfo.windowHeight = this.$page.windowHeight
+      this.pageInfo.statusBarHeight = this.$page.statusBarHeight
+    }
+  }
+</script>
+
+<style>
+  @import "../../common/css/common.css";
+</style>

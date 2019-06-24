@@ -1,0 +1,123 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+    <div class="item-container">
+      <text>此功能不便演示，请参考代码。需要在 manifest.json里申明service.exchange 进行相应设置。</text>
+    </div>
+  </div>
+</template>
+
+<script>
+  import exchange from '@service.exchange'
+
+  export default {
+    private: {
+      componentName: '应用数据共享',
+    },
+    onInit() {
+      this.$page.setTitleBar({
+        text: '应用数据共享'
+      })
+    },
+    onShow() {
+
+    },
+    //读取数据
+    exchangeGet() {
+      exchange.get({
+        package: "com.example",
+        sign: "7a12ec1d66233f20a20141035b1f7937",
+        key: "token",
+        success: function (ret) {
+          console.log(`handling success, value = ${ret.value}`);
+        },
+        fail: function (data, code) {
+          console.log(`handling fail, code = ${code}`)
+        }
+      })
+    },
+    //发布数据到快应用平台
+    exchangeSet() {
+      exchange.set({
+        key: "token",
+        value: "12347979",
+        enforcePackage: false,
+        success: function () {
+          console.log(`handling success`)
+        },
+        fail: function (data, code) {
+          console.log(`handling fail, code = ${code}`)
+        }
+      })
+    },
+    //从快应用平台删除数据
+    exchangeRemove() {
+      exchange.remove({
+        key: "token",
+        success: function () {
+          console.log(`handling success`)
+        },
+        fail: function (data, code) {
+          console.log(`handling fail, code = ${code}`)
+        }
+      })
+    },
+    //从快应用平台清除数据
+    exchangeClear() {
+      exchange.clear({
+        success: function () {
+          console.log(`handling success`)
+        },
+        fail: function (data, code) {
+          console.log(`handling fail, code = ${code}`)
+        }
+      })
+    },
+    //授权应用获取数据。同签名的应用不用授权，默认有读取权限
+    exchangeGrantPermission() {
+      exchange.grantPermission({
+        sign: "7a12ec1d66233f20a20141035b1f7937",
+        pkg: "com.example",
+        success: function () {
+          console.log(`handling success`)
+        },
+        fail: function (data, code) {
+          console.log(`handling fail, code = ${code}`)
+        }
+      })
+    },
+    //取消授权应用获取数据。不能取消同签名应用的读取授权
+    exchangeRevokePermission() {
+      exchange.revokePermission({
+        pkg: "com.example",
+        success: function () {
+          console.log(`handling success`)
+        },
+        fail: function (data, code) {
+          console.log(`handling fail, code = ${code}`)
+        }
+      })
+    },
+  }
+</script>
+
+<style>
+  @import '../../../common/css/common.css';
+
+  .item-container {
+    margin-bottom: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+
+  .item-content {
+    flex-direction: column;
+    background-color: #ffffff;
+    padding: 30px;
+    margin-bottom: 50px;
+    align-items: flex-start;
+  }
+</style>

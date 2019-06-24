@@ -1,0 +1,171 @@
+<template>
+  <div class="tutorial-page">
+    <list class="menu">
+      <block for="{{menuList}}">
+        <list-item type="menu">
+          <text class="menu-text {{activeIndex == $idx ? 'active-text': ''}}"
+            onclick="showContent($idx)">{{$item}}</text>
+        </list-item>
+      </block>
+    </list>
+    <list class="content" id="content">
+      <block for="{{contentList}}">
+        <list-item type="content{{$item.type}}" class="content-item">
+          <div class="content-title" onappear="appearfn($idx)">
+            <text class="item-text">以下是：title-{{$item.title}}</text>
+          </div>
+          <div class="content-item">
+            <block for="{{$item.content}}">
+              <text class="item-text">{{$item}}</text>
+            </block>
+          </div>
+        </list-item>
+      </block>
+    </list>
+  </div>
+</template>
+
+<script>
+  export default {
+    private: {
+      clearTime: null,
+      menuList: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      activeIndex: 0,
+      // 点击的时候排除appear影响
+      menuClick: false,
+      contentList: [
+        {
+          type: 'type7',
+          title: '0',
+          content: [0, 1, 2, 3, 4, 5, 6]
+        }, {
+          type: 'type9',
+          title: '1',
+          content: [0, 1, 2, 3, 4, 5, 6, 7, 8]
+        }, {
+          type: 'type13',
+          title: '2',
+          content: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+        }, {
+          type: 'type7',
+          title: '3',
+          content: [0, 1, 2, 3, 4, 5, 6]
+        }, {
+          type: 'type3',
+          title: '4',
+          content: [0, 1, 2]
+        }, {
+          type: 'type16',
+          title: '5',
+          content: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+        }, {
+          type: 'type7',
+          title: '6',
+          content: [0, 1, 2, 3, 4, 5, 6]
+        }, {
+          type: 'type12',
+          title: '7',
+          content: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+        }, {
+          type: 'type7',
+          title: '8',
+          content: [0, 1, 2, 3, 4, 5, 6]
+        }, {
+          type: 'type7',
+          title: '9',
+          content: [0, 1, 2, 3, 4, 5, 6]
+        }, {
+          type: 'type6',
+          title: '10',
+          content: [0, 1, 2, 3, 4, 5]
+        }, {
+          type: 'type12',
+          title: '11',
+          content: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+        }, {
+          type: 'type3',
+          title: '12',
+          content: [0, 1, 2]
+        }
+      ]
+    },
+    onInit() {
+      this.$page.setTitleBar({ text: 'list联动' })
+    },
+    appearfn(index) {
+      if (this.menuClick) {
+        return
+      }
+      if (this.activeIndex < index) {
+        // 向上滑动
+        this.activeIndex = index - 1
+      } else {
+        // 向下滑动
+        this.activeIndex = index
+      }
+    },
+    showContent(index) {
+      this.menuClick = true
+      this.$element('content').scrollTo({ index: index })
+      this.activeIndex = index
+      setTimeout(function () {
+        this.menuClick = false
+      }.bind(this), 600)
+    }
+  }
+</script>
+
+<style lang="less">
+  .tutorial-page {
+    flex: 1;
+    flex-direction: row;
+    background-color: #eeeeee;
+
+    .menu {
+      width: 20%;
+      border: 1px solid #eeeeee;
+      flex-direction: column;
+
+      .menu-text {
+        flex: 1;
+        height: 100px;
+        text-align: center;
+        border: 0px solid #eeeeee;
+        border-bottom-width: 5px;
+        background-color: #ffffff;
+      }
+
+      .active-text {
+        color: #0faeff;
+        border-color: #0faeff;
+      }
+    }
+
+    .content {
+      width: 80%;
+      flex-direction: column;
+      margin-left: 10px;
+
+      .content-title {
+        width: 100%;
+        height: 200px;
+        text-align: center;
+        border: 0px solid #eeeeee;
+        border-bottom-width: 1px;
+        background-color: #ffffff;
+      }
+
+      .content-item {
+        flex-wrap: wrap;
+        background-color: #ffffff;
+        margin-bottom: 20px;
+      }
+
+      .item-text {
+        height: 200px;
+        width: 33.33%;
+        text-align: center;
+      }
+    }
+  }
+</style>

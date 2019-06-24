@@ -13,6 +13,9 @@
         <span style="color: #f76160;text-decoration: line-through;">I am span,</span>
         <span style="color: #f76160;font-style: italic;">I am span,</span>
         <span style="color: #f76160;font-weight: bold;">I am span,</span>
+        <span style="color: #f76160;font-weight: bolder;">I am span,</span>
+        <span style="color: #f76160;font-weight: 100;">I am span,</span>
+        <span style="color: #f76160;font-weight: 601;">I am span,</span>
         <span style="color: #f76160;font-size: 50px;">I am span.</span>
       </text>
 
@@ -24,6 +27,9 @@
         <span style="color: #f76160;text-decoration: line-through;">I am span,</span>
         <span style="color: #f76160;font-style: italic;">I am span,</span>
         <span style="color: #f76160;font-weight: bold;">I am span,</span>
+        <span style="color: #f76160;font-weight: bolder;">I am span,</span>
+        <span style="color: #f76160;font-weight: 100;">I am span,</span>
+        <span style="color: #f76160;font-weight: 601;">I am span,</span>
         <span style="color: #f76160;font-size: 50px;">I am span.</span>
       </text>
 
@@ -35,6 +41,9 @@
         <span style="color: #0faeff;text-decoration: line-through;">I am span,</span>
         <span style="color: #0faeff;font-style: italic;">I am span,</span>
         <span style="color: #0faeff;font-weight: bold;">I am span,</span>
+        <span style="color: #0faeff;font-weight: bolder;">I am span,</span>
+        <span style="color: #0faeff;font-weight: 100;">I am span,</span>
+        <span style="color: #0faeff;font-weight: 601;">I am span,</span>
         <span style="color: #0faeff;font-size: 50px;">I am span.</span>
       </a>
 
@@ -46,7 +55,20 @@
         <span style="color: #0faeff;text-decoration: line-through;">I am span,</span>
         <span style="color: #0faeff;font-style: italic;">I am span,</span>
         <span style="color: #0faeff;font-weight: bold;">I am span,</span>
+        <span style="color: #0faeff;font-weight: bolder;">I am span,</span>
+        <span style="color: #0faeff;font-weight: 100;">I am span,</span>
+        <span style="color: #0faeff;font-weight: 601;">I am span,</span>
         <span style="color: #0faeff;font-size: 50px;">I am span.</span>
+      </a>
+      <text class="item-title">span嵌套span</text>
+      <a href="https://www.quickapp.cn/" style="lines:1; text-overflow: ellipsis;color: #09ba07;">链接示例
+        <span>I am span,</span>
+        <span style="color: #0faeff"><span>I am span,</span></span>
+        <span style="color: #0faeff;text-decoration: underline;"><span>I am span,</span></span>
+        <span style="color: #0faeff;text-decoration: line-through;"><span>I am span,</span></span>
+        <span style="color: #0faeff;font-style: italic;"><span>I am span,</span></span>
+        <span style="color: #0faeff;font-weight: bold;"><span>I am span,</span></span>
+        <span style="color: #0faeff;font-size: 50px;"><span>I am span.</span></span>
       </a>
     </div>
 

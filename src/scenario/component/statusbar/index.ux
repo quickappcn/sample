@@ -1,0 +1,175 @@
+<template>
+  <div class="doc-page">
+    <image src="https://img.zcool.cn/community/01b0f058d20db4a801219c77b8443a.jpg@1280w_1l_2o_100sh.jpg" class="banner">
+    </image>
+
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+
+    <div class="item-container">
+      <text class="item-title">沉浸式状态栏</text>
+      <div class="item-content">
+        <text @click="switchStatusBar">切换</text>
+      </div>
+    </div>
+
+    <div class="item-container">
+      <text class="item-title">透明度调节</text>
+      <div class="item-content">
+        <slider class="slider" min="0" max="100" value="{{opacityValue}}" onchange="getValue('opacityValue')"></slider>
+        <text class="label">{{opacityValue}}</text>
+      </div>
+    </div>
+
+    <div class="item-container">
+      <text class="item-title">自动调节透明度</text>
+      <div class="item-content">
+        <text @click="autoSetOpacity">一键调节透明度</text>
+      </div>
+    </div>
+
+    <!-- <div class="item-container">
+      <text class="item-title">颜色调节</text>
+      <div class="item-content">
+        <slider class="slider" min="0" max="360" value="{{hueValue}}" onchange="getValue('hueValue')"></slider>
+        <text class="label">{{hueValue}}</text>
+      </div>
+    </div> -->
+
+    <div class="item-container">
+      <text class="item-title">自动调节颜色</text>
+      <div style="width:750px;height:100px;background-color:{{hexValue}};"></div>
+      <div class="item-content">
+        <text @click="autoSetHue">一键调节颜色</text>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+  var hsl = require('hsl-to-hex')
+  export default {
+    private: {
+      componentName: '沉浸式状态栏',
+      step: 10,
+      opacityValue: 0,
+      hueValue: 0,
+      hexValue: '#000000',
+      saturation: 0,
+      luminosity: 0,
+      enabled: true,
+      autoHue: false
+    },
+    onInit() {
+      this.$page.setTitleBar({ text: this.componentName })
+    },
+    setStatusBarOpacity(v) {
+      this.$page.setStatusBar({ backgroundOpacity: (parseInt(v) / 100) })
+    },
+    setStatusBarBg(v) {
+      this.$page.setStatusBar({ backgroundColor: v })
+    },
+    switchStatusBar() {
+      this.enabled = !this.enabled
+      this.$page.setStatusBar({ immersive: this.enabled })
+    },
+    getValue(name, e) {
+      this[name] = e.progress
+      switch (name) {
+        case 'opacityValue':
+          this.setStatusBarOpacity(this.opacityValue)
+        case 'hueValue':
+          this.hexValue = hsl(this.hueValue, 40, 60)
+          this.setStatusBarBg(this.hexValue)
+        default:
+          console.log('')
+      }
+    },
+    autoSetOpacity() {
+      this.opacityValue = 100
+      var flag = 1
+      var count = 10
+      let t = setInterval(() => {
+        if (this.opacityValue < 0 || this.opacityValue == 0
+          || this.opacityValue > 100 || this.opacityValue == 100) {
+          flag = -flag
+          count = count - 1
+          if (count < 0){
+            clearInterval(t)
+          }
+        } 
+        this.opacityValue = this.opacityValue + 1 * flag
+        this.setStatusBarOpacity(this.opacityValue)
+      }, 10)
+    },
+    autoSetHue() {
+      if (this.hueValue != 0) {
+        this.autoHue = false
+        return
+      }
+      this.autoHue = true
+      this.saturation = 0
+      this.luminosity = 0
+      var lumFlag = -1
+      var satFlag = -1
+      let t = setInterval(() => {
+        if (this.hueValue < 360 && this.autoHue) {
+          if (this.luminosity < 100 && this.luminosity > 0) {
+            this.luminosity = this.luminosity + (1 * lumFlag)
+          } else if (this.luminosity == 100 || this.luminosity == 0) {
+            lumFlag = -lumFlag
+            this.luminosity = this.luminosity + (1 * lumFlag)
+            this.hueValue = this.hueValue + 10
+          }
+          if(this.saturation < 100 && this.saturation > 0){
+            this.saturation = this.saturation + (1 * satFlag)
+          } else if (this.saturation == 100 || this.saturation == 0) {
+            satFlag = -satFlag
+            this.saturation = this.saturation + (1 * satFlag)
+            this.hueValue = this.hueValue + 10
+          } 
+        } else {
+          clearInterval(t)
+          this.hueValue = 0
+          this.autoHue = false
+        }
+
+        this.hexValue = hsl(this.hueValue, this.saturation, this.luminosity)
+        this.setStatusBarBg(this.hexValue)
+      }, 10)
+    }
+  }
+</script>
+
+<style>
+  @import '../../../common/css/common.css';
+
+  .banner {
+    width: 750px;
+    height: 422px;
+  }
+
+  .item-container {
+    margin-bottom: 50px;
+    flex-direction: column;
+  }
+
+  .item-title {
+    line-height: 100px;
+    padding-left: 40px;
+    color: #aaaaaa;
+  }
+
+  .slider {
+    flex: 1;
+    padding-left: 50px;
+    padding-right: 50px;
+    selected-color: #0faeff;
+  }
+
+  .label {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+</style>

@@ -1,0 +1,143 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{ componentName }}</text>
+    </div>
+
+    <div class="flex-container">
+      <text class="m-item-title">示例仅限部分具有代表性的: </text>
+      <text class="m-item-title">flex-direction: {{flex_direction}}</text>
+      <text class="m-item-title">justify-content: {{justify_content}}</text>
+      <text class="m-item-title">align-items: {{align_items}}</text>
+      <div class="flex-box"
+        style="flex-direction: {{flex_direction}};
+        justify-content: {{justify_content}};
+        align-items: {{align_items}};">
+        <div class="flex-item"><text>item1</text></div>
+        <div class="flex-item"><text>item2</text></div>
+        <div class="flex-item"><text>item2</text></div>
+      </div>
+    </div>
+    <div class="select-container">
+      <text>flex-direction: </text>
+      <select class="select" @change="changeFlexDirection">
+        <option value="row"  class="option">row</option>
+        <option value="column" class="option">column</option>
+      </select>
+    </div>
+    <div class="select-container">
+      <text>justify-content: </text>
+      <select class="select" @change="changeJustifyContainer">
+        <option value="flex-start" selected="true" class="option">flex-start</option>
+        <option value="center" class="option">center</option>
+        <option value="flex-end" class="option">flex-end</option>
+        <option value="space-between" class="option">space-between</option>
+        <option value="space-around" class="option">space-around</option>
+      </select>
+    </div>
+    <div class="select-container">
+      <text>align-items: </text>
+      <select class="select" @change="changeAlignItems">
+        <option value="flex-start" selected="true" class="option">flex-start</option>
+        <option value="center" class="option">center</option>
+      </select>
+    </div>
+  </div>
+</template>
+
+
+<script>
+  export default {
+    private: {
+      componentName: 'flex 布局示例',
+      flex_direction: 'row',
+      justify_content: 'flex-start',
+      align_items: 'flex-start'
+    },
+    onInit() {
+      this.$page.setTitleBar({ text: this.componentName })
+    },
+    changeFlexDirection(e) {
+      let newValue = e.newValue
+      this.flex_direction = e.newValue
+    },
+    changeJustifyContainer(e) {
+      let newValue = e.newValue
+      this.justify_content = newValue
+    },
+    changeAlignItems(e) {
+      let newValue = e.newValue
+      this.align_items = newValue
+    }
+  }
+</script>
+
+<style>
+  @import '../../../common/css/common.css';
+
+  .doc-page {
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 200px;
+  }
+
+  .flex-container {
+    width: 600px;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .m-item-title {
+    width: 100%;
+    line-height: 50px;
+  }
+
+  .flex-box {
+    width: 600px;
+    height: 400px;
+    border: 1px solid #666;
+  }
+
+  .flex-item {
+    width: 150px;
+    height: 100px;
+    background-color: coral;
+    border: 1px solid #999;
+  }
+
+  .flex-item text {
+    width: 100%;
+    text-align: center;
+  }
+
+  label {
+    color: #666
+  }
+
+  .select-container {
+    margin-top: 20px;
+    width: 600px;
+  }
+
+  .select,
+  .option,
+  .btn,
+  .input-hint,
+  .text-input {
+    height: 50px;
+    width: 320px;
+    font-size: 30px;
+    margin-top: 20px;
+  }
+
+  .select {
+    border: 1px solid #333333;
+    border-radius: 5px;
+  }
+
+  .option {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+  }
+</style>

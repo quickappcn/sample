@@ -34,6 +34,13 @@
       </div>
       <input type="button" class="btn"  onclick="light" value="监听光线感应数据" />
       <input type="button" class="btn"  onclick="unlight" value="取消光线感应监听" />
+
+      <div class="item-content">
+        <text class="txt">计步器数据:</text>
+        <text class="txt">stepCount: {{stepCount}}</text>
+      </div>
+      <input type="button" class="btn"  onclick="listenStep" value="监听计步感应数据" />
+      <input type="button" class="btn"  onclick="cancelListenStep" value="取消计步感应监听" />
     </div>
   </div>
 </template>
@@ -49,6 +56,7 @@
         y: '',
         z: ''
       },
+      stepCount: '',
       sensorCompassData: 0,
       subscribeProximityData: 0,
       lightData: 0
@@ -99,6 +107,16 @@
     },
     unlight () {
       sensor.unsubscribeLight()
+    },
+    listenStep () {
+      sensor.subscribeStepCounter({
+        callback: (e) => {
+          this.stepCount = e.steps
+        }
+      })
+    },
+    cancelListenStep () {
+      sensor.unsubscribeStepCounter()
     }
   }
 </script>

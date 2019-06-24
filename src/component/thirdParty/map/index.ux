@@ -1,11 +1,11 @@
 <template>
   <stack>
     <map id="map" style="width:{{width}}; height:{{height}};mylocation-fill-color: {{fillColor}}; mylocation-stroke-color: {{strokeColor}};" longitude="{{longitude}}" latitude="{{latitude}}" scale="{{scale}}"
-      markers="{{markers}}" controls="{{controls}}" circles="{{circles}}" polylines="{{polylines}}" groundoverlays="{{groundoverlays}}"
+      markers="{{markers}}" controls="{{controls}}" circles="{{circles}}" polylines="{{polylines}}" polygons="{{polygons}}" groundoverlays="{{groundoverlays}}"
       rotate="{{rotate}}" showmylocation="{{showmylocation}}" includePoints="{{includePoints}}" @regionchange="regionchange"
       showcompass="{{compassSwitch}}" enableoverlooking="{{lookingSwitch}}"
       enablezoom="{{zoomSwitch}}" enablescroll="{{dragSwitch}}" enablerotate="{{rotateSwitch}}"
-      @loaded="loaded" @tap="tap" @markertap="markerTap" @callouttap="calloutTap" @controltap="controlTap">
+      @loaded="loaded" @tap="tap" @markertap="markerTap" @callouttap="calloutTap" @controltap="controlTap" @poitap="poitap">
     </map>
     <div class="card-container">
       <div class="item-container">
@@ -19,6 +19,7 @@
           <option value="labelShow" class="option">Label 展示</option>
           <option value="moveShow" class="option">Marker移动</option>
           <option value="polylineShow" class="option">Polyline</option>
+          <option value="polygonsShow" class="option">Polygons</option>
           <option value="circleShow" class="option">Circle</option>
           <option value="groundoverlayShow" class="option">Groundoverlay</option>
           <option value="controlShow" class="option">Control</option>
@@ -126,6 +127,14 @@
           <input type="button" value="线宽-" class="resize-btn" @click="polylineMinus"></input>
         </div>
         <input type="button" value="虚实线切换" class="btn" @click="switchDotted"></input>
+        <input type="button" value="纹理线切换" class="btn" @click="switchArrow"></input>
+      </div>
+
+      <div if="showList.polygonsShow" class="button-style">
+        <input placeholder="描边宽度(请输入数字)" type="number" class="text-input" @change="changePolygons('StrokeWidth')"></input>
+        <input placeholder="填充颜色" type="text" class="text-input" @change="changePolygons('FillColor')"></input>
+        <input placeholder="描边颜色" type="text" class="text-input" @change="changePolygons('StrokeColor')"></input>
+        <input type="button" value="修改" class="btn" @click="refreshPolygonsStyle"></input>
       </div>
 
       <div if="showList.circleShow" class="button-style">
@@ -207,7 +216,22 @@
       POINT1
     ],
     dotted: false,
-    width: 10
+    width: 10,
+    arrowLine: true,
+    arrowIconPath: "./img/black_arrow.png"
+  }
+  const POLYGONS = {
+    points: [
+      POINT1,
+      POINT2,
+      POINT3,
+      POINT4,
+      POINT1
+    ],
+    strokeWidth: "1px",
+    strokeColor:"#0faeff",
+    fillColor:"#000000",
+    zIndex: 10
   }
   const CIRCLE = Object.assign({
     fillColor: "#666666",
@@ -243,6 +267,7 @@
         labelShow: false,
         moveShow: false,
         polylineShow: false,
+        polygonsShow: false,
         circleShow: false,
         groundoverlayShow: false,
         controlShow: false,
@@ -257,6 +282,7 @@
       latitude: null,
       longitude: null,
       polylines: null,
+      polygons: null,
       circles: null,
       markers: null,
       groundoverlays: null,
@@ -285,6 +311,7 @@
 
       this.showList[newValue] = true
       this.polylines = null
+      this.polygons = null
       this.markers = null
       this.circles = null
       this.includePoints = []
@@ -359,6 +386,10 @@
         case "polylineShow":
           this.moveToCenter()
           this.polylines = [POLYLINE]
+          break
+        case "polygonsShow":
+          this.moveToCenter()
+          this.polygons = [POLYGONS]
           break
         case "circleShow":
           this.moveToCenter()
@@ -540,6 +571,12 @@
       let polyline = this.polylines[0]
 
       polyline.dotted = polyline.dotted ? false : true
+      this.polylines = [polyline]
+    },
+    // 更换polyline纹理图标
+    switchArrow: function () {
+      let polyline = this.polylines[0]
+      polyline.arrowLine = polyline.arrowLine ? false : true
       this.polylines = [polyline]
     },
     // 切换是否展示当前定位点
@@ -986,16 +1023,30 @@
     },
     switchRotate () {
       this.rotateSwitch = !this.rotateSwitch
+    },
+    // 点击地图poi点
+    poitap(data) {
+      prompt.showToast({ message: "poi id：" + data.poiId +"   poiName ：" + data.poiName +"   latitude ：" + data.latitude +"   longitude ：" + data.longitude})
+    },
+    changePolygons (type, e) {
+      markTemp[`polygons${type}`] = e.value
+    },
+    refreshPolygonsStyle () {
+      let polygon = this.polygons[0]
+      polygon.strokeWidth = markTemp[`polygonsStrokeWidth`] + 'px'
+      polygon.strokeColor = markTemp[`polygonsStrokeColor`]
+      polygon.fillColor = markTemp[`polygonsFillColor`]
+      this.polygons = [polygon]
     }
   }
 </script>
 
 <style>
   .card-container {
-    width: 100%;
     height: 100%;
     flex-direction: column;
     opacity: 1;
+    background-color: rgba(10, 10, 10, 0.1);
   }
 
   .item-container {

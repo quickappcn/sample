@@ -1,0 +1,38 @@
+<template>
+  <div class="tutorial-page">
+    <text class="tutorial-title">自定义组件3:</text>
+    <input type="button" class="btn" onclick="sendMesssage" value="点击发送消息" />
+  </div>
+</template>
+
+<script>
+  // 子组件: part3
+  export default {
+    props: [
+    ],
+    data () {
+      return {}
+    },
+    sendMesssage () {
+      if (this.previousVm) {
+        // Way1. 调用方法
+        this.previousVm.processMessage('兄弟之间通信的消息内容')
+        // Way2. 触发事件
+        this.previousVm.$emit('customEventInVm2', '兄弟之间通信的消息内容')
+      }
+    }
+  }
+</script>
+
+<style lang="less">
+  @import '../../../common/css/common.css';
+  .tutorial-page {
+    flex-direction: column;
+    padding-top: 20px;
+
+    .tutorial-title {
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+  }
+</style>

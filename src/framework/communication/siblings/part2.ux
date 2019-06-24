@@ -1,0 +1,47 @@
+<template>
+  <div class="tutorial-page">
+    <text class="tutorial-title">自定义组件2:</text>
+    <text>处理消息：{{msg}}</text>
+    <text>事件内容：{{eventDetail}}</text>
+  </div>
+</template>
+
+<script>
+  // 子组件: part2
+  export default {
+    props: [
+    ],
+    data () {
+      return {
+        msg: null,
+        eventDetail: null
+      }
+    },
+    processMessage (msg) {
+      const now = (new Date).toISOString()
+      this.msg = `${now}: ${msg}`
+    },
+    /**
+     * 通过events对象：绑定事件
+     */
+    events: {
+      customEventInVm2 (evt) {
+        const now = (new Date).toISOString()
+        this.eventDetail = `${now}: ${evt.detail}`
+      }
+    }
+  }
+</script>
+
+<style lang="less">
+  @import '../../../common/css/common.css';
+  .tutorial-page {
+    flex-direction: column;
+    padding-top: 20px;
+
+    .tutorial-title {
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+  }
+</style>

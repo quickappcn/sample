@@ -1,0 +1,34 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{ componentName }}</text>
+    </div>
+    <div id="elNode1" data-person-name="Jack"><text>获取该标签data属性</text></div>
+  </div>
+</template>
+
+<script>
+  import prompt from '@system.prompt'
+  export default {
+    private: {
+      componentName: '指令 data'
+    },
+    onInit() {
+      this.$page.setTitleBar({ text: this.componentName })
+    },
+    onReady() {
+      const el=this.$element('elNode1')
+      const elData=el.dataset.personName
+      prompt.showToast({
+        message: `输出data属性 : ${elData}`
+      })
+    },
+  }
+</script>
+
+<style lang="less">
+  @import '../../../common/css/common.css';
+  #elNode1{
+    justify-content:center;
+  }
+</style>

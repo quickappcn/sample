@@ -1,0 +1,51 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{ componentName }}</text>
+    </div>
+    <div class="item-container">
+      <div class="item-content">
+        <text class="text-bold">场景举例：</text>
+        <text class="padding-left">代码执行fetch请求，请求返回的数据默认是JSON化的字符串了，开发者使用JSON对象解析，这是正常逻辑；</text>
+        <text class="padding-left">但是一旦遇到服务器端权限校验失败等问题时，会返回类似503的HTML页面，此时JSON解析肯定就会失败</text>
+        <text class="text-bold">解决方案：</text>
+        <text class="padding-left">1. 在每个JSON.parse()的代码执行处进行try-catch包围，处理出错情况</text>
+        <text class="padding-left">2. 在app.ux中提前代理JSON.parse()，使用try-catch包围，待异常出现时埋点数据，或者返回默认正常数据替代</text>
+        <text class="padding-left">详见代码</text>
+      </div>
+      <input class="btn" type="button" value="代理JSON.parse()" onclick="parseData" />
+    </div>
+  </div>
+</template>
+
+<script>
+  export default {
+    private: {
+      componentName: 'JSON.parse'
+    },
+    onInit() {
+      this.$page.setTitleBar({ text: this.componentName })
+    },
+    parseData() {
+      const str = '<html>'
+      // 代理 JSON.parse 的代码位于 /src/common/js/util.js
+      JSON.parse(str)
+    }
+  }
+</script>
+
+<style lang="less">
+  @import '../../../common/css/common.css';
+
+  text {
+    line-height: 40px;
+  }
+
+  .text-bold {
+    font-weight: bold;
+  }
+
+  .padding-left {
+    padding-left: 30px;
+  }
+</style>

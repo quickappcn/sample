@@ -27,6 +27,14 @@
         <text class="label">{{currentValue3}}</text>
       </div>
     </div>
+
+    <div class="item-container">
+      <text class="item-title">随机切换滑块颜色</text>
+      <div class="item-content">
+        <slider class="slider" min="0" max="255" value="{{currentValue3}}" onchange="changeColor" style="blockColor: {{currentColor}}"></slider>
+        <text class="label">{{currentColor}}</text>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -37,13 +45,17 @@
       step: 10,
       currentValue1: 50,
       currentValue2: 50,
-      currentValue3: 50
+      currentValue3: 50,
+      currentColor: ''
     },
     onInit () {
       this.$page.setTitleBar({text: 'Slider'})
     },
-    getValue (name, e) {
-      this[name] = e.progress
+    getValue (name, evt) {
+      this[name] = evt.progress
+    },
+    changeColor (evt) {
+      this.currentColor = `rgb(125, 125, ${evt.progress})`
     }
   }
 </script>

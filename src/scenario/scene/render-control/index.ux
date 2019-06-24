@@ -1,0 +1,88 @@
+<template>
+  <div class="tutorial-page">
+    <tabs onchange="onChangeTabIndex">
+      <tab-bar class="tab-bar" mode="scrollable">
+        <text for="{{tabHeadList}}" class="{{currentIndex === $idx ? 'active' : ''}}">{{$item.title}}</text>
+      </tab-bar>
+      <tab-content class="tab-content">
+        <div class="tab-content-section" for="{{tabHeadList}}">
+          <!-- 初始化时，if为false，默认不做渲染；点击后改为true -->
+          <text if="{{ renderTabContent($idx) }}">{{$item.title}}</text>
+        </div>
+      </tab-content>
+    </tabs>
+  </div>
+</template>
+
+<script>
+  export default {
+    private: {
+      tabHeadList: [
+        { title: '推荐' },
+        { title: '热门' },
+        { title: '视频' },
+        { title: '段子' },
+        { title: '汽车' },
+        { title: '社会' },
+        { title: '娱乐' },
+        { title: '军事' },
+        { title: '体育' },
+        { title: 'ＮＢＡ' },
+        { title: '财经' }
+      ],
+      currentIndex: 0
+    },
+    onInit() {
+      this.$page.setTitleBar({ text: '页签内容懒加载' })
+      // 加载第一个页签内容
+      this.changeTabIndex(0)
+    },
+    changeTabIndex(index) {
+      const item = Object.assign({}, this.tabHeadList[index])
+      item.render = true
+      this.tabHeadList.splice(index, 1, item)
+    },
+    onChangeTabIndex(evt) {
+      this.currentIndex = evt.index
+      this.changeTabIndex(evt.index)
+    },
+    renderTabContent(index) {
+      return !!this.tabHeadList[index].render
+    }
+  }
+</script>
+
+<style lang="less">
+  .tutorial-page {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .tab-bar text {
+      padding: 0 25px;
+      text-align: center;
+      font-size: 34px;
+    }
+
+    .tab-bar .active {
+      color: #FF0000;
+    }
+
+    .tab-content {
+      flex: 1;
+      background-color: #eeeeee;
+
+      .tab-content-section {
+        flex: 1;
+        margin: 10px;
+        background-color: #ffffff;
+        justify-content: center;
+
+        text {
+          text-align: center;
+          color: #FF0000;
+        }
+      }
+    }
+  }
+</style>

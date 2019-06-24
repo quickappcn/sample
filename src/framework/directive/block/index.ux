@@ -1,0 +1,53 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{ componentName }}</text>
+    </div>
+
+    <div class="item-container">
+      <text>block 组件是表达逻辑区块的组件，没有对应的 Native 组件。可以使用 &lt;block&gt; 实现更为灵活的"列表/条件渲染"。如在 &lt;block&gt; 上使用 for 指令和 if 指令</text>
+      <block if="{{showCityList === 1}}">
+        <div class="item-content">
+          <div class="city" for="city in cities">
+            <text>城市：{{ city.name }}</text>
+            <block for="{{city.spots}}">
+              <text if="{{city.showSpots}}">* 景点：{{ $item.name }}</text>
+            </block>
+          </div>
+        </div>
+      </block>
+      <input type="button" class="btn" onclick="toggleCityList" value="控制是否显示城市" />
+    </div>
+  </div>
+</template>
+
+<script>
+  import { dataDirective } from '../../../common/js/data'
+
+  export default {
+    private: {
+      showCityList: 1,
+      cities: dataDirective,
+      componentName: '组件 block'
+    },
+    onInit() {
+      this.$page.setTitleBar({ text: this.componentName })
+    },
+    toggleCityList() {
+      this.showCityList = this.showCityList === 1 ? 0 : 1
+    }
+  }
+</script>
+
+<style lang="less">
+  @import '../../../common/css/common.css';
+  .city {
+    flex-direction: column;
+  }
+  .item-content {
+    margin-top: 30px;
+  }
+  .btn {
+    margin-top: 30px;
+  }
+</style>

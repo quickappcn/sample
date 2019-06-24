@@ -1,0 +1,48 @@
+<import name="comp-part2" src="./part2"></import>
+<import name="comp-part3" src="./part3"></import>
+
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{ componentName }}</text>
+    </div>
+
+    <div class="item-container">
+      <!-- 兄弟VM通信 -->
+      <comp-part2 id="sibling1"></comp-part2>
+      <comp-part3 id="sibling2"></comp-part3>
+    </div>
+  </div>
+</template>
+
+<script>
+  // 父组件
+  export default {
+    private: {
+      componentName: '兄弟组件通信'
+    },
+    onInit() {
+      this.$page.setTitleBar({ text: this.componentName })
+    },
+    onReady() {
+      this.establishRef()
+    },
+    /**
+     * 建立相互VM的引用
+     */
+    establishRef() {
+      const siblingVm1 = this.$vm('sibling1')
+      const siblingVm2 = this.$vm('sibling2')
+
+      siblingVm1.parentVm = this
+      siblingVm1.nextVm = siblingVm2
+      siblingVm2.parentVm = this
+      siblingVm2.previousVm = siblingVm1
+    }
+  }
+</script>
+
+
+<style lang="less">
+  @import '../../../common/css/common.css';
+</style>

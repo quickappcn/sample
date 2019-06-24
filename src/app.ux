@@ -1,4 +1,5 @@
 <script>
+  import './common/js/util.js'
   import regenerator from './regenerator.js'
   export default {
     onError(err) {

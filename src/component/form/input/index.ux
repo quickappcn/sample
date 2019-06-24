@@ -36,6 +36,11 @@
       </div>
 
       <div class="input-item">
+        <text class="input-hint">input type="tel"</text>
+        <input class="input-text" type="tel" autocomplete="on" placeholder="请输入手机号" onchange="showChangePrompt"></input>
+      </div>
+
+      <div class="input-item">
         <text class="input-hint">设置 maxlength 为5</text>
         <input class="input-text" type="text" placeholder="只能输入5个字符" onchange="showChangePrompt" maxlength="5"></input>
       </div>

@@ -1,0 +1,81 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{ componentName }}</text>
+    </div>
+
+    <div class="item-container">
+      <!-- 方式1：默认$item代表数组中的元素, $idx代表数组中的索引 -->
+      <text>方式1： for="list"</text>
+      <div class="item-content">
+        <div class="row">
+          <text class="th"> $idx </text>
+          <text class="th"> $item.name </text>
+        </div>
+        <div class="row" for="list">
+          <text class="td">{{ $idx }}</text>
+          <text class="td">{{ $item.name }}</text>
+        </div>
+      </div>
+      <!-- 方式2：自定义元素变量名称 -->
+      <text>方式2： for="value in list"</text>
+      <div class="item-content">
+        <div class="row">
+          <text class="th"> $idx </text>
+          <text class="th"> value.name </text>
+        </div>
+        <div class="row" for="value in list">
+          <text class="td">{{ $idx }}</text>
+          <text class="td">{{ value.name }}</text>
+        </div>
+      </div>
+      <!-- 方式3：自定义元素、索引的变量名称 -->
+      <text>方式3： for="(personIndex, personItem) in list"</text>
+      <div class="item-content">
+        <div class="row">
+          <text class="th"> personIndex </text>
+          <text class="th"> personItem.name </text>
+        </div>
+        <div class="row" for="(personIndex, personItem) in list">
+          <text class="td">{{ personIndex }}</text>
+          <text class="td">{{ personItem.name }}</text>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+  export default {
+    private: {
+      list: [{ name: 'aa' }, { name: 'bb' }],
+      componentName: '指令 for'
+    },
+    onInit() {
+      this.$page.setTitleBar({ text: this.componentName })
+    }
+  }
+</script>
+
+<style lang="less">
+  @import '../../../common/css/common.css';
+
+  .item-content {
+    flex-direction: column;
+    background-color: #ffffff;
+    padding: 30px;
+    margin-bottom: 30px;
+  }
+  .row {
+    flex-direction: row;
+    border: 0.55px solid #ccc;
+  }
+  .th, .td {
+    flex: 1;
+    border: 0.55px solid #ccc;
+    padding: 5px 10px;
+  }
+  .th {
+    font-weight: bold;
+  }
+</style>

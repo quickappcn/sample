@@ -1,0 +1,72 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{ componentName }}</text>
+    </div>
+
+    <div class="item-container">
+      <div class="item-content">
+        <text class="text-bold"> 场景举例： </text>
+
+        <text class="padding-left">
+          用户打开PageA，然后点击链接打开PageB，PageB中执行接口方法（如fetch请求），然后立即返回到PageA；此时接口的回调函数返回，但PageB已经出栈销毁，此时，执行开发者传递的回调函数报错
+        </text>
+
+        <text class="padding-left">
+          这是由于，回调函数中访问了一些ViewModel的数据等，而这些ViewModel的数据属性已经伴随着页面销毁而删除了，所以引起报错
+        </text>
+
+        <text class="padding-left"> 报错信息为：undefined:217: TypeError: Cannot read property 'xx' of null </text>
+
+        <text class="text-bold"> 解决方案： </text>
+
+        <text class="padding-left"> 在Function.prototype上定义方法，关联到每个回调函数绑定ViewModel实例 </text>
+        
+        <text class="padding-left">详见代码</text>
+      </div>
+      <input class="btn" type="button" value="回调函数绑定VM实例" onclick="execCallback" />
+    </div>
+  </div>
+</template>
+
+<script>
+  import router from '@system.router'
+  import { fetchData } from './interface'
+
+  export default {
+    private: {
+      person: {
+        name: '张三'
+      },
+      componentName: '回调函数'
+    },
+    onInit() {
+      this.$page.setTitleBar({ text: this.componentName })
+    },
+    execCallback() {
+      // 调用bindPage(this)返回：绑定了页面对象的回调函数，当页面销毁时，不执行回调函数
+      // bindPage 的代码位于 /src/common/js/util.js
+      fetchData(
+        function() {
+          console.info(`获取person.name: ${this.person.name}`)
+        }.bindPage(this)
+      )
+      // 页面返回，立即销毁当前页面
+      router.back()
+    }
+  }
+</script>
+
+<style lang="less">
+  @import '../../../common/css/common.css';
+
+  text {
+    line-height: 40px;
+  }
+  .text-bold {
+    font-weight: bold;
+  }
+  .padding-left {
+    padding-left: 30px;
+  }
+</style>

@@ -42,7 +42,7 @@
       router.back()
     },
     routeReplace () {
-      router.push({
+      router.replace({
         uri: '/'
       })
     },

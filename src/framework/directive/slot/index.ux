@@ -1,0 +1,68 @@
+<import src="./part1"></import>
+<import src="./part2"></import>
+<import src="./part3"></import>
+<import src="./part4"></import>
+
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{ componentName }}</text>
+    </div>
+
+    <div class="item-container">
+      <text>插槽内容</text>
+      <part1 class="component">
+        <text>dynamic content form parent</text>
+      </part1>
+    </div>
+
+    <div class="item-container">
+      <text>默认内容</text>
+      <part2 class="component">
+        <text if="{{showContent}}">dynamic content form parent</text>
+      </part2>
+    </div>
+
+    <div class="item-container">
+      <text>编译作用域</text>
+      <part3 class="component">
+        <!-- {{context}} 的编译作用域在父组件 -->
+        <text if="{{showContent}}">dynamic content form {{context}}</text>
+      </part3>
+    </div>
+
+    <div class="item-container">
+      <text>具名插槽</text>
+      <part4 class="component">
+        <text slot="header">header content</text>
+        <text slot="main">main content</text>
+        <text slot="footer">footer content</text>
+      </part4>
+    </div>
+  </div>
+</template>
+
+<style>
+  @import "../../../common/css/common.css";
+
+  .component {
+    flex-direction: column;
+  }
+  </style>
+
+  <script>
+  export default {
+    data() {
+      return {
+        componentName: '组件 slot',
+        context: 'parentVm',
+        showContent: false
+      }
+    },
+    onInit() {
+      this.$page.setTitleBar({
+        text: this.componentName
+      })
+    }
+  }
+</script>

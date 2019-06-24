@@ -78,11 +78,11 @@
     },
     getDate(obj) {
       this.curDate = obj.newValue
-      this.curDateTxt = eval('(' + obj.newValue + ')').join(',')
+      this.curDateTxt = this.curDate.join(',')
     },
     getArea(obj) {
       this.curArea = obj.newValue
-      this.curAreaTxt = eval('(' + obj.newValue + ')').join(',')
+      this.curAreaTxt = this.curArea.join(',')
     },
     updatePicker(arr) {
       let a = Object.assign([], this.range2.arr)

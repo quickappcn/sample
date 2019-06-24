@@ -1,0 +1,39 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{ componentName }}</text>
+    </div>
+    <div class="item-container">
+      <text id="title">主标题</text>
+      <text id="subtitle">副标题</text>
+    </div>
+  </div>
+</template>
+
+<script>
+  export default {
+    private: {
+      componentName: 'less 示例'
+    },
+    onInit () {
+      this.$page.setTitleBar({ text: this.componentName })
+    }
+  }
+</script>
+
+<style lang="less">
+  @import '../../../common/css/common.css';
+  /* 引入外部less文件 */
+  @import './style.less';
+  /* 使用less */
+  .item-container {
+    justify-content: center;
+
+    #title {
+      color: rgb(35, 186, 224);
+      font-size: 42px;
+      font-weight: bold;
+      text-align: center;
+    }
+  }
+</style>

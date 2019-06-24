@@ -1,0 +1,42 @@
+<import name="comp" src="./component/index.ux"></import>
+
+<template>
+    <div class="doc-page">
+        <div class="page-title-wrap">
+            <text class="page-title">{{componentName}}</text>
+        </div>
+        <comp></comp>
+    </div>
+</template>
+
+<script>
+    export default {
+        private: {
+            componentName: '组件生命周期'
+        },
+        onInit() {
+            this.$page.setTitleBar({
+                text: '组件生命周期'
+            })
+        }
+    }
+</script>
+
+<style>
+    @import '../../common/css/common.css';
+
+    .desc {
+        margin: 0 0 30px 75px;
+    }
+
+    a {
+        margin-left: 75px;
+        width: 600px;
+        padding-top: 50px;
+        padding-bottom: 50px;
+        margin-bottom: 100px;
+        background-color: #ffffff;
+        text-decoration: underline;
+        text-align: center;
+    }
+</style>
