@@ -25,7 +25,7 @@
       componentName: 'share',
       shareData: ''
     },
-    onInit: function () {
+    onInit() {
       this.$page.setTitleBar({text: 'Share'})
     },
     shareContent (e) {

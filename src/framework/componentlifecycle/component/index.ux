@@ -1,0 +1,60 @@
+<template>
+  <div class="doc-page">
+    <div class="item-container">
+      <div class="item-content" for="{{lifecycleList}}">
+        <text class="txt">{{$item}}</text>
+        <text class="txt">触发时机: {{lifecycleObject[$item].desc}}</text>
+        <text class="txt">触发次数: {{lifecycleObject[$item].count}}</text>
+      </div>
+    </div>
+  </div>
+</template>
+
+<style lang="less">
+  @import '../../../common/css/common.css';
+  .tutorial-page {
+    flex-direction: column;
+    padding-top: 20px;
+    .tutorial-title {
+      font-weight: bold;
+    }
+  }
+</style>
+
+<script>
+  // 子组件
+  export default {
+    data: {
+      lifecycleList: [],
+      lifecycleObject: {
+        onInit: {
+          count: 0,
+          desc: `在组件数据驱动化完成后触发`
+        },
+        onReady: {
+          count: 0,
+          desc: `在组件的模板加载完成后触发`
+        },
+        onDestroy: {
+          count: 0,
+          desc: ` 在组件销毁后触发`
+        },
+      }
+    },
+    onInit() {
+      Object.keys(this.lifecycleObject).forEach(item => {
+        this.lifecycleList.push(item)
+      })
+      console.info(`### onInit ###`)
+        ++this.lifecycleObject.onInit.count
+    },
+    onReady() {
+      console.info(`### onReady ###`)
+        ++this.lifecycleObject.onReady.count
+    },
+    onDestroy() {
+      console.info(`### onDestroy ###`)
+        ++this.lifecycleObject.onDestroy.count
+    }
+  }
+</script>

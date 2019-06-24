@@ -405,8 +405,7 @@
 
   .img-layout-header {
     padding: 20px;
-    border-bottom-width: 1px;
-    border-bottom-color: #808080;
+    border-bottom: 1px #808080;
   }
 
   .item-container {

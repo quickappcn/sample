@@ -1,0 +1,60 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{ componentName }}</text>
+    </div>
+
+    <div class="item-container">
+      <!-- if -->
+      <text>if条件指令，是指if/elif/else这3个相关指令，用于控制是否增加或者删除组件；</text>
+      <div class="item-content">
+        <text if="{{value === 1}}">if: value === 1</text>
+        <text elif="{{value === 2}}">elif: value === 2</text>
+        <text else>else: 其它</text>
+      </div>
+      <text>value: {{ value }}</text>
+      <input type="button" class="btn" onclick="onClickCondition" value="修改value值" />
+
+      <!-- show -->
+      <text>show指令，是指是否显示组件，用于控制组件的显示状态，并不会从DOM结构中删除</text>
+      <div class="item-content" show="{{showVar}}">
+        <text>隐藏的时候并没有从DOM结构中删除</text>
+      </div>
+      <input type="button" class="btn" onclick="onClickShow" value="显示隐藏" />
+
+    </div>
+  </div>
+</template>
+
+<script>
+  export default {
+    private: {
+      showVar: true,
+      value: 1,
+      componentName: '指令 if 和指令 show'
+    },
+    onInit() {
+      this.$page.setTitleBar({ text: this.componentName })
+    },
+    onClickShow() {
+      this.showVar = !this.showVar
+    },
+    onClickCondition() {
+      this.value = ++this.value % 3
+    }
+  }
+</script>
+
+<style lang="less">
+  @import '../../../common/css/common.css';
+
+  .item-content {
+    flex-direction: column;
+    background-color: #ffffff;
+    padding: 30px;
+    margin-bottom: 30px;
+  }
+  .btn {
+    margin-top: 30px;
+  }
+</style>

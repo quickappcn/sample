@@ -3,6 +3,7 @@
   "name": "快应用组件展示",
   "versionName": "1.3.0",
   "versionCode": 130,
+  "minPlatformVersion": 1040,
   "icon": "/common/logo.png",
   "features": [
     { "name": "system.webview" },
@@ -18,6 +19,8 @@
     { "name": "system.notification" },
     { "name": "system.barcode" },
     { "name": "system.sensor" },
+    { "name": "system.resident" },
+    { "name": "service.health" },
     { "name": "system.share" },
     { "name": "system.shortcut" },
     { "name": "system.storage" },
@@ -38,9 +41,9 @@
     { "name": "android.settings" },
     { "name": "service.stats" },
     { "name": "service.account" },
-    { "name": "system.contact"},
+    { "name": "system.contact" },
     { "name": "service.app" },
-    { "name": "service.share", "params": {"appSign": "", "wxKey": ""} },
+    { "name": "service.share", "params": { "appSign": "", "wxKey": "" } },
     { "name": "service.pay" },
     { "name": "service.alipay" },
     { "name": "service.exchange" },
@@ -71,10 +74,10 @@
     {
       "name": "service.qqaccount",
       "params": {
-        "package":"xxx",
+        "package": "xxx",
         "appId": "xxx",
         "sign": "xxx",
-        "clientId":"xxx"
+        "clientId": "xxx"
       }
     },
     {
@@ -85,13 +88,16 @@
       }
     }
   ],
-  "permissions": [
-    { "origin": "*" }
-  ],
+  "permissions": [{ "origin": "*" }],
   "config": {
     "logLevel": "debug",
     "data": {
       "back": "false"
+    },
+    "background": {
+      "features": [
+        "system.audio"
+      ]
     }
   },
   "router": {
@@ -169,7 +175,7 @@
       "component/form/textarea": {
         "component": "index"
       },
-     "component/media/video": {
+      "component/media/video": {
         "component": "index"
       },
       "component/media/canvas": {
@@ -184,7 +190,16 @@
       "component/thirdParty/map": {
         "component": "index"
       },
+      "framework/communication/parent-children": {
+        "component": "index"
+      },
+      "framework/communication/siblings": {
+        "component": "index"
+      },
       "framework/deeplink": {
+        "component": "index"
+      },
+      "framework/async": {
         "component": "index"
       },
       "framework/lifecycle": {
@@ -208,8 +223,6 @@
       "framework/screenorientation": {
         "component": "index"
       },
-<<<<<<< HEAD
-=======
       "framework/pageWH": {
         "component": "index"
       },
@@ -264,7 +277,6 @@
       "framework/componentlifecycle": {
         "component": "index"
       },
->>>>>>> 89f63b6... sample 1050相关BUG修改
       "interface/thirdparty/alipay": {
         "component": "index"
       },
@@ -287,6 +299,9 @@
         "component": "index"
       },
       "interface/system/calendar": {
+        "component": "index"
+      },
+      "interface/system/messageChannel": {
         "component": "index"
       },
       "interface/system/clipboard": {
@@ -349,6 +364,9 @@
       "interface/system/sensor": {
         "component": "index"
       },
+      "interface/system/health": {
+        "component": "index"
+      },
       "interface/system/share": {
         "component": "index"
       },
@@ -356,6 +374,9 @@
         "component": "index"
       },
       "interface/system/storage": {
+        "component": "index"
+      },
+      "interface/system/exchange": {
         "component": "index"
       },
       "interface/system/vibrator": {
@@ -409,49 +430,61 @@
       "component/style/font-family": {
         "component": "index"
       },
-      "functionality/changestyle": {
+      "scenario/effect/changestyle": {
         "component": "index"
       },
-      "functionality/form": {
+      "scenario/scene/form": {
         "component": "index"
       },
-      "functionality/menutop": {
+      "scenario/scene/menutop": {
         "component": "index"
       },
-      "functionality/ceiling": {
+      "scenario/scene/ceiling": {
         "component": "index"
       },
-      "functionality/photo": {
+      "scenario/effect/photo": {
         "component": "index"
       },
-      "functionality/h5download": {
+      "scenario/web/h5download": {
         "component": "index"
       },
-      "functionality/postMessage": {
+      "scenario/web/postMessage": {
         "component": "index"
       },
-      "functionality/qrcode": {
+      "scenario/scene/qrcode": {
         "component": "index"
       },
-      "functionality/titlebar": {
+      "scenario/component/titlebar": {
         "component": "index"
       },
-      "functionality/listcombination": {
+      "scenario/component/statusbar": {
         "component": "index"
       },
-      "functionality/verification": {
+      "scenario/scene/listcombination": {
         "component": "index"
       },
-      "functionality/simulate-swipe": {
+      "scenario/scene/verification": {
         "component": "index"
       },
-      "functionality/template/elec-business": {
+      "scenario/effect/simulate-swipe": {
         "component": "index"
       },
-      "functionality/customWeb": {
+      "scenario/effect/offset": {
         "component": "index"
       },
-      "functionality/web": {
+      "scenario/scene/elec-business": {
+        "component": "index"
+      },
+      "scenario/web/customWeb": {
+        "component": "index"
+      },
+      "scenario/web/web": {
+        "component": "index"
+      },
+      "scenario/component/finegrainsize": {
+        "component": "index"
+      },
+      "scenario/scene/render-control": {
         "component": "index"
       }
     }
@@ -459,7 +492,7 @@
   "subpackages": [
     {
       "name": "pkgFunc",
-      "resource": "functionality"
+      "resource": "scenario"
     },
     {
       "name": "pkgComp",
@@ -488,6 +521,12 @@
       },
       "framework/lifecycle": {
         "menu": true
+      },
+      "scenario/component/statusbar": {
+        "titleBar": false,
+        "statusBarImmersive": true,
+        "statusBarTextStyle": "auto",
+        "statusBarBackgroundColor": "#f2f2f2"
       }
     },
     "windowSoftInputMode": "adjustResize"

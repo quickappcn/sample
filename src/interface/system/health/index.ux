@@ -1,0 +1,119 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+
+    <div class="item-container">
+      <div class="item-content">
+        <text class="txt">是否支持每日步数: {{supportDayStep}}</text>
+      </div>
+
+      <div class="item-content">
+        <text class="txt">今日步数: {{todaySteps}}</text>
+      </div>
+      <input type="button" class="btn" onclick="getTodaySteps" value="获取今日步数" />
+
+      <div class="item-content" if="weekSteps.length">
+        <text class="txt" for="{{weekSteps}}">日期: {{$item.date}} -------- 步数: {{$item.steps}}</text>
+      </div>
+      <input type="button" class="btn" onclick="getLastWeekSteps" value="获取一周步数" />
+    </div>
+  </div>
+</template>
+
+<script>
+  import health from '@service.health'
+  import prompt from '@system.prompt'
+
+  export default {
+    data: {
+      componentName: 'sensor',
+      supportDayStep: '',
+      todaySteps: 0,
+      weekSteps: [
+        {
+          date: '2019-02-20',
+          steps: 20100
+        }
+      ]
+    },
+    onInit: function () {
+      this.$page.setTitleBar({
+        text: 'Health'
+      })
+
+      health.hasStepsOfDay({
+        success: (data) => {
+          this.supportDayStep = data.support
+        },
+        fail: (err, code) => {
+          prompt.showToast({
+            message: `失败原因：${err} 错误码：${code}`
+          })
+        }
+      })
+    },
+    getTodaySteps() {
+      health.getTodaySteps({
+        success: (data) => {
+          this.todaySteps = data.steps
+        },
+        fail: (err, code) => {
+          let info = ''
+
+          if (code == '201') {
+            info = '用户拒绝，无法获取每日步数' + code
+          }
+          else if (code == '1001') {
+            info = '不支持按天获取步数' + code
+          }
+
+          prompt.showToast({
+            message: info
+          })
+        }
+      })
+    },
+    getLastWeekSteps() {
+      health.getLastWeekSteps({
+        success: (data) => {
+          this.weekSteps = data.stepsList
+        },
+        fail: (err, code) => {
+          let info = ''
+
+          if (code == '201') {
+            info = '用户拒绝，无法获取每日步数' + code
+          }
+          else if (code == '1001') {
+            info = '不支持按天获取步数' + code
+          }
+
+          prompt.showToast({
+            message: info
+          })
+        }
+      })
+    }
+  }
+</script>
+
+<style>
+  @import '../../../common/css/common.css';
+
+  .item-container {
+    margin-bottom: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+
+  .item-content {
+    flex-direction: column;
+    background-color: #ffffff;
+    padding: 30px;
+    margin-bottom: 100px;
+    align-items: flex-start;
+  }
+</style>

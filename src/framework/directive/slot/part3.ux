@@ -1,0 +1,18 @@
+<template>
+  <div>
+    <slot>
+      <!-- {{context}} 的编译作用域在子组件 -->
+      <text>default content form {{context}}</text>
+    </slot>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        context: 'childVm'
+      }
+    }
+  }
+</script>

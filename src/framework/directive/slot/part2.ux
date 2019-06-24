@@ -1,0 +1,7 @@
+<template>
+  <div>
+    <slot>
+      <text>default content form part2</text>
+    </slot>
+  </div>
+</template>

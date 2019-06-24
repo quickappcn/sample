@@ -1,0 +1,87 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{ componentName }}</text>
+    </div>
+    <div id="parentNode" class="outer" onclick="onParentClickHandler">
+      <text class="inner" id="childNode1" onclick="onChildClickHandler">子组件1</text>
+      <text class="inner" id="childNode2">子组件2</text>
+    </div>
+  </div>
+</template>
+
+<script>
+  export default {
+    private: {
+      componentName:"事件冒泡"
+    },
+    onInit() {
+      this.$page.setTitleBar({
+        text: this.componentName
+      })
+    },
+    onParentClickHandler (evt) {
+      // 事件类型
+      console.info(`触发父组件事件：类型：${evt.type}`);
+
+      if (evt.target) {
+        console.info(`事件目标节点：${this.getNodeName(evt.target)}`)
+      }
+
+      if (evt.currentTarget) {
+        console.info(`事件发生节点：${this.getNodeName(evt.currentTarget)}`)
+      }
+    },
+    onChildClickHandler (evt) {
+      // 事件类型
+      console.info(`触发子组件事件：类型：${evt.type}`)
+
+      if (evt.target) {
+        console.info(`事件目标节点：${this.getNodeName(evt.target)}`)
+      }
+
+      if (evt.currentTarget) {
+        console.info(`事件发生节点：${this.getNodeName(evt.currentTarget)}`)
+      }
+    },
+    getNodeName (node) {
+      const parentNode = this.$element('parentNode')
+      const childNode1 = this.$element('childNode1')
+      const childNode2 = this.$element('childNode2')
+      let name = ''
+
+      switch (node) {
+        case parentNode: {
+          name = 'parentNode'
+          break
+        }
+        case childNode1: {
+          name = 'childNode1'
+          break
+        }
+        case childNode2: {
+          name = 'childNode2'
+          break
+        }
+      }
+
+      return name
+    }
+  }
+</script>
+
+<style>
+  @import '../../../common/css/common.css';
+  .outer {
+    width: 750px;
+    height: 500px;
+    background-color: #eeeeee;
+  }
+
+  .inner {
+    flex: 1;
+    margin: 100px;
+    background-color: skyblue;
+    text-align: center;
+  }
+</style>

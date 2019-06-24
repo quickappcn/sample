@@ -18,6 +18,18 @@
   border-bottom-width: 2px;
 }
 
+.item-container {
+  margin-bottom: 50px;
+  margin-right: 60px;
+  margin-left: 60px;
+  flex-direction: column;
+}
+.item-content {
+  flex-direction: column;
+  background-color: #ffffff;
+  padding: 30px;
+  margin-bottom: 30px;
+}
 .btn {
   height: 80px;
   text-align: center;
@@ -33,7 +45,9 @@
 .text-center {
   justify-content: center;
 }
-
+.center{
+  align-items: center;
+}
 /* position */
 .m-bottom-lg {
   margin-bottom: 40px;

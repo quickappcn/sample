@@ -1,0 +1,52 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{ componentName }}</text>
+    </div>
+    <div class="item-container">
+      <input type="button" class="btn" onclick="emitEvent" value="触发自定义事件" />
+      <input type="button" class="btn" onclick="removeEventHandler" value="移除事件响应" />
+      <input type="button" class="btn" onclick="addEventHandler" value="添加事件响应" />
+    </div>
+  </div>
+</template>
+
+<script>
+  import prompt from '@system.prompt'
+  export default {
+    private: {
+      componentName: '自定义事件'
+    },
+    onInit() {
+      this.$page.setTitleBar({ text: this.componentName })
+      this.$on('customEvtType1', this.customEvtType1Handler)
+    },
+    emitEvent() {
+      this.$emit('customEvtType1', { name: '自定义事件' })
+    },
+    customEvtType1Handler(evt) {
+      prompt.showDialog({
+        title: `触发事件: ${evt.type}`,
+        message: `参数: ${evt.detail.name}`,
+        buttons: [{ text: '确定', color: '#0faeff' }]
+      })
+    },
+    addEventHandler() {
+      this.$on('customEvtType1', this.customEvtType1Handler)
+
+      prompt.showToast({ message: '开始监听自定义事件' })
+    },
+    removeEventHandler() {
+      // 不传递fnHandler：移除所有监听
+      this.$off('customEvtType1')
+      // 传递fnHandler：移除指定的监听函数
+      this.$off('customEvtType1', this.customEvtType1Handler)
+
+      prompt.showToast({ message: '停止监听自定义事件' })
+    }
+  }
+</script>
+
+<style lang="less">
+  @import '../../../common/css/common.css';
+</style>

@@ -6,13 +6,18 @@
     <div class="item-container">
       <div class="item-content">
         <text class="txt">手机号码：</text>
-        <input style="flex: 1; font-size: 30px;" value="{{input_key}}" placeholder="请输入手机号码" onchange="numberChange"/>
+        <input style="flex: 1; font-size: 30px;" value="{{input_key}}" placeholder="请输入手机号码" onchange="numberChange" />
       </div>
       <div class="item-content">
         <text class="txt">发送内容：</text>
-        <input style="flex: 1; font-size: 30px;" value="{{input_key}}" placeholder="请输入短信内容" onchange="contentChange"/>
+        <input style="flex: 1; font-size: 30px;" value="{{input_key}}" placeholder="请输入短信内容" onchange="contentChange" />
       </div>
-      <input type="button" class="btn" onclick="sendSMS" value="发送短信"/>
+      <input type="button" class="btn" onclick="sendSMS" value="发送短信" />
+      <div class="item-content">
+        <text class="txt">短信内容：</text>
+        <text class="content">{{smsContent}}</text>
+      </div>
+      <input type="button" class="btn" onclick="readSMS" value="获取5分钟内短信内容" />
     </div>
   </div>
 </template>
@@ -25,18 +30,33 @@
     data: {
       componentName: 'Short Message',
       number: '',
-      content: ''
+      content: '',
+      smsContent: ''
     },
-    onInit: function () {
-      this.$page.setTitleBar({ text: this.componentName })
+    onInit() {
+      this.$page.setTitleBar({
+        text: this.componentName
+      })
     },
-    numberChange: function (e) {
+    numberChange(e) {
       this.number = e.text;
     },
-    contentChange: function (e) {
+    contentChange(e) {
       this.content = e.text;
     },
-    sendSMS: function () {
+    readSMS() {
+      sms.readSafely({
+        success: function (data) {
+          this.smsContent = data.message
+          console.log('handling success. message=' + data.message)
+        },
+        fail: function (data, code) {
+          this.smsContent = data + ' ' + code
+          console.log('handling fail, result data=' + data + ',code=' + code)
+        }
+      })
+    },
+    sendSMS() {
       sms.send({
         address: this.number,
         content: this.content,

@@ -20,11 +20,10 @@
     data: {
       componentName: 'QQ账号',
     },
-    onInit: function () {
+    onInit() {
       this.$page.setTitleBar({ text: 'QQ账号' })
     },
-
-    useQQAccount: function () {
+    useQQAccount() {
       let type = qqaccount.getType();
       if (type === 'APP') {
         qqaccount.authorize({

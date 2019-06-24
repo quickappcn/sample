@@ -15,9 +15,14 @@
             <text class="txt">value:</text>
             <input type="text" class="input" placeholder="请输入value" value="{{storageValue}}" onchange="valueFn"/>
           </div>
+          <div class="item-content-detail">
+            <text class="txt">index:</text>
+            <input type="text" class="input" placeholder="请输入index" value="{{storageIndex}}" onchange="indexFn"/>
+          </div>
         </div>
         <input type="button" class="btn" onclick="setStorage" value="设置storage"/>
         <input type="button" class="btn" onclick="getStorageUseAsync" value="读取storage key:{{storageKey}}"/>
+        <input type="button" class="btn" onclick="getStorageUseIndex" value="读取storage index对应key名称"/>
         <input type="button" class="btn" onclick="clearStorage" value="清除storage"/>
       </div>
     </div>
@@ -34,7 +39,8 @@
         storageKey: '',
         storageValue: '',
         inputKey: '',
-        inputValue: ''
+        inputValue: '',
+        storageIndex:''
       },
       onInit () {
         this.$page.setTitleBar({text: 'Storage'})
@@ -44,6 +50,9 @@
       },
       valueFn (e) {
         this.storageValue = e.text
+      },
+      indexFn (e){
+        this.storageIndex = e.text
       },
       async setStorage () {
         const self = this
@@ -92,6 +101,13 @@
               message: 'value: ' + ret
             })
           }
+        })
+      },
+      // 获取某个indexd对应的key名称  - 使用 async 并用 catching 捕获错误的写法
+      async getStorageUseIndex(){
+        const ret = await catching(storage.key({ index: this.storageIndex }))
+        prompt.showToast({
+          message: 'value: ' + ret.data
         })
       },
       clearStorage () {

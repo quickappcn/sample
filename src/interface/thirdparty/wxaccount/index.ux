@@ -22,11 +22,13 @@
       componentName: '微信账号',
       code: null
     },
-    onInit: function () {
-      this.$page.setTitleBar({ text: '微信账号' })
+    onInit() {
+      this.$page.setTitleBar({
+        text: '微信账号'
+      })
     },
 
-    useWXAccount () {
+    useWXAccount() {
       let type = wxaccount.getType();
       if (type === 'APP') {
         wxaccount.authorize({
@@ -49,25 +51,25 @@
       }
     },
 
-    fetchUserInfo () {
+    fetchUserInfo() {
       var appid = 'xxx'; // 根据实际情况填写
       var secret = 'xxx'; // 根据实际情况填写
       //换取Token的过程应该放在服务器，而不是客户端
-      var fetchTokenUrl = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid=' + appid + '&secret=' + secret + '&code=' + this.code + '&grant_type=authorization_code';
+      var fetchTokenUrl = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid=' + appid + '&secret=' + secret +
+        '&code=' + this.code + '&grant_type=authorization_code';
       fetch.fetch({
         url: fetchTokenUrl,
         success: ret => {
           var data = JSON.parse(ret.data);
-
           //获取用户信息
-          var userInfoUrl = 'https://api.weixin.qq.com/sns/userinfo?access_token=' + data['access_token'] + '&openid=' + data['openid'];
+          var userInfoUrl = 'https://api.weixin.qq.com/sns/userinfo?access_token=' + data['access_token'] +
+            '&openid=' + data['openid'];
           fetch.fetch({
-            url:userInfoUrl,
+            url: userInfoUrl,
             success: ret => {
               console.info(`### fetch userInfo ### result=${JSON.stringify(ret)}`);
             }
           })
-
         }
       })
     }

@@ -1,0 +1,72 @@
+<import name="comp-part1" src="./part1"></import>
+
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{ componentName }}</text>
+    </div>
+
+    <div class="item-container">
+      <text class="tutorial-title">父组件：</text>
+      <div class="vertical m-bottom-md">
+        <text>{{ data1 }}</text>
+        <text>{{ data2.name }}</text>
+      </div>
+      <input type="button" class="btn" onclick="evtType1Emit" value="$broadcast()" />
+
+      <comp-part1 prop1="{{data1}}" prop2-object="{{data2}}" onevt-type3="evtTypeHandler"></comp-part1>
+    </div>
+  </div>
+</template>
+
+<script>
+  import prompt from '@system.prompt'
+  // 父组件
+  export default {
+    private: {
+      data1: 'string',
+      data2: {
+        name: 'object'
+      },
+      componentName: '父子组件通信'
+    },
+    onInit() {
+      this.$page.setTitleBar({ text: this.componentName })
+
+      // 绑定VM的自定义事件
+      // this.$on('evtType1', this.evtTypeHandler)
+      this.$on('evtType2', this.evtTypeHandler)
+    },
+    onReady() {
+      setTimeout(
+        function() {
+          this.data1 = 'string2'
+          this.data2.name = 'object2'
+        }.bind(this),
+        3000
+      )
+    },
+    evtTypeHandler(evt) {
+      prompt.showDialog({
+        title: "父组件事件响应",
+        message: `事件类型：${evt.type}\n事件参数：${JSON.stringify(evt.detail)}`,
+        buttons: [{ text: '确定', color: '#0faeff' }]
+      })
+      // 结束事件传递
+      // evt.stop()
+    },
+    evtType1Emit() {
+      this.$broadcast('evtType1', { params: '来自父组件的消息' })
+    }
+  }
+</script>
+
+
+<style lang="less">
+  @import '../../../common/css/common.css';
+
+  .tutorial-title {
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+</style>

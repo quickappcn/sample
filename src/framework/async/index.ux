@@ -1,0 +1,44 @@
+<template>
+  <div class="tutorial-page">
+    <text>支持AsyncAwait</text>
+  </div>
+</template>
+
+<script>
+
+  import fetch from '@system.fetch'
+  import prompt from '@system.prompt'
+  export default {
+    private: {},
+    onInit() {
+      this.$page.setTitleBar({ text: '支持AsyncAwait' })
+    },
+    onReady() {
+      this.testAsync()
+    },
+    /**
+     * 测试Async
+     */
+    testAsync() {
+      async function bar() {
+        return '此时已支持async await'
+      }
+      async function foo() {
+        const ret1 = await bar()
+        prompt.showToast({
+          message: ret1
+        })
+      }
+      foo()
+    }
+  }
+</script>
+
+<style lang="less">
+  @import '../../common/css/common.css';
+
+  .tutorial-page {
+    flex-direction: column;
+    padding: 20px 10px;
+  }
+</style>

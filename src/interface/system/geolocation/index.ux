@@ -6,6 +6,16 @@
 
     <div class="item-container">
       <div class="item-content">
+        <text class="txt">设置坐标系类型:</text>
+        <div>
+          <text class="txt">coordType: </text>
+          <select class="selectDom" @change="changeOption">
+            <option class="optionDom" for={{objectFitValues}} value="{{$item}}">{{$item}}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="item-content">
         <text class="txt">获取地理位置:</text>
         <text class="txt">latitude: {{geolocationGetData.latitude}}</text>
         <text class="txt">longitude: {{geolocationGetData.longitude}}</text>
@@ -29,6 +39,12 @@
         <text class="txt">locationType: {{locationType}}</text>
       </div>
       <input type="button" class="btn" onclick="getGeolocationType" value="获取系统当前支持的定位类型" />
+
+      <div class="item-content">
+        <text class="txt">坐标系类型:</text>
+        <text class="txt">coordTypes: {{coordTypes}}</text>
+      </div>
+      <input type="button" class="btn" onclick="getCoordTypes" value="获取当前坐标系类型" />
     </div>
   </div>
 </template>
@@ -52,7 +68,12 @@
         accuracy: '',
         time: ''
       },
-      locationType: ''
+      locationType: '',
+      coordTypes: '',
+      objectFitValues: [
+        "gcj02", "wgs84"
+      ],
+      coordTypeValue: 'gcj02'
     },
     onInit() {
       this.$page.setTitleBar({
@@ -73,6 +94,7 @@
     getGeolocation() {
       const self = this
       geolocation.getLocation({
+        coordType: self.coordTypeValue,
         success: function (ret) {
           self.geolocationGetData = ret
         },
@@ -87,6 +109,7 @@
     listenGeolocation() {
       const self = this
       geolocation.subscribe({
+        coordType: self.coordTypeValue,
         success: function (ret) {
           self.geolocationListenData = ret
         },
@@ -133,5 +156,24 @@
     padding: 30px;
     margin-bottom: 100px;
     align-items: flex-start;
+  }
+
+  .item-container {
+    margin-top: 20px;
+  }
+
+  .selectDom {
+    border: 1px solid #333333;
+    border-radius: 5px;
+    margin-left: 20px;
+    margin-top: 10px;
+    width: 300px;
+  }
+
+  .optionDom {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    text-align: center;
   }
 </style>

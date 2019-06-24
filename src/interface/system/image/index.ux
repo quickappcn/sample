@@ -14,7 +14,7 @@
           <text class="txt">height: {{imageGetInfo.height || ''}}</text>
           <text class="txt">size: {{imageGetInfo.size || ''}}</text>
         </div>
-        <input type="button" class="btn" onclick="getImageInfo" value="获取图片信息"/>
+        <input type="button" class="btn" onclick="getImageInfo" value="获取图片信息" />
       </div>
 
       <div class="item-container">
@@ -22,7 +22,7 @@
           <text class="txt">设置图片的exif信息:</text>
           <image src="{{exifimageUri}}"></image>
         </div>
-        <input type="button" class="btn" onclick="setImageExif" value="设置图片的exif信息"/>
+        <input type="button" class="btn" onclick="setImageExif" value="设置图片的exif信息" />
       </div>
 
       <div class="item-container">
@@ -31,7 +31,7 @@
           <image src="{{exifimageUri}}"></image>
           <text class="txt">attributes: {{attributes}}</text>
         </div>
-        <input type="button" class="btn" onclick="getImageExif" value="获取图片的exif信息"/>
+        <input type="button" class="btn" onclick="getImageExif" value="获取图片的exif信息" />
       </div>
 
       <div class="item-container">
@@ -40,7 +40,7 @@
           <image src="{{imageCompressInfo.uri || ''}}"></image>
           <text class="txt">uri: {{imageCompressInfo.uri || ''}}</text>
         </div>
-        <input type="button" class="btn" onclick="compressImage" value="压缩图片"/>
+        <input type="button" class="btn" onclick="compressImage" value="压缩图片" />
       </div>
 
       <div class="item-container">
@@ -49,16 +49,25 @@
           <image src="{{imageOperateInfo.uri || ''}}"></image>
           <text class="txt">uri: {{imageOperateInfo.uri || ''}}</text>
         </div>
-        <input type="button" class="btn" onclick="operateImage" value="按操作顺序编辑图片"/>
+        <input type="button" class="btn" onclick="operateImage" value="按操作顺序编辑图片" />
       </div>
 
       <div class="item-container">
         <div class="item-content">
           <text class="txt">编辑图片:</text>
+          <div class="input-item">
+            <text class="txtH2">裁剪比列:</text>
+            <text class="input-hint mgl12">aspectRatioX:</text>
+            <input class="input-text" type="text" value="{{aspectRatioX}}" @change="changeValueX"></input>
+          </div>
+          <div class="input-item">
+            <text class="input-hint mgl40">aspectRatioY:</text>
+            <input class="input-text" type="text" value="{{aspectRatioY}}" @change="changeValueY"></input>
+          </div>
           <image src="{{imageEditInfo.uri || ''}}"></image>
           <text class="txt">uri: {{imageEditInfo.uri || ''}}</text>
         </div>
-        <input type="button" class="btn" onclick="editImage" value="编辑图片"/>
+        <input type="button" class="btn" onclick="editImage" value="编辑图片" />
       </div>
     </div>
 
@@ -86,13 +95,17 @@
       imageOperateInfo: {},
       imageEditInfo: {},
       exifimageUri: '/interface/system/image/img/pic-160x160.jpg',
-      attributes: ''
+      attributes: '',
+      aspectRatioX: 16,
+      aspectRatioY: 9,
     },
-    onInit () {
-      this.$page.setTitleBar({ text: 'Image' })
+    onInit() {
+      this.$page.setTitleBar({
+        text: 'Image'
+      })
       this.preTask()
     },
-    preTask () {
+    preTask() {
       // 下载图片
       const self = this
       request.download({
@@ -116,15 +129,15 @@
         }
       })
     },
-    showToast () {
+    showToast() {
       prompt.showToast({
         message: `${this.hint}`
       })
     },
-    getImageInfo () {
+    getImageInfo() {
       // 获取图片信息
       const self = this
-      image.getInfo({
+      image.getImageInfo({
         uri: self.imageUri,
         success: function (data) {
           self.imageGetInfo = data
@@ -142,13 +155,13 @@
         }
       })
     },
-    setImageExif () {
+    setImageExif() {
       // 设置图片的exif信息
       image.setExifAttributes({
         uri: this.exifimageUri,
-        attributes:{
-          Orientation:'1',
-          Make:'quick app'
+        attributes: {
+          Orientation: '1',
+          Make: 'quick app'
         },
         success: function (data) {
           prompt.showToast({
@@ -162,11 +175,11 @@
         }
       })
     },
-    getImageExif () {
+    getImageExif() {
       // 获取图片的exif信息
       image.getExifAttributes({
         uri: this.exifimageUri,
-        success: (data)=> {
+        success: (data) => {
           this.attributes = JSON.stringify(data.attributes)
           prompt.showToast({
             message: `handling success`
@@ -179,10 +192,10 @@
         }
       })
     },
-    compressImage () {
+    compressImage() {
       // 压缩图片
       const self = this
-      image.compress({
+      image.compressImage({
         uri: self.imageUri,
         quality: 50,
         ratio: 5,
@@ -203,13 +216,12 @@
         }
       })
     },
-    operateImage () {
+    operateImage() {
       // 按操作顺序编辑图片
       const self = this
       image.applyOperations({
         uri: self.imageUri,
-        operations: [
-          {
+        operations: [{
             action: 'crop',
             x: 30,
             y: 50,
@@ -244,11 +256,19 @@
         }
       })
     },
-    editImage () {
+    changeValueX(e) {
+      this.aspectRatioX = e.value
+    },
+    changeValueY(e) {
+      this.aspectRatioY = e.value
+    },
+    editImage() {
       // 编辑图片
       const self = this
-      image.edit({
+      image.editImage({
         uri: self.imageUri,
+        aspectRatioX: self.aspectRatioX,
+        aspectRatioY: self.aspectRatioY,
         success: function (data) {
           self.imageEditInfo = data
         },
@@ -274,6 +294,7 @@
   .main {
     flex-direction: column;
   }
+
   .mask {
     flex: 1;
     flex-direction: column;
@@ -281,25 +302,53 @@
     padding-top: 400px;
     background-color: rgba(0, 0, 0, 0.5);
   }
+
   .color-white {
     color: #FFFFFF;
   }
+
   .font-m {
     margin-bottom: 100px;
     text-align: center;
     font-size: 40px;
   }
+
   .item-container {
     margin-bottom: 50px;
     margin-right: 60px;
     margin-left: 60px;
     flex-direction: column;
   }
+
   .item-content {
     flex-direction: column;
     background-color: #ffffff;
     padding: 30px;
     margin-bottom: 100px;
     align-items: flex-start;
+  }
+
+  .input-item {
+    flex-direction: row;
+  }
+
+  .input-hint {
+    margin-right: 30px;
+  }
+
+  .input-text {
+    height: 55px;
+    line-height: 55px;
+    text-align: center;
+    font-size: 30px;
+    margin-top: 10px;
+  }
+
+  .mgl12 {
+    margin-left: 12px;
+  }
+
+  .mgl40 {
+    margin-left: 140px;
   }
 </style>

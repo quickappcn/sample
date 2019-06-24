@@ -11,6 +11,10 @@ export const tabsData = {
             path: 'framework/lifecycle'
           },
           {
+            name: '组件生命周期',
+            path: 'framework/componentlifecycle'
+          },
+          {
             name: '唤起应用(deepLink)',
             path: 'framework/deeplink'
           },
@@ -21,6 +25,126 @@ export const tabsData = {
           {
             name: '屏幕方向',
             path: 'framework/screenorientation'
+          },
+          {
+            name: '页面宽高',
+            path: 'framework/pageWH'
+          }
+        ]
+      },
+      {
+        name: 'filter',
+        caseList: [
+          {
+            name: '使用filter',
+            path: 'framework/filter'
+          }
+        ]
+      },
+      {
+        name: 'computed',
+        caseList: [
+          {
+            name: '使用computed',
+            path: 'framework/computed'
+          }
+        ]
+      },
+      {
+        name: '样式与布局',
+        caseList: [
+          {
+            name: '样式示例',
+            path: 'framework/style-layout/style'
+          },
+          {
+            name: 'less 示例',
+            path: 'framework/style-layout/less'
+          },
+          {
+            name: 'flex 布局示例',
+            path: 'framework/style-layout/layout'
+          },
+          {
+            name: '动态修改样式',
+            path: 'framework/style-layout/update-style'
+          }
+        ]
+      },
+      {
+        name: '指令',
+        caseList: [
+          {
+            name: '指令 for',
+            path: 'framework/directive/for'
+          },
+          {
+            name: '指令 if 和指令 show',
+            path: 'framework/directive/if-show'
+          },
+          {
+            name: '指令 data',
+            path: 'framework/directive/data'
+          },
+          {
+            name: '组件 block',
+            path: 'framework/directive/block'
+          },
+          {
+            name: '组件 slot',
+            path: 'framework/directive/slot'
+          }
+        ]
+      },
+      {
+        name: '事件监听与触发',
+        caseList: [
+          {
+            name: '自定义事件',
+            path: 'framework/events/custom-events'
+          },
+          {
+            name: '原生组件事件',
+            path: 'framework/events/native-events'
+          },
+          {
+            name: '事件冒泡',
+            path: 'framework/events/event-bubble'
+          }
+        ]
+      },
+      {
+        name: '组件通信',
+        caseList: [
+          {
+            name: '父子组件通信',
+            path: 'framework/communication/parent-children'
+          },
+          {
+            name: '兄弟组件通信',
+            path: 'framework/communication/siblings'
+          }
+        ]
+      },
+      {
+        name: '优化技巧',
+        caseList: [
+          {
+            name: 'JSON.parse',
+            path: 'framework/optimization/JSONparse'
+          },
+          {
+            name: '回调函数',
+            path: 'framework/optimization/bindPage'
+          }
+        ]
+      },
+      {
+        name: '使用Async',
+        caseList: [
+          {
+            name: '使用Async',
+            path: 'framework/async'
           }
         ]
       }
@@ -191,67 +315,6 @@ export const tabsData = {
             path: 'component/style/font-family'
           }
         ]
-      },
-      {
-        name: '功能示例',
-        caseList: [
-          {
-            name: 'style数据绑定',
-            path: 'functionality/changestyle'
-          },
-          {
-            name: '表单',
-            path: 'functionality/form'
-          },
-          {
-            name: '手机验证码',
-            path: 'functionality/verification'
-          },
-          {
-            name: '顶部菜单',
-            path: 'functionality/menutop'
-          },
-          {
-            name: '图片展示',
-            path: 'functionality/photo'
-          },
-          {
-            name: '支持h5页面下载网络资源',
-            path: 'functionality/h5download'
-          },
-          {
-            name: 'web页面通信',
-            path: 'functionality/postMessage'
-          },
-          {
-            name: '生成二维码',
-            path: 'functionality/qrcode'
-          },
-          {
-            name: '自定义titlebar',
-            path: 'functionality/titlebar'
-          },
-          {
-            name: 'list联动',
-            path: 'functionality/listcombination'
-          },
-          {
-            name: '监听手势方向',
-            path: 'functionality/simulate-swipe'
-          },
-          {
-            name: '吸顶效果',
-            path: 'functionality/ceiling'
-          },
-          {
-            name: '电商模板',
-            path: 'functionality/template/elec-business'
-          },
-          {
-            name: '自定义web页面',
-            path: 'functionality/customWeb'
-          }
-        ]
       }
     ]
   },
@@ -271,12 +334,12 @@ export const tabsData = {
             path: 'interface/system/app'
           },
           {
-            name:'应用管理',
-            path:'interface/system/package'
+            name: '应用管理',
+            path: 'interface/system/package'
           },
           {
-            name:'禁止修改接口',
-            path:'interface/system/forbid'
+            name: '禁止修改接口',
+            path: 'interface/system/forbid'
           }
         ]
       },
@@ -319,6 +382,10 @@ export const tabsData = {
           {
             name: 'websocket',
             path: 'interface/system/websocket'
+          },
+          {
+            name: '原生应用通信',
+            path: 'interface/system/messageChannel'
           }
         ]
       },
@@ -328,6 +395,10 @@ export const tabsData = {
           {
             name: '数据存储',
             path: 'interface/system/storage'
+          },
+          {
+            name: '应用数据共享',
+            path: 'interface/system/exchange'
           },
           {
             name: '文件存储',
@@ -349,6 +420,10 @@ export const tabsData = {
           {
             name: '传感器',
             path: 'interface/system/sensor'
+          },
+          {
+            name: '健康数据',
+            path: 'interface/system/health'
           },
           {
             name: '剪贴板',
@@ -459,5 +534,103 @@ export const tabsData = {
         ]
       }
     ]
+  },
+  scenario: {
+    name: '场景',
+    desc: '以下将展示快应用常见场景示例,实现某些特殊功能方案展示',
+    groupList: [
+      {
+        name: '高阶组件',
+        caseList: [
+          {
+            name: '细粒度划分 list-item',
+            path: 'scenario/component/finegrainsize'
+          },
+          {
+            name: '自定义titlebar',
+            path: 'scenario/component/titlebar'
+          },
+          {
+            name: '自定义statusbar',
+            path: 'scenario/component/statusbar'
+          },
+        ]
+      },
+      {
+        name: '高频场景',
+        caseList: [
+          {
+            name: '电商模板',
+            path: 'scenario/scene/elec-business'
+          },
+          {
+            name: '表单示例',
+            path: 'scenario/scene/form'
+          },
+          {
+            name: '页签内容懒加载',
+            path: 'scenario/scene/render-control'
+          },
+          {
+            name: '手机验证码',
+            path: 'scenario/scene/verification'
+          },
+          {
+            name: '二维码展示',
+            path: 'scenario/scene/qrcode'
+          },
+          {
+            name: 'list联动',
+            path: 'scenario/scene/listcombination'
+          },
+          {
+            name: '顶部菜单',
+            path: 'scenario/scene/menutop'
+          },
+          {
+            name: '吸顶效果',
+            path: 'scenario/scene/ceiling'
+          },
+        ]
+      },
+      {
+        name: '效果展示',
+        caseList: [
+          {
+            name: 'style数据绑定',
+            path: 'scenario/effect/changestyle'
+          },
+          {
+            name: '图片展示',
+            path: 'scenario/effect/photo'
+          },
+          {
+            name: '监听手势方向',
+            path: 'scenario/effect/simulate-swipe'
+          },
+          {
+            name:'获取元素宽高及位置',
+            path:'scenario/effect/offset'
+          }
+        ]
+      },
+      {
+        name: 'web相关',
+        caseList: [
+          {
+            name: '支持h5页面下载网络资源',
+            path: 'scenario/web/h5download'
+          },
+          {
+            name: 'web页面通信',
+            path: 'scenario/web/postMessage'
+          },
+          {
+            name: '自定义web页面',
+            path: 'scenario/web/customWeb'
+          },
+        ]
+      }
+    ]
   }
-}
+};

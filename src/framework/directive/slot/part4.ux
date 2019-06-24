@@ -1,0 +1,18 @@
+<template>
+  <div>
+    <div class="header">
+      <!-- 我们希望把头部放这里 -->
+      <slot name="header"></slot>
+    </div>
+
+    <div class="main">
+      <!-- 我们希望把主要内容放这里 -->
+      <slot name="main"></slot>
+    </div>
+
+    <div class="footer">
+      <!-- 我们希望把尾部放这里 -->
+      <slot name="footer"></slot>
+    </div>
+  </div>
+</template>

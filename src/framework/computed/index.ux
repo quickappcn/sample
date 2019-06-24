@@ -1,0 +1,86 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+
+    <div class="item-container">
+      <text class="item-title">基本使用</text>
+      <div class="item-content">
+        <text>Original message: "{{ message }}"</text>
+        <text>Comtextuted reversed message: "{{ reversedMessage }}"</text>
+      </div>
+    </div>
+
+    <div class="item-container">
+      <text class="item-title">setter的使用</text>
+      <div class="item-content">
+        <text>firstName: "{{ firstName }}"</text>
+        <text>lastName: "{{ lastName }}"</text>
+        <text>fullName: "{{ fullName }}"</text>
+      </div>
+    </div>
+
+    <div class="item-container">
+      <text class="item-title">计算属性缓存</text>
+      <div class="item-content">
+        <text>now: "{{ now }}"</text>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+  export default {
+    data: {
+      componentName: 'Computed',
+      message: 'Hello',
+      firstName: 'Quick',
+      lastName: 'App'
+    },
+    computed: {
+      // 计算属性的 getter
+      reversedMessage() {
+        // `this` 指向 vm 实例
+        return this.message.split('').reverse().join('')
+      },
+      fullName: {
+        get() {
+          return `${this.firstName} ${this.lastName}`
+        },
+        set(value) {
+          const names = value.split(' ')
+          this.firstName = names[0]
+          this.lastName = names[names.length - 1]
+        }
+      },
+      now() {
+        return Date.now()
+      }
+    },
+    onReady() {
+      console.log(this.reversedMessage) // olleH
+      this.message = 'Goodbye'
+      console.log(this.reversedMessage) // eybdooG
+
+      console.log(this.fullName) // Quick App
+      this.fullName = 'John Doe'
+      console.log(this.firstName) // John
+      console.log(this.lastName) // Doe
+    }
+  }
+</script>
+
+<style>
+  @import "../../common/css/common.css";
+
+  .item-container {
+    margin-bottom: 50px;
+    flex-direction: column;
+  }
+  .item-title {
+    line-height: 100px;
+    padding-left: 40px;
+    color: #aaaaaa;
+  }
+</style>

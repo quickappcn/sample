@@ -1,0 +1,110 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+
+    <div class="item-container">
+      <text>发送消息给原生应用,该部分不便演示,请查看代码</text>
+    </div>
+  </div>
+</template>
+
+<script>
+  import MessageChannel from '@hap.io.MessageChannel'
+
+  export default {
+    private: {
+      componentName: '原生应用通信',
+      package: 'com.miui.hybrid.channel.demo',
+      signature: 'fcaa113908d343444c1894dc4b42ac13'
+    },
+    onInit() {
+      this.$page.setTitleBar({
+        text: '原生应用通信'
+      })
+      this.createChannel()
+    },
+    //创建一个MessageChannel对象
+    createChannel() {
+      const self = this
+      new MessageChannel({
+        package: self.package, //原生应用的包名
+        signature: self.signature //原生应用的包名
+      })
+    },
+    //向原生应用发消息
+    sendChannel() {
+      channel.send({
+        message: {
+          code: 0,
+          data: 'data from hap app',
+          extra: {
+            customeKey1: 'customeValue1',
+            customeKey2: 'customeValue2'
+          }
+        },
+        success: function () {
+          console.log('send success')
+        },
+        fail: function (data, code) {
+          console.log(`handling fail, code = ${code}`)
+        }
+      });
+    },
+    //关闭消息通道
+    closeChannel() {
+      channel.close({
+        reason: 'hap app close',
+        success: function () {
+          console.log('close success')
+        },
+        fail: function (data, code) {
+          console.log(`handling fail, code = ${code}`)
+        }
+      })
+    },
+    //用于指定消息通道成功打开后的回调函数
+    openCallback() {
+      channel.onopen = function () {
+        console.log('channel open')
+      }
+    },
+    //用于指定当从原生应用接收到信息时的回调函数
+    onmessage() {
+      channel.onmessage = function (data) {
+        console.log(`onmessage code: ${data.message.code}, data: ${data.message.data}`)
+      }
+    },
+    //用于指定消息通道关闭后的回调函数
+    onclose() {
+      console.log(`onclose data.code = ${data.code}, data.reason = ${data.reason}`)
+    },
+    //用于指定消息通道失败后的回调函数
+    onerror() {
+      channel.onerror = function (data) {
+        console.log(`onerror data.code = ${data.code}, data.data = ${data.data}`)
+      }
+    },
+    //原生应用接入方式请查看文档
+  }
+</script>
+
+<style>
+  @import '../../../common/css/common.css';
+
+  .item-container {
+    margin-bottom: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+
+  .item-content {
+    flex-direction: column;
+    background-color: #ffffff;
+    padding: 30px;
+    margin-bottom: 100px;
+    align-items: flex-start;
+  }
+</style>

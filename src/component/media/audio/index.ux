@@ -34,6 +34,10 @@
       <div class="btn-content">
         <text class="txt">当前状态：{{status}}</text>
       </div>
+      <div class="btn-content">
+        <text class="txt">当前播放状态数据：{{audioState}}</text>
+      </div>
+      <input type="button" class="btn" onclick="getAudioState" value="获取音乐播放状态"></input>
       <input type="button" class="btn" onclick="stopAudio" value="停止" />
     </div>
   </div>
@@ -108,6 +112,7 @@
 <script>
   import audio from '@system.audio'
   import prompt from '@system.prompt'
+  import resident from '@system.resident'
 
   export default {
     private: {
@@ -140,7 +145,8 @@
       volume: 0,
       valumeStatus: 0,
       status: 'stop',
-      playerStatus: true
+      playerStatus: true,
+      audioState: '请先播放音乐'
     },
     onReady () {
       this.$page.setTitleBar({text: 'Audio'})
@@ -230,6 +236,28 @@
         audio.cover = self.audioArr[self.curIndex].cover
         audio.play()
       }
+
+      // 音乐后台运行 需在 manifest 配置 background
+      // 先启动后台运行模式
+      resident.start({
+        desc: '快应用音乐后台运行'
+      })
+
+      audio.onended = () => {
+        if (this.curIndex < this.audioArr.length - 1) {
+          this.curIndex++
+        }
+        else {
+          this.curIndex = 0
+        }
+
+        audio.src = this.audioArr[this.curIndex].src
+        audio.title = this.audioArr[this.curIndex].title
+        audio.artist = this.audioArr[this.curIndex].artist
+        audio.cover = this.audioArr[this.curIndex].cover
+
+        audio.play()
+      }
     },
     playerStart () {
       if (this.playerStatus) {
@@ -284,6 +312,23 @@
       audio.streamType = streamType
       prompt.showToast({
         message: `音频类型切换为 ${streamType}`
+      })
+    },
+    getAudioState () {
+      audio.getPlayState({
+        success: (data) => {
+          const arr = [
+            `state: ${data.state}`,
+            `src: ${data.src}`,
+            `currentTime: ${data.currentTime}`,
+            `autoplay: ${data.autoplay}`,
+            `loop: ${data.loop}`,
+            `volume: ${data.volume}`,
+            `muted: ${data.muted}`,
+            `notificationVisible: ${data.notificationVisible}`
+          ]
+          this.audioState = '\n' + arr.join('\n')
+        }
       })
     }
   }

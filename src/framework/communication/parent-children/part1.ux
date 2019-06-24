@@ -1,0 +1,83 @@
+<template>
+  <div class="tutorial-page">
+    <text class="tutorial-title">子组件:</text>
+    <div class="vertical m-bottom-md">
+      <text>{{ prop1 }}</text>
+      <text>{{ prop2Object.name }}</text>
+      <text>{{ upperProp1 }}</text>
+    </div>
+
+    <input type="button" class="btn" onclick="evtType2Emit" value="$dispatch()" />
+
+    <input type="button" class="btn" onclick="evtType3Emit" value="$emit()" />
+  </div>
+</template>
+
+<script>
+  import prompt from '@system.prompt'
+  // 子组件
+  export default {
+    props: [
+      'prop1',
+      'prop2Object'
+    ],
+    data () {
+      return {
+        upperProp1: this.prop1
+      }
+    },
+    onInit () {
+      console.info(`外部传递的数据：`, this.prop1, this.prop2Object)
+
+      // 监听数据变化
+      this.$watch('prop1', 'watchPropsChange')
+      this.$watch('prop2Object.name', 'watchPropsChange')
+
+      // 绑定VM的自定义事件
+      this.$on('evtType1', this.evtTypeHandler)
+      // this.$on('evtType2', this.evtTypeHandler)
+    },
+    /**
+     * 监听数据变化，你可以对数据处理后，设值到data上
+     * @param newV
+     * @param oldV
+     */
+    watchPropsChange (newV, oldV) {
+      prompt.showDialog({
+        title: '子组件监听数据变化',
+        message: `${oldV} -> ${newV}`,
+        buttons: [{ text: '确定', color: '#0faeff' }]
+      })
+      this.upperProp1 = newV && newV.toUpperCase()
+    },
+    evtTypeHandler (evt) {
+      prompt.showDialog({
+        title: '子组件事件响应',
+        message: `事件类型：${evt.type}\n事件参数：${JSON.stringify(evt.detail)}`,
+        buttons: [{ text: '确定', color: '#0faeff' }]
+      })
+      // 结束事件传递
+      // evt.stop()
+    },
+    evtType2Emit () {
+      this.$dispatch('evtType2', { params: '来自子组件的消息' })
+    },
+    evtType3Emit () {
+      this.$emit('evtType3', { params: '来自子组件的消息' })
+    }
+  }
+</script>
+
+<style lang="less">
+  @import '../../../common/css/common.css';
+
+  .tutorial-page {
+    flex-direction: column;
+    padding-top: 20px;
+
+    .tutorial-title {
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+  }
+</style>

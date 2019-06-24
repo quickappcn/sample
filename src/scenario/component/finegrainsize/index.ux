@@ -1,0 +1,132 @@
+<template>
+  <list class="tutorial-page" onscrollbottom="loadMoreData">
+    <!-- 细粒度划分list-item -->
+    <block for="productList">
+      <!-- title -->
+      <list-item type="title" if="$item.title" class="title {{$idx>0?'margin-top':''}}">
+        <text>{{$item.title}}</text>
+      </list-item>
+      <!-- banner -->
+      <list-item type="banner" if="$item.bannerImg" class="banner">
+        <image src="{{$item.bannerImg}}"></image>
+      </list-item>
+      <!-- productMini -->
+      <list-item type="productMini" if="$item.productMini" class="product-mini-wrap">
+        <div for="value in $item.productMini" class="product-mini">
+          <image src="{{value.img}}" class="product-mini-img"></image>
+          <text>{{value.name}}</text>
+          <text class="product-mini-brief">{{value.brief}}</text>
+          <text class="product-mini-price">{{value.price}}</text>
+        </div>
+      </list-item>
+      <!-- textHint -->
+      <list-item type="textHint" if="$item.textHint" class="text-hint">
+        <text>{{$item.textHint}} ></text>
+      </list-item>
+    </block>
+    <!-- list底部的加载更多 -->
+    <list-item type="loadMore" class="load-more">
+      <progress type="circular"></progress>
+      <text>加载更多</text>
+    </list-item>
+  </list>
+</template>
+
+<script>
+  import { dataComponentListFinegrainsize } from '../../../common/js/data'
+
+  export default {
+    private: {
+      productList: [],
+      productAddList: dataComponentListFinegrainsize
+    },
+    onInit() {
+      this.$page.setTitleBar({ text: '细粒度划分list-item' })
+      // 数据初始化
+      this.productList = [].concat(this.productAddList)
+    },
+    loadMoreData() {
+      // 加载更多数据
+      this.productList = this.productList.concat(this.productAddList)
+    }
+  }
+</script>
+
+
+<style lang="less">
+  .tutorial-page {
+    flex-direction: column;
+    justify-content: center;
+    background-color: #f3f3f3;
+
+    /* title */
+    .title {
+      padding: 20px;
+      background-color: #ffffff;
+
+      text {
+        font-size: 35px;
+        font-weight: bold;
+      }
+    }
+
+    /* 顶部边距 */
+    .margin-top {
+      margin-top: 30px;
+    }
+
+    /* banner */
+    .banner {
+      width: 750px;
+      height: 300px;
+      flex-shrink: 0;
+    }
+
+    /* productMini */
+    .product-mini-wrap {
+      background-color: #ffffff;
+
+      .product-mini {
+        flex-grow: 1;
+        flex-direction: column;
+        width: 50%;
+
+        .product-mini-img {
+          width: 100%;
+          height: 250px;
+          margin: 3px;
+          background-color: #eeeeee;
+          resize-mode: center;
+        }
+
+        .product-mini-brief {
+          font-size: 25px;
+          color: #999999;
+        }
+
+        .product-mini-price {
+          font-size: 25px;
+          color: #ff6000;
+        }
+      }
+    }
+
+    /* textHint */
+    .text-hint {
+      padding: 20px;
+      justify-content: center;
+      border-top-width: 1px;
+      border-color: #eeeeee;
+      background-color: #ffffff;
+    }
+
+    /* list底部的加载更多 */
+    .load-more {
+      justify-content: center;
+      align-items: center;
+      height: 100px;
+      border-color: #bbbbbb;
+      border-bottom-width: 1px;
+    }
+  }
+</style>
