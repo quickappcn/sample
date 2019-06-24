@@ -1,0 +1,330 @@
+[33mcommit 34dca8657f5a7121dbaf02bb9963ca2620cbca4b[m
+Author: wangcao <wangcao@xiaomi.com>
+Date:   Mon Jun 3 17:19:49 2019 +0800
+
+    sample 1050相关BUG修改
+    
+    Change-Id: Id4564d418ad5fce075536074fcb00ad6778ae9d1
+    Signed-off-by: wangcao <wangcao@xiaomi.com>
+
+[33mcommit 1c6a818cba20add10566da8a50069393c49dce4e[m
+Author: wangcao <wangcao@xiaomi.com>
+Date:   Thu Feb 28 14:43:14 2019 +0800
+
+    resolve conflicts
+
+[33mcommit 94cc21e724bdbdd811e0b4b94f304c94dd058acc[m
+Merge: d17f0cd 8e3b3a9
+Author: wangcao <wangcao@xiaomi.com>
+Date:   Thu Feb 28 14:42:30 2019 +0800
+
+    resolve conflicts
+
+[33mcommit d17f0cd67c72598017706e0a35a5e88e4fba8068[m
+Merge: 03c1a5d ef5e2a4
+Author: wangcao <wangcao@xiaomi.com>
+Date:   Thu Feb 28 14:38:37 2019 +0800
+
+    Merge branch 'master' of https://github.com/quickappcn/sample into originmaster
+
+[33mcommit 8e3b3a994f205fe87f046095c8cd5f98ef004f2b[m
+Author: wangcao <wangcao@xiaomi.com>
+Date:   Wed Feb 27 20:42:14 2019 +0800
+
+    格式调整
+
+[33mcommit f068d09adcf8ad13050e36a6d14915af68452798[m
+Author: wangcao <wangcao@xiaomi.com>
+Date:   Wed Feb 27 20:01:50 2019 +0800
+
+    sample项目小BUG修改
+    
+    Change-Id: Id39608e1137b73a82889b4d8020846cae582b6a2
+    Signed-off-by: wangcao <wangcao@xiaomi.com>
+
+[33mcommit 9ee57d5eee6ce30af0b2930aa9ce2317fe400785[m
+Author: wangcao <wangcao@xiaomi.com>
+Date:   Sun Feb 24 13:58:03 2019 +0800
+
+    升级readme及添加changelog
+
+[33mcommit ef5e2a4fadca9d2744884a89bf46970f76e8c5fe[m
+Author: wangcao <345619747@qq.com>
+Date:   Fri Feb 22 15:11:48 2019 +0800
+
+    sample v1040 (#5)
+    
+    * README upgrade
+    
+    * README upgrade
+    
+    * README upgrade2
+    
+    * README upgrade
+    
+    * README upgrade
+    
+    * node version
+    
+    * sample v1040
+
+[33mcommit b025a7ac2f8ae70fbf4a72ef14fca10f15fa570a[m
+Author: wangcao <wangcao@xiaomi.com>
+Date:   Fri Feb 22 10:42:42 2019 +0800
+
+    sample v1040
+
+[33mcommit e1bcc0c2cfbd23971855aeb3925b69954a6a9fe5[m
+Author: wangcao <40223343+WangCao@users.noreply.github.com>
+Date:   Wed Jan 16 14:42:11 2019 +0800
+
+    readme 升级 (#4)
+    
+    * README upgrade
+    
+    * README upgrade
+    
+    * README upgrade2
+    
+    * README upgrade
+    
+    * README upgrade
+    
+    * node version
+
+[33mcommit 03c1a5db7a973338e6f43238872d5e86d2b5857a[m
+Author: wangcao <wangcao@xiaomi.com>
+Date:   Wed Jan 16 13:27:20 2019 +0800
+
+    node version
+
+[33mcommit 7d25dba87da8b8074e461b7d0350a76275797c1d[m
+Author: wangcao <wangcao@xiaomi.com>
+Date:   Wed Jan 16 13:25:33 2019 +0800
+
+    README upgrade
+
+[33mcommit cea8f1ac1acf4e34c2e8ed873956ca9a078bf5c2[m
+Author: wangcao <wangcao@xiaomi.com>
+Date:   Wed Jan 16 13:24:13 2019 +0800
+
+    README upgrade
+
+[33mcommit 8ed2326bac675377b2529132f018e633b5898ba2[m
+Author: wangcao <wangcao@xiaomi.com>
+Date:   Wed Jan 16 13:19:07 2019 +0800
+
+    README upgrade2
+
+[33mcommit da972b5dbade6037e09740a57f07f5f62856a29b[m
+Author: wangcao <wangcao@xiaomi.com>
+Date:   Wed Jan 16 13:15:02 2019 +0800
+
+    README upgrade
+
+[33mcommit 6a78e5af8f5389df9091d472fbb3ff31ca91148e[m
+Author: wangcao <wangcao@xiaomi.com>
+Date:   Wed Jan 16 13:11:46 2019 +0800
+
+    README upgrade
+
+[33mcommit 2e3c445089dc37bc563944d64819903796933777[m
+Merge: 14497f6 b81c8d2
+Author: diydyq <diydyq@126.com>
+Date:   Thu Jan 10 19:55:19 2019 +0800
+
+    Merge pull request #3 from WangCao/master
+    
+    hap-toolkit升级、补充changelog
+
+[33mcommit b81c8d2b8837d4cc308b0c84824857aa8291fc5f[m
+Author: 周冰清 <zhoubingqing@xiaomi.com>
+Date:   Mon Nov 26 15:58:29 2018 +0800
+
+    hap-toolkit升级、补充changelog
+    
+    Change-Id: I6dfcc0fab87942cd9639f6c8cf29e5bca6b84682
+    Signed-off-by: 周冰清 <zhoubingqing@xiaomi.com>
+
+[33mcommit 14497f6f7a3e1fe34ce6216a1229e534984a5506[m
+Author: 周冰清 <zhoubingqing@xiaomi.com>
+Date:   Mon Nov 26 15:56:18 2018 +0800
+
+    v1.3.0
+
+[33mcommit 00d11c8a4549b64b028e562dfa1fd08e2eff2408[m
+Author: Cinderellahaha <bqzhou@foxmail.com>
+Date:   Mon Sep 17 11:12:41 2018 +0800
+
+    Update README.md
+
+[33mcommit 4c60e8720e4de93c81d40287b5b01fd8bcf096b1[m
+Author: 周冰清 <zhoubingqing@xiaomi.com>
+Date:   Thu Sep 6 18:05:39 2018 +0800
+
+    更新版本hao
+
+[33mcommit 17bafc07e06bf6af85bef2481443c026ba46076d[m
+Author: 周冰清 <zhoubingqing@xiaomi.com>
+Date:   Thu Sep 6 18:05:02 2018 +0800
+
+    更新v1020的sample内容
+
+[33mcommit 3cb6540fe2f9619346e4b4f1c7c9d134a195e372[m
+Author: 周冰清 <zhoubingqing@xiaomi.com>
+Date:   Thu Jun 21 17:57:24 2018 +0800
+
+    update the package.json
+
+[33mcommit 62e83980ec85d45c2a9372aa12add213ef52fd53[m
+Merge: afb4a77 15e57b6
+Author: 周冰清 <zhoubingqing@xiaomi.com>
+Date:   Thu Jun 21 14:34:49 2018 +0800
+
+    Merge branch 'master' of https://github.com/quickappcn/sample
+
+[33mcommit afb4a7759f7b5134a640627a586b2fa4ad629d5c[m
+Author: 周冰清 <zhoubingqing@xiaomi.com>
+Date:   Thu Jun 21 14:34:39 2018 +0800
+
+    add sign
+
+[33mcommit 15e57b6df5363daaf6d2ef3ea92a4b73779d0bda[m
+Author: Cinderellahaha <bqzhou@foxmail.com>
+Date:   Thu Jun 21 14:08:58 2018 +0800
+
+    update readme.md
+
+[33mcommit 6a6603de03df74fe1111ab8e50a2722a3fa27c6c[m
+Author: 周冰清 <zhoubingqing@xiaomi.com>
+Date:   Thu Jun 21 12:15:13 2018 +0800
+
+    add some v1010 changes
+
+[33mcommit 2edc118690d1e1b1fb1a91343fa4378519d80413[m
+Author: Cinderellahaha <bqzhou@foxmail.com>
+Date:   Thu Jun 21 12:08:28 2018 +0800
+
+    update readme
+
+[33mcommit b2e19d020d8509315f70e582ae3a5b00e01aba68[m
+Author: Cinderellahaha <bqzhou@foxmail.com>
+Date:   Fri Jun 15 11:02:38 2018 +0800
+
+    update readme
+
+[33mcommit 555754d025e8f636ebb08698a93bc12e037eaac9[m
+Author: Cinderellahaha <bqzhou@foxmail.com>
+Date:   Fri Jun 15 10:55:43 2018 +0800
+
+    Update README.md
+
+[33mcommit 3493339d21836e3b040c61fe33c29c8070db0115[m
+Author: 周冰清 <zhoubingqing@xiaomi.com>
+Date:   Fri Jun 15 10:30:03 2018 +0800
+
+    回复src目录
+
+[33mcommit 288e191fde44bdf2ccdd828302ec67560c34865f[m
+Author: 周冰清 <zhoubingqing@xiaomi.com>
+Date:   Fri Jun 15 10:29:10 2018 +0800
+
+    暂时删除src
+
+[33mcommit aabfdcc59cbc66e82ce73b308ebc6c4d96544b32[m
+Author: Cinderellahaha <bqzhou@foxmail.com>
+Date:   Tue Jun 12 16:51:08 2018 +0800
+
+    Update README.md
+
+[33mcommit a25b1fe5f23312c4562ab699239a115d8ddad6d2[m
+Author: Cinderellahaha <bqzhou@foxmail.com>
+Date:   Tue Jun 12 16:50:31 2018 +0800
+
+    update readme.md
+
+[33mcommit 795bb57ebe03019e09d8cfe5aae80a5791455567[m
+Author: Cinderellahaha <bqzhou@foxmail.com>
+Date:   Wed Jun 6 16:37:22 2018 +0800
+
+    update readme
+
+[33mcommit c4f6a4745fc95fd37953be1003e8d959dcfb3672[m
+Author: Cinderellahaha <bqzhou@foxmail.com>
+Date:   Wed Jun 6 16:35:12 2018 +0800
+
+    update readme
+
+[33mcommit f683f4852056e8fa8162d32fa4db72c2755b9819[m
+Author: 周冰清 <zhoubingqing@xiaomi.com>
+Date:   Wed Jun 6 16:34:28 2018 +0800
+
+    文件夹名规范为小写
+
+[33mcommit 1c2a1cf04e8cb9105916d0e14510a56865846cce[m
+Merge: faffb08 4bd895f
+Author: 周冰清 <zhoubingqing@xiaomi.com>
+Date:   Wed Jun 6 16:24:41 2018 +0800
+
+    Merge branch 'master' of https://github.com/quickappcn/sample
+
+[33mcommit faffb08aad79ef5bbaa42991d0fef535c657f1b6[m
+Author: 周冰清 <zhoubingqing@xiaomi.com>
+Date:   Wed Jun 6 16:24:29 2018 +0800
+
+    新增v1010的demo展示。
+
+[33mcommit 4bd895f8de82bec350b023f648fe2fcb1d8a2dfb[m
+Author: Cinderellahaha <bqzhou@foxmail.com>
+Date:   Tue Jun 5 17:40:11 2018 +0800
+
+    Update readme.md
+
+[33mcommit c428b485cf00c79158c44999857004b85401f1c7[m
+Merge: a65ecf9 74e399d
+Author: 周冰清 <zhoubingqing@xiaomi.com>
+Date:   Tue Jun 5 17:38:18 2018 +0800
+
+    Merge branch 'master' of https://github.com/quickappcn/sample
+
+[33mcommit a65ecf93db0cb9b8094335dfbc4752b0c0fcae9a[m
+Author: 周冰清 <zhoubingqing@xiaomi.com>
+Date:   Tue Jun 5 17:37:59 2018 +0800
+
+    添加首页快照图片，readme使用
+
+[33mcommit 74e399d30c231a1db4d5dc8506f24302e8c6228d[m
+Author: Cinderellahaha <bqzhou@foxmail.com>
+Date:   Wed May 23 14:54:20 2018 +0800
+
+    Update README.md
+
+[33mcommit bc9b1ac5627c6574e953dfdebce4e840ba6dcf80[m
+Author: 周冰清 <zhoubingqing@zhoubingqingdeMacBook-Pro.local>
+Date:   Mon May 21 21:21:45 2018 +0800
+
+    调整目录结构
+
+[33mcommit eb6d0a61687be1f14d058e196eed52498aba9f7b[m
+Author: Cinderellahaha <bqzhou@foxmail.com>
+Date:   Mon May 21 11:28:40 2018 +0800
+
+    Update README.md
+
+[33mcommit b2e9397bedb0747ec547c2e0fa8ec5a5e631e9b5[m
+Author: Cinderellahaha <bqzhou@foxmail.com>
+Date:   Mon May 21 11:02:28 2018 +0800
+
+    Create readme.md
+
+[33mcommit b195e3d45017a842d2e31df317afd21112ea6a00[m
+Author: 周冰清 <zhoubingqing@zhoubingqingdeMacBook-Pro.local>
+Date:   Fri May 18 19:59:32 2018 +0800
+
+    初始化
+
+[33mcommit 14d9d518c2abfe5bb485502cdf7ebfce9549a21c[m
+Author: 周冰清 <zhoubingqing@zhoubingqingdeMacBook-Pro.local>
+Date:   Fri May 18 19:52:02 2018 +0800
+
+    test
