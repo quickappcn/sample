@@ -1,0 +1,129 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+
+    <div class="item-container">
+      <!-- 创建目录 -->
+      <div class="item-content">
+        <text class="txt">创建目录：{{createMkdir}}</text>
+      </div>
+      <input type="button" class="btn" onclick="createMkdirData" value="创建目录" />
+
+      <!-- 删除目录 -->
+      <div class="item-content">
+        <text class="txt">删除目录：{{deleteMkdir}}</text>
+      </div>
+      <input type="button" class="btn" onclick="deleteMkdirData" value="删除目录" />
+
+      <!-- 目录是否存在 -->
+      <div class="item-content">
+        <text class="txt">目录是否存在：{{accessMkdir}}</text>
+      </div>
+      <input type="button" class="btn" onclick="accessMkdirData" value="获取目录是否存在" />
+
+
+    </div>
+  </div>
+</template>
+
+<script>
+  import file from '@system.file'
+  import fetch from '@system.fetch'
+  import prompt from '@system.prompt'
+
+  export default {
+    private: {
+      componentName: '目录读写',
+      dstUri:'internal://files/newtestfile/',
+      createMkdir: '',
+      deleteMkdir: '',
+      accessMkdir: ''
+    },
+    onInit() {
+      this.$page.setTitleBar({ text: '目录读写' })
+    },
+    createMkdirData() {
+      const self = this
+      file.mkdir({
+        uri: self.dstUri,
+        success: function (ret) {
+          self.deleteMkdir = ''
+          self.accessMkdir = ''
+          self.createMkdir = JSON.stringify(ret)
+        },
+        fail: function (errmsg, errcode) {
+          self.createMkdir = errcode + '---' + errmsg
+          console.info(`### file.mkdir ### ${errcode}: ${errmsg}`)
+          prompt.showToast({
+            message: `${errcode}: ${errmsg}`
+          })
+        }
+      })
+    },
+    deleteMkdirData() {
+      const self = this
+      file.rmdir({
+        uri: self.dstUri,
+        success: function (ret) {
+          self.createMkdir = ''
+          self.accessMkdir = ''
+          self.deleteMkdir = JSON.stringify(ret)
+        },
+        fail: function (errmsg, errcode) {
+          self.deleteMkdir = errcode + '---' + errmsg
+          console.info(`### file.rmdir ### ${errcode}: ${errmsg}`)
+          prompt.showToast({
+            message: `${errcode}: ${errmsg}`
+          })
+        }
+      })
+    },
+    accessMkdirData() {
+      const self = this
+      file.access({
+        uri: self.dstUri,
+        success: function (ret) {
+          self.createMkdir = ''
+          self.deleteMkdir = ''
+          self.accessMkdir = JSON.stringify(ret)
+        },
+        fail: function (errmsg, errcode) {
+          self.accessMkdir = errcode + '---' + errmsg
+          console.info(`### file.access ### ${errcode}: ${errmsg}`)
+          prompt.showToast({
+            message: `${errcode}: ${errmsg}`
+          })
+        }
+      })
+    }
+  }
+</script>
+
+<style>
+  @import '../../../common/css/common.css';
+
+  .item-container {
+    margin-bottom: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+
+  .item-content {
+    flex-direction: column;
+    background-color: #ffffff;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+    align-items: flex-start;
+  }
+
+  .txt {
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+</style>

@@ -111,6 +111,11 @@
             message: '开始搜寻附近的蓝牙外围设备'
           })
           _this.ondevicefound()
+        },
+        fail(data,code){
+            prompt.showToast({
+            message: `蓝牙搜寻失败,code=${code}`
+          })
         }
       })
     },

@@ -25,6 +25,7 @@
       <!-- 写文件Buffer -->
       <input type="button" class="btn" onclick="writeFileBuffer" value="将读取的Buffer写回文件"/>
     </div>
+    </div>
 </template>
 
 <script>

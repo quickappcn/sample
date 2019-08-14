@@ -106,7 +106,7 @@
     },
     showContent(index) {
       this.menuClick = true
-      this.$element('content').scrollTo({ index: index })
+      this.$element('content').scrollTo({ index: index , smooth: true})
       this.activeIndex = index
       setTimeout(function () {
         this.menuClick = false

@@ -15,8 +15,8 @@
     <div class="item-container vertical">
       <text class="container-header">引入字体文件</text>
       <div class="container-content vertical">
-        <text class="normal">不设置字体：abcdefg</text>
-        <text class="myfont">设置字体：abcdefg</text>
+        <text class="normal">不设置字体：123456</text>
+        <text class="myfont">设置字体：123456</text>
       </div>
     </div>
 
@@ -42,7 +42,7 @@
 
   @font-face {
     font-family: myfont;
-    src: url("/common/css/BenMoJinSong.ttf"); /*支持ttf或者otf字体文件*/
+    src: url("/common/css/Mitype.ttf"); /*支持ttf或者otf字体文件*/
   }
 
   @font-face {

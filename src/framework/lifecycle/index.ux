@@ -31,7 +31,7 @@
       lifecycleObject: {
         onInit: {
           count: 0,
-          desc: `当页面完成初始化时调用，只触发一次`
+          desc: `当页面完成初始化时调用，传递的第一个参数为对象，代表打开页面时外部传递进来的query参数，只触发一次`
         },
         onReady: {
           count: 0,

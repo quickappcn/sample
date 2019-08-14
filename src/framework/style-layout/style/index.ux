@@ -9,6 +9,9 @@
       <text id="title">ID选择器</text>
       <text class="title">class选择器</text>
       <text>tag选择器</text>
+      <text style="position: {{positioncValue}}" onclick="changePosition(positioncValue)">
+        点击切换属性{{positioncValue}}
+      </text>
     </div>
   </div>
 </template>
@@ -16,41 +19,69 @@
 <script>
   export default {
     private: {
-      componentName: '样式示例'
+      componentName: '样式示例',
+      positioncValue: 'static'
     },
-    onInit () {
-      this.$page.setTitleBar({ text: this.componentName })
+    onInit() {
+      this.$page.setTitleBar({
+        text: this.componentName
+      })
+    },
+
+    changePosition(val) {
+      switch (val) {
+        case 'static':
+          this.positioncValue = 'relative';
+          break;
+        case 'relative':
+          this.positioncValue = 'absolute';
+          break;
+        case 'absolute':
+          this.positioncValue = 'fixed';
+          break;
+          case 'fixed':
+          this.positioncValue = 'static';
+          break;
+      }
     }
   }
 </script>
 
 <style>
   @import '../../../common/css/common.css';
+
   /* tag选择器 */
   text {
     color: #0000FF;
   }
+
   /* class选择器（推荐） */
   .title {
     color: #00FF00;
   }
+
   /* ID选择器 */
   #title {
     color: #00A000;
   }
+
   /* 并列选择 */
-  .title, #title {
+  .title,
+  #title {
     font-weight: bold;
   }
+
   .item-container {
     flex-direction: column;
   }
+
   /* 后代选择器 */
   .item-container text {
     font-size: 42px;
   }
+
   /* 直接后代选择器 */
-  .item-container > text {
+  .item-container>text {
     text-decoration: underline;
   }
 </style>

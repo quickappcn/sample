@@ -1,0 +1,72 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">记得开启手机无障碍模式</text>
+    </div>
+
+    <div class="input-item">
+      <text class="input-hint">标签描述</text>
+      <input class="input-text" aria-label="{{val}}" aria-unfocusable="{{checkedVal}}" type="text" placeholder="请输入标签描述"
+        onchange="showChangePrompt"></input>
+    </div>
+    <div class="input-item">
+      <text class="input-hint">是否能够获取焦点</text>
+      <switch checked="false" class="switch" onchange="accessibleFocus"></switch>
+    </div>
+  </div>
+</template>
+
+<script>
+  export default {
+    private: {
+      ariaLabel: '',
+      checkedVal: true,
+      val: ''
+    },
+    onInit() {
+      this.$page.setTitleBar({
+        text: '无障碍模式'
+      })
+    },
+    accessibleFocus() {
+      this.checkedVal = !this.checkedVal;
+    },
+    showChangePrompt(e) {
+      this.val = e.value
+    }
+  }
+</script>
+
+<style>
+  @import "../../util/index.css";
+  @import '../../../common/css/common.css';
+
+  .input-item {
+    margin-bottom: 80px;
+    flex-direction: column;
+  }
+
+  .input-hint {
+    margin-left: 30px;
+    margin-bottom: 30px;
+    margin-right: 30px;
+  }
+
+  .input-text {
+    height: 80px;
+    line-height: 80px;
+    padding-left: 30px;
+    padding-right: 30px;
+    margin-left: 30px;
+    margin-right: 30px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-color: #999999;
+    font-size: 30px;
+    background-color: #ffffff;
+  }
+
+  .input-text:focus {
+    border-color: #f76160;
+  }
+</style>

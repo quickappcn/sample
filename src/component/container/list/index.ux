@@ -118,7 +118,7 @@
       this.scrollPage = !this.scrollPage
     },
     goIndex() {
-      this.$element('list').scrollTo({ index: 0 })
+      this.$element('list').scrollTo({ index: 0 ,smooth:true})
     },
     clickPush() {
       this.listData.push('push')

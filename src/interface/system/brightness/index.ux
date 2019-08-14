@@ -36,6 +36,14 @@
       <input type="button" class="btn" onclick="setMode(0)" value="设置为手动调节亮度(0)"/>
       <input type="button" class="btn" onclick="setMode(1)" value="设置为自动调节屏幕亮度(1)"/>
     </div>
+
+    <div class="item-container">
+      <div class="item-content">
+        <text>设置常亮状态：{{keepScreenStatus}}</text>
+      </div>
+      <input type="button" class="btn" onclick="setKeepScreenOn" value="设置为常亮状态"/>
+    </div>
+
   </div>
 </template>
 
@@ -49,7 +57,8 @@
       sliderValue: 0,
       status: '',
       mode: '',
-      setModStatus: ''
+      setModStatus: '',
+      keepScreenStatus:''
     },
     onInit () {
       this.$page.setTitleBar({text: '屏幕亮度'})
@@ -99,6 +108,19 @@
         fail: function(err, code){
           self.setModStatus = 'handling fail, code=' + code
         }
+      })
+    },
+    setKeepScreenOn(){
+      let self = this;
+        brightness.setKeepScreenOn({
+          keepScreenOn: true,
+          success() {
+            self.keepScreenStatus = '常亮状态设置成功'
+            console.log(`handling success`)
+          },
+          fail(data, code) {
+            console.log(`handling fail, data=${data},code=${code}`)
+          }
       })
     }
   }

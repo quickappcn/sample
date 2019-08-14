@@ -9,43 +9,49 @@
       <div class="item-content">
         <text class="txt">下载文件：{{fileDownloadData}}</text>
       </div>
-      <input type="button" class="btn" onclick="downloadFile" value="下载文件"/>
+      <input type="button" class="btn" onclick="downloadFile" value="下载文件" />
 
       <!-- 移动文件 -->
       <div class="item-content">
         <text class="txt">移动文件：{{fileMoveData}}</text>
       </div>
-      <input type="button" class="btn" onclick="moveFile" value="移动文件"/>
+      <input type="button" class="btn" onclick="moveFile" value="移动文件" />
 
       <!-- 移动文件到文件夹 -->
       <div class="item-content">
         <text class="txt">移动文件到文件夹：{{fileMoveToFolderData}}</text>
       </div>
-      <input type="button" class="btn" onclick="moveFileToFolder" value="移动文件到文件夹"/>
+      <input type="button" class="btn" onclick="moveFileToFolder" value="移动文件到文件夹" />
 
       <!-- 复制文件 -->
       <div class="item-content">
         <text class="txt">复制文件：{{fileCopyData}}</text>
       </div>
-      <input type="button" class="btn" onclick="copyFile" value="复制文件"/>
+      <input type="button" class="btn" onclick="copyFile" value="复制文件" />
 
       <!-- 文件列表 -->
       <div class="item-content">
         <text class="txt">文件列表：{{fileGetListData}}</text>
       </div>
-      <input type="button" class="btn" onclick="getFileList" value="获取列表列表"/>
+      <input type="button" class="btn" onclick="getFileList" value="获取列表列表" />
+
+      <!-- 文件是否存在 -->
+      <div class="item-content">
+        <text class="txt">文件是否存在：{{fileAccessData}}</text>
+      </div>
+      <input type="button" class="btn" onclick="accessFile" value="获取文件是否存在" />
 
       <!-- 获取文件信息 -->
       <div class="item-content">
         <text class="txt">获取文件信息：{{fileGetData}}</text>
       </div>
-      <input type="button" class="btn" onclick="getFile" value="获取文件信息"/>
+      <input type="button" class="btn" onclick="getFile" value="获取文件信息" />
 
       <!-- 文件删除 -->
       <div class="item-content">
         <text class="txt">文件删除：{{fileDeleteData}}</text>
       </div>
-      <input type="button" class="btn" onclick="deleteFile" value="删除文件"/>
+      <input type="button" class="btn" onclick="deleteFile" value="删除文件" />
 
     </div>
   </div>
@@ -65,12 +71,13 @@
       fileCopyData: '',
       fileGetListData: '',
       fileGetData: '',
-      fileDeleteData: ''
+      fileDeleteData: '',
+      fileAccessData: ''
     },
-    onInit () {
+    onInit() {
       this.$page.setTitleBar({ text: '文件存储' })
     },
-    downloadFile () {
+    downloadFile() {
       const self = this
       fetch.fetch({
         url: 'https://statres.quickapp.cn/quickapp/quickapp/201803/file/201803200129552999556.apk',
@@ -80,7 +87,7 @@
         }
       })
     },
-    moveFile () {
+    moveFile() {
       const self = this
       const dstUri = 'internal://files/testfile/file.pdf'
       file.move({
@@ -100,7 +107,7 @@
         }
       })
     },
-    moveFileToFolder () {
+    moveFileToFolder() {
       const self = this
       const dstUri = 'internal://files/testfile/'
       file.move({
@@ -120,7 +127,7 @@
         }
       })
     },
-    copyFile () {
+    copyFile() {
       const self = this
       const dstUri = 'internal://files/testfile/filecopy.pdf'
       file.copy({
@@ -138,7 +145,7 @@
         }
       })
     },
-    getFileList () {
+    getFileList() {
       const self = this
       file.list({
         uri: 'internal://files/testfile',
@@ -155,7 +162,7 @@
         }
       })
     },
-    getFile () {
+    getFile() {
       const self = this
       file.get({
         uri: self.fileDownloadData,
@@ -171,7 +178,7 @@
         }
       })
     },
-    deleteFile () {
+    deleteFile() {
       const self = this
       file.delete({
         uri: self.fileDownloadData,
@@ -187,6 +194,29 @@
         fail: function (errmsg, errcode) {
           self.fileDeleteData = errcode + '---' + errmsg
           console.info(`### file.delete ### ${errcode}: ${errmsg}`)
+          prompt.showToast({
+            message: `${errcode}: ${errmsg}`
+          })
+        }
+      })
+    },
+    accessFile() {
+      const self = this
+      file.access({
+        uri: self.fileDownloadData,
+        success: function (ret) {
+          self.fileDownloadData = ''
+          self.fileMoveData = ''
+          self.fileMoveToFolderData = ''
+          self.fileCopyData = ''
+          self.fileGetListData = ''
+          self.fileGetData = ''
+          self.fileDeleteData = ''
+          self.fileAccessData = JSON.stringify(ret)
+        },
+        fail: function (errmsg, errcode) {
+          self.fileAccessData = errcode + '---' + errmsg
+          console.info(`### file.access ### ${errcode}: ${errmsg}`)
           prompt.showToast({
             message: `${errcode}: ${errmsg}`
           })

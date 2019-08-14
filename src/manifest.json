@@ -3,7 +3,7 @@
   "name": "快应用组件展示",
   "versionName": "1.3.0",
   "versionCode": 130,
-  "minPlatformVersion": 1040,
+  "minPlatformVersion": 1060,
   "icon": "/common/logo.png",
   "features": [
     { "name": "system.webview" },
@@ -47,6 +47,7 @@
     { "name": "service.pay" },
     { "name": "service.alipay" },
     { "name": "service.exchange" },
+    {"name":"system.zip"},
     { "name": "hap.io.MessageChannel" },
     {
       "name": "service.wxpay",
@@ -325,6 +326,9 @@
       "interface/system/filerw": {
         "component": "index"
       },
+      "interface/system/mkdir": {
+        "component": "index"
+      },
       "interface/system/geolocation": {
         "component": "index"
       },
@@ -415,6 +419,9 @@
       "interface/system/bluetooth": {
         "component": "index"
       },
+      "interface/system/zip":{
+        "component":"index"
+      },
       "component/style/animation": {
         "component": "index"
       },
@@ -489,6 +496,9 @@
       },
       "scenario/scene/render-control": {
         "component": "index"
+      },
+      "scenario/scene/accessible": {
+        "component": "index"
       }
     }
   },
@@ -511,6 +521,7 @@
     }
   ],
   "display": {
+    "textSizeAdjust":"auto",
     "backgroundColor": "#fbf9fe",
     "titleBar": true,
     "titleBarBackgroundColor": "#0faeff",

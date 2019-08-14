@@ -35,6 +35,28 @@
       <text>canvas绘制虚线</text>
       <canvas id="canvas7"></canvas>
     </div>
+    <div class="content">
+      <text>切换shadow方式</text>
+      <canvas id="canvas8"></canvas>
+       <div class="input-item">
+          <text class="input-hint">Blur：</text>
+          <input class="input-text" type="text" placeholder="默认值0" onchange="shadowChangeBlur"></input>
+        </div>
+        <div class="input-item">
+          <text class="input-hint">Color：</text>
+          <input class="input-text" type="text" placeholder="默认值fully-transparent black"
+            onchange="shadowChangeColor"></input>
+        </div>
+        <div class="input-item">
+          <text class="input-hint">OffsetX：</text>
+          <input class="input-text" type="text" placeholder="默认值0" onchange="shadowChangeOffsetX"></input>
+        </div>
+        <div class="input-item">
+          <text class="input-hint">OffsetY：</text>
+          <input class="input-text" type="text" placeholder="默认值0" onchange="shadowChangeOffsetY"></input>
+        </div>
+
+    </div>
   </div>
 </template>
 
@@ -46,12 +68,16 @@
     private: {
       componentName: 'canvas',
       globalCompositeOperation: 'source-over',
-      imageUrl: ''
+      imageUrl: '',
+      blur:'0',
+      color:'black',
+      OffsetX:'0',
+      OffsetY:'0'
     },
-    onInit () {
+    onInit() {
       this.$page.setTitleBar({ text: 'Canvas' })
     },
-    onShow () {
+    onShow() {
       this.drawCanvas1()
       this.drawCanvas2()
       this.drawCanvas3()
@@ -59,8 +85,9 @@
       this.drawCanvas5()
       this.drawCanvas6()
       this.drawCanvas7()
+      this.drawCanvas8(this.blur,this.color,this.OffsetX,this.OffsetY)
     },
-    drawCanvas1 () {
+    drawCanvas1() {
       const conf = {
         'indicate': true,
         'indicateColor': '#222',
@@ -76,12 +103,12 @@
       const ctx = canvas.getContext('2d')
       drawClock(400, ctx, conf)
     },
-    drawCanvas2 () {
+    drawCanvas2() {
       const canvas = this.$element('canvas2')
       const ctx = canvas.getContext('2d')
       drawLogo(ctx)
     },
-    drawCanvas3 () {
+    drawCanvas3() {
       const canvas = this.$element('canvas3')
       const ctx = canvas.getContext('2d')
       const img = new Image()
@@ -90,24 +117,24 @@
         ctx.drawImage(img, 40, 40, 300, 100)
       }
     },
-    drawCanvas4 () {
+    drawCanvas4() {
       const canvas = this.$element('canvas4')
       const ctx = canvas.getContext('2d')
-      ctx.drawImage(this.$element('image'),0, 0, 300, 300)
+      ctx.drawImage(this.$element('image'), 0, 0, 300, 300)
     },
-    drawCanvas5 () {
+    drawCanvas5() {
       const canvas = this.$element('canvas5')
       const ctx = canvas.getContext('2d')
       drawGradientLogo(ctx)
       grayFilter(ctx)
     },
-    drawCanvas6 () {
+    drawCanvas6() {
       const canvas = this.$element('canvas6')
       const ctx = canvas.getContext('2d')
       drawRectByGloComOperation(ctx, this.globalCompositeOperation)
     },
     // 切换canvas合成类型
-    changeGlobalCompositeOperation () {
+    changeGlobalCompositeOperation() {
       const globalCompositeOperationArr = ['source-over', 'source-atop',
         'source-in', 'source-out',
         'destination-over', 'destination-atop',
@@ -146,7 +173,7 @@
         ctx.strokeRect(10, 10, 200, 200)
       }, 20)
     },
-    savePic () {
+    savePic() {
       this.$element('canvas1').toTempFilePath({
         x: 50,
         y: 50,
@@ -165,6 +192,36 @@
           })
         }
       })
+    },
+    drawCanvas8(blur,color,OffsetX,OffsetY) {
+      const canvas = this.$element('canvas8')
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, 300, 300);
+      ctx.beginPath();
+      ctx.fillStyle = '#ccc';
+      ctx.shadowBlur=blur;
+      ctx.shadowColor=color;
+      ctx.shadowOffsetX=OffsetX;
+      ctx.shadowOffsetY=OffsetY;
+      ctx.rect(0, 0, 300, 300);
+      ctx.fill();
+      ctx.closePath();
+    },
+    shadowChangeBlur(e) {
+      this.blur=e.value;
+      this.drawCanvas8(this.blur,this.color,this.OffsetX,this.OffsetY)
+    },
+    shadowChangeColor(e) {
+      this.color=e.value;
+      this.drawCanvas8(this.blur,this.color,this.OffsetX,this.OffsetY)
+    },
+    shadowChangeOffsetX(e) {
+      this.OffsetX=e.value;
+      this.drawCanvas8(this.blur,this.color,this.OffsetX,this.OffsetY)
+    },
+    shadowChangeOffsetY(e) {
+      this.OffsetY=e.value;
+      this.drawCanvas8(this.blur,this.color,this.OffsetX,this.OffsetY)
     }
   }
 </script>
@@ -198,55 +255,6 @@
     height: 380px;
   }
 
-  .glo-type {
-    margin: 20px;
-  }
-
-  #canvas6 {
-    width: 320px;
-    height: 320px;
-    border: 1px solid red;
-  }
-
-  .btn {
-    width: 320px;
-    margin: 20px;
-  }
-
-  .content text {
-    margin-top: 20px;
-  }
-</style>
-
-
-<style>
-  @import '../../../common/css/common.css';
-
-  .content {
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    background-color: #ffffff;
-    padding: 30px 0px 10px 0px;
-  }
-
-  canvas {
-    height: 400px;
-    width: 400px;
-  }
-
-  #canvas2 {
-    height: 300px;
-  }
-
-  #canvas3 {
-    height: 200px;
-  }
-
-  #canvas4 {
-    width: 380px;
-    height: 380px;
-  }
   #canvas6 {
     width: 380px;
     height: 380px;
@@ -274,5 +282,35 @@
 
   .content text {
     margin-top: 20px;
+  }
+
+  .input-item {
+    margin-bottom: 80px;
+    flex-direction: row;
+    justify-content:flex-start;
+  }
+
+  .input-hint {
+    margin-left: 30px;
+    margin-bottom: 30px;
+    margin-right: 30px;
+  }
+
+  .input-text {
+    height: 80px;
+    line-height: 80px;
+    padding-left: 30px;
+    padding-right: 30px;
+    margin-left: 30px;
+    margin-right: 30px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-color: #999999;
+    font-size: 30px;
+    background-color: #ffffff;
+  }
+
+  .input-text:focus {
+    border-color: #f76160;
   }
 </style>

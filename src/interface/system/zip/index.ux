@@ -1,0 +1,76 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+
+    <div class="item-container">
+      <!-- 解压文件 -->
+      <div class="item-content">
+        <text class="txt">解压文件：{{srcUri}}</text>
+      </div>
+      <input type="button" class="btn" onclick="decompress" value="解压文件" />
+
+    </div>
+  </div>
+</template>
+
+<script>
+  import zip from '@system.zip'
+  import prompt from '@system.prompt'
+
+  export default {
+    private: {
+      componentName: '解压文件',
+      srcUri:''
+    },
+    onInit() {
+      this.$page.setTitleBar({ text: '解压文件' })
+    },
+    decompress(){
+          const self = this  
+          zip.decompress({
+                srcUri: self.srcUri,
+                dstUri: 'internal://files/unzip/',
+                success: function () {
+                          prompt.showToast({
+                                message: `handling success`
+                        })
+                },
+                fail: function (data, code) {
+                        console.log(`handling fail`)
+                        prompt.showToast({
+                                message: `handling fail, ${code}: ${data}`
+                        })
+                }
+        })
+    }
+  }
+</script>
+
+<style>
+  @import '../../../common/css/common.css';
+
+  .item-container {
+    margin-bottom: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+
+  .item-content {
+    flex-direction: column;
+    background-color: #ffffff;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+    align-items: flex-start;
+  }
+
+  .txt {
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+</style>

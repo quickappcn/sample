@@ -416,6 +416,10 @@ export const tabsData = {
           {
             name: '文件读写',
             path: 'interface/system/filerw'
+          },
+          {
+            name: '目录读写',
+            path: 'interface/system/mkdir'
           }
         ]
       },
@@ -497,6 +501,10 @@ export const tabsData = {
           {
             name: '读取设置',
             path: 'interface/system/setting'
+          },
+          {
+              name: '解压文件',
+              path: 'interface/system/zip'
           }
         ]
       },
@@ -600,6 +608,10 @@ export const tabsData = {
             name: '吸顶效果',
             path: 'scenario/scene/ceiling'
           },
+          {
+            name: '无障碍模式',
+            path: 'scenario/scene/accessible'
+          }
         ]
       },
       {
