@@ -1,0 +1,28 @@
+<template>
+  <div class="doc-page">
+    <text>将page.html页面放入服务器，测试在page.html页面内打开快应用功能</text>
+    <web src="http://10.234.196.77:3000/page.html"></web>
+  </div>
+</template>
+
+<script>
+  export default {
+
+  }
+</script>
+
+<style>
+  @import "../../../common/css/index.css";
+
+  .content {
+    flex-direction: column;
+    align-items: flex-start;
+    border: 1px solid #cccccc;
+    margin: 20px;
+  }
+
+  web {
+    flex: 1;
+    margin: 20px;
+  }
+</style>

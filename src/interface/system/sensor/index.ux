@@ -11,36 +11,36 @@
         <text class="txt">Y: {{sensorAccelerometerData.y}}</text>
         <text class="txt">Z: {{sensorAccelerometerData.z}}</text>
       </div>
-      <input type="button" class="btn"  onclick="accelerometer" value="监听重力感应数据" />
-      <input type="button" class="btn"  onclick="unaccelerometer" value="取消重力感应监听" />
+      <input type="button" class="btn" onclick="accelerometer" value="监听重力感应数据" />
+      <input type="button" class="btn" onclick="unaccelerometer" value="取消重力感应监听" />
 
       <div class="item-content">
         <text class="txt">罗盘数据:</text>
         <text class="txt">direction: {{sensorCompassData}}</text>
       </div>
-      <input type="button" class="btn"  onclick="compass" value="监听罗盘数据" />
-      <input type="button" class="btn"  onclick="uncompass" value="取消罗盘监听" />
+      <input type="button" class="btn" onclick="compass" value="监听罗盘数据" />
+      <input type="button" class="btn" onclick="uncompass" value="取消罗盘监听" />
 
       <div class="item-content">
         <text class="txt">距离感应数据:</text>
         <text class="txt">distance: {{subscribeProximityData}} cm</text>
       </div>
-      <input type="button" class="btn"  onclick="proximity" value="监听距离感应数据" />
-      <input type="button" class="btn"  onclick="unproximity" value="取消距离感应监听" />
+      <input type="button" class="btn" onclick="proximity" value="监听距离感应数据" />
+      <input type="button" class="btn" onclick="unproximity" value="取消距离感应监听" />
 
       <div class="item-content">
         <text class="txt">光线感应数据:</text>
         <text class="txt">intensity: {{lightData}} lux</text>
       </div>
-      <input type="button" class="btn"  onclick="light" value="监听光线感应数据" />
-      <input type="button" class="btn"  onclick="unlight" value="取消光线感应监听" />
+      <input type="button" class="btn" onclick="light" value="监听光线感应数据" />
+      <input type="button" class="btn" onclick="unlight" value="取消光线感应监听" />
 
       <div class="item-content">
         <text class="txt">计步器数据:</text>
         <text class="txt">stepCount: {{stepCount}}</text>
       </div>
-      <input type="button" class="btn"  onclick="listenStep" value="监听计步感应数据" />
-      <input type="button" class="btn"  onclick="cancelListenStep" value="取消计步感应监听" />
+      <input type="button" class="btn" onclick="listenStep" value="监听计步感应数据" />
+      <input type="button" class="btn" onclick="cancelListenStep" value="取消计步感应监听" />
     </div>
   </div>
 </template>
@@ -61,21 +61,21 @@
       subscribeProximityData: 0,
       lightData: 0
     },
-    onInit () {
-      this.$page.setTitleBar({text: 'Sensor'})
+    onInit() {
+      this.$page.setTitleBar({ text: 'Sensor' })
     },
-    accelerometer () {
+    accelerometer() {
       const self = this
-      sensor.subscribeAccelerometer({
+      sensor.subscribeAccelerometer(false, 'normal', {
         callback: function (ret) {
           self.sensorAccelerometerData = ret
         }
       })
     },
-    unaccelerometer () {
+    unaccelerometer() {
       sensor.unsubscribeAccelerometer()
     },
-    compass () {
+    compass() {
       const self = this
       sensor.subscribeCompass({
         callback: function (e) {
@@ -83,39 +83,39 @@
         }
       })
     },
-    uncompass () {
+    uncompass() {
       sensor.unsubscribeCompass()
     },
-    proximity () {
+    proximity() {
       const self = this
       sensor.subscribeProximity({
-        callback: function(e){
+        callback: function (e) {
           self.subscribeProximityData = e.distance
         }
       })
     },
-    unproximity () {
+    unproximity() {
       sensor.unsubscribeProximity()
     },
-    light () {
+    light() {
       const self = this
       sensor.subscribeLight({
-        callback: function(e){
+        callback: function (e) {
           self.lightData = e.intensity
         }
       })
     },
-    unlight () {
+    unlight() {
       sensor.unsubscribeLight()
     },
-    listenStep () {
+    listenStep() {
       sensor.subscribeStepCounter({
         callback: (e) => {
           this.stepCount = e.steps
         }
       })
     },
-    cancelListenStep () {
+    cancelListenStep() {
       sensor.unsubscribeStepCounter()
     }
   }
@@ -124,14 +124,14 @@
 <style>
   @import '../../../common/css/common.css';
 
-  .item-container{
+  .item-container {
     margin-bottom: 50px;
     margin-right: 60px;
     margin-left: 60px;
     flex-direction: column;
   }
 
-  .item-content{
+  .item-content {
     flex-direction: column;
     background-color: #ffffff;
     padding: 30px;

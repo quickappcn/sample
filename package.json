@@ -1,6 +1,6 @@
 {
   "name": "Sample",
-  "version": "1.4.0",
+  "version": "1.6.0",
   "subversion": {
     "toolkit": "0.6.1"
   },
@@ -13,7 +13,6 @@
     "watch": "hap watch"
   },
   "devDependencies": {
-    "@babel/runtime": "^7.2.0",
     "catching": "^1.0.2",
     "hap-toolkit": "^0.6.1",
     "less": "^3.0.4",

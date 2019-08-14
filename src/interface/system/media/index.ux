@@ -14,45 +14,47 @@
         </block>
         <block else>
           <block for="{{pathFilePickArr}}">
-              <text class="txt">选取图片的路径：{{$item}}</text>
-              <image src="{{$item}}" class="image"></image>
+            <text class="txt">选取图片的路径：{{$item}}</text>
+            <image src="{{$item}}" class="image"></image>
           </block>
         </block>
-        <input type="button" class="btn" onclick="takePhoto" value="拍摄照片"/>
-        <input type="button" class="btn" onclick="saveImageToAlbum" value="将拍摄的照片保存到本地"/>
-        <input type="button" class="btn" onclick="pickPhoto" value="选取图片"/>
-        <input type="button" class="btn" onclick="pickPhotos" value="多选图片"/>
+        <input type="button" class="btn" onclick="takePhoto" value="拍摄照片" />
+        <input type="button" class="btn" onclick="saveImageToAlbum" value="将拍摄的照片保存到本地" />
+        <input type="button" class="btn" onclick="pickPhoto" value="选取图片" />
+        <input type="button" class="btn" onclick="pickPhotos" value="多选图片" />
       </div>
       <!-- 拍摄/选择视频 -->
       <div class="item-content">
         <text class="txt">拍摄视频的路径：{{pathVideoSave}}</text>
         <text class="txt">选取视频的路径：{{pathVideoPick}}</text>
         <video src="{{videoUri}}" class="video" autoplay="true"></video>
-        <input type="button" class="btn" onclick="takeVideo" value="拍摄视频"/>
-        <input type="button" class="btn" onclick="saveVideoToAlbum" value="将拍摄的视频保存到本地"/>
-        <input type="button" class="btn" onclick="pickVideo" value="选择视频"/>
+        <input type="button" class="btn" onclick="takeVideo" value="拍摄视频" />
+        <input type="button" class="btn" onclick="saveVideoToAlbum" value="将拍摄的视频保存到本地" />
+        <input type="button" class="btn" onclick="pickVideo" value="选择视频" />
       </div>
       <!-- 系统铃声设置 -->
       <div class="item-content">
         <text class="txt">闹钟铃声：{{alarmName}}</text>
         <text class="txt">来电铃声：{{ringtoneName}}</text>
         <text class="txt">通知铃声：{{notificationName}}</text>
-        <input type="button" class="btn" onclick="getRingtone('alarm')" value="获取闹钟铃声"/>
-        <input type="button" class="btn" onclick="getRingtone('ringtone')" value="获取来电铃声"/>
-        <input type="button" class="btn" onclick="getRingtone('notification')" value="获取通知铃声"/>
-        <input type="button" class="btn" onclick="setRingtone('alarm')" value="设置闹钟铃声"/>
-        <input type="button" class="btn" onclick="setRingtone('ringtone')" value="设置来电铃声"/>
-        <input type="button" class="btn" onclick="setRingtone('notification')" value="设置通知铃声"/>
+        <input type="button" class="btn" onclick="getRingtone('alarm')" value="获取闹钟铃声" />
+        <input type="button" class="btn" onclick="getRingtone('ringtone')" value="获取来电铃声" />
+        <input type="button" class="btn" onclick="getRingtone('notification')" value="获取通知铃声" />
+        <input type="button" class="btn" onclick="setRingtone('alarm')" value="设置闹钟铃声" />
+        <input type="button" class="btn" onclick="setRingtone('ringtone')" value="设置来电铃声" />
+        <input type="button" class="btn" onclick="setRingtone('notification')" value="设置通知铃声" />
       </div>
       <!-- 选取文件 -->
       <div class="item-content">
         <text class="txt">选取文件的路径：{{pathFilePick}}</text>
-        <input type="button" class="btn" onclick="pickFile" value="选取文件"/>
+        <text class="txt">选取文件的名称：{{pathFileName}}</text>
+        <text class="txt">选取文件的大小：{{pathFileSize}}</text>
+        <input type="button" class="btn" onclick="pickFile" value="选取文件" />
       </div>
       <!-- 预览图片 -->
       <div class="item-content">
         <text class="txt">预览图片</text>
-        <input type="button" class="btn" onclick="previewImage" value="预览图片"/>
+        <input type="button" class="btn" onclick="previewImage" value="预览图片" />
       </div>
     </div>
   </div>
@@ -77,13 +79,15 @@
       ringtoneName: '',
       notificationName: '',
       pathFilePick: '', // 选取文件的路径
+      pathFileName: '',
+      pathFileSize: 0,
       isDisplayOneImage: true, // 是否显示一张图片
       pathFilePickArr: [] // 多选图片,选取文件列表图片路径数组
     },
-    onInit () {
-      this.$page.setTitleBar({text: 'Media'})
+    onInit() {
+      this.$page.setTitleBar({ text: 'Media' })
     },
-    takePhoto () {
+    takePhoto() {
       const self = this
       media.takePhoto({
         success: function (ret) {
@@ -98,7 +102,7 @@
         }
       })
     },
-    pickPhoto () {
+    pickPhoto() {
       const self = this
       media.pickImage({
         success: function (ret) {
@@ -114,7 +118,7 @@
         }
       })
     },
-    pickPhotos () {
+    pickPhotos() {
       // 多选图片
       media.pickImages({
         success: (data) => {
@@ -127,10 +131,10 @@
             message: `${errocode}: ${erromsg}`
           })
         }
-        
+
       })
     },
-    takeVideo () {
+    takeVideo() {
       const self = this
       media.takeVideo({
         success: function (ret) {
@@ -145,7 +149,7 @@
         }
       })
     },
-    pickVideo () {
+    pickVideo() {
       const self = this
       media.pickVideo({
         success: function (ret) {
@@ -160,11 +164,13 @@
         }
       })
     },
-    pickFile () {
+    pickFile() {
       const self = this
       media.pickFile({
         success: function (ret) {
           self.pathFilePick = ret.uri
+          self.pathFileName = ret.name
+          self.pathFileSize = ret.size
         },
         fail: function (erromsg, errocode) {
           console.info(`### media.pickFile ### ${errocode}: ${erromsg}`)
@@ -174,7 +180,7 @@
         }
       })
     },
-    saveImageToAlbum () {
+    saveImageToAlbum() {
       if (!this.pathPhotoSave) {
         prompt.showToast({
           message: `please take a photo firstly`
@@ -195,7 +201,7 @@
         }
       })
     },
-    saveVideoToAlbum () {
+    saveVideoToAlbum() {
       if (!this.pathVideoSave) {
         prompt.showToast({
           message: `please record a video firstly`
@@ -216,7 +222,7 @@
         }
       })
     },
-    setRingtone (type) {
+    setRingtone(type) {
       const _this = this
 
       media.pickFile({
@@ -240,7 +246,7 @@
         }
       })
     },
-    getRingtone (type) {
+    getRingtone(type) {
       const _this = this
 
       media.getRingtone({
@@ -256,15 +262,15 @@
         }
       })
     },
-    previewImage () {
+    previewImage() {
       media.previewImage({
         current: 'https://via.placeholder.com/300.png/',
         uris: [
-        'https://via.placeholder.com/500.png/',
-        'https://via.placeholder.com/400.png/',
-        'https://via.placeholder.com/300.png/',
-        'https://via.placeholder.com/200.png/',
-        'https://via.placeholder.com/100.png/'
+          'https://via.placeholder.com/500.png/',
+          'https://via.placeholder.com/400.png/',
+          'https://via.placeholder.com/300.png/',
+          'https://via.placeholder.com/200.png/',
+          'https://via.placeholder.com/100.png/'
         ]
       })
     }
@@ -280,17 +286,20 @@
     margin-left: 60px;
     flex-direction: column;
   }
+
   .item-content {
     flex-direction: column;
     background-color: #ffffff;
     padding: 30px;
     margin-bottom: 20px;
   }
+
   .image {
     margin: 50px 0;
     width: 630px;
     height: 300px;
   }
+
   .video {
     margin: 50px 0;
     width: 630px;

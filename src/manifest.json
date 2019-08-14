@@ -96,9 +96,12 @@
       "back": "false"
     },
     "background": {
-      "features": [
-        "system.audio"
-      ]
+      "features": ["system.audio"]
+    },
+    "network": {
+      "connectTimeout": 10000,
+      "readTimeout": 10000,
+      "writeTimeout": 10000
     }
   },
   "router": {
@@ -488,6 +491,9 @@
       "scenario/web/customWeb": {
         "component": "index"
       },
+      "scenario/web/openQuickAppFromWeb": {
+        "component": "index"
+      },
       "scenario/web/web": {
         "component": "index"
       },
@@ -526,6 +532,7 @@
     "titleBar": true,
     "titleBarBackgroundColor": "#0faeff",
     "titleBarTextColor": "#ffffff",
+    "textSizeAdjust": "auto",
     "pages": {
       "home": {
         "titleBarText": "快应用组件展示"
