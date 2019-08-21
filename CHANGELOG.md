@@ -1,3 +1,39 @@
+# v1.5.0
+
+此版本配套快应用平台版本为 v1050
+
+## 框架
+
+- 新增 通用事件`resize`示例
+- 新增 组件绑定`data`属性示例
+- 新增 自定义组件支持`onInit`,`onReady`,`onDestory`生命周期示例
+- 新增 `computed`属性 示例
+- 新增 自定义过滤器 示例
+- 新增 `$page`对象的 `windowHeight`,`windowWidth` 属性示例
+
+## 组件
+
+- 优化 `span`组件嵌套`span`组件示例
+- 新增 `input` 组件支持`tel` 类型示例
+- 新增 `stack`组件 `fullscreenchange` 事件示例
+- 新增 `web` 组件 `opacity` 属性 示例
+- 新增：slot 组件，默认内容设置 示例
+- 新增：slot 组件，具名插槽 示例
+
+## 接口
+
+- 为 `geolocation` 接口的`subscribe`方法新增`preserved`参数，设置是否持久化订阅示例
+- 为 `geolocation` 接口的新增`getSupportedCoordTypes`方法，获取支持的坐标系类型示例
+- 为 `image` 接口的`editImage`方法 新增`aspectRationX`,`aspectRationY`参数，裁剪图片示例
+- 为 `sms` 接口 新增 `readSafely` 方法，获取手机短信内容示例
+- 为 `storage` 接口 新增 `key` 方法，返回键名 示例
+- 为 `contact` 接口 增加 `list` 方法，获取通讯录所有联系人列表 示例
+
+## 样式
+
+- 为 `span` 组件，`font-weight` 样式新增 `lighter`、 `bolder` 、数值设置示例
+- 为 `text` 组件，`font-weight` 样式新增 `lighter`、 `bolder` 、数值设置示例
+
 # v1.4.1
 
 新增快应用常见功能及场景示例
