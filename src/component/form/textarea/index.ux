@@ -6,7 +6,7 @@
 
     <div class="item-container">
       <div class="item-content">
-        <textarea id="textarea" placeholder="请输入文本内容" class="textarea" onselectionchange="onSelectionChange"></textarea>
+        <textarea id="textarea" placeholder="请输入文本内容" class="textarea" onselectionchange="onSelectionChange" onlinechange="onLineChange"></textarea>
       </div>
       <text class="txt">文本过多时自动换行，定高时滚动显示</text>
     </div>
@@ -33,6 +33,12 @@
             })
           }
         }
+      })
+    },
+    // 文本行数改变时触发
+    onLineChange(msg) {
+      prompt.showToast({
+        message: 'linechange'+msg
       })
     }
   }

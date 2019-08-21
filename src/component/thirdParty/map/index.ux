@@ -6,6 +6,10 @@
       showcompass="{{compassSwitch}}" enableoverlooking="{{lookingSwitch}}"
       enablezoom="{{zoomSwitch}}" enablescroll="{{dragSwitch}}" enablerotate="{{rotateSwitch}}"
       @loaded="loaded" @tap="tap" @markertap="markerTap" @callouttap="calloutTap" @controltap="controlTap" @poitap="poitap">
+      <custommarker custommarkerattr="{{customMarkerattr}}" if="isShowView">
+        <div style="{width:100px;height:100px;background-color:red;}">
+        </div>
+      </custommarker>
     </map>
     <div class="card-container">
       <div class="item-container">
@@ -24,6 +28,7 @@
           <option value="groundoverlayShow" class="option">Groundoverlay</option>
           <option value="controlShow" class="option">Control</option>
           <option value="coordShow" class="option">坐标转换</option>
+          <option value="viewShow" class="option">自定义view</option>
         </select>
       </div>
 
@@ -168,6 +173,10 @@
         <text class="input-hint">转换坐标纬度：{{latitudeConvert}}</text>
         <text class="input-hint">转换坐标经度：{{longitudeConvert}}</text>
       </div>
+      <div if="showList.viewShow" class="button-style">
+        <input type="button" value="展示view" class="btn" @click="showView"></input>
+        <input type="button" value="隐藏view" class="btn" @click="hideView"></input>
+      </div>
     </div>
   </stack>
 </template>
@@ -271,7 +280,8 @@
         circleShow: false,
         groundoverlayShow: false,
         controlShow: false,
-        coordShow: false
+        coordShow: false,
+        viewShow: false
       },
       width: "100%",
       height: "100%",
@@ -296,7 +306,12 @@
       lookingSwitch: true,
       zoomSwitch: true,
       dragSwitch: true,
-      rotateSwitch: true
+      rotateSwitch: true,
+      customMarkerattr: {
+        latitude: 39.9090371069,
+        longitude: 116.3953853161
+      },
+      isShowView: false
     },
     onReady () {
       this.getCoord()
@@ -1037,6 +1052,12 @@
       polygon.strokeColor = markTemp[`polygonsStrokeColor`]
       polygon.fillColor = markTemp[`polygonsFillColor`]
       this.polygons = [polygon]
+    },
+    showView() {
+      this.isShowView = true
+    },
+    hideView() {
+      this.isShowView = false
     }
   }
 </script>

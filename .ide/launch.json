@@ -1,0 +1,12 @@
+{
+    "version": "1.0.0",
+    "configurations": [
+        {
+            "type": "quick",
+            "request": "launch",
+            "name": "Lightening Debug",
+            "description": "快应用快速调试器,直接打开调试器",
+            "stopOnEntry": true
+        }
+    ]
+}

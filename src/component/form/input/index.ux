@@ -116,6 +116,12 @@
         <input class="input-text" type="text" placeholder="占位符字体是红色的" style="placeholder-color: #FF0000"></input>
       </div>
 
+      <!-- 设置input光标颜色的示例 -->
+      <div class="input-item">
+        <text class="input-hint">控制光标颜色的input:</text>
+        <input class="input-text" type="text" placeholder="光标颜色是红色的" style="caret-color: rgb(226, 84, 27)"></input>
+      </div>
+      
       <!-- input组件支持动态切换type类型 -->
       <div class="input-item">
         <text class="input-hint">点击改变InputType按钮，可将下面输入框的InputType切换为password形式</text>
