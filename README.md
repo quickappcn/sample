@@ -9,7 +9,7 @@
 
 [node-image]: https://img.shields.io/badge/node.js-%3E=_8-green.svg?style=flat-square
 [node-url]: http://nodejs.org/download/
-[hap-toolkit-image]: https://img.shields.io/badge/hap--toolkit-%3E=_0.2-blue.svg
+[hap-toolkit-image]: https://img.shields.io/badge/hap--toolkit-%3E=_0.6-blue.svg
 [hap-toolkit-url]: https://www.npmjs.com/package/hap-toolkit
 
 ## 简介
