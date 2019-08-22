@@ -1,22 +1,20 @@
 cache_key: &cache_key quickapp-sample-dependency-cache-{{ .Branch }}-{{ checksum "package.json" }}
 
 anchor_1: &node8_job
-  working_directory: ~/repo/node8
   docker:
-    - image: circleci/node:8.11.2
+    - image: circleci/node:8
 
 anchor_2: &node10_job
-  working_directory: ~/repo/node10
   docker:
-    - image: circleci/node:10.14.2
+    - image: circleci/node:10
 
 anchor_3: &node12_job
-  working_directory: ~/repo/node12
   docker:
-    - image: circleci/node:12.3.1
+    - image: circleci/node:12
 
 
 common_step: &common_step
+  working_directory: ~/repo
   filters:
     branches:
       only:
@@ -44,10 +42,9 @@ common_step: &common_step
     - run:
         name: build
         command: npm run build
-      
-    - run:
-        name: show-pwd
-        command: pwd && ls -al
+
+    - store_artifacts:
+        path: ~/repo/dist
 
 jobs:
   build-in-node8:
