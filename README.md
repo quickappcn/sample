@@ -4,6 +4,7 @@
 
 [![node version][node-image]][node-url]
 [![hap-toolkit version][hap-toolkit-image]][hap-toolkit-url]
+[![CircleCI](https://circleci.com/gh/quickappcn/sample.svg?style=svg)](https://circleci.com/gh/quickappcn/sample)
 
 
 [node-image]: https://img.shields.io/badge/node.js-%3E=_8-green.svg?style=flat-square
