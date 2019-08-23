@@ -15,7 +15,7 @@
       </list>
 
       <!-- Mask -->
-      <div class="item_container height-300" show="{{show_mask}}">
+      <div class="height-300" show="{{show_mask}}">
         <image class="height-300 xui-width-100" src="./img/pic3.webp"></image>
       </div>
     </stack>
