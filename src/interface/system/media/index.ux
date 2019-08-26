@@ -20,6 +20,7 @@
         </block>
         <input type="button" class="btn" onclick="takePhoto" value="拍摄照片"/>
         <input type="button" class="btn" onclick="saveImageToAlbum" value="将拍摄的照片保存到本地"/>
+        <input type="button" class="btn" onclick="saveImageToBase64" value="将拍摄照片转成Base64"/>
         <input type="button" class="btn" onclick="pickPhoto" value="选取图片"/>
         <input type="button" class="btn" onclick="pickPhotos" value="多选图片"/>
       </div>
@@ -61,6 +62,7 @@
 <script>
   import prompt from '@system.prompt'
   import media from '@system.media'
+  import file from '@system.file'
 
   export default {
     private: {
@@ -89,6 +91,26 @@
         success: function (ret) {
           self.pathPhotoSave = ret.uri
           self.photoUri = ret.uri
+        },
+        fail: function (erromsg, errocode) {
+          console.info(`### media.takePhoto ### ${errocode}: ${erromsg}`)
+          prompt.showToast({
+            message: `${errocode}: ${erromsg}`
+          })
+        }
+      })
+    },
+
+    saveImageToBase64 () {
+      media.takePhoto({
+        success: async (ret) => {
+          this.pathPhotoSave = ret.uri
+          let uri = ret.uri
+          if (uri) {
+            let buffer = await file.readArrayBuffer({uri})
+            let base64 = new Buffer(buffer.data.buffer).toString('base64')
+            this.photoUri = 'data:image/jpg;base64,'+ base64
+          }
         },
         fail: function (erromsg, errocode) {
           console.info(`### media.takePhoto ### ${errocode}: ${erromsg}`)
