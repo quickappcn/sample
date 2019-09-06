@@ -1,6 +1,5 @@
 <script>
   import './common/js/util.js'
-  import regenerator from './regenerator.js'
   export default {
     onError(err) {
       console.log(`error message=${err.message}, stack=${err.stack}`)
