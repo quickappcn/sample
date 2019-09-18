@@ -1,0 +1,70 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{ pageTitle }}</text>
+    </div>
+
+    <div class="item-container">
+      <text>应用当前语言的内容：{{ $t('message.pageI18n.text') }}</text>
+    </div>
+
+    <div class="item-container">
+      <text>应用当前配置的语言：{{ localeObject.language }}</text>
+      <text>应用当前配置的地区：{{ localeObject.countryOrRegion }}</text>
+    </div>
+
+    <div class="item-container">
+      <text>{{ messageTip }}</text>
+    </div>
+
+    <div class="item-container">
+      <input type="button" value="中文/英文切换" onclick="changeLocaleConfiguration" />
+    </div>
+  </div>
+</template>
+
+<script>
+  import configuration from '@system.configuration'
+
+  export default {
+    private: {
+      pageTitle: '多语言',
+      localeObject: {},
+      messageTip: ''
+    },
+    onInit () {
+      this.$page.setTitleBar({ text: this.pageTitle })
+    },
+    onReady () {
+      this.localeObject = configuration.getLocale()
+    },
+    onConfigurationChanged (evt) {
+      console.info(`i18n：触发生命周期onConfigurationChange：${evt.type}`)
+
+      this.messageTip = `触发应用的生命周期：${(new Date()).toTimeString().split(' ')[0]}`
+      this.localeObject = configuration.getLocale()
+    },
+    changeLocaleConfiguration () {
+      if (this.localeObject.language === 'zh') {
+        console.info(`i18n：更新为英文的Locale`)
+
+        configuration.setLocale({
+          language: 'en',
+          countryOrRegion: 'US'
+        })
+      }
+      else {
+        console.info(`i18n：更新为中文的Locale`)
+
+        configuration.setLocale({
+          language: 'zh',
+          countryOrRegion: 'CN'
+        })
+      }
+    }
+  }
+</script>
+
+<style lang="less">
+  @import '../../common/css/common.css';
+</style>

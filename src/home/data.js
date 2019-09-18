@@ -33,6 +33,15 @@ export const tabsData = {
         ]
       },
       {
+        name: '高级',
+        caseList: [
+          {
+            name: '多语言',
+            path: 'framework/i18n'
+          }
+        ]
+      },
+      {
         name: 'filter',
         caseList: [
           {

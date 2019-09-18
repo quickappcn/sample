@@ -241,6 +241,9 @@
       "framework/filter": {
         "component": "index"
       },
+      "framework/i18n": {
+        "component": "index"
+      },
       "framework/computed": {
         "component": "index"
       },
