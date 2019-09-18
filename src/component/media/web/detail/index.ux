@@ -3,7 +3,7 @@
 <template>
   <div class="doc-comp">
     <titleBar value="{{titleBarParams}}"></titleBar>
-    <web class="web-comp" opacity="1"  src="{{websrc}}" allowthirdpartycookies="{{allow}}" onpagestart="onPageStart" onpagefinish="onPageFinish"  ontitlereceive="onTitleReceive" onerror="onError" id="web"></web>
+    <web class="web-comp" src="{{websrc}}" allowthirdpartycookies="{{allow}}" onpagestart="onPageStart" onpagefinish="onPageFinish"  ontitlereceive="onTitleReceive" onerror="onError" id="web"></web>
   </div>
 </template>
 
