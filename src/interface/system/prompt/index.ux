@@ -43,6 +43,7 @@
             text: '忽略'
           }
         ],
+        autocancel: false, // 值为false时点击遮罩不关闭对话框，默认为true
         success: function (ret) {
           prompt.showToast({
             message: '成功回调:选中按钮序号---' + ret.index

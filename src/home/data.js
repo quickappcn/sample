@@ -197,6 +197,10 @@ export const tabsData = {
           {
             name: 'tabs',
             path: 'component/container/tabs'
+          },
+          {
+            name: 'marquee',
+            path: 'component/container/marquee'
           }
         ]
       },
@@ -349,6 +353,14 @@ export const tabsData = {
           {
             name: '禁止修改接口',
             path: 'interface/system/forbid'
+          },
+          {
+            name: '加解密',
+            path: 'interface/system/cipher'
+          },
+          {
+            name: '适配异形屏',
+            path: 'interface/system/fitCutout'
           }
         ]
       },

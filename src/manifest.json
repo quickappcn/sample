@@ -6,6 +6,7 @@
   "minPlatformVersion": 1060,
   "icon": "/common/logo.png",
   "features": [
+    { "name": "system.cipher" },
     { "name": "system.webview" },
     { "name": "system.prompt" },
     { "name": "system.clipboard" },
@@ -162,6 +163,9 @@
         "component": "index"
       },
       "component/container/swiper": {
+        "component": "index"
+      },
+      "component/container/marquee": {
         "component": "index"
       },
       "component/form/switch": {
@@ -365,6 +369,12 @@
       "interface/system/router": {
         "component": "index"
       },
+      "interface/system/cipher": {
+        "component": "index"
+      },
+      "interface/system/fitCutout": {
+        "component": "index"
+      },
       "interface/system/router/detail": {
         "component": "index"
       },
@@ -548,6 +558,10 @@
         "statusBarImmersive": true,
         "statusBarTextStyle": "auto",
         "statusBarBackgroundColor": "#f2f2f2"
+      },
+      "interface/system/fitCutout": {
+        "fullScreen": true,
+        "fitCutout":"portrait"
       }
     },
     "windowSoftInputMode": "adjustResize"

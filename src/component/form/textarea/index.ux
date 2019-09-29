@@ -6,8 +6,10 @@
 
     <div class="item-container">
       <div class="item-content">
-        <textarea id="textarea" placeholder="请输入文本内容" class="textarea" onselectionchange="onSelectionChange"></textarea>
+        <textarea id="textarea" placeholder="请输入文本内容" class="textarea" onselectionchange="onSelectionChange"
+          onlinechange="onLineChange"></textarea>
       </div>
+      <text class="txt">行高：{{lineHeight}} 行数：{{lineCount}}</text>
       <text class="txt">文本过多时自动换行，定高时滚动显示</text>
     </div>
   </div>
@@ -18,13 +20,17 @@
 
   export default {
     private: {
-      componentName: 'textarea'
+      componentName: 'textarea',
+      lineHeight: 0,
+      lineCount: 0
     },
-    onInit () {
-      this.$page.setTitleBar({text: 'Textarea'})
+    onInit() {
+      this.$page.setTitleBar({
+        text: 'Textarea'
+      })
     },
     // 选中文本发生改变时触发
-    onSelectionChange () {
+    onSelectionChange() {
       this.$element('textarea').getSelectionRange({
         callback: function (start, end) {
           if (end - start > 3) {
@@ -34,6 +40,11 @@
           }
         }
       })
+    },
+    // 文本行数改变时触发
+    onLineChange(msg) {
+      this.lineHeight = msg.height;
+      this.lineCount = msg.lineCount;
     }
   }
 </script>
@@ -47,6 +58,7 @@
     margin-left: 60px;
     flex-direction: column;
   }
+
   .textarea {
     border-color: #bbbbbb;
     border-width: 1px;
@@ -54,6 +66,7 @@
     height: 150px;
     font-size: 30px;
   }
+
   .item-content {
     flex-direction: column;
     background-color: #ffffff;

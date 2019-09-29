@@ -1,0 +1,49 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+    <div class="item-container">
+      <text class="title">这个页面会全屏显示，且在异形区域展示内容</text> 
+      <div class="item-content">
+        <text>在manifest的dispaly中相应位置进行配置</text> 
+        <text><span>"fullScreen": true</span><span class="tips">（fullScreen为true时fitCutout才会生效）</span></text>
+        <text><span>"fitCutout":"portrait"</span><span class="tips">（默认为none，不在异形区域展示内容）</span></text> 
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+  import device from '@system.device'
+
+  export default {
+    private: {
+      componentName: 'Fit Cutout',
+      cutOutInfo: ''
+    },
+    onInit () {
+      this.$page.setTitleBar({text: 'Fit Cutout'}) 
+    }
+  }
+</script>
+
+<style>
+  @import '../../../common/css/common.css';
+
+  .item-container {
+    margin-bottom: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+  .title {
+    font-weight: bold;
+  }
+  .item-content text {
+    margin-top: 20px;
+  }
+  .tips {
+    color: red;
+  }
+</style>

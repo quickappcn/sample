@@ -1,0 +1,186 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+    <text class="sec-title">{{beEncryptedText}}</text>
+    <div class="btn-group">
+      <input type="button" class="btn" value="RSA加密" onclick="rsaEncrypt"></input>
+      <input type="button" class="btn" value="AES加密" onclick="aesEncrypt" style="background-color:#0dad48"></input>
+    </div>
+
+    <text class="sec-title">加密后的文字</text>
+    <text class="text-content">{{encryptedText}}</text>
+    <div class="btn-group">
+      <input type="button" class="btn" value="RSA解密" onclick="rsaDecrypt"></input>
+      <input type="button" class="btn" value="AES解密" onclick="aesDecrypt" style="background-color:#0dad48"></input>
+    </div>
+
+    <text class="sec-title">解密后的文字</text>
+    <text class="text-content">{{decryptedText}}</text>
+
+  </div>
+</template>
+
+<script>
+  import cipher from '@system.cipher'
+  import prompt from '@system.prompt'
+
+  export default {
+    private: {
+      componentName: 'cipher',
+      encryptedText: '',
+      beEncryptedText: '这行字即将被加密',
+      decryptedText: '',
+      resFlag: false,
+      aesFlag: false
+    },
+    onInit () {
+      this.$page.setTitleBar({text: 'Cipher'})
+    },
+    rsaEncrypt () {
+      let _this = this;
+      cipher.rsa({
+        action: 'encrypt',
+        text: _this.beEncryptedText, // 待加密的文本内容
+        //base64编码后的加密公钥
+        key:
+          'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDc7GR2MrfAoefES+wrs1ns2afT\n' +
+          'eJXSfIkEHfPXG9fVFjaws1ho4KcZfsxlA0+SXvc83f2SVGCuzULmM2lxxRCtcUN/\n' +
+          'h7SoaYEeluhqFimL2AEjfSwINHCLqObJkcjCfoZpE1JCehPiDOJsyT50Auc08h/4\n' +
+          'jHQfanyC1nc62LqUCQIDAQAB',
+        success: function(data) {
+          _this.encryptedText = data.text
+          _this.resFlag = true;
+          _this.aesFlag = false;
+          prompt.showToast({
+            message: 'rsa加密成功'
+          })
+        },
+        fail: function(data, code) {
+          prompt.showToast({
+            message: 'rsa加密失败'
+          })
+        }
+      })
+    },
+    aesEncrypt () {
+      let _this = this;
+      cipher.aes({
+        action: 'encrypt',
+        text: _this.beEncryptedText, // 待加密的文本内容
+        key: 'NDM5Qjk2UjAzMEE0NzVCRjlFMkQwQkVGOFc1NkM1QkQ=', // base64编码后的密钥
+        transformation: 'AES/CBC/PKCS5Padding', // AES 算法的加密模式和填充项，默认为"AES/CBC/PKCS5Padding"
+        ivOffset: 0, // AES加解密的初始向量偏移，默认值为0
+        ivLen: 16, // AES加解密的初始向量字节长度，默认值为16
+        success: (data) => {
+          _this.encryptedText = data.text
+          _this.resFlag = false;
+          _this.aesFlag = true;
+          prompt.showToast({
+            message: 'aes加密成功'
+          })
+        },
+        fail: (data, code) => {
+          prompt.showToast({
+            message: 'aes加密失败'
+          })
+        }
+      })
+    },
+    rsaDecrypt () {
+      let _this = this;
+      if(this.resFlag) {
+        cipher.rsa({
+          action: 'decrypt',
+          text: _this.encryptedText, // 待解密的文本内容
+          //base64编码后的解密私钥
+          key:
+            'MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBANzsZHYyt8Ch58RL\n' +
+            '7CuzWezZp9N4ldJ8iQQd89cb19UWNrCzWGjgpxl+zGUDT5Je9zzd/ZJUYK7NQuYz\n' +
+            'aXHFEK1xQ3+HtKhpgR6W6GoWKYvYASN9LAg0cIuo5smRyMJ+hmkTUkJ6E+IM4mzJ\n' +
+            'PnQC5zTyH/iMdB9qfILWdzrYupQJAgMBAAECgYEAkibhH0DWR13U0gvYJeD08Lfd\n' +
+            'Sw1PMHyquEqIcho9Yv7bF3LOXjOg2EEGPx09mvuwXFgP1Kp1e67XPytr6pQQPzK7\n' +
+            'XAPcLPx80R/ZjZs8vNFndDOd1HgD3vSVmYQarNzmKi72tOUWMPevsaFXPHo6Xx3X\n' +
+            '8x0wYb7XuBsQguRctTECQQD7GWX3JUiyo562iVrpTDPOXsrUxmzCrgz2OZildxMd\n' +
+            'Pp/PkyDrx7mEXTpk4K/XnQJ3GpJNi2iDSxDuPSAeJ/aPAkEA4Tw4+1Z43S/xH3C3\n' +
+            'nfulYBNyB4si6KEUuC0krcC1pDJ21Gd12efKo5VF8SaJI1ZUQOzguV+dqNsB/JUY\n' +
+            'OFfX5wJAB1dKv9r7MR3Peg6x9bggm5vx2h6i914XSuuMJupASM6X5X2rrLj+F3yS\n' +
+            'RHi9K1SPyeOg+1tkBtKfABgRZFBOyQJAbuTivUSe73AqTKuHjB4ZF0ubqgEkJ9sf\n' +
+            'Q2rekzm9dOFvxjZGPQo1qALX09qATMi1ZN376ukby8ZAnSafLSZ64wJBAM2V37go\n' +
+            'Sj44HF76ksRow8gecuQm48NCTGAGTicXg8riKog2GC9y8pMNHAezoR9wXJF7kk+k\n' +
+            'lz5cHyoMZ9mcd30=',
+          success: function(data) {
+            _this.decryptedText = data.text
+            prompt.showToast({
+              message: 'rsa解密成功'
+            })
+          },
+          fail: function(data, code) {
+            prompt.showToast({
+              message: 'rsa解密失败'
+            })
+          }
+        })
+      }else{
+        prompt.showToast({
+          message: '请先使用rsa加密'
+        })
+      } 
+    },
+    aesDecrypt () {
+      let _this = this;
+      if(this.aesFlag) {
+        cipher.aes({
+          action: 'decrypt',
+          text: _this.encryptedText, // 待解密的文本内容
+          //base64编码后的解密私钥
+          key: 'NDM5Qjk2UjAzMEE0NzVCRjlFMkQwQkVGOFc1NkM1QkQ=',
+          transformation: 'AES/CBC/PKCS5Padding',
+          ivOffset: 0,
+          ivLen: 16,
+          success: function(data) {
+            _this.decryptedText = data.text
+            prompt.showToast({
+              message: 'aes解密成功'
+            })
+          },
+          fail: function(data, code) {
+            prompt.showToast({
+              message: 'aes解密失败'
+            })
+            console.log(JSON.stringify(data));
+          }
+        })
+      }else{
+        prompt.showToast({
+          message: '请先使用aes加密'
+        })
+      } 
+    },
+
+  }
+</script>
+
+<style>
+  @import '../../../common/css/common.css';
+  .sec-title {
+    text-align: center;
+    margin: 0 20px;
+    padding: 0px 20px;
+    height: 100px;
+  }
+  .btn-group {
+    flex-direction: row;
+    justify-content: center;
+  }
+  .btn-group input {
+    flex: 1;
+  }
+  .text-content {
+    margin: 0 20px;
+    background-color: #fff;
+  }
+
+
+</style>
