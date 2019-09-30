@@ -1,0 +1,70 @@
+<template>
+  <div class="demo-page">
+    <div class="title-container two-line-height">
+      <text class="title">图片alt属性示例（可通过清除快应用缓存再次进入此页面查看占位图效果）</text>
+    </div>
+    <text class="description">本地图标，无alt</text>
+    <text class="description">地址："./img/sponge-bob.jpg"</text>
+    <image src="./img/sponge_bob.jpg" class="small-image"></image>
+    <text class="description">远程地址图标，alt为blank（加载时不显示占位图）</text>
+    <text class="description">地址："http://www.lzshuli.com/game_images/144469495.jpeg"</text>
+    <image src="http://www.lzshuli.com/game_images/144469495.jpeg" class="big-image"
+           alt="blank"></image>
+    <text class="description">远程地址图标，无alt(加载时sdk自动设置灰色占位图）</text>
+    <text class="description">地址："http://www.guandian.cn/uploadfile3/2017/0117/20170117034705167.png"</text>
+    <image src="http://www.guandian.cn/uploadfile3/2017/0117/20170117034705167.png" class="big-image"></image>
+    <text class="description">远程地址图标，有alt</text>
+    <text class="description">地址："https://cdn140.picsart.com/267246714012211.png"</text>
+    <image src="https://cdn140.picsart.com/267246714012211.png" class="small-image"
+           alt="./img/grey_box.png"></image>
+  </div>
+</template>
+
+<style>
+  .demo-page {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .small-image {
+    width: 300px;
+    height: 300px;
+    margin: 30px 0;
+    object-fit: cover;
+  }
+
+  .big-image {
+    margin: 50px 0;
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+  }
+
+  .title-container {
+    height: 72px;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 4px;
+    margin:24px;
+    padding: 0 24px;
+    background-color: #eee;
+  }
+
+  .two-line-height {
+    height: 144px;
+  }
+
+  .title {
+    font-size: 36px;
+    line-height: 48px;
+    color: #242424;
+  }
+
+  .description {
+    font-size: 30px;
+    line-height: 36px;
+    color: #777;
+    margin:0 24px;
+    text-align:center;
+  }
+</style>

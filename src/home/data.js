@@ -29,6 +29,10 @@ export const tabsData = {
           {
             name: '页面宽高',
             path: 'framework/pageWH'
+          },
+          {
+            name: '跳转页面',
+            path: 'framework/navigate'
           }
         ]
       },
@@ -73,6 +77,10 @@ export const tabsData = {
           {
             name: 'flex 布局示例',
             path: 'framework/style-layout/layout'
+          },
+          {
+            name: 'position属性(relative/absolute/fixed)示例',
+            path: 'framework/style-layout/position'
           },
           {
             name: '动态修改样式',
@@ -214,6 +222,10 @@ export const tabsData = {
           {
             name: 'image',
             path: 'component/basic/image'
+          },
+          {
+            name: 'image占位图属性alt示例',
+            path: 'component/basic/image-alt'
           },
           {
             name: 'progress',

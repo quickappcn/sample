@@ -1,8 +1,8 @@
 {
   "package": "org.hapjs.demo.sample",
   "name": "快应用组件展示",
-  "versionName": "1.3.0",
-  "versionCode": 130,
+  "versionName": "1.4.0",
+  "versionCode": 140,
   "minPlatformVersion": 1060,
   "icon": "/common/logo.png",
   "features": [
@@ -48,7 +48,7 @@
     { "name": "service.pay" },
     { "name": "service.alipay" },
     { "name": "service.exchange" },
-    {"name":"system.zip"},
+    { "name": "system.zip" },
     { "name": "hap.io.MessageChannel" },
     {
       "name": "service.wxpay",
@@ -124,6 +124,9 @@
         "component": "index"
       },
       "component/basic/image": {
+        "component": "index"
+      },
+      "component/basic/image-alt": {
         "component": "index"
       },
       "component/form/input": {
@@ -216,6 +219,9 @@
       "framework/exit": {
         "component": "index"
       },
+      "framework/navigate": {
+        "component": "index"
+      },
       "framework/exit/pages/page1": {
         "component": "index",
         "path": "/exit/page1"
@@ -244,6 +250,9 @@
         "component": "index"
       },
       "framework/style-layout/update-style": {
+        "component": "index"
+      },
+      "framework/style-layout/position": {
         "component": "index"
       },
       "framework/filter": {
@@ -542,7 +551,6 @@
     "titleBar": true,
     "titleBarBackgroundColor": "#0faeff",
     "titleBarTextColor": "#ffffff",
-    "textSizeAdjust": "auto",
     "pages": {
       "home": {
         "titleBarText": "快应用组件展示"

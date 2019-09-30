@@ -1,0 +1,108 @@
+<template>
+    <div class="demo-page">
+        <div class="title-container two-line-height">
+            <text class="title">跳转路径填写（如果填写的路径打不开将跳转错误提示页）</text>
+        </div>
+        <input type="text" class="path-input"
+               onchange="changePath" placeholder="请填写跳转路径" value="{{path}}"/>
+        <div class="title-container">
+            <text class="title">a标签跳转</text>
+        </div>
+        <a href="{{path}}" class="a-button">点击跳转</a>
+        <div class="title-container">
+            <text class="title">router.push</text>
+        </div>
+        <div class="button" onclick="routerPush">
+            <text class="button-text">点击跳转</text>
+        </div>
+        <div class="title-container">
+            <text class="title">router.replace</text>
+        </div>
+        <div class="button" onclick="routerReplace">
+            <text class="button-text">点击跳转</text>
+        </div>
+
+    </div>
+</template>
+
+<script>
+    import router from '@system.router'
+
+    export default {
+        // 页面级组件的数据模型，影响传入数据的覆盖机制：private内定义的属性不允许被覆盖
+        private: {
+            path: '/home'
+        },
+        routerPush() {
+            router.push({uri: this.path});
+        },
+        routerReplace() {
+            router.replace({uri: this.path});
+        },
+        changePath(e) {
+            this.path = e.value;
+        }
+    }
+</script>
+
+<style>
+    .demo-page {
+        flex-direction: column;
+        margin: 24px;
+    }
+
+    .title-container {
+        height: 72px;
+        flex-direction: row;
+        align-items: center;
+        border-radius: 4px;
+        padding: 0 24px;
+        background-color: #eee;
+    }
+
+    .two-line-height {
+        height: 144px;
+    }
+
+    .title {
+        font-size: 36px;
+        line-height: 48px;
+        color: #242424;
+    }
+
+    .a-button {
+        position: relative;
+        background-color: #4c9afa;
+        height: 100px;
+        margin: 32px 0;
+        width: 300px;
+        text-align: center;
+        border-radius: 20px;
+        font-size: 60px;
+        color: white;
+    }
+
+    .button {
+        position: relative;
+        background-color: #4c9afa;
+        height: 100px;
+        align-items: center;
+        justify-content: center;
+        margin: 32px 0;
+        width: 300px;
+        border-radius: 20px;
+    }
+
+    .button-text {
+        font-size: 60px;
+        color: white;
+    }
+
+    .path-input {
+        font-size: 36px;
+        margin: 32px;
+    }
+
+
+</style>
+
