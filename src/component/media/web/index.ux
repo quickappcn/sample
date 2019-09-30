@@ -19,6 +19,9 @@
         <div class="item-container">
           <input type="button" value="web组件h5页面支持定位功能" @click="gotoMap"/>
         </div>
+        <div class="item-container">
+          <input type="button" value="web组件h5页面支持网页证书过期加载" @click="openWeb(true)"/>
+        </div>
     </div>
 </template>
 

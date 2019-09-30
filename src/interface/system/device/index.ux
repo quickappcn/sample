@@ -103,6 +103,20 @@
       </div>
       <input type="button" class="btn" onclick="getPlatformInfo" value="同步方法获取平台版本信息" />
     </div>
+    <div class="item-container">
+      <div class="item-content">
+        <text>oaId信息:</text>
+        <text>{{oaId}}</text>
+      </div>
+      <input type="button" class="btn" onclick="getOAID" value="获取odId"/>
+    </div>
+    <div class="item-container">
+      <div class="item-content">
+        <text>allowTrackOAID:</text>
+        <text>{{allowTrackOAID}}</text>
+      </div>
+      <input type="button" class="btn" onclick="getAllowTrackOAID" value="获取限制 oaid 以及 android q 以上的 deviceId 是否可以用于广告跟踪"/>
+    </div>
   </div>
 </template>
 
@@ -122,6 +136,8 @@
       availableStorage: '',
       cpuInfo: '',
       platformInfo: '',
+      oaId: '',
+      allowTrackOAID: '',
       windowWidth: 0,
       windowHeight: 0,
       statusBarHeight: 0
@@ -242,6 +258,21 @@
       const self = this
       var data = device.platform;
       self.platformInfo = JSON.stringify(data)
+    },
+    getOAID () {
+      const self = this
+      device.getOAID({
+        success: function (data) {
+          self.oaId = JSON.stringify(data)
+        },
+        fail: function (data, code) {
+          self.oaId = 'handling fail, code=' + code
+        }
+      })
+    },
+    getAllowTrackOAID () {
+      const self = this
+      self.allowTrackOAID = device.allowTrackOAID
     }
   }
 </script>

@@ -573,5 +573,9 @@
       }
     },
     "windowSoftInputMode": "adjustResize"
-  }
+  },
+  "trustedSslDomains": [
+    "www.quickapp.cn",
+    "m.quickapp.cn"
+  ]
 }
