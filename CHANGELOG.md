@@ -1,3 +1,48 @@
+# v1.6.0
+
+此版本配套快应用平台版本为 v1060
+
+## 框架
+
+- 新增：`manifest.json`中`display`新增`textSizeAdjust` 属性示例
+- 新增：`manifest.json`中`config`新增 `network` 属性示例
+- 新增：`manifest.json`中`dispaly`新增 `fitCutout` 属性, 适配异形屏示例
+- 新增：页面对象 `$page` 新增 `query` 属性，获取页面参数示例
+
+## 组件
+
+- 新增: 新增组件 `marquee`,可设置 文本的跑马灯功能示例示例
+- 新增: 组件新增属性 `aria-label`,无障碍模式示例
+- 新增: `canvas` 组件新增 `shadowBlur` 、`shadowColor` 、 `shadowOffsetX` 、 `shadowOffsetY` 属性示例
+- 新增: `list` 组件，`scrollTo` 方法新增 `smooth` 属性,设置页面平滑滚动示例
+- 新增: `textarea` 组件，新增 `onlinechange` 事件,监听输入框行数变化示例
+- 优化：`map`子组件`custommarker`示例
+
+## 样式
+
+- 新增: `input` 组件自定义光标颜色示例
+- 新增： `relative`，`absolute`定位示例
+
+## 接口
+
+- 新增: `device` 接口的 `getId` ,参数 `type` 新增 `oaid` 类型,返回参数新增 `oaid` 及 `device`新增`oaid` 值,获取匿名设备标识符示例
+- 新增: `device` 接口的 `getDeviceId`,返回参数 `deviceId` 新增 `oaid` 值,获取匿名设备标识符示例
+- 新增: `device` 接口的 `getInfo` 方法,新增 异形区域参数 `cutout` 示例
+- 新增: `file` 接口新增 `mkdir` 方法,创建目录示例
+- 新增: `file` 接口新增 `rmdir` 方法,删除目录示例
+- 新增: `account` 接口新增 判断账户登录状态`isLogin` 方法示例
+- 新增: `prompt` 接口的 `showDialog` 方法,新增是否在点击遮罩时关闭对话框的参数 `autocancel`示例
+- 新增: `webview` 接口打开的网页中,新增 `deeplink` 打开快应用示例
+- 新增: `bluetooth` 接口新增状态码 `10010`示例
+- 新增: `brightness` 接口新增 `setKeepScreenOn` 设置常亮状态示例
+- 新增: `widgets`,支持快应用订阅卡片
+- 新增: 新增 `zip` 解压压缩文件示例
+- 新增: `sensor` 接口的 `subscribeAccelerometer` 新增监听加速度数据回调函数的执行频率 参数 `interval` 示例
+- 新增: `media` 接口的 `takePhoto` 、`takeVideo` 、 `pickImage` 、 `pickVideo` 、 `pickFile`方法,返回参数新增 `name`，`size` 示例
+- 新增: `media` 接口的 `pickImages` 、`pickVideos` 方法,返回参数新增 选取的文件列表`files`示例
+- 新增: `media` 接口的 `pickImages` 、`pickVideos` 方法,返回参数新增 选取的文件列表`files`示例
+- 新增: `cipher` 接口的 `aes` 方法,支持 `AES` 加解密能力示例
+
 # v1.5.0
 
 此版本配套快应用平台版本为 v1050

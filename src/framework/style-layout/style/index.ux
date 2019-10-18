@@ -20,7 +20,7 @@
   export default {
     private: {
       componentName: '样式示例',
-      positioncValue: 'static'
+      positioncValue: 'relative'
     },
     onInit() {
       this.$page.setTitleBar({
@@ -30,17 +30,14 @@
 
     changePosition(val) {
       switch (val) {
-        case 'static':
-          this.positioncValue = 'relative';
-          break;
         case 'relative':
           this.positioncValue = 'absolute';
           break;
         case 'absolute':
           this.positioncValue = 'fixed';
           break;
-          case 'fixed':
-          this.positioncValue = 'static';
+        case 'fixed':
+          this.positioncValue = 'relative';
           break;
       }
     }

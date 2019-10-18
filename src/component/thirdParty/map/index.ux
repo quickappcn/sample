@@ -510,7 +510,7 @@
       this.$element('map').getRegion({
         success (res) {
           prompt.showToast({
-            message: "西南角：\n" + res.southwest + "\n" + "东北角：\n" + res.northeast
+            message: "西南角：\n" + JSON.stringify(res.southwest) + "\n" + "东北角：\n" + JSON.stringify(res.northeast)
           })
         },
         fail (reason) {
