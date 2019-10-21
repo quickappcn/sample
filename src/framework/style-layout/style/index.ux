@@ -9,9 +9,6 @@
       <text id="title">ID选择器</text>
       <text class="title">class选择器</text>
       <text>tag选择器</text>
-      <text style="position: {{positioncValue}}" onclick="changePosition(positioncValue)">
-        点击切换属性{{positioncValue}}
-      </text>
     </div>
   </div>
 </template>
@@ -20,7 +17,6 @@
   export default {
     private: {
       componentName: '样式示例',
-      positioncValue: 'relative'
     },
     onInit() {
       this.$page.setTitleBar({
@@ -28,19 +24,6 @@
       })
     },
 
-    changePosition(val) {
-      switch (val) {
-        case 'relative':
-          this.positioncValue = 'absolute';
-          break;
-        case 'absolute':
-          this.positioncValue = 'fixed';
-          break;
-        case 'fixed':
-          this.positioncValue = 'relative';
-          break;
-      }
-    }
   }
 </script>
 

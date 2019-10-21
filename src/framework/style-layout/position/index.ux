@@ -16,28 +16,28 @@
         </div>
         <text class="description-without-margin">勾选边距方向与拖动滑块决定边距距离</text>
         <div class="slider-container">
-            <label class="small-title offset-label">top: {{top}}</label>
+            <label class="small-title offset-label">{{offsetPrefix}}top: {{top}}</label>
             <input type="checkbox" checked="{{topCheckFlag}}" class="position-checkbox"
                    onchange="getCheckValue('topCheckFlag')"/>
             <slider class="slider" min="0" max="100" value="{{top}}" step="{{step}}"
                     onchange="getSliderValue('top')"></slider>
         </div>
         <div class="slider-container">
-            <label class="small-title offset-label">left: {{left}}</label>
+            <label class="small-title offset-label">{{offsetPrefix}}left: {{left}}</label>
             <input type="checkbox" checked="{{leftCheckFlag}}" class="position-checkbox"
                    onchange="getCheckValue('leftCheckFlag')"/>
             <slider class="slider" min="0" max="100" value="{{left}}" step="{{step}}"
                     onchange="getSliderValue('left')"></slider>
         </div>
         <div class="slider-container">
-            <label class="small-title offset-label">right: {{right}}</label>
+            <label class="small-title offset-label">{{offsetPrefix}}right: {{right}}</label>
             <input type="checkbox" checked="{{rightCheckFlag}}" class="position-checkbox"
                    onchange="getCheckValue('rightCheckFlag')"/>
             <slider class="slider" min="0" max="100" value="{{right}}" step="{{step}}"
                     onchange="getSliderValue('right')"></slider>
         </div>
         <div class="slider-container">
-            <label class="small-title offset-label">bottom: {{bottom}}</label>
+            <label class="small-title offset-label">{{offsetPrefix}}bottom: {{bottom}}</label>
             <input type="checkbox" checked="{{bottomCheckFlag}}" class="position-checkbox"
                    onchange="getCheckValue('bottomCheckFlag')"/>
             <slider class="slider" min="0" max="100" value="{{bottom}}" step="{{step}}"
@@ -45,12 +45,12 @@
         </div>
         <div class="slider-container">
             <label class="small-title offset-label">width: {{width}}</label>
-            <slider class="slider" min="100" max="280" value="{{width}}" step="{{step}}"
+            <slider class="slider" min="100" max="300" value="{{width}}" step="{{step}}"
                     onchange="getSliderValue('width')"></slider>
         </div>
         <div class="slider-container">
             <label class="small-title offset-label">height: {{height}}</label>
-            <slider class="slider" min="100" max="280" value="{{height}}" step="{{step}}"
+            <slider class="slider" min="100" max="300" value="{{height}}" step="{{step}}"
                     onchange="getSliderValue('height')"></slider>
         </div>
         <text class="description">{{getStyleText}}</text>
@@ -58,9 +58,9 @@
             <Text class="reset-text">Reset</Text>
         </div>
         <div class="box-container">
+            <div class="square-container-black"></div>
             <div class="square-container"
                  style="{{getStyleText}}"></div>
-            <div class="square-container-black"></div>
         </div>
     </div>
 </template>
@@ -76,6 +76,7 @@
             width: 100,
             height: 100,
             position: 'relative',
+            offsetPrefix: 'margin-',
             topCheckFlag: false,
             leftCheckFlag: false,
             rightCheckFlag: false,
@@ -88,11 +89,14 @@
 
                 let addStyleOffset = (offsetDirection, offsetNumber, positionAttribute, enableFlag = false) => {
                     if (!offsetDirection) return
-                    let newStringTextPrefix = positionAttribute === 'relative' ? 'margin-' : '';
+                    const relativeFlag = positionAttribute === 'relative'
+                    let newStringTextPrefix = relativeFlag ? 'margin-' : ''
+                    let oppositeStringTextPrefix = relativeFlag ? '' : 'margin-';
+                    styleText += `${oppositeStringTextPrefix}${offsetDirection}:0;`
                     if (!enableFlag) {
-                        offsetNumber = null
+                        offsetNumber = 0
                     } else {
-                        offsetNumber += 'px';
+                        offsetNumber += 'px'
                     }
                     styleText += `${newStringTextPrefix}${offsetDirection}:${offsetNumber};`
                 };
@@ -110,7 +114,9 @@
             }
         },
         onSelectChanged(e) {
-            this.position = e.newValue
+            let newPosition = e.newValue;
+            this.position = newPosition;
+            this.offsetPrefix = newPosition === 'relative' ? 'margin-' : '';
         },
         getSliderValue(name, e) {
             this[name] = e.progress
@@ -128,7 +134,7 @@
             this.topCheckFlag = false;
             this.leftCheckFlag = false;
             this.rightCheckFlag = false;
-            this.bottomCheckFlag = false
+            this.bottomCheckFlag = false;
         }
     }
 </script>
@@ -195,23 +201,24 @@
     }
 
     .slider {
-        width: 400px;
+        width: 300px;
         margin-left: 16px;
     }
 
     .slider-container {
         flex-direction: row;
+        justify-content: space-between;
         align-items: center;
         height: 60px;
         margin-bottom: 12px;
     }
 
     .offset-label {
-        width: 200px;
+        width: 370px;
     }
 
     .position-checkbox {
-        width: 100px;
+        width: 60px;
     }
 
     .description {

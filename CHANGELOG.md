@@ -8,6 +8,8 @@
 - 新增：`manifest.json`中`config`新增 `network` 属性示例
 - 新增：`manifest.json`中`dispaly`新增 `fitCutout` 属性, 适配异形屏示例
 - 新增：页面对象 `$page` 新增 `query` 属性，获取页面参数示例
+- 新增: `manifest.json`中 `router` 新增 `errorPage` 字段，可以自定义错误页面；如果不配置的话，在页面跳转异常时，会跳转到系统默认的错误页
+- 新增: `app.ux` 新增 `onPageNotFound`生命回调，在页面跳转异常时会触发回调，回调参数为一个对象，里有错误地址uri
 
 ## 组件
 
@@ -17,11 +19,13 @@
 - 新增: `list` 组件，`scrollTo` 方法新增 `smooth` 属性,设置页面平滑滚动示例
 - 新增: `textarea` 组件，新增 `onlinechange` 事件,监听输入框行数变化示例
 - 优化：`map`子组件`custommarker`示例
+- 优化：`image` 组件alt优化，可以传入字符串 `blank` ，在不传入值的时候系统会设置默认灰色占位图
 
 ## 样式
 
 - 新增: `input` 组件自定义光标颜色示例
-- 新增： `relative`，`absolute`定位示例
+- 新增： `relative`，`absolute`, `fixed` 定位示例Demo
+- 新增: position属性新增`relative`和`absolute`,默认值现在为`relative`
 
 ## 接口
 
