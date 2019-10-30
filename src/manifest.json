@@ -168,9 +168,6 @@
       "component/container/swiper": {
         "component": "index"
       },
-      "component/container/marquee": {
-        "component": "index"
-      },
       "component/form/switch": {
         "component": "index"
       },
@@ -181,6 +178,9 @@
         "component": "index"
       },
       "component/basic/rating": {
+        "component": "index"
+      },
+      "component/basic/marquee": {
         "component": "index"
       },
       "component/form/textarea": {

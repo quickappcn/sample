@@ -205,10 +205,6 @@ export const tabsData = {
           {
             name: 'tabs',
             path: 'component/container/tabs'
-          },
-          {
-            name: 'marquee',
-            path: 'component/container/marquee'
           }
         ]
       },
@@ -242,6 +238,10 @@ export const tabsData = {
           {
             name: 'text',
             path: 'component/basic/text'
+          },
+          {
+            name: 'marquee',
+            path: 'component/basic/marquee'
           }
         ]
       },
