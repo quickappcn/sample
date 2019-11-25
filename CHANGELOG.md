@@ -34,18 +34,16 @@
 - 新增: `device` 接口的 `getInfo` 方法,新增 异形区域参数 `cutout` 示例
 - 新增: `file` 接口新增 `mkdir` 方法,创建目录示例
 - 新增: `file` 接口新增 `rmdir` 方法,删除目录示例
-- 新增: `account` 接口新增 判断账户登录状态`isLogin` 方法示例
 - 新增: `prompt` 接口的 `showDialog` 方法,新增是否在点击遮罩时关闭对话框的参数 `autocancel`示例
 - 新增: `webview` 接口打开的网页中,新增 `deeplink` 打开快应用示例
 - 新增: `bluetooth` 接口新增状态码 `10010`示例
 - 新增: `brightness` 接口新增 `setKeepScreenOn` 设置常亮状态示例
-- 新增: `widgets`,支持快应用订阅卡片
 - 新增: 新增 `zip` 解压压缩文件示例
 - 新增: `sensor` 接口的 `subscribeAccelerometer` 新增监听加速度数据回调函数的执行频率 参数 `interval` 示例
 - 新增: `media` 接口的 `takePhoto` 、`takeVideo` 、 `pickImage` 、 `pickVideo` 、 `pickFile`方法,返回参数新增 `name`，`size` 示例
 - 新增: `media` 接口的 `pickImages` 、`pickVideos` 方法,返回参数新增 选取的文件列表`files`示例
-- 新增: `media` 接口的 `pickImages` 、`pickVideos` 方法,返回参数新增 选取的文件列表`files`示例
 - 新增: `cipher` 接口的 `aes` 方法,支持 `AES` 加解密能力示例
+- 新增: `configuration` 接口配置多语言环境
 
 # v1.5.0
 
