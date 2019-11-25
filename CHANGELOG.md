@@ -63,7 +63,6 @@
 - 优化 `span`组件嵌套`span`组件示例
 - 新增 `input` 组件支持`tel` 类型示例
 - 新增 `stack`组件 `fullscreenchange` 事件示例
-- 新增 `web` 组件 `opacity` 属性 示例
 - 新增：slot 组件，默认内容设置 示例
 - 新增：slot 组件，具名插槽 示例
 

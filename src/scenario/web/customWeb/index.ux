@@ -1,8 +1,9 @@
 <template>
   <div class="doc-page">
-    <text class="item" onclick="openWeb">快应用官网一</text>
-    <a class="item" href="/scenario/web/web?url=https%3A%2F%2Fwww.quickapp.cn%2F&titleBarText=%E5%BF%AB%E5%BA%94%E7%94%A8%E5%AE%98%E7%BD%91%E4%BA%8C&titleBarTextColor=%230faeff&titleBarBackgroundColor=%23FFFFFF">快应用官网二</a>
-    <a class="item" href="/scenario/web/web?url=https%3A%2F%2Fwww.quickapp.cn%2F&titleBarText=快应用官网三&titleBarTextColor=%23FFFFFF&titleBarBackgroundColor=%23543db9">快应用官网三</a>
+    <text class="item" onclick="openWeb">接口形式：打开页面</text>
+    <a class="item" href="/scenario/web/customWeb/wrap?url=https%3A%2F%2Fwww.quickapp.cn%2F&titleBarBackgroundColor=%23543db9">
+      链接形式：打开页面
+    </a>
   </div>
 </template>
 
@@ -14,7 +15,7 @@
     },
     openWeb () {
       router.push({
-        uri: '/scenario/web/web',
+        uri: '/scenario/web/customWeb/wrap',
         params: {
           url: 'https://www.quickapp.cn/',
           titleBarText: '',

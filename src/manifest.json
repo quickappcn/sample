@@ -510,7 +510,7 @@
       "scenario/web/customWeb": {
         "component": "index"
       },
-      "scenario/web/web": {
+      "scenario/web/customWeb/wrap": {
         "component": "index"
       },
       "scenario/component/finegrainsize": {
