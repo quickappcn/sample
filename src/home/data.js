@@ -673,11 +673,7 @@ export const tabsData = {
           {
             name: '自定义web页面',
             path: 'scenario/web/customWeb'
-          },
-          {
-            name: '在WebView通过deeplink打开快应用',
-            path: 'scenario/web/openQuickAppFromWeb'
-          },
+          }
         ]
       }
     ]

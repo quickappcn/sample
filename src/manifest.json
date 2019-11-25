@@ -510,9 +510,6 @@
       "scenario/web/customWeb": {
         "component": "index"
       },
-      "scenario/web/openQuickAppFromWeb": {
-        "component": "index"
-      },
       "scenario/web/web": {
         "component": "index"
       },
