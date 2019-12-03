@@ -10,7 +10,7 @@
           autoplay="false" onprepared="preparedfn" onstart="startfn" onpause="pausefn" onfinish="finishfn"
           onerror="errorfn" onseeking="seekingfn" onseeked="seekedfn" ontimeupdate="timeupdatefn" id="video"
           src="https://swsdl.vivo.com.cn/appstore/developer/uploadfile/20180323/20180323183010837.mp4"
-          controls="{{showControls}}" muted="{{muted}}"></video>
+          controls="{{showControls}}" muted="{{muted}}" titlebar="{{titlebar}}" title="快应用展示视频"></video>
         <image show="{{showmask}}" src="https://www.quickapp.cn/assets/images/home/video.png"></image>
         <div class="mask align-item-center justify-content-center flex-column" show="{{showmask}}">
           <image show="{{showicon}}" src="./start.png" class="start-icon" onclick="startVideo"></image>
@@ -28,11 +28,15 @@
       </div>
       <div class="item-content">
         <text class="item-content_title">是否静音</text>
-        <switch class="switch" style="margin-left:120px" checked="false" onchange="onMutedSwitched"></switch>
+        <switch class="switch" checked="false" onchange="onMutedSwitched"></switch>
       </div>
       <div class="item-content">
         <text class="item-content_title">是否添加覆盖物</text>
-        <switch class="switch" style="margin-left:120px" checked="false" onchange="onMulchSwitched"></switch>
+        <switch class="switch" checked="false" onchange="onMulchSwitched"></switch>
+      </div>
+      <div class="item-content">
+        <text class="item-content_title">全屏播放时是否显示顶栏</text>
+        <switch class="switch" checked="false" onchange="onTitleBarShowed"></switch>
       </div>
     </div>
 
@@ -60,6 +64,7 @@
       ignorenet: false,
       showControls: true,
       muted: false,
+      titlebar:false,
       objectFitValues: [
         "cover", "contain", "fill", "none", "scale-down"
       ],
@@ -97,6 +102,9 @@
     },
     onMulchSwitched(e) {
       this.$element('stackDemo01').requestFullscreen({ screenOrientation: "landscape" })
+    },
+    onTitleBarShowed(e){
+      this.titlebar=e.checked;
     },
     changeOption(e) {
       this.objectFitClass = e.newValue
@@ -148,7 +156,7 @@
   .select {
     border: 1px solid #333333;
     border-radius: 5px;
-    margin-left: 20px;
+    margin-top:12px;
   }
 
   .option {
@@ -157,23 +165,4 @@
     padding-left: 20px;
   }
 
-  .contain {
-    object-fit: contain;
-  }
-
-  .cover {
-    object-fit: cover;
-  }
-
-  .fill {
-    object-fit: fill;
-  }
-
-  .none {
-    object-fit: none;
-  }
-
-  .scale-down {
-    object-fit: scale-down;
-  }
 </style>

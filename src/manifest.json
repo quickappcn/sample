@@ -51,6 +51,7 @@
     { "name": "service.exchange" },
     { "name": "system.zip" },
     { "name": "hap.io.MessageChannel" },
+    { "name": "system.configuration" },
     {
       "name": "service.wxpay",
       "params": {
@@ -260,6 +261,9 @@
         "component": "index"
       },
       "framework/i18n": {
+        "component": "index"
+      },
+      "framework/theme-mode": {
         "component": "index"
       },
       "framework/computed": {
@@ -524,6 +528,12 @@
         "component": "index"
       },
       "scenario/scene/accessible": {
+        "component": "index"
+      },
+      "component/media/web/darkmode-enable": {
+        "component": "index"
+      },
+      "component/media/web/darkmode-disable": {
         "component": "index"
       }
     }

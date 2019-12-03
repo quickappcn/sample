@@ -5,71 +5,79 @@
         </div>
 
         <div class="item-container">
-          <input type="button" value="允许cookie跨域读取" @click="openWeb(true)"/>
+            <input type="button" value="允许cookie跨域读取" @click="openWeb(true)"/>
         </div>
         <div class="item-container">
-          <input type="button" value="禁止cookie跨域读取(1010+)" @click="openWeb(false)"/>
+            <input type="button" value="禁止cookie跨域读取(1010+)" @click="openWeb(false)"/>
         </div>
         <div class="item-container">
-          <input type="button" value="进入京东拉起微信支付" @click="gotoPay('weixin')"/>
+            <input type="button" value="进入京东拉起微信支付" @click="gotoPay('weixin')"/>
         </div>
         <div class="item-container">
-          <input type="button" value="进入淘宝拉起支付宝支付" @click="gotoPay('zhifubao')"/>
+            <input type="button" value="进入淘宝拉起支付宝支付" @click="gotoPay('zhifubao')"/>
         </div>
         <div class="item-container">
-          <input type="button" value="web组件h5页面支持定位功能" @click="gotoMap"/>
+            <input type="button" value="web组件h5页面支持定位功能" @click="gotoMap"/>
         </div>
         <div class="item-container">
-          <input type="button" value="web组件h5页面支持网页证书过期加载" @click="openWeb(true)"/>
+            <input type="button" value="web组件h5页面支持网页证书过期加载" @click="openWeb(true)"/>
+        </div>
+        <div class="item-container">
+            <input type="button" value="安卓10+ webview夜间模式适配效果（打开）" @click="openDarkModePage('/component/media/web/darkmode-enable')"/>
+        </div>
+        <div class="item-container">
+            <input type="button" value="安卓10+ webview夜间模式适配效果（关闭）" @click="openDarkModePage('/component/media/web/darkmode-disable')"/>
         </div>
     </div>
 </template>
 
 <script>
-  import router from "@system.router"
+    import router from "@system.router"
 
-  export default {
-    private: {
-      componentName: 'web'
-    },
-    onInit () {
-      this.$page.setTitleBar({ text: 'Web' })
-    },
-    openWeb (allowthirdpartycookies) {
-      router.push({
-        uri: '/component/media/web/detail',
-        params: {
-          url: 'https://www.quickapp.cn/',
-          allowthirdpartycookies
+    export default {
+        private: {
+            componentName: 'web'
+        },
+        onInit() {
+            this.$page.setTitleBar({text: 'Web'})
+        },
+        openWeb (allowthirdpartycookies) {
+            router.push({
+                uri: '/component/media/web/detail',
+                params: {
+                    url: 'https://www.quickapp.cn/',
+                    allowthirdpartycookies
+                }
+            })
+        },
+        gotoPay(type) {
+            router.push({
+                uri: '/component/media/web/detail',
+                params: {
+                    url: type === 'weixin' ? 'https://www.jd.com' : 'https://www.taobao.com',
+                    allowthirdpartycookies: false
+                }
+            })
+        },
+        gotoMap() {
+            router.push({
+                uri: '/component/media/web/detail',
+                params: {
+                    url: 'https://m.amap.com/',
+                }
+            })
+        },
+        openDarkModePage(uri){
+            router.push({uri})
         }
-      })
-    },
-    gotoPay (type) {
-      router.push({
-        uri: '/component/media/web/detail',
-        params: {
-          url: type === 'weixin' ? 'https://www.jd.com' : 'https://www.taobao.com',
-          allowthirdpartycookies: false
-        }
-      })
-    },
-    gotoMap () {
-      router.push({
-        uri: '/component/media/web/detail',
-        params: {
-          url: 'https://m.amap.com/',
-        }
-      })
     }
-  }
 </script>
 
 <style>
-  @import '../../../common/css/common.css';
-  .item-container {
-    margin-bottom: 50px;
-    margin-right: 60px;
-    margin-left: 60px;
-    flex-direction: column;
-  }
+    @import '../../../common/css/common.css';
+
+    .item-container {
+        margin:0 60px 50px 60px;
+        flex-direction: column;
+    }
 </style>

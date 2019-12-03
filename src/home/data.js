@@ -42,6 +42,10 @@ export const tabsData = {
           {
             name: '多语言',
             path: 'framework/i18n'
+          },
+          {
+            name: '主题模式（请在Android 10+下测试）',
+            path: 'framework/theme-mode'
           }
         ]
       },

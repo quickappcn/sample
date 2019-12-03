@@ -1,0 +1,11 @@
+<template>
+  <div class="demo-page">
+    <web src="https://www.baidu.com"></web>
+  </div>
+</template>
+
+<style>
+  .demo-page {
+    flex-direction: column;
+  }
+</style>
