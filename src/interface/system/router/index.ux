@@ -18,17 +18,20 @@
       <input type="button" class="btn"  onclick="routeLocation" value="跳到手机定位页面"/>
       <input type="button" class="btn"  onclick="routeWlan" value="跳到Wifi设置页面"/>
       <input type="button" class="btn"  onclick="routeBluetooth" value="跳到蓝牙设置页面"/>
+      <input type="button" class="btn"  onclick="routePages" value="获取页面栈列表"/>
     </div>
   </div>
 </template>
 
 <script>
   import router from '@system.router'
+  import prompt from '@system.prompt'
 
   export default {
     private: {
       show: true,
-      componentName: 'router'
+      componentName: 'router',
+      stacks: []
     },
     onInit () {
       this.$page.setTitleBar({text: 'Router'})
@@ -109,6 +112,11 @@
     routeBluetooth () {
       router.push({
         uri: 'hap://settings/bluetooth_manager'
+      })
+    },
+    routePages() {
+      prompt.showToast({
+        message: router.getPages()
       })
     }
   }
