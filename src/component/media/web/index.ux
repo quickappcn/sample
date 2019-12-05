@@ -23,10 +23,7 @@
             <input type="button" value="web组件h5页面支持网页证书过期加载" @click="openWeb(true)"/>
         </div>
         <div class="item-container">
-            <input type="button" value="安卓10+ webview夜间模式适配效果（打开）" @click="openDarkModePage('/component/media/web/darkmode-enable')"/>
-        </div>
-        <div class="item-container">
-            <input type="button" value="安卓10+ webview夜间模式适配效果（关闭）" @click="openDarkModePage('/component/media/web/darkmode-disable')"/>
+            <input type="button" value="安卓10+ webview夜间模式适配效果对比" @click="openDarkModePage('/component/media/web/darkmode-web')"/>
         </div>
     </div>
 </template>

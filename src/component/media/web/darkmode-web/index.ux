@@ -1,0 +1,33 @@
+<template>
+  <div class="demo-page">
+    <div class="title-container">
+      <text class="title">请使用 Android 10+ 终端并开启夜间模式查看效果</text>
+      <text class="title">开启了夜间模式适配的Webview</text>
+    </div>
+    <web src="https://doc.quickapp.cn"></web>
+    <div class="title-container">
+      <text class="title">关闭了夜间模式适配的Webview</text>
+    </div>
+    <web src="https://doc.quickapp.cn" enablenightmode="false"></web>
+  </div>
+</template>
+
+<style>
+  .demo-page {
+    flex-direction: column;
+  }
+  web{
+    height:150px;
+  }
+  .title-container {
+    flex-direction: column;
+    border-radius: 4px;
+    padding: 0 24px;
+  }
+
+  .title {
+    font-size: 36px;
+    color: #242424;
+    margin:12px 0;
+  }
+</style>

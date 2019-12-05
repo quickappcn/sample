@@ -7,8 +7,8 @@
     <text class="description">地址："./img/sponge-bob.jpg"</text>
     <image src="./img/sponge_bob.jpg" class="small-image"></image>
     <text class="description">远程地址图标，alt为blank（加载时不显示占位图）</text>
-    <text class="description">地址："http://www.lzshuli.com/game_images/144469495.jpeg"</text>
-    <image src="http://www.lzshuli.com/game_images/144469495.jpeg" class="big-image"
+    <text class="description">地址："http://www.guandian.cn/uploadfile3/2017/0117/20170117034705167.png"</text>
+    <image src="http://www.guandian.cn/uploadfile3/2017/0117/20170117034705167.png" class="big-image"
            alt="blank"></image>
     <text class="description">远程地址图标，无alt(加载时sdk自动设置灰色占位图）</text>
     <text class="description">地址："http://www.guandian.cn/uploadfile3/2017/0117/20170117034705167.png"</text>
