@@ -165,4 +165,24 @@
     padding-left: 20px;
   }
 
+  .contain {
+    object-fit: contain;
+  }
+
+  .cover {
+    object-fit: cover;
+  }
+
+  .fill {
+    object-fit: fill;
+  }
+
+  .none {
+    object-fit: none;
+  }
+
+  .scale-down {
+    object-fit: scale-down;
+  }
+
 </style>
