@@ -562,6 +562,7 @@
     "titleBar": true,
     "titleBarBackgroundColor": "#0faeff",
     "titleBarTextColor": "#ffffff",
+    "themeMode": -1,
     "pages": {
       "home": {
         "titleBarText": "快应用组件展示"
