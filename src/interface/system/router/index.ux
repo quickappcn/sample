@@ -30,8 +30,7 @@
   export default {
     private: {
       show: true,
-      componentName: 'router',
-      stacks: []
+      componentName: 'router'
     },
     onInit () {
       this.$page.setTitleBar({text: 'Router'})
