@@ -13,13 +13,14 @@
     "watch": "hap watch"
   },
   "devDependencies": {
+    "@types/quickapp": "git+https://github.com/vivoquickapp/quickapp-types.git",
     "catching": "^1.0.2",
-    "hap-toolkit": "^0.6.1",
     "less": "^3.0.4",
     "less-loader": "^4.1.0",
     "qrcode-js": "0.0.2"
   },
   "dependencies": {
+    "hap-toolkit": "^0.6.2",
     "hsl-to-hex": "^1.0.0"
   },
   "browserslist": [
