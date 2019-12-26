@@ -16,6 +16,11 @@
       <input type="button" class="btn" onclick="listenNetwork" value="监听网络连接状态"/>
       <input type="button" class="btn" onclick="cancelNetwork" value="取消网络链接状态监听"/>
 
+      <div class="item-content">
+        <text class="txt">sim卡数量: {{simCardNum}}</text>
+        <text class="txt" for="simMsg">运营商信息：{{$item.operator}}  卡槽序号：{{$item.slotIndex}}  是否默认数据卡：{{$item.isDefaultDataOperator? '是' : '否'}}</text>
+      </div>
+      <input type="button" class="btn" onclick="getSimMsg" value="获取sim卡运营商信息"/>
     </div>
   </div>
 </template>
@@ -29,6 +34,8 @@
       componentName: 'network',
       networkType: '',
       currentType: '',
+      simCardNum: '',
+      simMsg: []
     },
     onInit () {
       this.$page.setTitleBar({text: 'Network'})
@@ -63,6 +70,21 @@
     },
     cancelNetwork () {
       network.unsubscribe()
+    },
+    getSimMsg () {
+      const self = this
+      network.getSimOperators({
+        success: function (data) {
+          self.simMsg = data.operators
+          self.simCardNum = data.size
+        },
+        fail: function (erromsg, errocode) {
+          console.info(`### network.getSimOperators ### ${errocode}: ${erromsg}`)
+          prompt.showToast({
+            message: `${errocode}: ${erromsg}`
+          })
+        },
+    })
     }
   }
 </script>
