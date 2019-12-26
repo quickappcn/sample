@@ -45,6 +45,18 @@
         <text class="txt">coordTypes: {{coordTypes}}</text>
       </div>
       <input type="button" class="btn" onclick="getCoordTypes" value="获取当前坐标系类型" />
+
+      <div class="item-content">
+        <text class="txt">选取地理位置:</text>
+        <text class="txt">位置名称: {{chooseLocationData.name}}</text>
+        <text class="txt">详细地址: {{chooseLocationData.address}}</text>
+        <text class="txt">coordType: {{chooseLocationData.coordType}}</text>
+        <text class="txt">经度: {{chooseLocationData.latitude}}</text>
+        <text class="txt">纬度: {{chooseLocationData.longitude}}</text>
+      </div>
+      <input type="button" class="btn" onclick="chooseLocation" value="选取位置" />
+
+      <input type="button" class="btn" onclick="openLocation" value="查看位置"/>
     </div>
   </div>
 </template>
@@ -73,7 +85,14 @@
       objectFitValues: [
         "gcj02", "wgs84"
       ],
-      coordTypeValue: 'gcj02'
+      coordTypeValue: 'gcj02',
+      chooseLocationData: {
+        name: '',
+        address: '',
+        coordType: '',
+        latitude: '',
+        longitude: ''
+      }
     },
     onInit() {
       this.$page.setTitleBar({
@@ -134,6 +153,33 @@
         fail: function (data, code) {
           self.locationType = `获取失败，code: ${code}`
           console.log(`### handling fail ### code: ${code}`)
+        }
+      })
+    },
+    openLocation () {
+      const self = this
+      //默认展示：北京天安门地址
+      const defaultAddress = {
+        latitude: 39.90960456049752,
+        longitude: 116.3972282409668
+      }
+      geolocation.openLocation({
+        coordType: self.coordTypes,
+        latitude: self.chooseLocationData.latitude || defaultAddress.latitude,
+        longitude: self.chooseLocationData.longitude || defaultAddress.longitude,
+      })
+    },
+    chooseLocation () {
+      const self = this
+      geolocation.chooseLocation({
+        coordType: self.coordTypes,
+        success: function (data) {
+          self.chooseLocationData = data
+        },
+        fail: function (errordata, errorcode) {
+          prompt.showToast({
+            message: `${errorcode}：${errordata}`
+          })
         }
       })
     }
