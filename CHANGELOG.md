@@ -18,6 +18,8 @@
 ## 接口
 
 - 新增: `router`接口`push`方法，`params`新增参数`___PARAM_PAGE_ANIMATION___`，可分别对`openEnter`、`closeEnter`、`openExit`、`closeExit`进行配置，来进行页面跳转动画定制
+- 新增: `package`接口新增`getInfo`方法，获取应用版本号、版本名示例
+- 新增: `package`接口新增`getSignatureDigests`方法，获取应用签名摘要信息示例
 
 # v1.6.0
 
