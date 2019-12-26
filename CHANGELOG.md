@@ -14,6 +14,8 @@
 
 - 新增: `switch`组件新增`thumb-color`、`track-color`样式，自定义小球和滑轨颜色示例
 - 新增: `progress`组件`horizontal`增加`layer-color`样式，设置滑轨颜色示例
+- 新增：`animation`回调事件示例
+- 新增: 动画样式`animation-name`支持多个`keyframe`定义的动画示例
 
 ## 接口
 
