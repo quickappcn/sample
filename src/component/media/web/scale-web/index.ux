@@ -1,0 +1,39 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+
+    <div class="item-container">
+      <text class="item-title">是否缩放锁定：{{supportzoom}}</text>
+      <input type="button" class="btn" @click="scaleFn" value="切换网页缩放锁定"/>
+    </div>
+    <web src="https://cnodejs.org" supportzoom="{{supportzoom}}"></web>
+  </div>
+</template>
+
+<script>
+  export default {
+    private: {
+      supportzoom: false,
+      componentName: "网页缩放示例"
+    },
+    scaleFn () {
+      this.supportzoom = !this.supportzoom
+    }
+  }
+</script>
+
+<style>
+    @import '../../../../common/css/common.css';
+
+    .btn {
+        margin-top:20px;
+    }
+
+    .item-title {
+      padding-left: 50px;
+      padding-bottom: 20px;
+    }
+</style>
+  

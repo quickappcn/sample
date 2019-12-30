@@ -6,6 +6,8 @@
 
 - 新增: `list`组件新增`scrollBy`方法，控制`list`从当前位置进行滑动示例
 - 新增: 组件新增通用方法`toTempFilePath`，将组件内容保存为图片示例
+- 新增: `web`组件新增`showloadingdialog`属性，web组件是否展示加载框对比示例
+- 新增: `web`组件新增`supportzoom`属性，设置网页是否支持缩放示例
 
 ## 样式
 

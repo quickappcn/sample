@@ -538,6 +538,12 @@
       },
       "scenario/effect/sharepic": {
         "component": "index"
+      },
+      "component/media/web/loading-web": {
+        "component": "index"
+      },
+      "component/media/web/scale-web": {
+        "component": "index"
       }
     }
   },

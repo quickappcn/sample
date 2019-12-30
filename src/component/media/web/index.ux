@@ -25,6 +25,12 @@
         <div class="item-container">
             <input type="button" value="安卓10+ webview夜间模式适配效果对比" @click="openDarkModePage('/component/media/web/darkmode-web')"/>
         </div>
+        <div class="item-container">
+            <input type="button" value="web组件是否展示加载框" @click="openDarkModePage('/component/media/web/loading-web')"/>
+        </div>
+        <div class="item-container">
+            <input type="button" value="web组件是否支持缩放" @click="openDarkModePage('/component/media/web/scale-web')"/>
+        </div>
     </div>
 </template>
 

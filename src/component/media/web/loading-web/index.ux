@@ -1,0 +1,32 @@
+<template>
+  <div class="demo-page">
+    <div class="title-container">
+      <text class="title">展示默认加载框</text>
+    </div>
+    <web src="https://doc.quickapp.cn"></web>
+    <div class="title-container">
+      <text class="title">隐藏默认加载框</text>
+    </div>
+    <web src="https://doc.quickapp.cn" showloadingdialog="false"></web>
+  </div>
+</template>
+
+<style>
+  .demo-page {
+    flex-direction: column;
+  }
+  web{
+    height:150px;
+  }
+  .title-container {
+    flex-direction: column;
+    border-radius: 4px;
+    padding: 0 24px;
+  }
+
+  .title {
+    font-size: 36px;
+    color: #242424;
+    margin:12px 0;
+  }
+</style>
