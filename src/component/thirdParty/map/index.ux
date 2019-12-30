@@ -2,9 +2,10 @@
   <stack>
     <map id="map" style="width:{{width}}; height:{{height}};mylocation-fill-color: {{fillColor}}; mylocation-stroke-color: {{strokeColor}};" longitude="{{longitude}}" latitude="{{latitude}}" scale="{{scale}}"
       markers="{{markers}}" controls="{{controls}}" circles="{{circles}}" polylines="{{polylines}}" polygons="{{polygons}}" groundoverlays="{{groundoverlays}}"
-      rotate="{{rotate}}" showmylocation="{{showmylocation}}" includePoints="{{includePoints}}" @regionchange="regionchange"
+      rotate="{{rotate}}" showmylocation="{{showmylocation}}" includePoints="{{includePoints}}"  @regionchange="regionchange"
       showcompass="{{compassSwitch}}" enableoverlooking="{{lookingSwitch}}"
       enablezoom="{{zoomSwitch}}" enablescroll="{{dragSwitch}}" enablerotate="{{rotateSwitch}}"
+      heatmaplayer="{{heatmaplayer}}" showscale="{{showscale}}" showzoom="{{showzoom}}"
       @loaded="loaded" @tap="tap" @markertap="markerTap" @callouttap="calloutTap" @controltap="controlTap" @poitap="poitap">
       <custommarker custommarkerattr="{{customMarkerattr}}" style="width:150px;height:150px;" if="isShowView">
         <div style="width:150px;height:150px;background-color:red;">
@@ -18,6 +19,7 @@
           <option value="mapShow" selected="true" class="option">地图展示</option>
           <option value="guestureShow" class="option">手势功能</option>
           <option value="methodShow" class="option">方法</option>
+          <option value="setting" class="option">设置</option>
           <option value="viewportShow" class="option">最佳视口</option>
           <option value="operateSingleMarker" class="option">单一Marker操作</option>
           <option value="calloutShow" class="option">Callout操作</option>
@@ -28,6 +30,7 @@
           <option value="circleShow" class="option">Circle</option>
           <option value="groundoverlayShow" class="option">Groundoverlay</option>
           <option value="controlShow" class="option">Control</option>
+          <option value="heatmaplayerShow" class="option">heatmaplayerShow</option>
           <option value="coordShow" class="option">坐标转换</option>
           <option value="viewShow" class="option">自定义view</option>
         </select>
@@ -47,7 +50,6 @@
       </div>
 
       <div if="showList.guestureShow" class="button-style">
-        <input type="button" value="显示/隐藏指南针" class="btn" @click="switchCompass"></input>
         <input type="button" value="开启/关闭俯视功能" class="btn" @click="switchLooking"></input>
         <input type="button" value="开启/关闭缩放功能" class="btn" @click="switchZoom"></input>
         <input type="button" value="开启/关闭拖动功能" class="btn" @click="switchDrag"></input>
@@ -57,6 +59,7 @@
       <div if="showList.methodShow" class="button-style">
         <input type="button" value="获取中心点坐标" class="btn" @click="getCenter"></input>
         <input type="button" value="获取当前视野范围" class="btn" @click="getRegion"></input>
+        <input type="button" value="设置缩放级别10-15" class="btn" @click="setMaxAndMinScaleLevel"></input>
         <input type="button" value="获取当前放大级别" class="btn" @click="getScale"></input>
         <input type="button" value="获取当前支持的坐标系" class="btn" @click="getSupportedCoordTypes"></input>
         <input type="button" value="获取当前坐标系" class="btn" @click="getCoord"></input>
@@ -178,6 +181,14 @@
         <input type="button" value="展示view" class="btn" @click="showView"></input>
         <input type="button" value="隐藏view" class="btn" @click="hideView"></input>
       </div>
+      <div if="showList.setting" class="button-style">
+        <input type="button" value="显示/隐藏指南针" class="btn" @click="switchCompass"></input>
+        <input type="button" value="显示/隐藏比例尺控件" class="btn" @click="showScaleCon"></input>
+        <input type="button" value="显示/隐藏放大缩小功能控件" class="btn" @click="showZoomCon"></input>
+        <input type="button" value="设置指南针位置" class="btn" @click="setCompassPosition"></input>
+        <input type="button" value="设置比例尺控件位置" class="btn" @click="setScalePosition"></input>
+        <input type="button" value="设置放大缩小控件位置" class="btn" @click="setZoomPosition"></input>
+      </div>
     </div>
   </stack>
 </template>
@@ -282,7 +293,9 @@
         groundoverlayShow: false,
         controlShow: false,
         coordShow: false,
-        viewShow: false
+        viewShow: false,
+        heatmaplayer: false,
+        setting: false
       },
       width: "100%",
       height: "100%",
@@ -312,7 +325,10 @@
         latitude: 39.9090371069,
         longitude: 116.3953853161
       },
-      isShowView: false
+      isShowView: false,
+      heatmaplayer: null,
+      showscale: false,
+      showzoom: false
     },
     onReady () {
       this.getCoord()
@@ -336,6 +352,7 @@
       this.scale = null // 手动缩放后进行缩放比例重置
       this.scale = DEFAULT_SCALE
       this.rotate = 0
+      this.heatmaplayer = null
       markTemp = {
         markerAlpha: 1,
         markerX: 0.5,
@@ -448,6 +465,17 @@
             iconPath: "./img/plus.png"
           }]
           break
+          case "heatmaplayerShow":
+            this.moveToCenter()
+            this.heatmaplayer = {
+              coordType: '',
+              weightedPoints: [Object.assign(TIAN_TAN_PARK_WGS, { intensity: 1})],
+              gradient: {},
+              opacity: 0.5,
+              radius: '50px'
+            }
+          break
+            
       }
     },
     // 视野中心点重置
@@ -521,6 +549,12 @@
         complete () {
           console.log('complete')
         }
+      })
+    },
+    setMaxAndMinScaleLevel () {
+      this.$element('map').setMaxAndMinScaleLevel({
+        maxLevel: 15,
+        minLevel: 10
       })
     },
     // 地图视野变化监听
@@ -599,6 +633,14 @@
     showMyLocation () {
       this.showmylocation = this.showmylocation ? false : true
     },
+    //切换是否展示默认比例尺控件
+    showScaleCon () {
+      this.showscale = !this.showscale
+    },
+    //切换是否展示放大缩小功能控件
+    showZoomCon () {
+      this.showzoom = !this.showzoom
+    },
     // 移动到当前定位点
     moveToMyLocation () {
       this.$element('map').moveToMyLocation()
@@ -622,6 +664,18 @@
           console.log('complete')
         }
       })
+    },
+    //设置指南针位置
+    setCompassPosition () {
+      this.$element('map').setCompassPosition({ x: 100, y: 100 })
+    },
+    //设置比例尺控件位置
+    setScalePosition () {
+      this.$element('map').setScalePosition({ x: 850, y: 100 })
+    },
+    //设置放大缩小控件位置
+    setZoomPosition () {
+      this.$element('map').setZoomPosition({ x: 850, y: 1500 })
     },
     // 获取当前支持的坐标系
     getSupportedCoordTypes () {
@@ -1059,7 +1113,7 @@
     },
     hideView() {
       this.isShowView = false
-    }
+    },
   }
 </script>
 

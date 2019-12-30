@@ -19,6 +19,11 @@
 - 新增: `video`组件新增`titlebar`、`title`属性，设置视频组件在全屏时显示顶栏和顶栏标题示例
 - 新增: `web`组件新增`enablenightmode`属性，web组件在`andriod10`下夜间模式与日间模式对比示例
 - 新增：`image`组件新增`enablenightmode`组件,指定图片在当前快应用主题模式为夜间模式时,是否增加遮罩处理示例
+- 新增: `map`组件新增`setMaxAndMinScaleLevel`方法，设置地图缩放级别示例
+- 新增: `map`组件新增`heatmaplayer`属性，进行热力图配置示例
+- 新增: `map`组件新增`showscale`属性和`setScalePosition`方法，默认比例尺控件展示与位置设置示例
+- 新增: `map`组件新增`showzoom`属性和`setZoomPosition`方法，放大缩小功能控件展示与位置设置示例
+- 新增: `map`组件新增`setCompassPosition`方法，设置地图指南针位置示例
 
 ## 样式
 
