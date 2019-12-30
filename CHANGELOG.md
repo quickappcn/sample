@@ -12,6 +12,9 @@
 - 新增: `switch`组件新增`thumb-color`、`track-color`样式，自定义小球和滑轨颜色示例
 - 新增: `progress`组件`horizontal`增加`layer-color`样式，设置滑轨颜色示例
 
+## 接口
+
+- 新增: `router`接口`push`方法，`params`新增参数`___PARAM_PAGE_ANIMATION___`，可分别对`openEnter`、`closeEnter`、`openExit`、`closeExit`进行配置，来进行页面跳转动画定制
 
 # v1.6.0
 
