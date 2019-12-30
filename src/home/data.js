@@ -671,8 +671,12 @@ export const tabsData = {
             path: 'scenario/effect/simulate-swipe'
           },
           {
-            name:'获取元素宽高及位置',
-            path:'scenario/effect/offset'
+            name: '获取元素宽高及位置',
+            path: 'scenario/effect/offset'
+          },
+          {
+            name: '组件内容导出图片',
+            path: 'scenario/effect/sharepic'
           }
         ]
       },

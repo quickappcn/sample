@@ -1,0 +1,70 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+
+    <div id="pic-target" class="item-container">
+      <div class="item-content">
+        <text class="item-title">快应用</text>
+        <image class="logo-image" src="../../../common/logo.png"></image>
+      </div>
+    </div>
+    <input type="button" class="btn" onclick="toTempFilePath" value="生成图片" />
+
+    <div class="item-container">
+      <div class="item-content">
+        <image class="logo-image" src="{{targetPic}}"></image>
+      </div>
+    </div>
+
+  </div>
+</template>
+
+<script>
+  export default {
+    private: {
+      componentName: '组件内容保存为图片',
+      targetPic: ''
+    },
+    onInit () {
+      this.$page.setTitleBar({text: '组件内容保存为图片'})
+    },
+    toTempFilePath () {
+      const self = this
+      this.$element('pic-target').toTempFilePath({
+        fileType: 'jpg',
+        quality: 1,
+        success: function (res) {
+          self.targetPic = res.tempFilePath
+        },
+        fail: function (res, code) {
+          console.info(`## toTempFilePath ## ${code}：${res}`)
+        }
+      })
+    }
+  }
+</script>
+
+<style>
+  @import '../../../common/css/common.css';
+
+  .item-container {
+    margin-bottom: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+  .item-content {
+    margin-bottom: 60px;
+    flex-direction: column;
+    align-items: center;
+  }
+  .item-title {
+    text-align: center;
+  }
+  .logo-image {
+    width: 200px;
+    height: 200px;
+  }
+</style>

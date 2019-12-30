@@ -5,11 +5,13 @@
 ## 组件
 
 - 新增: `list`组件新增`scrollBy`方法，控制`list`从当前位置进行滑动示例
+- 新增: 组件新增通用方法`toTempFilePath`，将组件内容保存为图片示例
 
 ## 样式
 
 - 新增: `switch`组件新增`thumb-color`、`track-color`样式，自定义小球和滑轨颜色示例
 - 新增: `progress`组件`horizontal`增加`layer-color`样式，设置滑轨颜色示例
+
 
 # v1.6.0
 
