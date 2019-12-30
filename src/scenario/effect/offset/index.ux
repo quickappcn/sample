@@ -5,12 +5,16 @@
     </div>
     <div class="doc-page text-center center">
       <div class="doc-shell m-bottom-md">
-        <div class="doc-target" onresize="getOffset">目标</div>
+        <div id="box-target" class="doc-target" onresize="getOffset">目标</div>
       </div>
       <text class="m-bottom-xs">offsetWidth: {{offsetWidth}}</text>
       <text class="m-bottom-xs">offsetHeight: {{offsetHeight}}</text>
       <text class="m-bottom-xs">offsetLeft: {{offsetLeft}}</text>
       <text class="m-bottom-xs">offsetTop: {{offsetTop}}</text>
+      <text class="m-bottom-xs">节点左边界坐标: {{left}}</text>
+      <text class="m-bottom-xs">节点右边界坐标: {{right}}</text>
+      <text class="m-bottom-xs">节点上边界坐标: {{top}}</text>
+      <text class="m-bottom-xs">节点下边界坐标: {{bottom}}</text>
     </div>
   </div>
 </template>
@@ -25,11 +29,30 @@
       offsetWidth: 0,
       offsetHeight: 0,
       offsetLeft: 0,
-      offsetTop: 0
+      offsetTop: 0,
+      top: 0,
+      bottom: 0,
+      left: 0,
+      right: 0,
+      width: 0,
+      height: 0,
     },
     onInit() {
       this.$page.setTitleBar({
         text: this.text
+      })
+    },
+    onShow () {
+      const self = this
+      this.$element('box-target').getBoundingClientRect({
+        success: function ({ top, bottom, left, right, width, height }) {
+          self.top = top
+          self.bottom = bottom
+          self.left = left
+          self.right = right
+          self.width = width
+          self.height = height
+        }
       })
     },
     getOffset(e) {
