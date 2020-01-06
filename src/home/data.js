@@ -157,6 +157,10 @@ export const tabsData = {
           {
             name: '回调函数',
             path: 'framework/optimization/bindPage'
+          },
+          {
+            name: '动态组件',
+            path: 'framework/optimization/dynaComponents'
           }
         ]
       },

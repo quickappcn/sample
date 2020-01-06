@@ -2,6 +2,10 @@
 
 此版本配套快应用平台版本为 v1070
 
+## 框架
+
+- 新增：动态组件示例
+
 ## 组件
 
 - 新增: `list`组件新增`scrollBy`方法，控制`list`从当前位置进行滑动示例
@@ -24,7 +28,6 @@
 - 新增: `package`接口新增`getInfo`方法，获取应用版本号、版本名示例
 - 新增: `package`接口新增`getSignatureDigests`方法，获取应用签名摘要信息示例
 - 新增: `network`接口新增`getSimOperators`方法，获取Sim卡的运营商信息示例
-
 
 # v1.6.0
 
