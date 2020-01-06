@@ -1,9 +1,9 @@
 {
   "package": "org.quickapp.union.sample",
   "name": "快应用示例中心",
-  "versionName": "1.4.0",
-  "versionCode": 140,
-  "minPlatformVersion": 1060,
+  "versionName": "1.7.0",
+  "versionCode": 170,
+  "minPlatformVersion": 1070,
   "icon": "/common/logo.png",
   "features": [
     { "name": "system.cipher" },
