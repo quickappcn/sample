@@ -342,6 +342,10 @@ export const tabsData = {
           {
             name: 'font字体设置',
             path: 'component/style/font-family'
+          },
+          {
+            name: 'animateApi',
+            path: 'component/style/animateApi'
           }
         ]
       }

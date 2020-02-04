@@ -1,0 +1,198 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+
+    <div class="item-container">
+      <div id="show-box"></div>
+    </div>
+
+    <div class="item-container">
+      <input class="btn" type="button" value="changesize" onclick="changeSize"/>
+      <input class="btn" type="button" value="changecolor" onclick="changeColor"/>
+      <input class="btn" type="button" value="changeopacity" onclick="changeOpacity"/>
+      <input class="btn" type="button" value="changetransform" onclick="changeTransform"/>
+    </div>
+
+    <div class="item-container">
+      <div id="animate-fnshow"></div>
+    </div>
+
+    <div class="item-container">
+      <input class="btn" type="button" value="play" onclick="play"/>
+      <input class="btn" type="button" value="finish" onclick="finish"/>
+      <input class="btn" type="button" value="pause" onclick="pause"/>
+      <input class="btn" type="button" value="cancel" onclick="cancel"/>
+      <input class="btn" type="button" value="reverse" onclick="reverse"/>
+    </div>
+  </div>
+</template>
+
+<script>
+  import prompt from '@system.prompt'
+  export default {
+    private: {
+      componentName: 'animate',
+      cAnimationNode: null
+    },
+    onInit () {
+      this.$page.setTitleBar({text: 'Animate'})
+    },
+    onShow() {
+      this.animatefn()
+    },
+    changeSize () {
+      const keyframes = [
+        {
+          width: '200px',
+          height: '200px',
+          time: 0
+        },
+        {
+          width: '100px',
+          height: '100px',
+          time: 100
+        }
+      ]
+      const options = {
+        duration: 1000,
+        easing: 'linear',
+        delay: 0,
+        fill: 'none',
+        iterations: 5
+      }
+      this.playFn(keyframes, options)
+    },
+    changeColor () {
+      const keyframes = [
+        {
+          backgroundColor: '#ff00ff',
+          time: 0
+        },
+        {
+          backgroundColor: '#ff0000',
+          time: 100
+        }
+      ]
+      const options = {
+        duration: 1000,
+        easing: 'linear',
+        delay: 0,
+        fill: 'none',
+        iterations: 5
+      }
+      this.playFn(keyframes, options)
+    },
+    changeOpacity () {
+      const keyframes = [
+        {
+          opacity: 1,
+          time: 0
+        },
+        {
+          opacity: 0.1,
+          time: 100
+        }
+      ]
+      const options = {
+        duration: 1000,
+        easing: 'linear',
+        delay: 0,
+        fill: 'none',
+        iterations: 5
+      }
+      this.playFn(keyframes, options)
+    },
+    changeTransform () {
+      const keyframes = [
+        {
+          transform: {
+            translateX: 0
+          },
+          time: 0
+        },
+        {
+          transform: {
+            translateX: '300px'
+          },
+          time: 100
+        }
+      ]
+      const options = {
+        duration: 1000,
+        easing: 'linear',
+        delay: 0,
+        fill: 'none',
+        iterations: 5
+      }
+      this.playFn(keyframes, options)
+    },
+    playFn (keyframes, options) {
+      const cAnimationNode = this.$element('show-box')
+      const $animation = this.cAnimationNode.animate(keyframes, options)
+      // 将会延迟至 (delay + startTime) ms 后执行动画；
+      $animation.startTime = 1000
+
+      $animation.play()
+      this.mTextState = $animation.playState
+
+      $animation.oncancel = () => {
+        this.mTextState = $animation.playState
+      }
+      $animation.onfinish = () => {
+        this.mTextState = $animation.playState
+      }
+    },
+    animatefn () {
+      const keyframes = [
+        {
+          transform: {
+            translateX: 0
+          },
+          time: 0
+        },
+        {
+          transform: {
+            translateX: '300px'
+          },
+          time: 100
+        }
+      ]
+      const options = {
+        duration: 1000,
+        easing: 'linear',
+        delay: 0,
+        fill: 'none',
+        iterations: 5
+      }
+      const element = this.$element('animate-fnshow')
+      this.animation = element.animate(keyframes, options)
+    },
+    play () {
+      this.animation.play()
+    },
+    finish () {
+      this.animation.finish()
+    },
+    pause () {
+      this.animation.pause()
+    },
+    cancel () {
+      this.animation.cancel()
+    },
+    reverse () {
+      this.animation.reverse()
+    }
+  }
+</script>
+
+<style>
+  @import '../../../common/css/common.css';
+  
+  #show-box, #animate-fnshow {
+    width: 200px;
+    height: 200px;
+    background-color: #ff00ff;
+  }
+</style>

@@ -532,6 +532,9 @@
       },
       "component/media/web/darkmode-web": {
         "component": "index"
+      },
+      "component/style/animateApi": {
+        "component": "index"
       }
     }
   },
