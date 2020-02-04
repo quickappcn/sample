@@ -28,6 +28,7 @@
 - 新增: `package`接口新增`getInfo`方法，获取应用版本号、版本名示例
 - 新增: `package`接口新增`getSignatureDigests`方法，获取应用签名摘要信息示例
 - 新增: `network`接口新增`getSimOperators`方法，获取Sim卡的运营商信息示例
+- 新增： `app`接口新增`createQuickAppQRCode`方法,快应用生成分享二维码示例
 
 # v1.6.0
 
