@@ -15,9 +15,12 @@
         <text>请输入list的列数:</text>
         <input id="columns" type="number" class="input-number" value="{{columnsNum}}" onchange="writeCloumnsNum" />
       </div>
-      <input type="button" class="btn" value="修改list列数" onclick="setCloumnsNum" />
-      <input type="button" class="btn" name="" value="切换滚动模式" onclick="switchScrollMode" />
-      <input type="button" class="btn" name="" value="回到第一个item" onclick="goIndex" />
+      <div class="btn-wrap-row">
+        <input type="button" class="btn-little" value="修改list列数" onclick="setCloumnsNum"/>
+        <input type="button" class="btn-little" value="切换滚动模式" onclick="switchScrollMode"/>
+        <input type="button" class="btn-little" value="向下滚200px" onclick="switchScrollMove"/>
+        <input type="button" class="btn-little" value="回到第一个item" onclick="goIndex"/>
+      </div>
     </div>
 
     <!-- 数组对象方法 -->
@@ -116,6 +119,9 @@
       // 改变list滚动模式
       this.goIndex()
       this.scrollPage = !this.scrollPage
+    },
+    switchScrollMove () {
+      this.$element('list').scrollBy({ top: 200 , behavior: 'smooth'})
     },
     goIndex() {
       this.$element('list').scrollTo({ index: 0 ,smooth:true})
