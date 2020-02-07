@@ -25,6 +25,20 @@
         </div>
       </div>
     </div>
+
+    <div class="item-container">
+      <text class="item-title ">设置小球和滑轨颜色</text>
+      <div class="switch-wrap">
+        <div class="switch-content border-bottom">
+          <text class="label">开启中</text>
+          <switch checked="true" class="switch switch-set-color"></switch>
+        </div>
+        <div class="switch-content">
+          <text class="label">关闭中</text>
+          <switch checked="false" class="switch switch-set-color"></switch>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -76,5 +90,9 @@
   .border-bottom {
     border-color: #bbbbbb;
     border-bottom-width: 1px;
+  }
+  .switch-set-color{
+    thumb-color: #ff6600;
+    track-color: #00b7ff;
   }
 </style>
