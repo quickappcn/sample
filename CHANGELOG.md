@@ -9,6 +9,7 @@
 ## 样式
 
 - 新增: `switch`组件新增`thumb-color`、`track-color`样式，自定义小球和滑轨颜色示例
+- 新增: `progress`组件`horizontal`增加`layer-color`样式，设置滑轨颜色示例
 
 # v1.6.0
 
