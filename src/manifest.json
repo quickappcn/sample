@@ -547,6 +547,9 @@
       },
       "framework/optimization/dynaComponents": {
         "component": "index"
+      },
+      "scenario/scene/waterfall": {
+        "component": "index"
       }
     }
   },

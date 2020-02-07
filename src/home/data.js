@@ -656,6 +656,10 @@ export const tabsData = {
           {
             name: '无障碍模式',
             path: 'scenario/scene/accessible'
+          },
+          {
+            name: '瀑布流展示',
+            path: 'scenario/scene/waterfall'
           }
         ]
       },
