@@ -5,6 +5,8 @@
 ## 框架
 
 - 新增：动态组件示例
+- 新增: `manifest.json`中`display`新增`themeMode`字段,设置快应用皮肤模式示例
+- 新增： 框架新增组件动画`animate`的`API`使用示例
 
 ## 组件
 
@@ -14,6 +16,9 @@
 - 新增: `web`组件新增`showloadingdialog`属性，web组件是否展示加载框对比示例
 - 新增: `web`组件新增`supportzoom`属性，设置网页是否支持缩放示例
 - 新增: `richtext`组件新增`start`、`complete`事件，监测`richtext`开始加载和完成加载示例
+- 新增: `video`组件新增`titlebar`、`title`属性，设置视频组件在全屏时显示顶栏和顶栏标题示例
+- 新增: `web`组件新增`enablenightmode`属性，web组件在`andriod10`下夜间模式与日间模式对比示例
+- 新增：`image`组件新增`enablenightmode`组件,指定图片在当前快应用主题模式为夜间模式时,是否增加遮罩处理示例
 
 ## 样式
 

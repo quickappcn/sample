@@ -20,7 +20,6 @@
       <input type="button" class="btn"  onclick="routeBluetooth" value="跳到蓝牙设置页面"/>
       <input type="button" class="btn"  onclick="routeAnimate" value="跳转定制动画"/>
       <input type="button" class="btn"  onclick="routeAnimateNone" value="跳转无动画"/>
-      <input type="button" class="btn"  onclick="routePages" value="获取页面栈列表"/>
     </div>
   </div>
 </template>
@@ -113,11 +112,6 @@
     routeBluetooth () {
       router.push({
         uri: 'hap://settings/bluetooth_manager'
-      })
-    },
-    routePages() {
-      prompt.showToast({
-        message: router.getPages()
       })
     },
     routeAnimate () {
