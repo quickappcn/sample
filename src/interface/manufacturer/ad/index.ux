@@ -349,9 +349,6 @@ export default {
     this.$page.setTitleBar({ text: '广告' })
     this.logs.unshift(`provider: ${ad.getProvider()}`)
   },
-  onHide() {
-
-  },
   initBannerAd() {
     let bannerAd = ad.createBannerAd({
       adUnitId: this.bannerAdUnitIds[this.bannerAds.length % this.bannerAdUnitIds.length ],
