@@ -55,7 +55,7 @@
               <option value='top' selected="false">top</option>
               <option value='left' selected="false">left</option>
             </select>
-            
+
             <input type="number" class="input-text" onchange="bannerStyleAttrValChange"></input>
             <input type="button" class="btn" onclick="setBannerStyle" value="设置style" />
           </div>
@@ -144,7 +144,7 @@
 
   </div>
 </template>
-  
+
   <style>
 @import "../../../Common/css/common.css";
 .bottomPlaceHolder {
@@ -289,7 +289,7 @@
   padding: 0px 10px;
 }
 </style>
-  
+
   <script>
 import ad from '@service.ad'
 export default {
@@ -368,7 +368,7 @@ export default {
         this.logs.unshift('banner 广告show失败')
       })
     },10)
-    
+
   },
   listenBannerAdOnloadB() {
     for (const i in this.bannerAds) {

@@ -461,6 +461,9 @@
       "interface/system/account":{
         "component":"index"
       },
+      "interface/manufacturer/ad": {
+        "component":"index"
+      },
       "component/style/animation": {
         "component": "index"
       },
