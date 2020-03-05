@@ -573,6 +573,15 @@ export const tabsData = {
             path: 'interface/thirdparty/wbaccount'
           }
         ]
+      },
+      {
+        name: '厂商服务',
+        caseList: [
+          {
+            name: '广告',
+            path: 'interface/manufacturer/ad'
+          }
+        ]
       }
     ]
   },

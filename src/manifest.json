@@ -39,6 +39,7 @@
     { "name": "system.bluetooth" },
     { "name": "system.websocketfactory" },
     { "name": "system.wifi" },
+    { "name": "service.ad" },
     { "name": "android.settings" },
     { "name": "service.stats" },
     { "name": "service.account" },
@@ -442,6 +443,9 @@
         "component": "index"
       },
       "interface/system/zip":{
+        "component":"index"
+      },
+      "interface/manufacturer/ad": {
         "component":"index"
       },
       "component/style/animation": {
