@@ -566,6 +566,15 @@ export const tabsData = {
         ]
       },
       {
+        name: '厂商服务',
+        caseList: [
+          {
+            name: '支付',
+            path: 'interface/system/pay'
+          }
+        ]
+      },
+      {
         name: '第三方服务',
         caseList: [
           {

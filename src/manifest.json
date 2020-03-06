@@ -564,6 +564,9 @@
       "framework/pagestart/pageB": {
         "component": "index",
         "launchMode": "standard"
+      },
+      "interface/system/pay": {
+        "component": "index"
       }
     }
   },

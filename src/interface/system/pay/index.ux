@@ -1,0 +1,57 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+
+    <div class="item-container">
+      <text>此功能不便演示，请参考代码.该功能需接入对应厂商支付功能</text>
+    </div>
+  </div>
+</template>
+
+<script>
+  import pay from '@service.pay'
+  import prompt from '@system.prompt'
+  import fetch from '@system.fetch'
+
+  export default {
+    private: {
+      componentName: 'pay'
+    },
+    onInit () {
+      this.$page.setTitleBar({text: 'pay'})
+    },
+    pay () {
+      fetch.fetch({
+        url:'http://www.example.com',//　根据实际业务填写正确的地址
+        success: function (ret) {
+          const orderInfo = ret.data.orderInfo
+          pay.pay({
+            orderInfo: orderInfo,
+            success: function (data) {
+              console.info(`success` + `code:${data.code}` + `result:${data.result}`+ `message:${data.message}`);
+            },
+            fail: function (data, code) {
+              console.info(`success` + `code:${code}` + `message:${data}`);
+            },
+            complete: function () {
+              console.info('complete')
+            }
+          })
+        }
+      })
+    }
+  }
+</script>
+
+<style>
+  @import '../../../common/css/common.css';
+
+  .item-container {
+    margin-top: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+</style>
