@@ -1,0 +1,45 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{pageTitle}}</text>
+    </div>
+    <div class="item-container">
+      <text class="title">singleTask:每次打开目标页面都会打开已有的目标页面并回调onRefresh生命周期函数，清除该页面上打开的其他页面，没有打开过此页面时会创建新的目标页面实例。</text>
+      <input type="button" class="btn"  onclick="routePush" value="跳转"/>
+    </div>
+
+  </div>
+</template>
+
+<script>
+  import router from '@system.router'
+  import prompt from '@system.prompt'
+  export default {
+    private: {
+      pageTitle: 'singleTask'
+    },
+    onInit () {
+      this.$page.setTitleBar({ text: this.pageTitle })
+    },
+    routePush () {
+      router.push({
+        uri: '/framework/pagestart/pageB'
+      })
+    },
+    onRefresh () {
+      prompt.showToast({
+        message: 'onfresh'
+      })
+    }
+  }
+</script>
+
+<style>
+  @import '../../../common/css/common.css';
+
+  text {
+    flex: 1;
+    font-size: 35px;
+    text-align: center;
+  }
+</style>

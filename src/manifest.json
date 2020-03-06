@@ -550,6 +550,17 @@
       },
       "scenario/scene/waterfall": {
         "component": "index"
+      },
+      "framework/pagestart": {
+        "component": "index"
+      },
+      "framework/pagestart/pageA": {
+        "component": "index",
+        "launchMode": "singleTask"
+      },
+      "framework/pagestart/pageB": {
+        "component": "index",
+        "launchMode": "standard"
       }
     }
   },

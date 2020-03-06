@@ -46,6 +46,10 @@ export const tabsData = {
           {
             name: '主题模式（请在Android 10+下测试）',
             path: 'framework/theme-mode'
+          },
+          {
+            name: '页面启动模式',
+            path: 'framework/pagestart'
           }
         ]
       },

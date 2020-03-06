@@ -1,0 +1,45 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{pageTitle}}</text>
+    </div>
+    <div class="item-container">
+      <text class="title">standard:每次打开新的目标页面（多次打开目标页面地址时会存在多个相同页面）</text>
+      <input type="button" class="btn"  onclick="routePush" value="跳转pageA"/>
+    </div>
+
+  </div>
+</template>
+
+<script>
+  import router from '@system.router'
+  import prompt from '@system.prompt'
+  export default {
+    private: {
+      pageTitle: 'standard'
+    },
+    onInit () {
+      this.$page.setTitleBar({ text: this.pageTitle })
+    },
+    routePush () {
+      router.push({
+        uri: '/framework/pagestart/pageA'
+      })
+    },
+    onRefresh () {
+      prompt.showToast({
+        message: 'onfresh'
+      })
+    }
+  }
+</script>
+
+<style>
+  @import '../../../common/css/common.css';
+
+  text {
+    flex: 1;
+    font-size: 35px;
+    text-align: center;
+  }
+</style>
