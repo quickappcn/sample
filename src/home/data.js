@@ -571,6 +571,10 @@ export const tabsData = {
           {
             name: '支付',
             path: 'interface/system/pay'
+          },
+          {
+            name: '推送',
+            path: 'interface/system/push'
           }
         ]
       },
