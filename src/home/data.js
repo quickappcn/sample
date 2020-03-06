@@ -575,6 +575,10 @@ export const tabsData = {
           {
             name: '推送',
             path: 'interface/system/push'
+          },
+          {
+            name: '统计',
+            path: 'interface/system/stats'
           }
         ]
       },

@@ -570,6 +570,9 @@
       },
       "interface/system/pay": {
         "component": "index"
+      },
+      "interface/system/stats": {
+        "component": "index"
       }
     }
   },

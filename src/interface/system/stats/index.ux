@@ -1,0 +1,58 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+
+    <div class="item-container">
+      <text>此功能不便演示，请参考代码．该功能需接入对应厂商的统计权限</text>
+    </div>
+  </div>
+</template>
+
+<script>
+  import stats from '@service.stats'
+
+  export default {
+    private: {
+      componentName: 'stats'
+    },
+    onInit () {
+      this.$page.setTitleBar({text: 'stats'})
+      console.log(stats.getProvider())
+      this.recordCount ()
+    },
+    // 计数类型事件
+    recordCount () {
+      stats.recordCountEvent({
+      category: 'Button_Click',
+      key: 'Button_OK_click',
+      map: {
+        param1: 'value1'
+      }
+    })
+    },
+    // 计算类型事件
+    recordCalculate () {
+      stats.recordCalculateEvent({
+        category: 'user_pay',
+        key: 'buy_ebook',
+        value: 20,
+        map: {
+          param1: 'value1'
+        }
+      })
+    }
+  }
+</script>
+
+<style>
+  @import '../../../common/css/common.css';
+
+  .item-container {
+    margin-top: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+</style>
