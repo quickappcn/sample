@@ -579,6 +579,10 @@ export const tabsData = {
           {
             name: '统计',
             path: 'interface/system/stats'
+          },
+          {
+            name: '厂商帐号',
+            path: 'interface/system/account'
           }
         ]
       },

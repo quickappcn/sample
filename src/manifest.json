@@ -458,6 +458,9 @@
       "interface/system/push":{
         "component":"index"
       },
+      "interface/system/account":{
+        "component":"index"
+      },
       "component/style/animation": {
         "component": "index"
       },
