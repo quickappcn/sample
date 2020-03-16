@@ -1,0 +1,225 @@
+<template>
+    <div class="demo-page">
+        <text class="title">
+            为了测试不同情况，可以在manifest.json 的display属性增加orientation:'landscape'切换横屏和修改themeMode为-1（自动跟随主题模式），查看效果
+        </text>
+        <text class="title">视窗宽度（像素单位）：{{ windowWidth }}</text>
+        <text class="title">视窗高度（像素单位）：{{ windowHeight }}</text>
+        <text class="title">屏幕密度：{{ screenDensity }}</text>
+        <text class="title">视窗宽度（dp单位）：{{ windowWidth / screenDensity }}</text>
+        <text class="title">视窗高度（dp单位）：{{ windowHeight / screenDensity }}</text>
+        <div class="title-container">
+            <text class="title">宽度小于等于360dp 时显示红色，其他情况显示黄色</text>
+        </div>
+        <div class="outside-container">
+            <div class="box-container less-mq"></div>
+        </div>
+        <div class="title-container">
+            <text class="title">当dppx=3（pixelRatio值与dppx相等）时显示红色，其他情况显示黄色（resolution参数的dppx单位）</text>
+        </div>
+        <div class="outside-container">
+            <div class="box-container resolution-mq"></div>
+        </div>
+        <div class="title-container">
+            <text class="title">当dpi=480（dpi值 = 160 * dppx值）时显示红色，其他情况显示黄色（resolution参数的dpi参数）</text>
+        </div>
+        <div class="outside-container">
+            <div class="box-container dpi-mq"></div>
+        </div>
+
+        <div class="title-container">
+            <text class="title">竖屏时容器为黄色，横屏时容器为红色（not参数）</text>
+        </div>
+        <div class="outside-container">
+            <div class="box-container not-mq"></div>
+        </div>
+        <div class="title-container">
+            <text class="title">竖屏时容器为黄色，横屏时容器为红色（import外部css语法）</text>
+        </div>
+        <div class="outside-container">
+            <div class="box-container import-mq"></div>
+        </div>
+        <div class="title-container">
+            <text class="title">快应用视窗宽高比>=1时显示蓝色，< 1时显示红色（aspect-ratio参数）</text>
+        </div>
+        <div class="outside-container">
+            <div class="box-container aspect-ratio-mq"></div>
+        </div>
+        <div class="title-container">
+            <text class="title">
+                容器颜色在屏幕宽度在<=360dp时为红色，360dp~640dp时为黄色，>=640dp时为绿色（测试 <=等运算符）
+            </text>
+        </div>
+        <div class="outside-container">
+            <div class="box-container larger-width-mq"></div>
+        </div>
+        <div class="title-container">
+            <text class="title">在日间模式容器为黑色，夜间模式为蓝色（prefers-color-scheme参数）</text>
+        </div>
+        <div class="outside-container">
+            <div class="box-container theme-mq" forcedark="false"></div>
+        </div>
+        <div class="title-container">
+            <text class="title">在横屏情况或屏幕高度>=690dp时容器为蓝色，其他情况为黄色（,（逗号）参数）</text>
+        </div>
+        <div class="outside-container">
+            <div class="box-container comma-mq"></div>
+        </div>
+
+    </div>
+</template>
+
+<style>
+    @import "./index.css" screen and (orientation:landscape);
+
+
+    .demo-page {
+        flex-direction: column;
+    }
+
+    .title-container {
+        flex-direction: row;
+        align-items: center;
+        padding: 24px;
+        border-radius: 12px;
+        margin: 12px;
+        border: 1px solid #4c9afa;
+    }
+
+    .title {
+        font-size: 36px;
+        line-height: 48px;
+        color: #242424;
+        margin: 10px;
+    }
+
+    .box-container {
+        width: 200px;
+        height: 100px;
+        margin: 20px;
+        border-radius: 25px;
+    }
+
+    .outside-container {
+        height: 100px;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .larger-width-mq {
+        background-color: red;
+    }
+
+    .aspect-ratio-mq {
+        background-color: red;
+    }
+
+    .comma-mq {
+        background-color: yellow;
+    }
+
+    .not-mq {
+        background-color: yellow;
+    }
+
+    .import-mq {
+        background-color: yellow;
+    }
+
+    .resolution-mq {
+        background-color: yellow;
+    }
+
+    .dpi-mq {
+        background-color: yellow;
+    }
+
+    .theme-mq {
+        background-color: black;
+    }
+
+    .less-mq {
+        background-color: yellow;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        .theme-mq {
+            background-color: blue;
+        }
+    }
+
+    @media (max-width: 360) {
+        .less-mq {
+            background-color: red;
+        }
+    }
+
+
+
+
+    @media (360 < width < 640) {
+        .larger-width-mq {
+            background-color: yellow;
+        }
+    }
+
+    @media only screen and (width >= 640) {
+        .larger-width-mq {
+            background-color: green;
+        }
+    }
+
+    @media (min-aspect-ratio: 1/1) {
+        .aspect-ratio-mq {
+            background-color: blue;
+        }
+    }
+
+    @media (orientation: landscape), (height >= 690) {
+        .comma-mq {
+            background-color: blue;
+        }
+    }
+
+    @media not screen and (orientation: portrait) {
+        .not-mq {
+            background-color: red;
+        }
+    }
+
+    @media (resolution: 3dppx) {
+        .resolution-mq {
+            background-color: red;
+        }
+    }
+
+    @media (resolution: 480dpi) {
+        .dpi-mq {
+            background-color: red;
+        }
+    }
+</style>
+
+<script>
+    import device from "@system.device";
+
+    export default {
+        private: {
+            windowWidth: 0,
+            windowHeight: 0,
+            screenDensity: 0,
+        },
+        onReady() {
+            let that = this;
+            device.getInfo({
+                success: function (result) {
+                    let {windowWidth = 0, windowHeight = 0, screenDensity = 0} = result;
+                    that.windowWidth = windowWidth;
+                    that.windowHeight = windowHeight;
+                    that.screenDensity = screenDensity;
+                }
+            });
+        }
+    };
+</script>

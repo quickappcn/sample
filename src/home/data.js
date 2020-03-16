@@ -93,6 +93,10 @@ export const tabsData = {
           {
             name: '动态修改样式',
             path: 'framework/style-layout/update-style'
+          },
+          {
+            name: '媒体查询 media-query',
+            path: 'framework/style-layout/media-query'
           }
         ]
       },
