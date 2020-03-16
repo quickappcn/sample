@@ -48,7 +48,7 @@
       <text class="item-title">object-fit: scale-down</text>
       <div class="item-content-with-height">
         <image src="./img/pic-240x160.webp" class="fixed-size-wh"
-          style="width: 100px;height: 100px;object-fit: scale-down;"></image>
+               style="width: 100px;height: 100px;object-fit: scale-down;"></image>
       </div>
     </div>
 
@@ -212,21 +212,21 @@
     </div>
 
     <div class="img-layout-header">
-      <text>图片开启夜间模式适配（仅Android 10+支持）： enablenightmode</text>
+      <text>image开启夜间模式适配(仅Android 10+支持)</text>
       <text>请在Android 10+ 夜间模式下查看对比效果</text>
     </div>
 
     <div class="item-container">
-      <text class="item-title">enablenightmode: true(默认值)</text>
+      <text class="item-title">forcedark: true(默认值)</text>
       <div class="item-content-with-height">
         <image src="./img/pic-160x160.jpg" class="fixed-size-wh"></image>
       </div>
     </div>
 
     <div class="item-container">
-      <text class="item-title">enablenightmode: false</text>
+      <text class="item-title">forcedark: false</text>
       <div class="item-content-with-height">
-        <image src="./img/pic-160x160.jpg" class="fixed-size-wh" enablenightmode="false"></image>
+        <image src="./img/pic-160x160.jpg" class="fixed-size-wh" forcedark="false"></image>
       </div>
     </div>
 
@@ -379,7 +379,7 @@
       <text class="item-title">网络图片</text>
       <div class="item-content-without-height">
         <image src="{{requestImageURL}}" style="object-fit: contain" oncomplete="onImageComplete"
-          onerror="onImageError"></image>
+               onerror="onImageError"></image>
       </div>
     </div>
   </div>

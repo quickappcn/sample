@@ -12,38 +12,44 @@
         <text class="title">启用了夜间模式的Image</text>
         <image src="./img/sponge-bob.jpg"></image>
         <text class="title">禁用了夜间模式的Image</text>
-        <image src="./img/sponge-bob.jpg" enablenightmode="false"></image>
+        <image src="./img/sponge-bob.jpg" forcedark="false"></image>
+        <text class="title">media query查询指定夜间模式样式（因为夜间模式时不关闭forcedark，样式会自动反色。所以一般mq配置指定颜色时要关闭forcedark）</text>
+        <text class="title theme-mq" forcedark="false">在日间模式文字为绿色，夜间模式文字为蓝色</text>
     </div>
 </template>
 <script>
-  import configuration from '@system.configuration'
+    import configuration from '@system.configuration'
 
-  export default {
-    private: {
-      themeMode: '空',
-      configCallbackMessage:'空'
-    },
-    fetchTheme() {
-      this.themeMode=configuration.getThemeMode();
-    },
-    onConfigurationChanged (evt) {
-      console.log(`触发生命周期onConfigurationChange：${evt}`)
-      this.configCallbackMessage=JSON.stringify(evt);
-    },
-  }
+    export default {
+        private: {
+            themeMode: '空',
+            configCallbackMessage: '空',
+            forceDarkFlag: true,
+        },
+        changeForceDark(e) {
+            this.forceDarkFlag = e.checked;
+        },
+        fetchTheme() {
+            this.themeMode = configuration.getThemeMode();
+        },
+        onConfigurationChanged(evt) {
+            console.log(`触发生命周期onConfigurationChange：${evt}`);
+            this.configCallbackMessage = JSON.stringify(evt);
+        },
+    }
 </script>
 <style>
     .demo-page {
         flex-direction: column;
         align-items: center;
-        margin-top:100px;
+        margin-top: 100px;
     }
-
 
     .title {
         color: #242424;
         font-size: 36px;
-        margin: 15px;
+        margin: 15px 60px;
+
     }
 
     .reset-button-row {
@@ -65,6 +71,20 @@
         align-items: center;
         justify-content: center;
         background-color: #4c9afa;
+    }
+
+    .item-content_title {
+        font-size: 40px;
+    }
+
+    .theme-mq {
+        color: green;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        .theme-mq {
+            color: blue;
+        }
     }
 
 </style>

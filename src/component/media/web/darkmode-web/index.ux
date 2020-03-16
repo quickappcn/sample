@@ -1,14 +1,15 @@
 <template>
   <div class="demo-page">
     <div class="title-container">
-      <text class="title">请使用 Android 10+ 终端并开启夜间模式查看效果</text>
-      <text class="title">开启了夜间模式适配的Webview</text>
+      <text class="title">web开启夜间模式适配(仅Android 10+支持)</text>
+      <text>image开启夜间模式适配(仅Android 10+支持)</text>
+      <text class="title">forcedark: true(默认值)</text>
     </div>
     <web src="https://doc.quickapp.cn"></web>
     <div class="title-container">
-      <text class="title">关闭了夜间模式适配的Webview</text>
+      <text class="title">forcedark: false</text>
     </div>
-    <web src="https://doc.quickapp.cn" enablenightmode="false"></web>
+    <web src="https://doc.quickapp.cn" forcedark="false"></web>
   </div>
 </template>
 
