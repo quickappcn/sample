@@ -570,19 +570,23 @@ export const tabsData = {
         caseList: [
           {
             name: '支付',
-            path: 'interface/system/pay'
+            path: 'interface/manufacturer/pay'
           },
           {
             name: '推送',
-            path: 'interface/system/push'
+            path: 'interface/manufacturer/push'
           },
           {
             name: '统计',
-            path: 'interface/system/stats'
+            path: 'interface/manufacturer/stats'
           },
           {
             name: '厂商帐号',
-            path: 'interface/system/account'
+            path: 'interface/manufacturer/account'
+          },
+          {
+            name: '广告',
+            path: 'interface/manufacturer/ad'
           }
         ]
       },
@@ -612,15 +616,6 @@ export const tabsData = {
           {
             name: '微博账号',
             path: 'interface/thirdparty/wbaccount'
-          }
-        ]
-      },
-      {
-        name: '厂商服务',
-        caseList: [
-          {
-            name: '广告',
-            path: 'interface/manufacturer/ad'
           }
         ]
       }

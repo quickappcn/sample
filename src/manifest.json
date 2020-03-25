@@ -452,18 +452,6 @@
       "interface/system/zip": {
         "component": "index"
       },
-      "interface/manufacturer/ad": {
-        "component":"index"
-      },
-      "interface/system/push":{
-        "component":"index"
-      },
-      "interface/system/account":{
-        "component":"index"
-      },
-      "interface/manufacturer/ad": {
-        "component":"index"
-      },
       "component/style/animation": {
         "component": "index"
       },
@@ -574,11 +562,20 @@
         "component": "index",
         "launchMode": "standard"
       },
-      "interface/system/pay": {
+      "interface/manufacturer/pay": {
         "component": "index"
       },
-      "interface/system/stats": {
+      "interface/manufacturer/stats": {
         "component": "index"
+      },
+      "interface/manufacturer/push":{
+        "component":"index"
+      },
+      "interface/manufacturer/account":{
+        "component":"index"
+      },
+      "interface/manufacturer/ad": {
+        "component":"index"
       }
     }
   },
