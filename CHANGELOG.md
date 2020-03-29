@@ -4,46 +4,61 @@
 
 ## 框架
 
-- 新增：动态组件示例
-- 新增: `manifest.json`中`display`新增`themeMode`字段,设置快应用皮肤模式示例
-- 新增： 框架新增组件动画`animate`的`API`使用示例
-- 新增：　新增页面启动模式示例
+- 新增: 新增动态组件
+- 新增: 页面对象 `$page` 新增`scrollTo`、`scrollBy`方法,用于控制页面进行滚动
+- 新增：页面对象 `$page` 新增 `getMenuBarRect`方法, 可以获取 menuBar 的布局位置信息
+- 新增：`APP`新增`onRequest`、`onShow`、`onHide`生命周期
+- 新增：`manifest.json`中`display`新增 `themeMode` 字段，用于配置快应用主题模式
+- 新增：`manifest.json`中`display`新增 `forceDark` 字段，用于配置`应用级别`的夜间模式自动反色开关
+- 新增：`manifest.json`中`router.pages`新增 `forceDark` 字段，用于配置`页面级别`的夜间模式自动反色开关
+- 新增：`manifest.json`中`display`新增 `menuBarData` 字段，设置悬浮窗样式
+- 新增： `onConfigurationChanged`生命周期增加 `type:"themeMode"`，在系统更改主题模式时触发，详情请参考官网文档
 
 ## 组件
 
-- 新增: `list`组件新增`scrollBy`方法，控制`list`从当前位置进行滑动示例
-- 新增: 组件新增通用方法`toTempFilePath`，将组件内容保存为图片示例
-- 新增: 组件新增通用方法`getBoundingClientRect`，获取节点的位置信息示例
-- 新增: `web`组件新增`showloadingdialog`属性，web组件是否展示加载框对比示例
-- 新增: `web`组件新增`supportzoom`属性，设置网页是否支持缩放示例
-- 新增: `richtext`组件新增`start`、`complete`事件，监测`richtext`开始加载和完成加载示例
-- 新增: `video`组件新增`titlebar`、`title`属性，设置视频组件在全屏时显示顶栏和顶栏标题示例
-- 新增: `web`组件新增`enablenightmode`属性，web组件在`andriod10`下夜间模式与日间模式对比示例
-- 新增：`image`组件新增`enablenightmode`组件,指定图片在当前快应用主题模式为夜间模式时,是否增加遮罩处理示例
-- 新增: `map`组件新增`setMaxAndMinScaleLevel`方法，设置地图缩放级别示例
-- 新增: `map`组件新增`heatmaplayer`属性，进行热力图配置示例
-- 新增: `map`组件新增`showscale`属性和`setScalePosition`方法，默认比例尺控件展示与位置设置示例
-- 新增: `map`组件新增`showzoom`属性和`setZoomPosition`方法，放大缩小功能控件展示与位置设置示例
-- 新增: `map`组件新增`setCompassPosition`方法，设置地图指南针位置示例
+- 新增: `map`组件新增`setMaxAndMinScaleLevel`方法，设置地图缩放级别
+- 新增: `map`组件新增`heatmaplayer`属性，用于热力图配置
+- 新增: `map`组件新增`showscale`属性和`setScalePosition`方法,设置默认比例尺控件展示与位置
+- 新增: `map`组件新增`showzoom`属性和`setZoomPosition`方法,设置放大缩小功能控件展示与位置
+- 新增: `map`组件新增`setCompassPosition`方法,设置地图指南针位置
+- 新增: `video`组件新增`titlebar`、`title`属性,设置视频组件在全屏时是否显示顶栏和要显示的顶栏标题
+- 新增： `video`组件新增`orientation`属性，用于控制视频的布局方向
+- 新增: `list`组件新增`scrollBy`方法，可以控制`list`从当前位置进行滑动
+- 新增: 组件新增通用方法`getBoundingClientRect`,可以获取节点的位置信息
+- 新增: 组件新增通用方法`toTempFilePath`,可以将组件内容保存为图片
+- 新增: `web`组件新增`showloadingdialog`属性,设置 web 组件是否展示加载框
+- 新增: 除`video`、`camera`、`map`、`custommarker`、`canvas`、`span`以外的全部组件新增通用属性`forcedark`，用于配置`组件级别`的夜间模式自动反色开关
+- 新增: `web`组件新增`supportzoom`属性,设置网页是否支持缩放
+- 新增: `richtext`新增`start`、`complete`事件,监测`richtext`开始加载和完成加载示例
+-
 
 ## 样式
 
-- 新增: `switch`组件新增`thumb-color`、`track-color`样式，自定义小球和滑轨颜色示例
-- 新增: `progress`组件`horizontal`增加`layer-color`样式，设置滑轨颜色示例
-- 新增：`animation`回调事件示例
-- 新增: 动画样式`animation-name`支持多个`keyframe`定义的动画示例
-- 新增: `list`组件新增`layout-type`属性，瀑布流布局示例
+- 新增: `progress`组件`type`为`horizontal`增加`layer-color`样式,设置滑轨颜色示例
+- 新增: `switch`组件新增`thumb-color`、`track-color`样式,可自定义小球和滑轨颜色
+- 新增: `list`组件新增`layout-type`属性,可控制子元素网格展示和交错展示
+- 新增： `list-item`组件新增`column-span`属性,控制`list-item`在`list`中所占列数
+- 新增： 动画新增`animationstart`、`animationiteration` 和 `animationend`回调事件,监听动画事件
+- 优化: 动画样式`animation-name`支持多个`keyframe`定义的动画
+- 优化： `border-radius`支持`percent`单位
+- 新增： 新增支持`media-query`媒体查询，需 hap-toolkit 版本在`0.6.15`以上
 
 ## 接口
 
-- 新增: `router`接口`push`方法，`params`新增参数`___PARAM_PAGE_ANIMATION___`，可分别对`openEnter`、`closeEnter`、`openExit`、`closeExit`进行配置，来进行页面跳转动画定制
-- 新增: `package`接口新增`getInfo`方法，获取应用版本号、版本名示例
-- 新增: `package`接口新增`getSignatureDigests`方法，获取应用签名摘要信息示例
-- 新增: `network`接口新增`getSimOperators`方法，获取Sim卡的运营商信息示例
-- 新增： `app`接口新增`createQuickAppQRCode`方法,快应用生成分享二维码示例
-- 新增: `geolocation`接口新增`openLocation`方法，查看对应位置示例
-- 新增: `geolocation`接口新增`chooseLocation`方法，打开地图选择位置示例
-- 新增: `stats`接口使用示例
+- 新增: `package`接口新增`getInfo`方法,获取应用版本号、版本名
+- 新增: `package`接口新增`getSignatureDigests`方法,获取应用签名摘要信息
+- 新增: `geolocation`接口新增`chooseLocation`方法,打开地图选择位置
+- 新增: `geolocation`接口新增`openLocation`方法,查看地图对应位置
+- 新增: `router`接口新增`getPages`,返回当前页面栈列表和路径
+- 新增: `router`接口`push`方法,`params`新增参数`___PARAM_PAGE_ANIMATION___`，可分别对`openEnter`、`closeEnter`、`openExit`、`closeExit`进行配置,来进行页面跳转动画定制
+- 新增: `network`接口新增`getSimOperators`,获取 Sim 卡的运营商信息
+- 新增：`network`接口`getType`新增`5g`,`bluetooth`,`others`网络类型
+- 新增：`app`接口新增`createQuickAppQRCode`,可生成当前快应用信息的分享二维码
+- 新增：`account`接口新增`getPhoneNumber`方法,获取用户的手机号码
+- 新增：`wxpay`接口新增`payScoreEnable`方法,开通微信支付分功能
+- 新增： `configuration`接口新增`getThemeMode`方法,获取应用当前的主题模式
+- 新增： `webview`接口`loadUrl`新增`showloadingdialog`参数,控制是否展示默认加载框
+- 新增： `device`接口新增`host`,获取宿主信息
 
 # v1.6.0
 
