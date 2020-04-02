@@ -34,7 +34,6 @@
   export default {
     private: {
       componentName: 'animate',
-      cAnimationNode: null
     },
     onInit () {
       this.$page.setTitleBar({text: 'Animate'})
@@ -130,7 +129,7 @@
     },
     playFn (keyframes, options) {
       const cAnimationNode = this.$element('show-box')
-      const $animation = this.cAnimationNode.animate(keyframes, options)
+      const $animation = cAnimationNode.animate(keyframes, options)
       // 将会延迟至 (delay + startTime) ms 后执行动画；
       $animation.startTime = 1000
 
