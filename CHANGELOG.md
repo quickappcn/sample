@@ -55,7 +55,6 @@
 - 新增：`network`接口`getType`新增`5g`,`bluetooth`,`others`网络类型
 - 新增：`app`接口新增`createQuickAppQRCode`,可生成当前快应用信息的分享二维码
 - 新增：`account`接口新增`getPhoneNumber`方法,获取用户的手机号码
-- 新增：`wxpay`接口新增`payScoreEnable`方法,开通微信支付分功能
 - 新增： `configuration`接口新增`getThemeMode`方法,获取应用当前的主题模式
 - 新增： `webview`接口`loadUrl`新增`showloadingdialog`参数,控制是否展示默认加载框
 - 新增： `device`接口新增`host`,获取宿主信息
