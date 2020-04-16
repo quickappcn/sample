@@ -1,6 +1,6 @@
 {
-  "package": "org.hapjs.demo.sample",
-  "name": "快应用组件展示",
+  "package": "org.quickapp.union.sample",
+  "name": "快应用示例中心",
   "versionName": "1.4.0",
   "versionCode": 140,
   "minPlatformVersion": 1060,
