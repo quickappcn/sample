@@ -71,4 +71,6 @@ $ hap -v
 
 ![](./images/img3.gif)
 
+**在线查看**
 
+![](https://cdn.cnbj1.fds.api.mi-img.com/quickapps/apps/sample/online/sample-crcode-https.png)
