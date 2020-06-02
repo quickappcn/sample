@@ -1,0 +1,509 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{ componentName }}</text>
+    </div>
+    <div class="item-container">
+      <div class="item-content">
+        <input
+          class="btn"
+          type="button"
+          value="拍视频限定6s并保存到相册"
+          onclick="takeVideo"
+        />
+        <input
+          class="btn"
+          type="button"
+          value="选择视频文件，并作为task1的uri"
+          onclick="routeDetail"
+        />
+        <input
+          class="btn"
+          type="button"
+          value="选择视频文件，并作为task2的uri"
+          onclick="routeDetail2"
+        />
+        <input
+          class="btn"
+          type="button"
+          value="选择视频文件，并作为task3的uri"
+          onclick="routeDetail3"
+        />
+        <text class="txt">task1视频的路径:{{ pathVideoPick }}</text>
+        <text class="txt">task2视频的路径:{{ pathVideoPick2 }}</text>
+        <text class="txt">task3视频的路径:{{ pathVideoPick3 }}</text>
+      </div>
+      <div class="item-content">
+        <input
+          class="btn"
+          type="button"
+          value="获取视频的信息"
+          onclick="getvideo"
+        />
+        <text class="txt">task1-size:{{ size }}</text>
+        <text class="txt">task1-name:{{ name }}</text>
+        <text class="txt">task1-height:{{ height }}</text>
+        <text class="txt">task1-width:{{ width }}</text>
+        <text class="txt">task1-bitrate:{{ bitrate }}</text>
+        <text class="txt">task1-framerate:{{ framerate }}</text>
+        <text class="txt">task1-duration:{{ duration }}</text>
+        <text class="txt">task2当前视频大小{{ size2 }}</text>
+        <text class="txt">task3当前视频大小{{ size3 }}</text>
+      </div>
+      <div class="item-content">
+        <input
+          class="btn"
+          type="button"
+          value="对全局变量task1实例化"
+          onclick="compressglobal"
+        />
+        <input
+          class="btn"
+          type="button"
+          value="默认压缩task1"
+          onclick="compress"
+        />
+        <input
+          class="btn"
+          type="button"
+          value="中断全局变量task1的压缩任务"
+          onclick="abortp"
+        />
+        <text class="txt">task1当前进度：{{ task1Pro }}</text>
+        <text class="txt">task1压缩后uri：{{ compressUri }}</text>
+        <text class="txt">task1压缩后视频大小{{ compressSize }}</text>
+      </div>
+      <div class="item-content">
+        <input
+          class="btn"
+          type="button"
+          value="对全局变量task2实例化"
+          onclick="compressglobal"
+        />
+        <input
+          class="btn"
+          type="button"
+          value="默认压缩task2"
+          onclick="compress2"
+        />
+        <input
+          class="btn"
+          type="button"
+          value="中断全局变量task2的压缩任务"
+          onclick="abortp2"
+        />
+        <text class="txt">task2当前进度：{{ task2Pro }}</text>
+        <text class="txt">task2压缩后uri：{{ compressUri2 }}</text>
+        <text class="txt">task2压缩后视频大小{{ compressSize2 }}</text>
+      </div>
+      <div class="item-content">
+        <input
+          class="btn"
+          type="button"
+          value="对task1设置压缩程度并压缩：码率参数定为原码率70%"
+          onclick="compress80"
+        />
+        <text class="txt">task1当前进度：{{ task1Pro }}</text>
+        <text class="txt">task1压缩后uri：{{ compressUri }}</text>
+        <text class="txt">task1压缩后视频大小：{{ compressSize }}</text>
+      </div>
+      <div class="item-content">
+        <input
+          class="btn"
+          type="button"
+          value="变量task3实例化，并默认压缩"
+          onclick="compress3"
+        />
+        <text class="txt">task3当前进度：{{ task3Pro }}</text>
+        <text class="txt">task3压缩后uri：{{ compressUri3 }}</text>
+        <text class="txt">task3压缩后视频大小：{{ compressSize3 }}</text>
+      </div>
+      <input
+        class="btn"
+        type="button"
+        value="对task1\2\3压缩后视频保存到相册"
+        onclick="compressVideoSave"
+      />
+      <div class="item-content">
+        <input
+          class="btn"
+          type="button"
+          value="获取task1的原视频的缩略图:"
+          onclick="getImg"
+        />
+        <image src="{{videoimageUri}}" class="image"></image>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import prompt from "@system.prompt";
+import media from "@system.media";
+import Video from "@hap.io.Video";
+export default {
+  private: {
+    componentName: "video",
+    pathVideoPick: "",
+    pathVideoPick2: "",
+    pathVideoPick3: "",
+    curprogress: "",
+    compressUri: "",
+    compressUri2: "",
+    compressUri3: "",
+    duration: "",
+    framerate: "",
+    bitrate: "",
+    height: "",
+    width: "",
+    name: "",
+    size: "",
+    size2: "",
+    size3: "",
+    bps: "",
+    bps2: "",
+    bps3: "",
+    compressSize: "",
+    compressSize2: "",
+    compressSize3: "",
+    task1: "",
+    task2: "",
+    task3: "",
+    task4: "",
+    task5: "",
+    task1Pro: "",
+    task2Pro: "",
+    task3Pro: "",
+    videoimageUri: ""
+  },
+  getvideo() {
+    const self = this;
+    Video.getVideoInfo({
+      uri: self.pathVideoPick,
+      success: function(ret) {
+        self.bps = ret.bitrate;
+        self.bitrate = ret.bitrate;
+        self.size = ret.size;
+        self.duration = ret.duration;
+        self.framerate = ret.framerate;
+        self.height = ret.height;
+        self.width = ret.width;
+        self.name = ret.name;
+      },
+      fail: function(erromsg, errocode) {
+        prompt.showToast({
+          message: `task:${errocode}: ${erromsg}`
+        });
+      }
+    });
+
+    Video.getVideoInfo({
+      uri: self.pathVideoPick2,
+      success: function(ret) {
+        self.bps2 = ret.bitrate;
+        self.size2 = ret.size;
+      },
+      fail: function(erromsg, errocode) {
+        prompt.showToast({
+          message: `task2:${errocode}: ${erromsg}`
+        });
+      }
+    });
+
+    Video.getVideoInfo({
+      uri: self.pathVideoPick3,
+      success: function(ret) {
+        self.bps2 = ret.bitrate;
+        self.size3 = ret.size;
+      },
+      fail: function(erromsg, errocode) {
+        prompt.showToast({
+          message: `task3:${errocode}: ${erromsg}`
+        });
+      }
+    });
+  },
+  compressVideoSave() {
+    const self = this;
+    media.saveToPhotosAlbum({
+      uri: self.compressUri,
+      success: function() {
+        prompt.showToast({
+          message: `task:save success`
+        });
+      },
+      fail: function(data, code) {
+        console.log(`handling fail, code = ${code}`);
+      }
+    });
+    media.saveToPhotosAlbum({
+      uri: self.compressUri2,
+      success: function() {
+        console.log(`save success`);
+        prompt.showToast({
+          message: `task2:save success`
+        });
+      },
+      fail: function(data, code) {
+        console.log(`handling fail, code = ${code}`, data);
+      }
+    });
+    media.saveToPhotosAlbum({
+      uri: self.compressUri3,
+      success: function() {
+        console.log(`save success`);
+        prompt.showToast({
+          message: `task3:save success`
+        });
+      },
+      fail: function(data, code) {
+        console.log(`handling fail, code = ${code}`);
+      }
+    });
+  },
+  routeDetail() {
+    const self = this;
+    media.pickVideo({
+      success: function(ret) {
+        self.pathVideoPick = ret.uri;
+        console.log(`handling callback, direction = ${self.pathVideoPick}`);
+      },
+      fail: function(erromsg, errocode) {
+        console.info(`### task:media.pickVideo ### ${errocode}: ${erromsg}`);
+        prompt.showToast({
+          message: `${errocode}: ${erromsg}`
+        });
+      }
+    });
+  },
+  routeDetail2() {
+    const self = this;
+    media.pickVideo({
+      success: function(ret) {
+        self.pathVideoPick2 = ret.uri;
+        console.log(`handling callback, direction = ${self.pathVideoPick2}`);
+      },
+      fail: function(erromsg, errocode) {
+        console.info(`### task2:media.pickVideo ### ${errocode}: ${erromsg}`);
+        prompt.showToast({
+          message: `${errocode}: ${erromsg}`
+        });
+      }
+    });
+  },
+  routeDetail3() {
+    const self = this;
+    media.pickVideo({
+      success: function(ret) {
+        self.pathVideoPick3 = ret.uri;
+        console.log(`handling callback, direction = ${self.pathVideoPick3}`);
+      },
+      fail: function(erromsg, errocode) {
+        console.info(`### task3:media.pickVideo ### ${errocode}: ${erromsg}`);
+        prompt.showToast({
+          message: `${errocode}: ${erromsg}`
+        });
+      }
+    });
+  },
+  takeVideo() {
+    const self = this;
+    media.takeVideo({
+      maxDuration: 6,
+      success: function(ret) {
+        prompt.showToast({
+          message: `uri: ${ret.uri}`
+        });
+        console.log(`saveToPhotosAlbum`);
+        media.saveToPhotosAlbum({
+          uri: self.pathVideoPick,
+          success: function() {
+            console.log(`save success`);
+          },
+          fail: function(data, code) {
+            console.log(`handling fail, code = ${code}`);
+          }
+        });
+      },
+      fail: function(erromsg, errocode) {
+        prompt.showToast({
+          message: `${errocode}: ${erromsg}`
+        });
+      }
+    });
+  },
+  compressglobal() {
+    console.log(` onprogress: `);
+    const self = this;
+    this.$app.$def.mytask = new Video({ uri: self.pathVideoPick });
+    this.$app.$def.mytask2 = new Video({ uri: self.pathVideoPick2 });
+  },
+  compress() {
+    console.log(` onprogress: `);
+    const self = this;
+    if (this.$app.$def.mytask == null) {
+      prompt.showToast({
+        message: `请先实例化`
+      });
+      return false;
+    }
+    this.$app.$def.mytask.onprogressupdate = function(data) {
+      self.task1Pro = data.progress;
+      console.log(`handling callback, direction = ${data.progress}`);
+    };
+    this.$app.$def.mytask.compressVideo({
+      success: function(res) {
+        prompt.showToast({
+          message: `task1 ok`
+        });
+        self.compressUri = res.uri;
+        self.compressSize = res.size;
+      },
+      fail: function(erromsg, errocode) {
+        prompt.showToast({
+          message: `task:fail:${errocode}: ${erromsg}`
+        });
+      }
+    });
+  },
+  compress80() {
+    const self = this;
+    if (self.bps == "") {
+      const self = this;
+      Video.getVideoInfo({
+        uri: self.pathVideoPick,
+        success: function(ret) {
+          self.bps = ret.bitrate;
+        },
+        fail: function(erromsg, errocode) {
+          prompt.showToast({
+            message: `task:${errocode}: ${erromsg}`
+          });
+        }
+      });
+    }
+    this.$app.$def.mytask = new Video({
+      uri: self.pathVideoPick,
+      bitrate: parseInt(self.bps * 0.7)
+    });
+    this.$app.$def.mytask.onprogressupdate = function(data) {
+      self.task1Pro = data.progress;
+      console.log(`handling callback, direction = ${data.progress}`);
+    };
+    this.$app.$def.mytask.compressVideo({
+      success: function(res) {
+        prompt.showToast({
+          message: `task1 ok`
+        });
+        self.compressUri = res.uri;
+        self.compressSize = res.size;
+      },
+      fail: function(erromsg, errocode) {
+        prompt.showToast({
+          message: `task:fail:${errocode}: ${erromsg}`
+        });
+      }
+    });
+  },
+  compress2() {
+    console.log(` onprogress: `);
+    const self = this;
+    if (this.$app.$def.mytask2 == null) {
+      prompt.showToast({
+        message: `请先实例化`
+      });
+      return false;
+    }
+    this.$app.$def.mytask2.onprogressupdate = function(data) {
+      self.task2Pro = data.progress;
+      console.log(`handling callback, direction = ${data.progress}`);
+    };
+    this.$app.$def.mytask2.compressVideo({
+      success: function(res) {
+        self.compressUri2 = res.uri;
+        self.compressSize2 = res.size;
+        prompt.showToast({
+          message: `task2 ok`
+        });
+        console.log(`handling callback, name = ${res}`);
+      },
+      fail: function(erromsg, errocode) {
+        prompt.showToast({
+          message: `task2:fail:${errocode}: ${erromsg}`
+        });
+      }
+    });
+  },
+  compress3() {
+    console.log(` onprogress: `);
+    const self = this;
+    this.$app.$def.mytask3 = new Video({ uri: self.pathVideoPick3 });
+    this.$app.$def.mytask3.onprogressupdate = function(data) {
+      self.task3Pro = data.progress;
+      console.log(`handling callback, direction = ${data.progress}`);
+    };
+    this.$app.$def.mytask3.compressVideo({
+      success: function(res) {
+        self.compressUri3 = res.uri;
+        self.compressSize3 = res.size;
+        prompt.showToast({
+          message: `task3 ok`
+        });
+      },
+      fail: function(erromsg, errocode) {
+        prompt.showToast({
+          message: `task3:fail${errocode}: ${erromsg}`
+        });
+      }
+    });
+  },
+  compressall() {
+    this.compress();
+    this.compress2();
+    this.compress3();
+  },
+  abortp() {
+    this.$app.$def.mytask.abort();
+  },
+  abortp2() {
+    this.$app.$def.mytask2.abort();
+  },
+  abortpAll() {
+    this.abortp();
+    this.abortp2();
+  },
+  getImg() {
+    const self = this;
+    Video.getVideoThumbnail({
+      uri: self.pathVideoPick,
+      success: function(ret) {
+        self.videoimageUri = ret.uri;
+        console.log(`handling callback thumn}`, ret.uri);
+      },
+      fail: function(erromsg, errocode) {
+        prompt.showToast({
+          message: `${errocode}: ${erromsg}`
+        });
+      }
+    });
+  }
+};
+</script>
+
+<style>
+@import "../../../common/css/common.css";
+
+.item-container {
+  margin-top: 50px;
+  margin-right: 60px;
+  margin-left: 60px;
+  flex-direction: column;
+}
+
+.item-content {
+  flex-direction: column;
+  background-color: #ffffff;
+  padding: 30px;
+  margin-bottom: 20px;
+}
+</style>

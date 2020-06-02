@@ -562,6 +562,10 @@ export const tabsData = {
           {
             name: '多媒体',
             path: 'interface/system/media'
+          },
+          {
+            name: '视频',
+            path: 'interface/system/video'
           }
         ]
       },

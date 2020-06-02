@@ -52,6 +52,7 @@
     { "name": "system.zip" },
     { "name": "hap.io.MessageChannel" },
     { "name": "system.configuration" },
+    { "name": "hap.io.Video" },
     {
       "name": "service.wxpay",
       "params": {
@@ -360,6 +361,9 @@
         "component": "index"
       },
       "interface/system/media": {
+        "component": "index"
+      },
+      "interface/system/video": {
         "component": "index"
       },
       "interface/system/network": {
