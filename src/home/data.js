@@ -306,6 +306,10 @@ export const tabsData = {
             path: 'component/media/video'
           },
           {
+            name: 'video全屏自定义组件显示(1080+)',
+            path: 'component/media/video/fullscreen'
+          },
+          {
             name: 'audio',
             path: 'component/media/audio'
           },

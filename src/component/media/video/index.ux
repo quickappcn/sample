@@ -6,12 +6,12 @@
 
     <div class="video justify-content-center">
       <stack id="stackDemo01" class="flex-column video-container">
-        <video class="flex-1 {{objectFitClass}}" poster="https://www.quickapp.cn/assets/images/home/video.png"
-          autoplay="false" onprepared="preparedfn" onstart="startfn" onpause="pausefn" onfinish="finishfn"
-          onerror="errorfn" onseeking="seekingfn" onseeked="seekedfn" ontimeupdate="timeupdatefn" id="video"
-          src="https://swsdl.vivo.com.cn/appstore/developer/uploadfile/20180323/20180323183010837.mp4"
-          controls="{{showControls}}" muted="{{muted}}" titlebar="{{titlebar}}" title="快应用展示视频"></video>
-        <image show="{{showmask}}" src="https://www.quickapp.cn/assets/images/home/video.png"></image>
+        <video class="flex-1 {{objectFitClass}}" poster="./video_poster_small.png"
+               autoplay="false" onprepared="preparedfn" onstart="startfn" onpause="pausefn" onfinish="finishfn"
+               onerror="errorfn" onseeking="seekingfn" onseeked="seekedfn" ontimeupdate="timeupdatefn" id="video"
+               src="https://swsdl.vivo.com.cn/appstore/developer/uploadfile/20180323/20180323183010837.mp4"
+               controls="{{showControls}}" muted="{{muted}}" titlebar="{{titlebar}}" title="快应用展示视频"></video>
+        <image show="{{showmask}}" src="./video_poster_small.png"></image>
         <div class="mask align-item-center justify-content-center flex-column" show="{{showmask}}">
           <image show="{{showicon}}" src="./start.png" class="start-icon" onclick="startVideo"></image>
           <div show="{{!showicon}}" class="tip flex-column align-item-center">
@@ -27,23 +27,20 @@
         <switch class="switch" checked="true" onchange="switchShowControls"></switch>
       </div>
       <div class="item-content">
+        <text class="item-content_title">全屏播放时是否显示标题栏</text>
+        <switch class="switch" checked="true" onchange="onTitleBarShowed"></switch>
+      </div>
+      <div class="item-content">
         <text class="item-content_title">是否静音</text>
         <switch class="switch" checked="false" onchange="onMutedSwitched"></switch>
       </div>
-      <div class="item-content">
-        <text class="item-content_title">是否添加覆盖物</text>
-        <switch class="switch" checked="false" onchange="onMulchSwitched"></switch>
-      </div>
-      <div class="item-content">
-        <text class="item-content_title">全屏播放时是否显示顶栏</text>
-        <switch class="switch" checked="false" onchange="onTitleBarShowed"></switch>
-      </div>
+      <input type="button" onclick="setFullScreenInPortrait" value="JS设置竖屏全屏播放"></input>
+      <input type="button" onclick="setFullScreenInLandscape" value="JS设置横屏全屏播放"></input>
     </div>
-
     <div class="item-container">
       <div class="item-content">
         <text class="item-content_title">选择组件 Object-fit 样式</text>
-        <select class="select" @change="changeOption">
+        <select class="select" onchange="changeOption">
           <option class="option" for={{objectFitValues}} value="{{$item}}">{{$item}}</option>
         </select>
       </div>
@@ -64,9 +61,9 @@
       ignorenet: false,
       showControls: true,
       muted: false,
-      titlebar:false,
+      titlebar: true,
       objectFitValues: [
-        "cover", "contain", "fill", "none", "scale-down"
+        "contain", "cover", "fill", "none", "scale-down"
       ],
       objectFitClass: ''
     },
@@ -100,9 +97,6 @@
     onMutedSwitched(e) {
       this.muted = e.checked
     },
-    onMulchSwitched(e) {
-      this.$element('stackDemo01').requestFullscreen({ screenOrientation: "landscape" })
-    },
     onTitleBarShowed(e){
       this.titlebar=e.checked;
     },
@@ -111,6 +105,12 @@
       prompt.showToast({
         message: `object-fit切换为 ${e.newValue}`
       })
+    },
+    setFullScreenInPortrait() {
+      this.$element('video').requestFullscreen({screenOrientation: 'portrait'})
+    },
+    setFullScreenInLandscape() {
+      this.$element('video').requestFullscreen({screenOrientation: 'landscape'})
     }
   }
 </script>

@@ -191,6 +191,9 @@
       "component/media/video": {
         "component": "index"
       },
+      "component/media/video/fullscreen": {
+        "component": "index"
+      },
       "component/media/canvas": {
         "component": "index"
       },
