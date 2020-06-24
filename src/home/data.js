@@ -333,6 +333,15 @@ export const tabsData = {
         ]
       },
       {
+        name: '扩展组件',
+        caseList: [
+          {
+            name: 'drawer',
+            path: 'component/extend/drawer'
+          }
+        ]
+      },
+      {
         name: '样式动画',
         caseList: [
           {

@@ -1,0 +1,346 @@
+<template>
+  <div class="doc-page">
+    <!-- 页面标题 -->
+    <div class="title">
+      <div class="icon" @click="isOpen">
+        <text class="icon-item" for="[1,1,1,1]"></text>
+      </div>
+      <text class="page-title">{{ components }}</text>
+    </div>
+    <drawer enableswipe="{{enableSwipe}}" id="drawer" class="page" @change="drawerChange" @scroll="drawerScroll">
+      <!--  页面内容只能为一个根节点 -->
+      <div class="wrap">
+        <text class="desc">能否通过手势滑出或者滑入抽屉，默认可滑出和滑入</text>
+        <text class="btn" onclick="onSwipe">开启滑入滑出功能</text>
+        <text class="btn" onclick="offSwipe">关闭滑入滑出功能</text>
+        <text class="active">点击左上角按钮打开导航，滑出左侧抽屉</text>
+        <text class="btn" @click="changeNav">切换抽屉滑出位置（左or右）</text>
+        <text class="active">手指右滑亦可滑出右侧抽屉， 但以下设置是用左侧抽屉测试</text>
+        <text class="desc">滑出抽屉的宽度默认为父容器的80%（即最大可设置的宽度，最小可设置宽度为父容器的20%）， 单位可为px 或
+          %，如果输入超出父容器的80%则按最大可设置宽度显示，小于最小可设置宽时则按最小可设置宽度显示</text>
+        <input class="input" type="text" value="" @change="setWidth" placeholder="请输入宽度值" />
+        <text class="btn" onclick="setMin">设置抽屉宽为最小</text>
+        <text class="btn" onclick="setMax">设置抽屉宽为最大</text>
+      </div>
+      <!-- 导航内容 -->
+      <drawer-navigation direction="end">
+        <div class="content">
+          <div class="nav">
+            <image src="/common/logo.png"></image>
+            <text>快应用新增drawer组件</text>
+          </div>
+          <swiper>
+            <div class="nav-item" for="colorBox" style="background-color:{{$item}}"></div>
+          </swiper>
+          <list class="right-demo">
+            <list-item for="(item,idex) in colorBox" class="shop" type="item">
+              <div class="color-item" for="colorBox" style="background-color:{{$item}}"></div>
+            </list-item>
+          </list>
+        </div>
+      </drawer-navigation>
+      <drawer-navigation style="width:{{navWidth}};" direction="start">
+        <div class="content">
+          <div class="nav">
+            <image src="/common/logo.png"></image>
+            <text>快应用新增drawer组件</text>
+          </div>
+          <tabs index="{{idx}}" @change="getIdx">
+            <tab-content>
+              <list class="book">
+                <block for="catalogue">
+                  <list-item type="item" onclick="chooseItem($idx)">
+                    <text>第{{ $item }}章测试目录</text>
+                  </list-item>
+                </block>
+              </list>
+              <div class="img">
+                <image class="logo" src="/common/logo.png"></image>
+              </div>
+            </tab-content>
+            <tab-bar mode="fixed">
+              <text class="{{idx===0?'active':''}}">列表</text>
+              <text class="{{idx===1?'active':''}}">图标</text>
+            </tab-bar>
+          </tabs>
+        </div>
+      </drawer-navigation>
+    </drawer>
+    <div class="mask" if="isScroll">
+      <div class="propmt">
+        <text>navigation滚动的事件回调</text>
+        <text>direction：{{ scrollData.direction }}</text>
+        <text>slideOffset：{{ scrollData.slideOffset }}</text>
+        <text class="txt">navigation当前的状态：0 - 静止状态; 1 - 正在发生交互状态; 2 - 用户已松手，正在滑动到目标位置</text>
+        <text>state：{{ scrollData.state }}</text>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import prompt from '@system.prompt'
+export default {
+  data: {
+    catalogue: [],
+    idx: 0,
+    pageIn: '',
+    components: 'drawer示例',
+    direction: 'start',
+    flag: false,
+    enableSwipe: true,
+    isScroll: false,
+    scrollData: {
+      direction: 'start',
+      slideOffset: 0,
+      state: 0,
+    },
+    colorBox: ['#FFB6C1', '#6A5ACD', '#87CEFA', '#D4F2E7'],
+    navWidth: '80%',
+  },
+  onInit() {
+    this.catalogue = this.getList(20)
+  },
+  getList(num) {
+    let list = []
+    for (let i = 1; i <= num; i++) {
+      list.push(i)
+    }
+    return list
+  },
+  getIdx(e) {
+    this.idx = e.index
+  },
+  chooseItem(index) {
+    prompt.showToast({
+      message: `该内容为简单示例，点击了第${index + 1}条`,
+    })
+  },
+  // drawer新增方法
+  // 点击按钮打开导航
+  isOpen(e) {
+    this.flag = !this.flag
+    if (this.flag) {
+      this.$element('drawer').openDrawer({ direction: this.direction })
+    } else {
+      this.$element('drawer').closeDrawer({ direction: this.direction })
+    }
+  },
+  //drawer-navigation新增属性
+  // 改变导航滑动方向
+  changeNav() {
+    let oldVal = this.direction
+    this.direction = this.direction === 'start' ? 'end' : 'start'
+    prompt.showToast({
+      message: `从${oldVal}切换为${this.direction}`,
+    })
+  },
+  // 能否通过手势滑出或者滑入抽屉，默认可滑出和滑入。
+  onSwipe() {
+    this.enableSwipe = true
+    prompt.showToast({
+      message: `从false切换为${this.enableSwipe}`,
+    })
+  },
+  offSwipe() {
+    this.enableSwipe = false
+    prompt.showToast({
+      message: `从true切换为${this.enableSwipe}`,
+    })
+  },
+  // drawer新增事件
+  // scroll事件
+  drawerScroll(e) {
+    this.scrollData = {
+      direction: e.direction,
+      slideOffset: e.slideOffset,
+      state: e.state,
+    }
+    if (e.slideOffset === 0) {
+      this.isScroll = false
+      this.flag = false
+    } else {
+      this.isScroll = true
+      this.flag = true
+    }
+  },
+  // change事件
+  drawerChange(e) {
+    prompt.showToast({
+      message: `触发change事件`,
+    })
+  },
+  setWidth(e) {
+    this.navWidth = e.value
+  },
+  setMin() {
+    this.navWidth = '20%'
+  },
+  setMax() {
+    this.navWidth = '80%'
+  },
+}
+</script>
+
+<style lang="less">
+@import "../../../common/css/common.css";
+.doc-page {
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  .active {
+    color: #0faeff;
+    padding: 0 20px;
+  }
+  .desc {
+    color: #708090;
+    font-size: 24px;
+    text-align: center;
+    margin: 20px 0;
+    padding: 10px;
+  }
+}
+.title {
+  height: 120px;
+  width: 100%;
+  align-items: center;
+  background-color: #0faeff;
+  padding-left: 20px;
+  text {
+    color: #ffffff;
+    width: 80%;
+    text-align: center;
+  }
+  .icon {
+    width: 60px;
+    height: 60px;
+    flex-direction: column;
+    justify-content: space-around;
+    .icon-item {
+      height: 4px;
+      background-color: rgb(212, 212, 212);
+      width: 100%;
+    }
+  }
+  .page-title {
+    font-size: 40px;
+  }
+}
+.page {
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  background-color: #ffffff;
+  .wrap {
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .input {
+    height: 80px;
+    border: 1px solid #000;
+    padding: 0 20px;
+    margin-bottom: 20px;
+    width: 70%;
+  }
+  .content {
+    background-color: #ffffff;
+    width: 100%;
+    flex-direction: column;
+    .nav {
+      height: 180px;
+      align-items: center;
+      width: 100%;
+      padding: 10px;
+      border-bottom: 1px solid #f0f0f0;
+      image {
+        width: 100px;
+        height: 100px;
+      }
+      text {
+        flex: 1;
+        text-align: center;
+      }
+    }
+    .book {
+      flex: 1;
+      width: 100%;
+      list-item {
+        height: 90px;
+        width: 100%;
+        padding: 0px 20px;
+        border-bottom: 1px solid #f0f0f0;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+    .img {
+      width: 100%;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      flex: 1;
+      .logo {
+        width: 300px;
+        height: 300px;
+      }
+    }
+    tab-bar {
+      height: 100px;
+      text {
+        width: 50%;
+        text-align: center;
+        height: 100%;
+      }
+    }
+    swiper {
+      width: 100%;
+      height: 300px;
+    }
+    .right-demo {
+      width: 100%;
+      flex: 1;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .shop {
+      width: 100%;
+      height: 200px;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .nav-item {
+      height: 200px;
+      width: 100%;
+    }
+    .color-item {
+      width: 120px;
+      height: 120px;
+      border-radius: 20px;
+    }
+  }
+}
+.mask {
+  height: 450px;
+  background-color: rgba(0, 0, 0, 0.3);
+  width: 100%;
+  position: fixed;
+  padding: 50px;
+  top: 100px;
+  left: 250px;
+  .propmt {
+    background-color: #fff;
+    flex-direction: column;
+    border-radius: 20px;
+    padding: 10px;
+  }
+  .txt {
+    color: #b6b6b6;
+  }
+}
+.btn {
+  width: 80%;
+}
+</style>

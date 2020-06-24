@@ -177,6 +177,9 @@
       "component/container/tabs": {
         "component": "index"
       },
+      "component/extend/drawer": {
+        "component": "index"
+      },
       "component/basic/text": {
         "component": "index"
       },
@@ -622,6 +625,9 @@
         "titleBarText": "快应用组件展示"
       },
       "component/media/web": {
+        "titleBar": false
+      },
+      "component/extend/drawer": {
         "titleBar": false
       },
       "framework/lifecycle": {
