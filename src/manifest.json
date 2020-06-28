@@ -53,6 +53,7 @@
     { "name": "hap.io.MessageChannel" },
     { "name": "system.configuration" },
     { "name": "hap.io.Video" },
+    { "name": "service.texttoaudio" },
     {
       "name": "service.wxpay",
       "params": {
@@ -328,6 +329,9 @@
         "component": "index"
       },
       "interface/thirdparty/wbaccount": {
+        "component": "index"
+      },
+      "interface/audio/tts": {
         "component": "index"
       },
       "interface/system/brightness": {

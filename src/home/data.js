@@ -635,7 +635,16 @@ export const tabsData = {
             path: 'interface/thirdparty/wbaccount'
           }
         ]
-      }
+      },
+      {
+        name: '声音音频',
+        caseList: [
+          {
+            name: 'TTS 语音合成',
+            path: 'interface/audio/tts'
+          }
+        ]
+      },
     ]
   },
   scenario: {
