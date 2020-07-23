@@ -17,6 +17,7 @@
       <div class="item-content">
         <text class="txt">罗盘数据:</text>
         <text class="txt">direction: {{sensorCompassData}}</text>
+        <text class="txt">accuracy: {{accuracyNum}}</text>
       </div>
       <input type="button" class="btn" onclick="compass" value="监听罗盘数据" />
       <input type="button" class="btn" onclick="uncompass" value="取消罗盘监听" />
@@ -59,7 +60,8 @@
       stepCount: '',
       sensorCompassData: 0,
       subscribeProximityData: 0,
-      lightData: 0
+      lightData: 0,
+      accuracyNum: 0,
     },
     onInit() {
       this.$page.setTitleBar({ text: 'Sensor' })
@@ -82,6 +84,7 @@
       sensor.subscribeCompass({
         callback: function (e) {
           self.sensorCompassData = e.direction
+          self.accuracyNum = e.accuracy
         }
       })
     },
