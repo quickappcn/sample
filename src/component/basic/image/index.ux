@@ -382,6 +382,16 @@
                onerror="onImageError"></image>
       </div>
     </div>
+
+    <div class="item-container">
+      <text class="item-title">gif图片</text>
+      <div class="item-content-without-height">
+        <image id="gifImage" style="width:200px; height: 200px" src="http://www.w3school.com.cn/i/eg_cute.gif" autoplay="{{autoplay}}"></image>
+      </div>
+
+      <input type="button" class="btn" value="startAnimation" @click="startAnimation"/>
+      <input type="button" class="btn" value="stopAnimation" @click="stopAnimation"/>
+    </div>
   </div>
 </template>
 
@@ -392,13 +402,14 @@
       componentName: 'image',
       remoteURL: 'http://www.w3school.com.cn/svg/',
       inputImageURL: 'http://www.w3school.com.cn/svg/rect1.svg',
-      requestImageURL: ''
+      requestImageURL: '',
+      autoplay: false
     },
     onInit() {
       this.$page.setTitleBar({ text: 'Image' })
     },
-    onImageUrlChange(data) {
-      this.inputImageURL = data.value
+    onImageUrlChange(evt) {
+      this.inputImageURL = evt.value
     },
     onImageGetClick() {
       this.requestImageURL = this.inputImageURL
@@ -406,15 +417,21 @@
         message: '加载' + this.requestImageURL + '图片'
       })
     },
-    onImageComplete(data) {
+    onImageComplete(evt) {
       prompt.showToast({
-        message: '图片获取成功\n' + '高度：' + data.height + 'px  ' + '宽度：' + data.width + 'px'
+        message: '图片获取成功\n' + '高度：' + evt.height + 'px  ' + '宽度：' + evt.width + 'px'
       })
     },
     onImageError() {
       prompt.showToast({
         message: '图片获取失败'
       })
+    },
+    startAnimation() {
+      this.$element('gifImage').startAnimation()
+    },
+    stopAnimation() {
+      this.$element('gifImage').stopAnimation()
     }
   }
 </script>
