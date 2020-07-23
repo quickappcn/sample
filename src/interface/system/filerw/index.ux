@@ -79,7 +79,9 @@
       file.readArrayBuffer({
         uri: self.fileUri,
         success: function (data) {
-          // new TextDecoder("utf-8").decode(data.buffer)
+          prompt.showToast({
+            message: new TextDecoder("utf-8").decode(data.buffer)
+          })
           self.fileArrayBuffer = data.buffer
         },
         fail: function (data, code) {
