@@ -580,6 +580,9 @@
       },
       "interface/manufacturer/ad": {
         "component":"index"
+      },
+      "interface/system/telecom": {
+        "component":"index"
       }
     }
   },

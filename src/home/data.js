@@ -553,6 +553,10 @@ export const tabsData = {
           {
               name: '解压文件',
               path: 'interface/system/zip'
+          },
+          {
+              name: '设备通信信息',
+              path: 'interface/system/telecom'
           }
         ]
       },
