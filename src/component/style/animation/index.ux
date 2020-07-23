@@ -19,6 +19,9 @@
         <div class="item {{width}}">
           <text class="txt">width</text>
         </div>
+        <div class="{{backPosition}}">
+          <text class="txt">background-position</text>
+        </div>
         <input class="button" type="button" name="" value="show" onclick="show01"/>
       </div>
 
@@ -74,6 +77,12 @@
         </div>
         <div class="item {{easeInOut}}">
           <text class="txt">ease-in-out</text>
+        </div>
+        <div class="item {{steps}}">
+          <text class="txt">steps</text>
+        </div>
+        <div class="item {{cubicBezier}}">
+          <text class="txt">cubic-bezier</text>
         </div>
         <input class="button" type="button" name="" value="show" onclick="show05"/>
       </div>
@@ -165,7 +174,10 @@
       rotateX: '',
       rotateY: '',
       multiple: '',
-      animateEvent: ''
+      animateEvent: '',
+      backPosition: '',
+      steps: '',
+      cubicBezier: ''
     },
     onInit () {
       this.$page.setTitleBar({text: 'Animation'})
@@ -175,10 +187,12 @@
       this.opacity = ''
       this.height = ''
       this.width = ''
+      this.backPosition = ''
       this.color = 'color'
       this.opacity = 'opacity'
       this.height = 'height'
       this.width = 'width'
+      this.backPosition = 'backPosition'
     },
     show02 () {
       this.delay = ''
@@ -206,11 +220,15 @@
       this.easeIn = ''
       this.easeOut = ''
       this.easeInOut = ''
+      this.steps = ''
+      this.cubicBezier = ''
       this.linear = 'linear'
       this.ease = 'ease'
       this.easeIn = 'easeIn'
       this.easeOut = 'easeOut'
       this.easeInOut = 'easeInOut'
+      this.steps = 'steps'
+      this.cubicBezier = 'cubic-bezier'
     },
     show06 () {
       this.forwards = ''
@@ -312,6 +330,11 @@
     animation-name: Width;
     animation-duration: 1000ms;
   }
+  .backPosition {
+    animation-name: BackPosition;
+    animation-duration: 1000ms;
+    background-image: url('../../../common/logo.png');
+  }
   .delay {
     animation-name: Go;
     animation-duration: 5000ms;
@@ -368,6 +391,16 @@
     animation-name: Go;
     animation-duration: 3000ms;
     animation-timing-function: ease-in-out;
+  }
+  .steps {
+    animation-name: Go;
+    animation-duration: 3000ms;
+    animation-timing-function: steps(3, end);
+  }
+  .cubic-bezier {
+    animation-name: Go;
+    animation-duration: 3000ms;
+    animation-timing-function: cubic-bezier(0, 0.3, 0.7, 1);
   }
   .forwards {
     animation-name: Go;
@@ -459,6 +492,15 @@
     }
     to {
       height: 220px;
+    }
+  }
+
+  @keyframes BackPosition {
+    from {
+      background-position: left 0 top 0;
+    }
+    to {
+      background-position: left 100% top 100%;
     }
   }
 
