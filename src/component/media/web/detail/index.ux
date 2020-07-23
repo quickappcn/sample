@@ -9,6 +9,7 @@
 
 <script>
   import router from '@system.router'
+  import prompt from '@system.prompt'
   export default {
     data: {
       websrc: '',
@@ -27,17 +28,21 @@
       this.$on('arrowLeft', this.arrowLeftIcon)
       this.$on('arrowRight', this.arrowRightIcon)
     },
-    onPageStart (e) {
-      console.info('### pagestart ###'+e.url)
+    onPageStart (evt) {
+      this.isSupportWebRTC()
+      console.info(`### pagestart ### url: ${evt.url} canBack: ${ evt.canBack } canForward: ${ evt.canForward }`)
     },
-    onTitleReceive (e) {
-      this.titleBarParams.config.title = e.title
+    onPageFinish (evt) {
+      console.info(`### pagestart ### url: ${evt.url} canBack: ${ evt.canBack } canForward: ${ evt.canForward }`)
     },
-    onError () {
-      console.info('### pageError ###')
+    onTitleReceive (evt) {
+      this.titleBarParams.config.title = evt.title
     },
-    onProgress (e) {
-      console.info('progressValue: '+e.progress)
+    onError (evt) {
+      console.info(`### pageError ###`, evt)
+    },
+    onProgress (evt) {
+      console.info('progressValue: ' + evt.progress)
     },
     arrowLeftIcon () {
       this.isCanBack()
@@ -63,6 +68,13 @@
             router.back()
           }
         }.bind(this)
+      })
+    },
+    isSupportWebRTC () {
+      this.$element('web').isSupportWebRTC({
+        callback: function (data){
+          console.log(`是否支持webrtc功能：${ data }`)
+        }
       })
     }
   }
