@@ -7,24 +7,27 @@
     <div class="item-container">
       <text class="item-title">初始化：value = 50</text>
       <div class="item-content">
-        <slider class="slider" min="0" max="100" value="{{currentValue1}}" onchange="getValue('currentValue1')"></slider>
+        <slider class="slider" min="0" max="100" value="{{currentValue1}}" onchange="getValue(1)"></slider>
         <text class="label">{{currentValue1}}</text>
+        <text class="label">{{isFromUser1}}</text>
       </div>
     </div>
 
     <div class="item-container">
       <text class="item-title">step = {{step}}</text>
       <div class="item-content">
-        <slider class="slider" min="0" max="100" value="{{currentValue2}}" step="{{step}}" onchange="getValue('currentValue2')"></slider>
+        <slider class="slider" min="0" max="100" value="{{currentValue2}}" step="{{step}}" onchange="getValue(2)"></slider>
         <text class="label">{{currentValue2}}</text>
+        <text class="label">{{isFromUser2}}</text>
       </div>
     </div>
 
     <div class="item-container">
       <text class="item-title">min = 50; max = 200</text>
       <div class="item-content">
-        <slider class="slider" min="50" max="200" value="{{currentValue3}}" onchange="getValue('currentValue3')"></slider>
+        <slider class="slider" min="50" max="200" value="{{currentValue3}}" onchange="getValue(3)"></slider>
         <text class="label">{{currentValue3}}</text>
+        <text class="label">{{isFromUser3}}</text>
       </div>
     </div>
 
@@ -46,13 +49,17 @@
       currentValue1: 50,
       currentValue2: 50,
       currentValue3: 50,
+      isFromUser1: '',
+      isFromUser2: '',
+      isFromUser3: '',
       currentColor: ''
     },
     onInit () {
       this.$page.setTitleBar({text: 'Slider'})
     },
-    getValue (name, evt) {
-      this[name] = evt.progress
+    getValue (index, evt) {
+      this['currentValue' + index] = evt.progress
+      this['isFromUser' + index] = evt.isFromUser
     },
     changeColor (evt) {
       this.currentColor = `rgb(125, 125, ${evt.progress})`
