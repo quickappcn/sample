@@ -692,6 +692,10 @@ export const tabsData = {
           {
             name: '瀑布流展示',
             path: 'scenario/scene/waterfall'
+          },
+          {
+            name: '页面滚动',
+            path: 'scenario/scene/pagescroll'
           }
         ]
       },

@@ -583,6 +583,9 @@
       },
       "interface/system/telecom": {
         "component":"index"
+      },
+      "scenario/scene/pagescroll": {
+        "component":"index"
       }
     }
   },
