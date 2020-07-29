@@ -1,9 +1,9 @@
 {
   "package": "org.quickapp.union.sample",
   "name": "快应用示例中心",
-  "versionName": "1.7.0",
-  "versionCode": 170,
-  "minPlatformVersion": 1070,
+  "versionName": "1.8.0",
+  "versionCode": 180,
+  "minPlatformVersion": 1080,
   "icon": "/common/logo.png",
   "features": [
     { "name": "system.cipher" },
@@ -52,6 +52,7 @@
     { "name": "system.zip" },
     { "name": "hap.io.MessageChannel" },
     { "name": "system.configuration" },
+    { "name": "hap.io.Video" },
     {
       "name": "service.wxpay",
       "params": {

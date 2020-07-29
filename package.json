@@ -1,6 +1,6 @@
 {
   "name": "sample",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "subversion": {
     "toolkit": "0.6.1"
   },
@@ -15,12 +15,12 @@
   "devDependencies": {
     "@types/quickapp": "git+https://github.com/vivoquickapp/quickapp-types.git",
     "catching": "^1.0.2",
-    "less": "^3.0.4",
+    "less": "^3.11.1",
     "less-loader": "^4.1.0",
     "qrcode-js": "0.0.2"
   },
   "dependencies": {
-    "hap-toolkit": "^0.7.2",
+    "hap-toolkit": "^0.7.5",
     "hsl-to-hex": "^1.0.0"
   },
   "browserslist": [
