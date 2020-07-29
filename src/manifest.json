@@ -534,6 +534,9 @@
       "scenario/scene/accessible": {
         "component": "index"
       },
+      "scenario/effect/dynamic-import-js": {
+        "component": "index"
+      },
       "component/media/web/darkmode-web": {
         "component": "index"
       },

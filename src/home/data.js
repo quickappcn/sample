@@ -721,7 +721,11 @@ export const tabsData = {
           {
             name: '组件内容导出图片',
             path: 'scenario/effect/sharepic'
-          }
+          },
+          {
+            name: '动态引入js',
+            path: 'scenario/effect/dynamic-import-js'
+          },
         ]
       },
       {
