@@ -45,13 +45,15 @@
       this.content = e.text;
     },
     readSMS() {
+      const self = this
       sms.readSafely({
+        timeout: 1000,
         success: function (data) {
-          this.smsContent = data.message
+          self.smsContent = data.message
           console.log('handling success. message=' + data.message)
         },
         fail: function (data, code) {
-          this.smsContent = data + ' ' + code
+          self.smsContent = data + ' ' + code
           console.log('handling fail, result data=' + data + ',code=' + code)
         }
       })
