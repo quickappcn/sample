@@ -269,6 +269,9 @@
       "framework/style-layout/media-query": {
         "component": "index"
       },
+      "framework/style-layout/css-filter": {
+        "component": "index"
+      },
       "framework/filter": {
         "component": "index"
       },
