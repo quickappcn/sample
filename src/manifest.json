@@ -39,6 +39,7 @@
     { "name": "system.bluetooth" },
     { "name": "system.websocketfactory" },
     { "name": "system.wifi" },
+    { "name": "system.telecom"},
     { "name": "service.ad" },
     { "name": "android.settings" },
     { "name": "service.stats" },
