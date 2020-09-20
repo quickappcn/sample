@@ -87,7 +87,7 @@ export const tabsData = {
             path: 'framework/style-layout/layout'
           },
           {
-            name: 'position属性(relative/absolute/fixed)示例',
+            name: 'position属性(relative/absolute/fixed)示例(1060+)',
             path: 'framework/style-layout/position'
           },
           {
@@ -97,7 +97,11 @@ export const tabsData = {
           {
             name: '媒体查询 media-query',
             path: 'framework/style-layout/media-query'
-          }
+          },
+          {
+            name: 'CSS filter 滤镜示例(1090+)',
+            path: 'framework/style-layout/css-filter'
+          },
         ]
       },
       {
@@ -238,6 +242,10 @@ export const tabsData = {
           {
             name: 'image占位图属性alt示例',
             path: 'component/basic/image-alt'
+          },
+          {
+            name: 'image的滤镜示例',
+            path: 'component/basic/image-filter'
           },
           {
             name: 'progress',
