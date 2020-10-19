@@ -1,0 +1,68 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{ componentName }}</text>
+    </div>
+    <div class="item-container">
+      <div class="item-content">
+        <text class="txt">快应用是否处在锁屏状态下：{{ isKeyguardLocked }}</text>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import prompt from '@system.prompt'
+import keyguard from '@system.keyguard'
+export default {
+  private: {
+    componentName: '锁屏 keyguard `1090+` ',
+    isKeyguardLocked: false
+  },
+  onInit() {
+    this.$page.setTitleBar({text: '锁屏 keyguard'})
+  },
+  onShow() {
+    keyguard.getKeyguardLockedStatus({
+      success: (result) => {
+        const {isKeyguardLocked} = result;
+        this.isKeyguardLocked = isKeyguardLocked
+      },
+      fail: (data, code) => {
+        prompt.showToast({
+          message: `获取锁屏状态错误, 错误码 ${code}, data = ${data}`
+        })
+        console.log(`get isKeyguardLocked fail, errMsg = ${data}`)
+        console.log(`get isKeyguardLocked fail, errCode = ${code}`)
+      }
+    })
+  }
+}
+</script>
+
+<style>
+@import '../../../common/css/common.css';
+
+.item-container {
+  margin-bottom: 50px;
+  margin-right: 60px;
+  margin-left: 60px;
+  flex-direction: column;
+}
+
+.item-content {
+  flex-direction: column;
+  background-color: #ffffff;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-bottom: 30px;
+  align-items: flex-start;
+}
+
+.txt {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+</style>

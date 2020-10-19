@@ -51,6 +51,7 @@
     { "name": "service.alipay" },
     { "name": "service.exchange" },
     { "name": "system.zip" },
+    { "name": "system.keyguard" },
     { "name": "hap.io.MessageChannel" },
     { "name": "system.configuration" },
     { "name": "hap.io.Video" },
@@ -465,6 +466,9 @@
         "component": "index"
       },
       "interface/system/zip": {
+        "component": "index"
+      },
+      "interface/system/keyguard": {
         "component": "index"
       },
       "component/style/animation": {
