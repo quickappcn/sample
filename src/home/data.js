@@ -357,6 +357,10 @@ export const tabsData = {
             path: 'component/style/animation'
           },
           {
+            name: 'animation-direction (1090+)',
+            path: 'component/style/animation-direction'
+          },
+          {
             name: 'transform',
             path: 'component/style/transform'
           },

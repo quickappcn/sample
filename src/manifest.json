@@ -474,6 +474,9 @@
       "component/style/animation": {
         "component": "index"
       },
+      "component/style/animation-direction": {
+        "component": "index"
+      },
       "component/style/transform": {
         "component": "index"
       },
@@ -590,20 +593,20 @@
       "interface/manufacturer/stats": {
         "component": "index"
       },
-      "interface/manufacturer/push":{
-        "component":"index"
+      "interface/manufacturer/push": {
+        "component": "index"
       },
-      "interface/manufacturer/account":{
-        "component":"index"
+      "interface/manufacturer/account": {
+        "component": "index"
       },
       "interface/manufacturer/ad": {
-        "component":"index"
+        "component": "index"
       },
       "interface/system/telecom": {
-        "component":"index"
+        "component": "index"
       },
       "scenario/scene/pagescroll": {
-        "component":"index"
+        "component": "index"
       }
     }
   },
