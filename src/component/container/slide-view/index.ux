@@ -1,0 +1,103 @@
+
+<template>
+  <div class="demo-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+    <div class="item-container">
+      <slide-view class="slide-view" buttons="{{slideButton1}}" layer="same" isopen="false" edge="right" enableslide="true"
+            onOpen="slideViewOpen" onClose="slideViewClose" onSlide="slideViewSlide" onButtonClick="buttonClick()">
+          <div class="inner-div">
+            <div class="text-div">
+              <text>左滑可以删除</text>
+            </div>
+          </div>
+        </slide-view>
+    </div>
+
+    <div class="item-container">
+      <slide-view class="slide-view" buttons="{{slideButton2}}" layer="same" isopen="false" edge="right" enableslide="true"
+            onOpen="slideViewOpen" onClose="slideViewClose" onSlide="slideViewSlide" onButtonClick="buttonClick()">
+          <div class="inner-div">
+            <div class="text-div">
+              <text>左滑可以删除（图标）</text>
+            </div>
+          </div>
+        </slide-view>
+    </div>
+  </div>
+</template>
+<style>
+  @import '../../../common/css/common.css';
+
+  .demo-page {
+    flex-direction: column;
+    align-items: center;
+    margin:0 24px;
+  }
+  .item-container{
+    width: 100%;
+  }
+  .slide-view {
+    width:100%;
+    height: 100px;
+  }
+  .inner-div {
+    height: 100px;
+  }
+</style>
+<script>
+import prompt from '@system.prompt'
+export default {
+  private: {
+    componentName: 'slide-view',
+    slideButton1:[
+      {
+        id:"button1",
+        buttonWidth:'200px',
+        text:'删除',
+        backgroundColor:"#cc0000",
+        secondaryConfirm:{
+            text:'二次确认'
+        }
+      }
+    ],
+    slideButton2:[
+      {
+        id:"button2",
+        buttonWidth:'200px',
+        icon: '../../../common/logo.png',
+        backgroundColor:"#cc0000",
+        secondaryConfirm:{
+            text:'二次确认'
+        }
+      }
+    ]
+  },
+  onInit () {
+      this.$page.setTitleBar({text: 'slide-view'})
+  },
+  slideViewOpen(){
+    console.info(`### slide view is open ###`)
+  },
+  slideViewClose(){
+    console.info(`### slide view is close ###`)
+  },
+  slideViewSlide({offset}){
+    console.info(`### slide view is slide, offset is ${offset} ###`)
+  },
+  buttonClick(data){
+    const {id, isSecondaryConfirm} = data
+    console.info(`### button:${id} is click, data is ${data} ###`)
+    if(isSecondaryConfirm){
+          prompt.showToast({
+            message: '第二次点击触发'
+          })
+        }else{
+          prompt.showToast({
+            message: '第一次点击触发'
+          })
+        }
+  }
+}
+</script>

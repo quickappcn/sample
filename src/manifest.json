@@ -183,6 +183,9 @@
       "component/container/section-list": {
         "component": "index"
       },
+      "component/container/slide-view": {
+        "component": "index"
+      },
       "component/extend/drawer": {
         "component": "index"
       },

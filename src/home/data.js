@@ -229,6 +229,10 @@ export const tabsData = {
           {
             name: 'section-list',
             path: 'component/container/section-list'
+          },
+          {
+            name: 'slide-view',
+            path: 'component/container/slide-view'
           }
         ]
       },
