@@ -180,6 +180,9 @@
       "component/container/tabs": {
         "component": "index"
       },
+      "component/container/section-list": {
+        "component": "index"
+      },
       "component/extend/drawer": {
         "component": "index"
       },

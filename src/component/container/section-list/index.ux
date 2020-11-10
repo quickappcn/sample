@@ -1,0 +1,93 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title ">{{componentName}}</text>
+    </div>
+
+    <div class="item-container">
+      <section-list id="section-list" class="section-list">
+        <section-group class="section-group" for="list" expand="{{!($idx%2)}}" onchange="getGroupState">
+          <section-header class="section-header">
+            <text>{{$item}}-{{$idx}}</text>
+          </section-header>
+          <section-item class="section-item" for="{{(s,d) in list}}">
+            <text>{{d.toLowerCase()}}-{{s}}</text>
+          </section-item>
+        </section-group>
+      </section-list>
+      <input class="input-text" type="number" @change="getNum"></input>
+      <input class="btn" type="button" @click="sectionScroll" value="scroll"/>
+    </div>
+  </div>
+</template>
+
+<script>
+  import prompt from '@system.prompt'
+  export default {
+    private: {
+      componentName: 'section-list',
+      groupState: { 1: '折叠状态', 2: '展开状态' },
+      scrollNum: 0,
+      list: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'], 
+    },
+    getGroupState(data) {
+      prompt.showToast({
+        message: this.getGroupState[state]
+      })
+    },
+    getNum ({value}) {
+      this.scrollNum = Number(value)
+    },
+    sectionScroll () {
+      if(this.scrollNum < 0 || this.scrollNum >this.list.length ) {
+        prompt.showToast({
+          message: `请输入0-${this.list.length}`
+        })
+        return false
+      }
+      this.$element('section-list').scrollTo({
+        index: this.scrollNum,
+        behavior: 'smooth'
+      })
+    }
+  }
+</script>
+<style>
+  @import '../../../common/css/common.css';
+
+  .item-container {
+    margin-bottom: 30px;
+    margin-right: 30px;
+    margin-left: 30px;
+    flex-direction: column;
+  }
+
+  .section-list {
+    width: 100%;
+    height: 500px;
+  }
+
+  .section-header {
+    width: 100%;
+    height: 50px;
+    border: 2px solid #cccccc;
+  }
+
+  .section-item {
+    height: 50px;
+    width: 100%;
+    background-color: burlywood;
+  }
+
+  .input-text {
+    height: 80px;
+    line-height: 80px;
+    padding: 0px 30px;
+    margin: 30px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-color: #999999;
+    font-size: 30px;
+    background-color: #ffffff;
+  }
+</style>

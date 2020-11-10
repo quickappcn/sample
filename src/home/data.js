@@ -225,6 +225,10 @@ export const tabsData = {
           {
             name: 'tabs',
             path: 'component/container/tabs'
+          },
+          {
+            name: 'section-list',
+            path: 'component/container/section-list'
           }
         ]
       },
