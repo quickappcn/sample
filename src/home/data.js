@@ -740,6 +740,10 @@ export const tabsData = {
           {
             name: '页面滚动',
             path: 'scenario/scene/pagescroll'
+          },
+          {
+            name: '页面截屏控制',
+            path: 'scenario/scene/secure'
           }
         ]
       },

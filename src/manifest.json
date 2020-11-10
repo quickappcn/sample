@@ -607,6 +607,9 @@
       },
       "scenario/scene/pagescroll": {
         "component": "index"
+      },
+      "scenario/scene/secure": {
+        "component": "index"
       }
     }
   },
