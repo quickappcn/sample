@@ -30,7 +30,6 @@
 
 <script>
   import file from '@system.file'
-  import fetch from '@system.fetch'
   import prompt from '@system.prompt'
 
   export default {

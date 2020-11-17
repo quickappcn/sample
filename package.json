@@ -21,7 +21,7 @@
     "qrcode-js": "0.0.2"
   },
   "dependencies": {
-    "hap-toolkit": "^1.8.2",
+    "hap-toolkit": "^1.8.3",
     "hsl-to-hex": "^1.0.0"
   },
   "browserslist": [
