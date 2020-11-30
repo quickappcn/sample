@@ -30,7 +30,6 @@
 
 <script>
   import file from '@system.file'
-  import fetch from '@system.fetch'
   import prompt from '@system.prompt'
 
   export default {
@@ -79,7 +78,9 @@
       file.readArrayBuffer({
         uri: self.fileUri,
         success: function (data) {
-          // new TextDecoder("utf-8").decode(data.buffer)
+          prompt.showToast({
+            message: new TextDecoder("utf-8").decode(data.buffer)
+          })
           self.fileArrayBuffer = data.buffer
         },
         fail: function (data, code) {

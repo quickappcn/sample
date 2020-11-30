@@ -17,6 +17,7 @@
       <input type="button" class="btn"  onclick="routeApp" value="跳转到指定快应用" />
       <input type="button" class="btn"  onclick="routeLocation" value="跳到手机定位页面"/>
       <input type="button" class="btn"  onclick="routeWlan" value="跳到Wifi设置页面"/>
+      <input type="button" class="btn"  onclick="route5g" value="跳到5g设置页面"/>
       <input type="button" class="btn"  onclick="routeBluetooth" value="跳到蓝牙设置页面"/>
       <input type="button" class="btn"  onclick="routeAnimate" value="跳转定制动画"/>
       <input type="button" class="btn"  onclick="routeAnimateNone" value="跳转无动画"/>
@@ -112,6 +113,11 @@
     routeBluetooth () {
       router.push({
         uri: 'hap://settings/bluetooth_manager'
+      })
+    },
+    route5g () {
+      router.push({
+        uri: 'hap://settings/5g'
       })
     },
     routeAnimate () {

@@ -1,0 +1,113 @@
+<template>
+    <div class="doc-page">
+        <div class="page-title-wrap">
+            <text class="page-title">{{ componentName }}</text>
+        </div>
+
+        <div class="item-container">
+            <div class="item-content">
+                <input type="button" class="btn" onclick="speak" value="speak" />
+                <input type="button" class="btn" onclick="stop" value="stop" />
+                <input type="button" class="btn" onclick="isSpeaking" value="isSpeaking" />
+                <input type="button" class="btn" onclick="isLanguageAvailable" value="isLanguageAvailable" />
+                <input type="button" class="btn" onclick="textToAudioFile" value="textToAudioFile" />
+            </div>
+        </div>
+    </div>
+</template>
+
+<style>
+@import '../../../common/css/common.css';
+
+.item-container {
+  margin-top: 50px;
+  margin-right: 60px;
+  margin-left: 60px;
+  flex-direction: column;
+}
+
+.item-content {
+  margin-top: 50px;
+  flex-direction: column;
+  background-color: #ffffff;
+  padding: 30px;
+}
+
+.input-text {
+  width: 1000px;
+  margin-bottom: 20px;
+}
+</style>
+
+<script>
+import prompt from '@system.prompt'
+import texttoaudio from '@service.texttoaudio'
+export default {
+    data: {
+        componentName: 'TTS',
+    },
+    onInit: function () {
+        this.$page.setTitleBar({ text: 'TTS' })
+        texttoaudio.onttsstatechange = function (data) {
+            prompt.showToast({
+                message: `utteranceId: ${data.utteranceId}, state: ${data.state}`
+            })
+            console.log(`utteranceId: ${data.utteranceId}, state: ${data.state}`)
+        }
+    },
+    onHide() {
+        texttoaudio.onttsstatechange = null;
+    },
+    speak: function () {
+        texttoaudio.speak({
+            lang: 'zh_CN',
+            content: '这是语音播报效果',
+            pitch: 1,
+            rate: 1,
+            success: function (data) {
+                console.log(`handling success, utteranceId = ${data.utteranceId}`)
+            },
+            fail: function (data, code) {
+                console.log(`handling fail, code = ${code}`)
+            }
+        });
+    },
+    stop: function () {
+        texttoaudio.stop();
+    },
+    isSpeaking: function () {
+        prompt.showToast({
+            message: `isSpeaking:${texttoaudio.isSpeaking()}`
+        })
+        console.log(`isSpeaking:${texttoaudio.isSpeaking()}`)
+    },
+    isLanguageAvailable: function () {
+        texttoaudio.isLanguageAvailable({
+            lang: 'zh_CN',
+            success: function (data) {
+                prompt.showToast({
+                    message: `isAvailable: ${data.isAvailable}`
+                })
+                console.log(`isAvailable: ${data.isAvailable}`)
+            },
+            fail: function (data, code) {
+                console.log(`handling fail, code = ${code}`)
+            }
+        });
+    },
+    textToAudioFile: function () {
+        texttoaudio.textToAudioFile({
+            lang: 'zh_CN',
+            content: '这是语音播报效果',
+            pitch: 1,
+            rate: 1,
+            success: function (data) {
+                console.log(`handling success,filePath = ${data.filePath}, utteranceId = ${data.utteranceId}`)
+            },
+            fail: function (data, code) {
+                console.log(`handling fail, code = ${code}`)
+            }
+        });
+    }
+}
+</script>

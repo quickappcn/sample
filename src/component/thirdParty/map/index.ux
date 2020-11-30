@@ -2,7 +2,7 @@
   <stack>
     <map id="map" style="width:{{width}}; height:{{height}};mylocation-fill-color: {{fillColor}}; mylocation-stroke-color: {{strokeColor}};" longitude="{{longitude}}" latitude="{{latitude}}" scale="{{scale}}"
       markers="{{markers}}" controls="{{controls}}" circles="{{circles}}" polylines="{{polylines}}" polygons="{{polygons}}" groundoverlays="{{groundoverlays}}"
-      rotate="{{rotate}}" showmylocation="{{showmylocation}}" includePoints="{{includePoints}}"  @regionchange="regionchange"
+      rotate="{{rotate}}" showmylocation="{{showmylocation}}" includepoints="{{includePoints}}"  @regionchange="regionchange"
       showcompass="{{compassSwitch}}" enableoverlooking="{{lookingSwitch}}"
       enablezoom="{{zoomSwitch}}" enablescroll="{{dragSwitch}}" enablerotate="{{rotateSwitch}}"
       heatmaplayer="{{heatmaplayer}}" showscale="{{showscale}}" showzoom="{{showzoom}}"
@@ -429,7 +429,7 @@
           this.circles = [CIRCLE]
           break
         case "groundoverlayShow":
-          this.moveToCenter()
+          this.moveToCenter(POINT2.latitude, POINT2.longitude)
           this.groundoverlays = [{
             northEast: POINT2,
             southWest: POINT4,
@@ -442,8 +442,8 @@
           this.controls = [{
             id: 1,
             position: {
-              left: "50px",
-              bottom: "200px",
+              right: "50px",
+              bottom: "100px",
               width: "70px"
             },
             iconPath: "./img/location.png"
@@ -479,11 +479,12 @@
       }
     },
     // 视野中心点重置
-    moveToCenter () {
+    moveToCenter (latitude, longitude) {
       this.latitude = null //地图视野发生变化后进行视野中心重置
       this.longitude = null
-      this.latitude = TIAN_TAN_PARK_WGS.latitude
-      this.longitude = TIAN_TAN_PARK_WGS.longitude
+      this.$forceUpdate()
+      this.latitude = latitude || TIAN_TAN_PARK_WGS.latitude
+      this.longitude = longitude || TIAN_TAN_PARK_WGS.longitude
     },
     // 地图点击监听
     tap () {
@@ -1192,7 +1193,7 @@
   .viewport-style1,
   .viewport-style2,
   .viewport-style3 {
-    background-color: black;
+    background-color: red;
     opacity: 0.2;
   }
 
@@ -1210,6 +1211,7 @@
   }
 
   .viewport-style3 {
+    background-color: green;
     width: 100%;
     height: 300px;
   }

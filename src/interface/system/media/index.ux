@@ -18,6 +18,7 @@
             <image src="{{$item}}" class="image"></image>
           </block>
         </block>
+        <input type="text" class="package-name-input" placeholder="输入自定义保存目录名，不填即默认" onchange="getImageFolderName" />
         <input type="button" class="btn" onclick="takePhoto" value="拍摄照片" />
         <input type="button" class="btn" onclick="saveImageToAlbum" value="将拍摄的照片保存到本地" />
         <input type="button" class="btn" onclick="pickPhoto" value="选取图片" />
@@ -28,6 +29,7 @@
         <text class="txt">拍摄视频的路径：{{pathVideoSave}}</text>
         <text class="txt">选取视频的路径：{{pathVideoPick}}</text>
         <video src="{{videoUri}}" class="video" autoplay="true"></video>
+        <input type="text" class="package-name-input" placeholder="输入自定义保存目录名，不填即默认" onchange="getVideoFolderName" />
         <input type="button" class="btn" onclick="takeVideo" value="拍摄视频" />
         <input type="button" class="btn" onclick="saveVideoToAlbum" value="将拍摄的视频保存到本地" />
         <input type="button" class="btn" onclick="pickVideo" value="选择视频" />
@@ -82,10 +84,20 @@
       pathFileName: '',
       pathFileSize: 0,
       isDisplayOneImage: true, // 是否显示一张图片
-      pathFilePickArr: [] // 多选图片,选取文件列表图片路径数组
+      pathFilePickArr: [], // 多选图片,选取文件列表图片路径数组
+      imageFolderName: '',
+      videoFolderName: ''
     },
     onInit() {
       this.$page.setTitleBar({ text: 'Media' })
+    },
+    getImageFolderName(event) {
+      const { value = '' } = event
+      this.imageFolderName = value
+    },
+    getVideoFolderName(event) {
+      const { value = '' } = event
+      this.videoFolderName = value
     },
     takePhoto() {
       const self = this
@@ -181,6 +193,7 @@
       })
     },
     saveImageToAlbum() {
+      const { imageFolderName } = this;
       if (!this.pathPhotoSave) {
         prompt.showToast({
           message: `please take a photo firstly`
@@ -189,19 +202,27 @@
       }
       media.saveToPhotosAlbum({
         uri: this.pathPhotoSave,
+        folderName: imageFolderName,
         success: function () {
-          prompt.showToast({
-            message: `save success`
-          })
+          if (imageFolderName.length === 0) {
+            prompt.showToast({
+              message: `photo saved success at default folder`
+            })
+          } else {
+            prompt.showToast({
+              message: `photo saved success at custom folder: ${imageFolderName}`
+            })
+          }
         },
-        fail: function (erromsg, errocode) {
+        fail: function (errorMessage, errorCode) {
           prompt.showToast({
-            message: `${errocode}: ${erromsg}`
+            message: `video saved error， error code: ${errorCode}, error message: ${errorMessage}`
           })
         }
       })
     },
     saveVideoToAlbum() {
+      const { videoFolderName } = this;
       if (!this.pathVideoSave) {
         prompt.showToast({
           message: `please record a video firstly`
@@ -210,14 +231,21 @@
       }
       media.saveToPhotosAlbum({
         uri: this.pathVideoSave,
+        folderName: videoFolderName,
         success: function () {
-          prompt.showToast({
-            message: `save success`
-          })
+          if (videoFolderName.length === 0) {
+            prompt.showToast({
+              message: `video saved success at default folder`
+            })
+          } else {
+            prompt.showToast({
+              message: `video saved success at custom folder: ${videoFolderName}`
+            })
+          }
         },
-        fail: function (erromsg, errocode) {
+        fail: function (errorMessage, errorCode) {
           prompt.showToast({
-            message: `${errocode}: ${erromsg}`
+            message: `video saved error， error code: ${errorCode}, error message: ${errorMessage}`
           })
         }
       })
@@ -292,6 +320,12 @@
     background-color: #ffffff;
     padding: 30px;
     margin-bottom: 20px;
+  }
+
+  .package-name-input {
+    font-size: 30px;
+    margin: 40px 0;
+    line-height: 60px;
   }
 
   .image {

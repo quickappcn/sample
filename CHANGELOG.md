@@ -1,3 +1,55 @@
+# v1.8.0
+
+此版本配套快应用平台版本为 v1080
+
+- 新增: 框架新增`TextDecoder`全局类, 用于将字节流解码为字符串
+- 新增: 异步加载js
+- 新增: 框架新增`onReachTop`、`onReachBottom`、`onPageScroll`生命周期,监听页面滚动
+
+## 组件
+
+- 新增: `image`组件新增动画播放控制能力,通过`startAnimation`和`stopAnimation`来控制动画播放
+- 新增: `div`组件新增`enablevideofullscreencontainer`属性,在直接`子组件`为`video`时,开启全屏显示自定义组件特性
+- 新增: `video`新增`playcount`属性,控制播放次数
+- 新增: `swiper`组件新增`enableswipe`属性,控制`swiper`是否允许沿着其内容的排列方向滑动
+- 新增: `swiper`组件新增过渡动画配置
+- 新增: 新增`drawer`组件,满足抽屉布局,增加侧边导航页面配置
+- 新增: `drawer`组件可以通过`openDrawer`和`closeDrawer`来控制抽屉打开状态,通过`change`和`scroll`事件来获取状态
+- 新增: 新增`drawer-navigation`组件,为`drawer`子组件，支持通用属性`direction`
+- 新增: `refresh`组件新增`enable-refresh`属性,控制是否允许刷新组件下拉刷新示例
+- 新增: `slider`组件与`rating`组件`change`事件新增`isFromUser`参数,判断是否为用户行为触发
+- 新增: `camera`组件新增`setSceneMode`方法,设置当前拍照的场景模式
+- 新增: `camera`组件新增`setExposureCompensation`方法,设置曝光值示例
+- 新增: `camera`组件新增`getExposureCompensationRange`方法,获取相机曝光值范围示例
+- 新增: `camera`组件新增`getExposureCompensation`方法,获取当前设置的曝光值示例
+- 新增: `camera`组件新增`setPreviewFpsRange`方法,设置预览帧率的最大和最小值示例
+- 新增: `camera`组件新增`getSupportedPreviewFpsRange`方法,获取支持的预览帧率范围示例
+- 新增: `camera`组件新增`getPreviewFpsRange`方法,获取设置的预览帧率范围示例
+- 新增: `camera`组件新增`framesize`属性,设置相机帧数据尺寸示例
+- 新增: `camera`组件新增`autoexposurelock`属性,设置曝光锁定
+- 新增: `camera`组件新增`autowhitebalancelock`属性,设置白平衡锁定
+- 新增: `camera`组件新增`cameraframe`事件,获取图像像素点
+- 新增: `camera`组件新增`camerainitdone`事件,相机初始化完成时触发
+- 新增: `web`组件新增`isSupportWebRTC`事件,判断是否支持`webrtc`功能
+
+## 样式
+
+- 新增: `progress`组件`type`为`horizontal`增加`layer-color`样式,设置滑轨颜色示例
+- 优化： `animation-timing-function`支持`steps`与`cubic-bezier`,控制动画曲线示例
+
+## 接口
+
+- 新增: `geolocation`接口新增`geocodeQuery`方法,进行地理编码示例
+- 新增: `geolocation`接口新增`reverseGeocodeQuery`方法,通过地理编码获得位置信息示例
+- 新增: `telecom`接口新增`getTelecomInfo`方法,获取设备通信相关信息示例
+- 新增: `media`接口新增`saveToPhotosAlbum`方法`folderName`参数,可自定义保存在相册中文件夹的名称
+- 新增: `texttoaudio`接口新增`speak`方法,可进行语音播报,输入需要播报的文本内容，实时播报
+- 新增: `texttoaudio`接口新增`textToAudioFile`方法,可进行语音合成,输入需要合成的文本内容，生成本地音频文件
+- 新增: `texttoaudio`接口新增`isLanguageAvailable`方法,判断是否支持语言类型
+- 新增: `texttoaudio`接口新增`onttsstatechange`方法,注册状态监听，监听每个操作的状态，通过id区分
+- 新增: `texttoaudio`接口新增`stop`方法,停止当前接口
+- 新增: `texttoaudio`接口新增`isSpeaking`方法,判断语音是否正在播放或者合成
+
 # v1.7.0
 
 此版本配套快应用平台版本为 v1070

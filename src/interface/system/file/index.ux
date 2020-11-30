@@ -205,13 +205,6 @@
       file.access({
         uri: self.fileDownloadData,
         success: function (ret) {
-          self.fileDownloadData = ''
-          self.fileMoveData = ''
-          self.fileMoveToFolderData = ''
-          self.fileCopyData = ''
-          self.fileGetListData = ''
-          self.fileGetData = ''
-          self.fileDeleteData = ''
           self.fileAccessData = JSON.stringify(ret)
         },
         fail: function (errmsg, errcode) {

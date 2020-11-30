@@ -1,0 +1,167 @@
+<template>
+    <div class="demo-page">
+        <div class="title-container">
+            <text class="title">video全屏自定义组件显示 `1080+`</text>
+        </div>
+        <text class="content">播放视频，即可查看弹幕，并可切换开启/关闭。进入全屏状态后也可正常显示弹幕。</text>
+        <text class="content">此功能需1080+版本平台支持</text>
+        <div enablevideofullscreencontainer="true">
+            <video class="video" autoplay="false" orientation="landscape" title="快应用介绍视频"
+                   poster="../video_poster_small.png"
+                   onfullscreenchange="fullChange" onstart="startChange"
+                   src="https://swsdl.vivo.com.cn/appstore/developer/uploadfile/20180323/20180323183010837.mp4">
+            </video>
+            <div class="button" onclick="toggleShowFlag">
+                <text class="button-text">{{visibleTest}}</text>
+            </div>
+            <div class="danmu-container  {{animationClassName}}" show={{visible}}>
+                <text class="danmu-text">awsl</text>
+            </div>
+        </div>
+    </div>
+</template>
+<script>
+    export default {
+        private: {
+            orientation: 'portrait',
+            animationClassName: '',
+            visible: false,
+            visibleTest: '打开弹幕'
+        },
+        toggleShowFlag() {
+            if (!this.visible) {
+                if (this.orientation === 'landscape') {
+                    this.animationClassName = 'danmu-animation-landscape'
+                } else {
+                    this.animationClassName = 'danmu-animation-portrait'
+                }
+                this.visible = true
+                this.visibleTest = `关闭弹幕`
+            } else {
+                this.animationClassName = ''
+                this.visible = false
+                this.visibleTest = `打开弹幕`
+            }
+        },
+        fullChange(event) {
+            const fullScreenFlag = event.fullscreen;
+            if (fullScreenFlag) {
+                this.orientation = 'landscape'
+                this.animationClassName = ''
+                this.animationClassName = 'danmu-animation-landscape'
+            } else {
+                this.orientation = 'portrait'
+                this.animationClassName = ''
+                this.animationClassName = 'danmu-animation-portrait'
+            }
+        },
+        startChange() {
+            if (!this.visible) {
+                if (this.orientation === 'landscape') {
+                    this.animationClassName = 'danmu-animation-landscape'
+                } else {
+                    this.animationClassName = 'danmu-animation-portrait'
+                }
+                this.visible = true
+                this.visibleTest = `关闭弹幕`
+            }
+        },
+    }
+</script>
+
+<style>
+    .danmu-container {
+        position: absolute;
+        top: 150px;
+        right: -100px;
+        height: 70px;
+        padding: 0 30px;
+        animation-timing-function: linear;
+        animation-fill-mode: forwards;
+        animation-iteration-count: infinite;
+    }
+
+    .danmu-text {
+        font-size: 60px;
+        color: #4c9afa;
+    }
+
+    .danmu-animation-portrait {
+        animation-name: danmuLoopPortrait;
+        animation-duration: 1500ms;
+    }
+
+    @keyframes danmuLoopPortrait {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(-850px);
+        }
+    }
+
+
+    .danmu-animation-landscape {
+        animation-name: danmuLoopLandscape;
+        animation-duration: 3250ms;
+    }
+
+    @keyframes danmuLoopLandscape {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(-900px);
+        }
+    }
+
+    .demo-page {
+        flex-direction: column;
+    }
+
+    .video {
+        width: 750px;
+        height: 422px;
+    }
+
+    .title-container {
+        flex-direction: row;
+        align-items: center;
+        padding: 24px;
+        border-radius: 12px;
+        margin: 12px;
+        background-color: #eee;
+    }
+
+    .title {
+        font-size: 36px;
+        color: #242424;
+        margin: 10px;
+    }
+
+    .content{
+        font-size: 36px;
+        color: #999;
+        margin: 20px;
+    }
+
+    .button {
+        width: 250px;
+        height: 75px;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        border-radius: 75px;
+        border: 1px solid red;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .button-text {
+        color: red;
+        font-size: 45px;
+        text-align: center;
+    }
+
+
+</style>

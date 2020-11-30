@@ -1,6 +1,6 @@
 {
   "name": "sample",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "subversion": {
     "toolkit": "0.6.1"
   },
@@ -10,7 +10,8 @@
     "debug": "hap debug",
     "build": "hap build",
     "release": "hap release",
-    "watch": "hap watch"
+    "watch": "hap watch",
+    "start": "hap server --watch"
   },
   "devDependencies": {
     "@types/quickapp": "git+https://github.com/vivoquickapp/quickapp-types.git",
@@ -20,7 +21,7 @@
     "qrcode-js": "0.0.2"
   },
   "dependencies": {
-    "hap-toolkit": "^0.7.2",
+    "hap-toolkit": "^1.8.3",
     "hsl-to-hex": "^1.0.0"
   },
   "browserslist": [

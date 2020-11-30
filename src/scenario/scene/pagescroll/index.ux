@@ -1,0 +1,64 @@
+<template>
+  <div class="doc-page">
+    <div class="show-item" for="item in showList">
+      <text>{{item}}</text>
+    </div>
+    <div class="btn-box-fixed">
+      <input type="button" class="btn" @click="scrollToTop" value="置顶">
+      <input type="button" class="btn" @click="scrollBy" value="向下200">
+    </div>
+  </div>
+</template>
+
+<script>
+  import prompt from '@system.prompt'
+  export default {
+    private: {
+      showList: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N']
+    },
+    onInit () {
+      this.$page.setTitleBar({ text: '页面滚动' })
+    },
+    onReachTop () {
+      prompt.showToast({
+        message: '触顶'
+      })
+    },
+    onReachBottom () {
+      prompt.showToast({
+        message: '触底'
+      })
+    },
+    onPageScroll ({scrollTop}) {
+      console.log(`scrollTop: ${scrollTop}`)
+    },
+    scrollToTop () {
+      this.$page.scrollTo({ top: 0, behavior: 'smooth' })
+    },
+    scrollBy() {
+      this.$page.scrollBy({ top: 200, behavior: 'smooth' })
+    }
+  }
+</script>
+
+<style>
+  @import "../../../common/css/index.css";
+
+  .show-item {
+    height: 300px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #8c8892;
+  }
+
+  .btn-box-fixed {
+    position: fixed;
+    right: 100px;
+    bottom: 100px;
+  }
+  .btn {
+    width: 100px;
+    height: 100px;
+  }
+</style>

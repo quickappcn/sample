@@ -7,7 +7,10 @@
     <div class="item-container">
       <text class="item-hint">type=html</text>
       <text class="item-hint">html类型的富文本的value,最外层必须用开发文档中html支持的块级元素包裹起来</text>
-      <richtext type="html" class="rich-text" onstart="startFn" oncomplete="completeFn">{{content}}</richtext>
+      <richtext type="html" class="rich-text"
+                onstart="startFn" oncomplete="completeFn">
+        {{content+`hello world`}}
+      </richtext>
     </div>
   </div>
 </template>

@@ -5,6 +5,7 @@
     </div>
     <div class="item">
       <text class="title">显示: {{starNum}}星</text>
+      <text class="title">是否由用户触发: {{isFromUser}}</text>
       <rating class="rating" onchange="onstarStatus"></rating>
     </div>
     <div class="item">
@@ -21,13 +22,15 @@
   export default {
     private: {
       componentName: 'rating',
-      starNum: 0
+      starNum: 0,
+      isFromUser: ''
     },
     onInit () {
       this.$page.setTitleBar({text: 'Rating'})
     },
-    onstarStatus (e) {
-      this.starNum = e.rating
+    onstarStatus (evt) {
+      this.starNum = evt.rating
+      this.isFromUser = evt.isFromUser
     }
   }
 </script>

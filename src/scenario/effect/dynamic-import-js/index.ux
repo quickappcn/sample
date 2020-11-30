@@ -1,0 +1,50 @@
+<template>
+  <!-- template里只能有一个根节点 -->
+  <div class="demo-page">
+    <text class="title">{{time}}</text>
+    <input class="btn" type="button" value="点击引入动态JS修改时间" onclick="dynamicImportJs" />
+  </div>
+</template>
+
+<script>
+export default {
+  // 页面级组件的数据模型，影响传入数据的覆盖机制：private内定义的属性不允许被覆盖
+  private: {
+    time: new Date().toLocaleString()
+  },
+  dynamicImportJs() {
+    if (this._loaded) {
+      this.time = this.timerGenerator()
+      return
+    }
+    import('./timer').then(res => {
+      this.timerGenerator = res.default
+      this._loaded = true
+      this.time = this.timerGenerator()
+    })
+  }
+}
+</script>
+
+<style>
+  .demo-page {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .title {
+    font-size: 40px;
+    text-align: center;
+  }
+
+  .btn {
+    width: 550px;
+    height: 86px;
+    margin-top: 75px;
+    border-radius: 43px;
+    background-color: #09ba07;
+    font-size: 30px;
+    color: #ffffff;
+  }
+</style>

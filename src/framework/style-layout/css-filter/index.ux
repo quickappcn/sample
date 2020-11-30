@@ -1,0 +1,67 @@
+<template>
+  <div class="demo-page">
+    <div class="title-container">
+      <text class="title">css filter滤镜示例(1090+)</text>
+    </div>
+    <text>暂只支持blur滤镜，blur滤镜的长度单位可支持px，dp</text>
+    <text>因滤镜计算较耗资源，故快速改变模糊半径会闪动，为正常现象。</text>
+    <text>正常情况下请避免频繁修改模糊半径</text>
+    <slider class="slider" min="0" max="20" value="{{blurRadius}}"
+            onchange="getSliderValue('blurRadius')"></slider>
+    <text>模糊图标，模糊半径：{{ blurRadius }} px</text>
+    <image src="./img/mountain.jpg" class="small-image" style="{{getStyleText}}"></image>
+    <text>清晰图标</text>
+    <image src="./img/mountain.jpg" class="small-image"></image>
+  </div>
+</template>
+
+<script>
+export default {
+  public: {
+    blurRadius: 5,
+  },
+  computed: {
+    getStyleText() {
+      return `filter:blur(${this.blurRadius}dp)`
+    }
+  },
+  getSliderValue(name, e) {
+    this[name] = e.progress
+  }
+}
+</script>
+
+<style>
+.demo-page {
+  flex-direction: column;
+  align-items: center;
+  margin:0 24px;
+}
+
+.slider {
+  width: 400px;
+  margin: 16px;
+}
+
+.small-image {
+  width: 300px;
+  height: 300px;
+  margin: 30px 0;
+}
+
+.title-container {
+  height: 72px;
+  width:100%;
+  flex-direction: row;
+  align-items: center;
+  border-radius: 4px;
+  margin-bottom: 12px;
+  background-color: #eee;
+}
+
+.title {
+  font-size: 36px;
+  color: #242424;
+}
+
+</style>

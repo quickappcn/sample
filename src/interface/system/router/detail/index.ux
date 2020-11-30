@@ -2,8 +2,10 @@
   <div class="doc-page">
     <text if="pageInfo">{{pageInfo}}</text>
     <text if="pageInfoObject">{{pageInfoObject}}</text>
-    <input type="button" class="btn" onclick="routeBack('/home')" value="跳转到首页" />
-    <input type="button" class="btn" onclick="routeBack('/interface/system/router')" value="返回上一页面" />
+    <div class="item-container">
+      <input type="button" class="btn" onclick="routeBack('/home')" value="跳转到首页" />
+      <input type="button" class="btn" onclick="routeBack('/interface/system/router')" value="返回上一页面" />
+    </div>
   </div>
 </template>
 
@@ -30,7 +32,9 @@
 
 <style>
   @import '../../../../common/css/common.css';
-
+  .item-container {
+    margin-top: 30px;
+  }
   text {
     flex: 1;
     font-size: 35px;

@@ -1,9 +1,9 @@
 {
   "package": "org.quickapp.union.sample",
   "name": "快应用示例中心",
-  "versionName": "1.7.0",
-  "versionCode": 170,
-  "minPlatformVersion": 1070,
+  "versionName": "1.8.0",
+  "versionCode": 180,
+  "minPlatformVersion": 1080,
   "icon": "/common/logo.png",
   "features": [
     { "name": "system.cipher" },
@@ -39,6 +39,7 @@
     { "name": "system.bluetooth" },
     { "name": "system.websocketfactory" },
     { "name": "system.wifi" },
+    { "name": "system.telecom"},
     { "name": "service.ad" },
     { "name": "android.settings" },
     { "name": "service.stats" },
@@ -50,9 +51,11 @@
     { "name": "service.alipay" },
     { "name": "service.exchange" },
     { "name": "system.zip" },
+    { "name": "system.keyguard" },
     { "name": "hap.io.MessageChannel" },
     { "name": "system.configuration" },
     { "name": "hap.io.Video" },
+    { "name": "service.texttoaudio" },
     {
       "name": "service.wxpay",
       "params": {
@@ -177,6 +180,9 @@
       "component/container/tabs": {
         "component": "index"
       },
+      "component/extend/drawer": {
+        "component": "index"
+      },
       "component/basic/text": {
         "component": "index"
       },
@@ -190,6 +196,9 @@
         "component": "index"
       },
       "component/media/video": {
+        "component": "index"
+      },
+      "component/media/video/fullscreen": {
         "component": "index"
       },
       "component/media/canvas": {
@@ -261,6 +270,9 @@
       "framework/style-layout/media-query": {
         "component": "index"
       },
+      "framework/style-layout/css-filter": {
+        "component": "index"
+      },
       "framework/filter": {
         "component": "index"
       },
@@ -322,6 +334,9 @@
         "component": "index"
       },
       "interface/thirdparty/wbaccount": {
+        "component": "index"
+      },
+      "interface/audio/tts": {
         "component": "index"
       },
       "interface/system/brightness": {
@@ -456,7 +471,13 @@
       "interface/system/zip": {
         "component": "index"
       },
+      "interface/system/keyguard": {
+        "component": "index"
+      },
       "component/style/animation": {
+        "component": "index"
+      },
+      "component/style/animation-direction": {
         "component": "index"
       },
       "component/style/transform": {
@@ -534,6 +555,9 @@
       "scenario/scene/accessible": {
         "component": "index"
       },
+      "scenario/effect/dynamic-import-js": {
+        "component": "index"
+      },
       "component/media/web/darkmode-web": {
         "component": "index"
       },
@@ -572,14 +596,20 @@
       "interface/manufacturer/stats": {
         "component": "index"
       },
-      "interface/manufacturer/push":{
-        "component":"index"
+      "interface/manufacturer/push": {
+        "component": "index"
       },
-      "interface/manufacturer/account":{
-        "component":"index"
+      "interface/manufacturer/account": {
+        "component": "index"
       },
       "interface/manufacturer/ad": {
-        "component":"index"
+        "component": "index"
+      },
+      "interface/system/telecom": {
+        "component": "index"
+      },
+      "scenario/scene/pagescroll": {
+        "component": "index"
       }
     }
   },
@@ -613,6 +643,9 @@
         "titleBarText": "快应用组件展示"
       },
       "component/media/web": {
+        "titleBar": false
+      },
+      "component/extend/drawer": {
         "titleBar": false
       },
       "framework/lifecycle": {
