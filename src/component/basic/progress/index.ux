@@ -10,6 +10,10 @@
         <progress class="progerss" percent="10"></progress>
       </div>
       <div class="item-content">
+        <text class="item-title">15%（滑轨颜色#f0f000）</text>
+        <progress class="progerss progress-track" percent="10"></progress>
+      </div>
+      <div class="item-content">
         <text class="item-title">20%</text>
         <progress class="progerss" style="color: #09ba07;stroke-width: 10px;" percent="20"></progress>
       </div>
@@ -32,7 +36,7 @@
       </div>
       <div class="item-content-circular">
         <text class="item-title">高度40px</text>
-        <progress class="circular circular-1" style="color: #09ba07;" type="circular"></progress>
+        <progress class="circular circular-1" style="color: #07a5ba;" type="circular"></progress>
       </div>
       <div class="item-content-circular">
         <text class="item-title">高度60px</text>
@@ -88,6 +92,9 @@
   }
   .item-title {
     text-align: center;
+  }
+  .progress-track {
+    layer-color: #f0f000;
   }
   .circular-1 {
     width: 40px;

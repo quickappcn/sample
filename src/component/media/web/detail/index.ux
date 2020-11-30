@@ -3,12 +3,13 @@
 <template>
   <div class="doc-comp">
     <titleBar value="{{titleBarParams}}"></titleBar>
-    <web class="web-comp" src="{{websrc}}" allowthirdpartycookies="{{allow}}" onpagestart="onPageStart" onpagefinish="onPageFinish"  ontitlereceive="onTitleReceive" onerror="onError" id="web"></web>
+    <web class="web-comp" src="{{websrc}}" allowthirdpartycookies="{{allow}}" onpagestart="onPageStart" onpagefinish="onPageFinish"  ontitlereceive="onTitleReceive" onerror="onError" onprogress="onProgress" id="web"></web>
   </div>
 </template>
 
 <script>
   import router from '@system.router'
+  import prompt from '@system.prompt'
   export default {
     data: {
       websrc: '',
@@ -27,14 +28,21 @@
       this.$on('arrowLeft', this.arrowLeftIcon)
       this.$on('arrowRight', this.arrowRightIcon)
     },
-    onPageStart (e) {
-      console.info('### pagestart ###'+e.url)
+    onPageStart (evt) {
+      this.isSupportWebRTC()
+      console.info(`### pagestart ### url: ${evt.url} canBack: ${ evt.canBack } canForward: ${ evt.canForward }`)
     },
-    onTitleReceive (e) {
-      this.titleBarParams.config.title = e.title
+    onPageFinish (evt) {
+      console.info(`### pagestart ### url: ${evt.url} canBack: ${ evt.canBack } canForward: ${ evt.canForward }`)
     },
-    onError () {
-      console.info('### pageError ###')
+    onTitleReceive (evt) {
+      this.titleBarParams.config.title = evt.title
+    },
+    onError (evt) {
+      console.info(`### pageError ###`, evt)
+    },
+    onProgress (evt) {
+      console.info('progressValue: ' + evt.progress)
     },
     arrowLeftIcon () {
       this.isCanBack()
@@ -60,6 +68,13 @@
             router.back()
           }
         }.bind(this)
+      })
+    },
+    isSupportWebRTC () {
+      this.$element('web').isSupportWebRTC({
+        callback: function (data){
+          console.log(`是否支持webrtc功能：${ data }`)
+        }
       })
     }
   }

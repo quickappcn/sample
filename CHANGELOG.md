@@ -1,3 +1,116 @@
+# v1.8.0
+
+此版本配套快应用平台版本为 v1080
+
+- 新增: 框架新增`TextDecoder`全局类, 用于将字节流解码为字符串
+- 新增: 异步加载js
+- 新增: 框架新增`onReachTop`、`onReachBottom`、`onPageScroll`生命周期,监听页面滚动
+
+## 组件
+
+- 新增: `image`组件新增动画播放控制能力,通过`startAnimation`和`stopAnimation`来控制动画播放
+- 新增: `div`组件新增`enablevideofullscreencontainer`属性,在直接`子组件`为`video`时,开启全屏显示自定义组件特性
+- 新增: `video`新增`playcount`属性,控制播放次数
+- 新增: `swiper`组件新增`enableswipe`属性,控制`swiper`是否允许沿着其内容的排列方向滑动
+- 新增: `swiper`组件新增过渡动画配置
+- 新增: 新增`drawer`组件,满足抽屉布局,增加侧边导航页面配置
+- 新增: `drawer`组件可以通过`openDrawer`和`closeDrawer`来控制抽屉打开状态,通过`change`和`scroll`事件来获取状态
+- 新增: 新增`drawer-navigation`组件,为`drawer`子组件，支持通用属性`direction`
+- 新增: `refresh`组件新增`enable-refresh`属性,控制是否允许刷新组件下拉刷新示例
+- 新增: `slider`组件与`rating`组件`change`事件新增`isFromUser`参数,判断是否为用户行为触发
+- 新增: `camera`组件新增`setSceneMode`方法,设置当前拍照的场景模式
+- 新增: `camera`组件新增`setExposureCompensation`方法,设置曝光值示例
+- 新增: `camera`组件新增`getExposureCompensationRange`方法,获取相机曝光值范围示例
+- 新增: `camera`组件新增`getExposureCompensation`方法,获取当前设置的曝光值示例
+- 新增: `camera`组件新增`setPreviewFpsRange`方法,设置预览帧率的最大和最小值示例
+- 新增: `camera`组件新增`getSupportedPreviewFpsRange`方法,获取支持的预览帧率范围示例
+- 新增: `camera`组件新增`getPreviewFpsRange`方法,获取设置的预览帧率范围示例
+- 新增: `camera`组件新增`framesize`属性,设置相机帧数据尺寸示例
+- 新增: `camera`组件新增`autoexposurelock`属性,设置曝光锁定
+- 新增: `camera`组件新增`autowhitebalancelock`属性,设置白平衡锁定
+- 新增: `camera`组件新增`cameraframe`事件,获取图像像素点
+- 新增: `camera`组件新增`camerainitdone`事件,相机初始化完成时触发
+- 新增: `web`组件新增`isSupportWebRTC`事件,判断是否支持`webrtc`功能
+
+## 样式
+
+- 新增: `progress`组件`type`为`horizontal`增加`layer-color`样式,设置滑轨颜色示例
+- 优化： `animation-timing-function`支持`steps`与`cubic-bezier`,控制动画曲线示例
+
+## 接口
+
+- 新增: `geolocation`接口新增`geocodeQuery`方法,进行地理编码示例
+- 新增: `geolocation`接口新增`reverseGeocodeQuery`方法,通过地理编码获得位置信息示例
+- 新增: `telecom`接口新增`getTelecomInfo`方法,获取设备通信相关信息示例
+- 新增: `media`接口新增`saveToPhotosAlbum`方法`folderName`参数,可自定义保存在相册中文件夹的名称
+- 新增: `texttoaudio`接口新增`speak`方法,可进行语音播报,输入需要播报的文本内容，实时播报
+- 新增: `texttoaudio`接口新增`textToAudioFile`方法,可进行语音合成,输入需要合成的文本内容，生成本地音频文件
+- 新增: `texttoaudio`接口新增`isLanguageAvailable`方法,判断是否支持语言类型
+- 新增: `texttoaudio`接口新增`onttsstatechange`方法,注册状态监听，监听每个操作的状态，通过id区分
+- 新增: `texttoaudio`接口新增`stop`方法,停止当前接口
+- 新增: `texttoaudio`接口新增`isSpeaking`方法,判断语音是否正在播放或者合成
+
+# v1.7.0
+
+此版本配套快应用平台版本为 v1070
+
+## 框架
+
+- 新增: 新增动态组件
+- 新增: 页面对象 `$page` 新增`scrollTo`、`scrollBy`方法,用于控制页面进行滚动
+- 新增：页面对象 `$page` 新增 `getMenuBarRect`方法, 可以获取 menuBar 的布局位置信息
+- 新增：`APP`新增`onRequest`、`onShow`、`onHide`生命周期
+- 新增：`manifest.json`中`display`新增 `themeMode` 字段，用于配置快应用主题模式
+- 新增：`manifest.json`中`display`新增 `forceDark` 字段，用于配置`应用级别`的夜间模式自动反色开关
+- 新增：`manifest.json`中`router.pages`新增 `forceDark` 字段，用于配置`页面级别`的夜间模式自动反色开关
+- 新增：`manifest.json`中`display`新增 `menuBarData` 字段，设置悬浮窗样式
+- 新增： `onConfigurationChanged`生命周期增加 `type:"themeMode"`，在系统更改主题模式时触发，详情请参考官网文档
+
+## 组件
+
+- 新增: `map`组件新增`setMaxAndMinScaleLevel`方法，设置地图缩放级别
+- 新增: `map`组件新增`heatmaplayer`属性，用于热力图配置
+- 新增: `map`组件新增`showscale`属性和`setScalePosition`方法,设置默认比例尺控件展示与位置
+- 新增: `map`组件新增`showzoom`属性和`setZoomPosition`方法,设置放大缩小功能控件展示与位置
+- 新增: `map`组件新增`setCompassPosition`方法,设置地图指南针位置
+- 新增: `video`组件新增`titlebar`、`title`属性,设置视频组件在全屏时是否显示顶栏和要显示的顶栏标题
+- 新增： `video`组件新增`orientation`属性，用于控制视频的布局方向
+- 新增: `list`组件新增`scrollBy`方法，可以控制`list`从当前位置进行滑动
+- 新增: 组件新增通用方法`getBoundingClientRect`,可以获取节点的位置信息
+- 新增: 组件新增通用方法`toTempFilePath`,可以将组件内容保存为图片
+- 新增: `web`组件新增`showloadingdialog`属性,设置 web 组件是否展示加载框
+- 新增: 除`video`、`camera`、`map`、`custommarker`、`canvas`、`span`以外的全部组件新增通用属性`forcedark`，用于配置`组件级别`的夜间模式自动反色开关
+- 新增: `web`组件新增`supportzoom`属性,设置网页是否支持缩放
+- 新增: `richtext`新增`start`、`complete`事件,监测`richtext`开始加载和完成加载示例
+-
+
+## 样式
+
+- 新增: `progress`组件`type`为`horizontal`增加`layer-color`样式,设置滑轨颜色示例
+- 新增: `switch`组件新增`thumb-color`、`track-color`样式,可自定义小球和滑轨颜色
+- 新增: `list`组件新增`layout-type`属性,可控制子元素网格展示和交错展示
+- 新增： `list-item`组件新增`column-span`属性,控制`list-item`在`list`中所占列数
+- 新增： 动画新增`animationstart`、`animationiteration` 和 `animationend`回调事件,监听动画事件
+- 优化: 动画样式`animation-name`支持多个`keyframe`定义的动画
+- 优化： `border-radius`支持`percent`单位
+- 新增： 新增支持`media-query`媒体查询，需 hap-toolkit 版本在`0.6.15`以上
+
+## 接口
+
+- 新增: `package`接口新增`getInfo`方法,获取应用版本号、版本名
+- 新增: `package`接口新增`getSignatureDigests`方法,获取应用签名摘要信息
+- 新增: `geolocation`接口新增`chooseLocation`方法,打开地图选择位置
+- 新增: `geolocation`接口新增`openLocation`方法,查看地图对应位置
+- 新增: `router`接口新增`getPages`,返回当前页面栈列表和路径
+- 新增: `router`接口`push`方法,`params`新增参数`___PARAM_PAGE_ANIMATION___`，可分别对`openEnter`、`closeEnter`、`openExit`、`closeExit`进行配置,来进行页面跳转动画定制
+- 新增: `network`接口新增`getSimOperators`,获取 Sim 卡的运营商信息
+- 新增：`network`接口`getType`新增`5g`,`bluetooth`,`others`网络类型
+- 新增：`app`接口新增`createQuickAppQRCode`,可生成当前快应用信息的分享二维码
+- 新增：`account`接口新增`getPhoneNumber`方法,获取用户的手机号码
+- 新增： `configuration`接口新增`getThemeMode`方法,获取应用当前的主题模式
+- 新增： `webview`接口`loadUrl`新增`showloadingdialog`参数,控制是否展示默认加载框
+- 新增： `device`接口新增`host`,获取宿主信息
+
 # v1.6.0
 
 此版本配套快应用平台版本为 v1060

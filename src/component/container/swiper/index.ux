@@ -6,7 +6,7 @@
 
     <div class="item-container">
       <div class="swiper-container">
-        <swiper class="swiper" autoplay="{{autoPlay}}" interval="{{sliderValue}}" indicator="{{indicator}}" duration="{{durationValue}}" vertical="{{isVertical}}" previousmargin="{{marginValue}}" nextmargin="{{marginValue}}" loop="{{loopPlay}}" style="indicatorTop: {{topValue}}">
+        <swiper class="swiper swiper-animation" autoplay="{{autoPlay}}" interval="{{sliderValue}}" indicator="{{indicator}}" duration="{{durationValue}}" vertical="{{isVertical}}" previousmargin="{{marginValue}}" nextmargin="{{marginValue}}" loop="{{loopPlay}}" enableswipe="{{isSwipe}}" style="indicatorTop: {{topValue}}">
           <text class="item color-1">A</text>
           <text class="item color-2">B</text>
           <text class="item color-3">C</text>
@@ -29,6 +29,10 @@
       <div class="item-content">
         <text class="item-content_title">竖直方向</text>
         <switch class="switch" checked="false" onchange="switchDirection"></switch>
+      </div>
+      <div class="item-content">
+        <text class="item-content_title">允许手势控制</text>
+        <switch class="switch" checked="true" onchange="changeisSwipe"></switch>
       </div>
     </div>
     <div class="item-container">
@@ -74,39 +78,43 @@
       isVertical: false,
       marginValue: '0px',
       topValue: '210px',
+      isSwipe: true
     },
     onInit () {
       this.$page.setTitleBar({text: 'Swiper'})
     },
-    startAutoPlay (e) {
-      this.autoPlay = e.checked
+    startAutoPlay (evt) {
+      this.autoPlay = evt.checked
     },
-    showIndicator (e) {
-      this.indicator = e.checked
+    showIndicator (evt) {
+      this.indicator = evt.checked
     },
-    switchLoopPlay (e) {
-      this.loopPlay = e.checked
+    switchLoopPlay (evt) {
+      this.loopPlay = evt.checked
     },
-    switchDirection (e) {
-      this.isVertical = e.checked
+    switchDirection (evt) {
+      this.isVertical = evt.checked
 
-      if (e.checked) {
+      if (evt.checked) {
         this.topValue = 68 + 'px'
       } else {
         this.topValue = 195 + 'px'
       }
     },
-    setSliderValue (e) {
-      this.sliderValue = e.progress
+    setSliderValue (evt) {
+      this.sliderValue = evt.progress
     },
-    setDurationValue (e) {
-      this.durationValue = e.progress
+    setDurationValue (evt) {
+      this.durationValue = evt.progress
     },
-    setMarginValue (e) {
-      this.marginValue = e.progress + 'px'
+    setMarginValue (evt) {
+      this.marginValue = evt.progress + 'px'
     },
-    setTopValue (e) {
-      this.topValue = e.progress + 'px'
+    setTopValue (evt) {
+      this.topValue = evt.progress + 'px'
+    },
+    changeisSwipe(evt) {
+      this.isSwipe = evt.checked
     }
   }
 </script>
@@ -157,5 +165,19 @@
   }
   .color-3 {
     background-color: #0faeff;
+  }
+  .swiper-animation {
+    page-animation-name: Opacity;
+    page-transform-origin: 0px 0px;
+    animation-timing-function: linear;
+  }
+
+  @keyframes Opacity {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0.1;
+    }
   }
 </style>

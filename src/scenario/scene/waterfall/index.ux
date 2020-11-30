@@ -1,0 +1,78 @@
+<template>
+    <div class="doc-page">
+      <!-- 列表 -->
+      <list class="list-content" onscroll="handleScroll" onscrollbottom="scrollbottom" id="list"
+        onscrolltouchup="scrolltouchup" onscrollend="scrollend" scrollpage="{{scrollPage}}"
+        style="columns:{{columnsNum}}">
+        <!-- 列表元素，属性type值相同时，需要确保渲染中dom结构相同 -->
+        <list-item type="listItem" class="item item-color" style="height: {{`${($idx % 3 + 1) * 100}px`}}" for="{{listData}}">
+          <text class="txt">{{$item}}--{{$idx}}</text>
+        </list-item>
+  
+        <!-- 加载更多 -->
+        <list-item type="loadMore" class="load-more" if="{{loadMore}}">
+          <progress type="circular"></progress>
+          <text>加载更多</text>
+        </list-item>
+      </list>
+    </div>
+  </template>
+  
+  <script>
+    import prompt from '@system.prompt'
+  
+    export default {
+      private: {
+        componentName: 'list',
+        loadMore: true,
+        listAdd: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],
+        listData: [],
+        scrollPage: false,
+        columnsNum: 3,
+      },
+      onInit() {
+        this.$page.setTitleBar({ text: '瀑布流展示' })
+        // 初始化列表数据
+        this.listData = [].concat(this.listAdd)
+      },
+      scrollbottom() {
+        // 加载下一页
+        const self = this
+        const renderData = [].concat(self.listData, self.listAdd)
+        setTimeout(function () {
+          self.listData = renderData
+        }, 100)
+      },
+    }
+  </script>
+  
+  <style>
+    @import '../../../common/css/common.css';
+  
+    .list-content {
+      flex: 1;
+      padding-left: 60px;
+      padding-right: 60px;
+      layout-type: stagger;
+    }
+  
+    .item {
+      height: 150px;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #ff00ff;
+    }
+  
+    .load-more {
+      justify-content: center;
+      align-items: center;
+      height: 100px;
+      border-color: #bbbbbb;
+      border-bottom-width: 1px;
+    }
+  
+    .item-color {
+      background-color: #f76160;
+    }
+  
+  </style>

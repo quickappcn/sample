@@ -1,0 +1,43 @@
+<import src="./comp1.ux" name="comp1"></import>
+<import src="./comp2.ux" name="comp2"></import>
+
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{ componentName }}</text>
+    </div>
+
+    <div class="item-container center-show">
+      <component is="{{currentCom}}"></component>
+    </div>
+    <input class="btn" type="button" value="切换组件" onclick="changeCom" />
+
+  </div>
+</template>
+
+<style>
+  @import "../../../common/css/common.css";
+  .center-show {
+    align-items: center;
+  }
+</style>
+
+<script>
+  export default {
+    data() {
+      return {
+        componentName: '动态组件',
+        currentCom: 'comp1',
+        position: 1
+      }
+    },
+    onInit() {
+      this.$page.setTitleBar({
+        text: this.componentName
+      })
+    },
+    changeCom () {
+      this.currentCom = `comp${ this.position++ % 2 + 1 }`
+    }
+  }
+</script>

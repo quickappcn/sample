@@ -19,6 +19,9 @@
         <div class="item {{width}}">
           <text class="txt">width</text>
         </div>
+        <div class="{{backPosition}}">
+          <text class="txt">background-position</text>
+        </div>
         <input class="button" type="button" name="" value="show" onclick="show01"/>
       </div>
 
@@ -75,6 +78,12 @@
         <div class="item {{easeInOut}}">
           <text class="txt">ease-in-out</text>
         </div>
+        <div class="item {{steps}}">
+          <text class="txt">steps</text>
+        </div>
+        <div class="item {{cubicBezier}}">
+          <text class="txt">cubic-bezier</text>
+        </div>
         <input class="button" type="button" name="" value="show" onclick="show05"/>
       </div>
 
@@ -114,11 +123,28 @@
         </div>
         <input class="button" type="button" name="" value="show" onclick="show07"/>
       </div>
+
+      <div class="group">
+        <text class="header">多个动画同时播放</text>
+        <div class="item {{multiple}}">
+          <text class="txt">多个动画同时播放</text>
+        </div>
+        <input class="button" type="button" name="" value="show" onclick="show08"/>
+      </div>
+
+      <div class="group">
+        <text class="header">动画事件监听</text>
+        <div id="animation" class="item {{animateEvent}}">
+          <text class="txt">动画事件监听</text>
+        </div>
+        <input class="button" type="button" name="" value="show" onclick="show09"/>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+  import prompt from '@system.prompt'
   export default {
     private: {
       componentName: 'animation',
@@ -146,7 +172,12 @@
       scaleY: '',
       rotate: '',
       rotateX: '',
-      rotateY: ''
+      rotateY: '',
+      multiple: '',
+      animateEvent: '',
+      backPosition: '',
+      steps: '',
+      cubicBezier: ''
     },
     onInit () {
       this.$page.setTitleBar({text: 'Animation'})
@@ -156,10 +187,12 @@
       this.opacity = ''
       this.height = ''
       this.width = ''
+      this.backPosition = ''
       this.color = 'color'
       this.opacity = 'opacity'
       this.height = 'height'
       this.width = 'width'
+      this.backPosition = 'backPosition'
     },
     show02 () {
       this.delay = ''
@@ -187,11 +220,15 @@
       this.easeIn = ''
       this.easeOut = ''
       this.easeInOut = ''
+      this.steps = ''
+      this.cubicBezier = ''
       this.linear = 'linear'
       this.ease = 'ease'
       this.easeIn = 'easeIn'
       this.easeOut = 'easeOut'
       this.easeInOut = 'easeInOut'
+      this.steps = 'steps'
+      this.cubicBezier = 'cubic-bezier'
     },
     show06 () {
       this.forwards = ''
@@ -214,6 +251,33 @@
       this.rotate = 'rotate'
       this.rotateX = 'rotateX'
       this.rotateY = 'rotateY'
+    },
+    show08 () {
+      this.multiple = ''
+      this.multiple = 'multiple'
+    },
+    show09 () {
+      this.animateEvent = ''
+      this.animateEvent = 'animateEvent'
+      this.animationEvent()
+    },
+    animationEvent () {
+      const element = this.$element('animation')
+      element.addEventListener("animationstart", (event) => {
+        prompt.showToast({
+          message: 'type: ' + event.type + ', animationName: ' + event.animationName + ', elapsedTime: ' + event.elapsedTime
+        })
+      })
+      element.addEventListener("animationend", (event) => {
+        prompt.showToast({
+          message: 'type: ' + event.type + ', animationName: ' + event.animationName + ', elapsedTime: ' + event.elapsedTime
+        })
+      })
+      element.addEventListener("animationiteration", (event) => {
+        prompt.showToast({
+          message: 'type: ' + event.type + ', animationName: ' + event.animationName + ', elapsedTime: ' + event.elapsedTime
+        })
+      })
     }
   }
 </script>
@@ -265,6 +329,11 @@
   .width {
     animation-name: Width;
     animation-duration: 1000ms;
+  }
+  .backPosition {
+    animation-name: BackPosition;
+    animation-duration: 1000ms;
+    background-image: url('../../../common/logo.png');
   }
   .delay {
     animation-name: Go;
@@ -323,6 +392,16 @@
     animation-duration: 3000ms;
     animation-timing-function: ease-in-out;
   }
+  .steps {
+    animation-name: Go;
+    animation-duration: 3000ms;
+    animation-timing-function: steps(3, end);
+  }
+  .cubic-bezier {
+    animation-name: Go;
+    animation-duration: 3000ms;
+    animation-timing-function: cubic-bezier(0, 0.3, 0.7, 1);
+  }
   .forwards {
     animation-name: Go;
     animation-duration: 3000ms;
@@ -361,6 +440,15 @@
   .rotateY {
     animation-name: rotateY;
     animation-duration: 8000ms;
+  }
+  .multiple {
+    animation-name: GO, Color, scaleX;
+    animation-duration: 3000ms;
+  }
+  .animateEvent {
+    animation-name: Opacity;
+    animation-duration: 5000ms;
+    animation-iteration-count: infinite;
   }
   @keyframes Go {
     from {
@@ -404,6 +492,15 @@
     }
     to {
       height: 220px;
+    }
+  }
+
+  @keyframes BackPosition {
+    from {
+      background-position: left 0 top 0;
+    }
+    to {
+      background-position: left 100% top 100%;
     }
   }
 

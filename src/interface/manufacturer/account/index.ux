@@ -1,0 +1,112 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+
+    <div class="item-container">
+      <div class="item-content line">
+        <text class="title">服务提供商：{{provider}}</text>
+      </div>
+      
+      <div class="item-content line">
+        <text class="title">帐号是否登录：{{isLogin}}</text>
+      </div>
+
+      <div class="item-content line">
+        <text class="title">当前快应用已接通小米帐号,如需接入其他厂商请到对应厂商平台进行接入</text>
+        <input type="button" class="btn" @click="authorize" value="帐号授权"/>
+        <text class="title">{{authorizeMsg}}</text>
+      </div>
+
+      <div class="item-content line">
+        <input type="button" class="btn" @click="getProfile" value="获取用户信息"/>
+        <text class="title">{{profile}}</text>
+      </div>
+    </div>
+
+  </div>
+</template>
+
+<style>
+@import '../../../common/css/common.css';
+
+  .btn {
+    margin: 30px 0;
+  }
+
+  .avatar {
+    flex-direction: row;
+  }
+
+  .img {
+    width: 100px;
+    height: 100px;
+  }
+</style>
+
+<script>
+import account from '@service.account'
+import prompt from '@system.prompt'
+export default {
+  private: {
+    componentName: 'account',
+    provider: '',
+    isLogin: '',
+    accessToken: '',
+    authorizeMsg: '',
+    profile: ''
+  },
+  onInit () {
+    this.$page.setTitleBar({ text: 'account' })
+    this.provider = account.getProvider()
+    this.isLoginFn()
+  },
+  isLoginFn () {
+    let _this = this
+    account.isLogin({
+      success: function (data) {
+        _this.isLogin = data.isLogin
+        console.log('data.isLogin=' + data.isLogin)
+        console.log('handling success' + JSON.stringify(data))
+      },
+      fail: function(data, code) {
+        console.log(`handling fail, code = ${code}`)
+      }
+    })
+  },
+  //帐号授权
+  authorize () {
+    let _this = this
+    account.authorize({
+      type: 'token',
+      redirectUri: 'http://www.example.com/',
+      scope: 'scope.baseProfile',
+      success: function(data) {
+        _this.authorizeMsg = data
+        _this.accessToken = data.accessToken || ''
+      },
+      fail: function(data, code) {
+        prompt.showToast({
+          message: `handling fail, code = ${code}, data = ${data}`
+        })
+      }
+    })  
+  },
+  //获取用户基本信息
+  getProfile () {
+    let _this = this
+    account.getProfile({
+      token: _this.accessToken,
+      success: function(data) {
+        _this.profile = data
+      },
+      fail: function(data, code) {
+        prompt.showToast({
+          message: `handling fail, code = ${code}, data = ${data}`
+        })
+      }
+    })
+  }
+}
+</script>

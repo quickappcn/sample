@@ -45,6 +45,33 @@
         <text class="txt">coordTypes: {{coordTypes}}</text>
       </div>
       <input type="button" class="btn" onclick="getCoordTypes" value="获取当前坐标系类型" />
+
+      <div class="item-content">
+        <text class="txt">选取地理位置:</text>
+        <text class="txt">位置名称: {{chooseLocationData.name}}</text>
+        <text class="txt">详细地址: {{chooseLocationData.address}}</text>
+        <text class="txt">coordType: {{chooseLocationData.coordType}}</text>
+        <text class="txt">经度: {{chooseLocationData.latitude}}</text>
+        <text class="txt">纬度: {{chooseLocationData.longitude}}</text>
+      </div>
+      <input type="button" class="btn" onclick="chooseLocation" value="选取位置" />
+
+      <input type="button" class="btn" onclick="openLocation" value="查看位置"/>
+
+
+      <div class="item-content">
+        <text class="txt">请在上方选取地址（默认为北京天安门）</text>
+        <text class="txt">经度: {{geocodeQuery.latitude}}</text>
+        <text class="txt">纬度: {{geocodeQuery.longitude}}</text>
+      </div>
+      <input type="button" class="btn" onclick="getgeocodeQuery" value="通过地址获取地理编码" />
+
+
+      <div class="item-content">
+        <text class="txt">请在上方选取地址（默认为 39.90918290650373,116.39747473062121）</text>
+        <text class="txt">{{reverseGeocodeQuery}}</text>
+      </div>
+      <input type="button" class="btn" onclick="getreverseGeocodeQuery" value="通过地理编码获取地理信息" />
     </div>
   </div>
 </template>
@@ -73,17 +100,29 @@
       objectFitValues: [
         "gcj02", "wgs84"
       ],
-      coordTypeValue: 'gcj02'
+      coordTypeValue: 'gcj02',
+      chooseLocationData: {
+        name: '',
+        address: '',
+        coordType: '',
+        latitude: '',
+        longitude: ''
+      },
+      geocodeQuery: {
+        latitude: '',
+        longitude: ''
+      },
+      reverseGeocodeQuery: {}
     },
     onInit() {
       this.$page.setTitleBar({
         text: 'Geolocation'
       })
     },
-    changeOption(e) {
-      this.coordTypeValue = e.newValue
+    changeOption(evt) {
+      this.coordTypeValue = evt.newValue
       prompt.showToast({
-        message: `坐标系类型切换为 ${e.newValue}`
+        message: `坐标系类型切换为 ${evt.newValue}`
       })
     },
     getCoordTypes() {
@@ -134,6 +173,61 @@
         fail: function (data, code) {
           self.locationType = `获取失败，code: ${code}`
           console.log(`### handling fail ### code: ${code}`)
+        }
+      })
+    },
+    openLocation () {
+      const self = this
+      //默认展示：北京天安门地址
+      const defaultAddress = {
+        latitude: 39.90960456049752,
+        longitude: 116.3972282409668
+      }
+      geolocation.openLocation({
+        coordType: self.coordTypes,
+        latitude: self.chooseLocationData.latitude || defaultAddress.latitude,
+        longitude: self.chooseLocationData.longitude || defaultAddress.longitude,
+      })
+    },
+    chooseLocation () {
+      const self = this
+      geolocation.chooseLocation({
+        coordType: self.coordTypes,
+        success: function (data) {
+          self.chooseLocationData = data
+        },
+        fail: function (errordata, errorcode) {
+          prompt.showToast({
+            message: `${errorcode}：${errordata}`
+          })
+        }
+      })
+    },
+    getgeocodeQuery() {
+      const self = this
+      geolocation.geocodeQuery({
+        city: self.chooseLocationData.name || '北京',
+        address: self.chooseLocationData.address || '天安门',
+        success: function(ret) {
+          self.geocodeQuery = ret
+        },
+        fail: function (erromsg, errocode) {
+          console.info(`### geolocation.reverseGeocodeQuery ### ${errocode}: ${erromsg}`)
+        }
+      })
+    },
+    getreverseGeocodeQuery () {
+      const self = this
+      geolocation.reverseGeocodeQuery({
+        latitude: self.chooseLocationData.latitude || 39.90918290650373,
+        longitude: self.chooseLocationData.longitude || 116.39747473062121,
+        coordType: "gcj02",
+        includePoiInfo:true,
+        success: function (ret) {
+          self.reverseGeocodeQuery = ret
+        },
+        fail: function (erromsg, errocode) {
+          console.info(`### geolocation.reverseGeocodeQuery ### ${errocode}: ${erromsg}`)
         }
       })
     }

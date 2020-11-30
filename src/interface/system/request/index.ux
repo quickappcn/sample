@@ -41,7 +41,7 @@
       const self = this
       // 下载文件
       request.download({
-        url: 'https://www.quickapp.cn/assets/images/home/logo.png',
+        url: 'https://www.quickapp.cn/assets/images/home/logo_quickApp.png',
         description: '一个网络图片', // 指定描述
         filename: 'quickappLogo.png', // 指定文件名
         success: function (ret) {

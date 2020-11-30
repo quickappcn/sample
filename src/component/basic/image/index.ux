@@ -48,7 +48,7 @@
       <text class="item-title">object-fit: scale-down</text>
       <div class="item-content-with-height">
         <image src="./img/pic-240x160.webp" class="fixed-size-wh"
-          style="width: 100px;height: 100px;object-fit: scale-down;"></image>
+               style="width: 100px;height: 100px;object-fit: scale-down;"></image>
       </div>
     </div>
 
@@ -212,6 +212,36 @@
     </div>
 
     <div class="img-layout-header">
+      <text>图片开启夜间模式适配`1070+`(仅Android 10+支持)</text>
+      <text>请在Android 10+ 夜间模式下查看对比效果</text>
+    </div>
+
+    <div class="item-container">
+      <text class="item-title">forcedark: true(默认值)</text>
+      <div class="item-content-with-height">
+        <image src="./img/pic-160x160.jpg" class="fixed-size-wh"></image>
+      </div>
+    </div>
+
+    <div class="item-container">
+      <text class="item-title">forcedark: false</text>
+      <div class="item-content-with-height">
+        <image src="./img/pic-160x160.jpg" class="fixed-size-wh" forcedark="false"></image>
+      </div>
+    </div>
+
+    <div class="img-layout-header">
+      <text>heif图片支持`1090+`(仅Android 10+完整支持)</text>
+      <text>请在Android 10+手机查看</text>
+    </div>
+
+    <div class="item-container">
+      <div class="item-content-with-height">
+        <image src="./img/cheers.heic" class="fixed-size-wh"></image>
+      </div>
+    </div>
+
+    <div class="img-layout-header">
       <text>支持svg图片格式：</text>
     </div>
 
@@ -360,8 +390,18 @@
       <text class="item-title">网络图片</text>
       <div class="item-content-without-height">
         <image src="{{requestImageURL}}" style="object-fit: contain" oncomplete="onImageComplete"
-          onerror="onImageError"></image>
+               onerror="onImageError"></image>
       </div>
+    </div>
+
+    <div class="item-container">
+      <text class="item-title">gif图片</text>
+      <div class="item-content-without-height">
+        <image id="gifImage" style="width:200px; height: 200px" src="http://www.w3school.com.cn/i/eg_cute.gif" autoplay="{{autoplay}}"></image>
+      </div>
+
+      <input type="button" class="btn" value="startAnimation" @click="startAnimation"/>
+      <input type="button" class="btn" value="stopAnimation" @click="stopAnimation"/>
     </div>
   </div>
 </template>
@@ -373,13 +413,14 @@
       componentName: 'image',
       remoteURL: 'http://www.w3school.com.cn/svg/',
       inputImageURL: 'http://www.w3school.com.cn/svg/rect1.svg',
-      requestImageURL: ''
+      requestImageURL: '',
+      autoplay: false
     },
     onInit() {
       this.$page.setTitleBar({ text: 'Image' })
     },
-    onImageUrlChange(data) {
-      this.inputImageURL = data.value
+    onImageUrlChange(evt) {
+      this.inputImageURL = evt.value
     },
     onImageGetClick() {
       this.requestImageURL = this.inputImageURL
@@ -387,15 +428,21 @@
         message: '加载' + this.requestImageURL + '图片'
       })
     },
-    onImageComplete(data) {
+    onImageComplete(evt) {
       prompt.showToast({
-        message: '图片获取成功\n' + '高度：' + data.height + 'px  ' + '宽度：' + data.width + 'px'
+        message: '图片获取成功\n' + '高度：' + evt.height + 'px  ' + '宽度：' + evt.width + 'px'
       })
     },
     onImageError() {
       prompt.showToast({
         message: '图片获取失败'
       })
+    },
+    startAnimation() {
+      this.$element('gifImage').startAnimation()
+    },
+    stopAnimation() {
+      this.$element('gifImage').stopAnimation()
     }
   }
 </script>
@@ -406,6 +453,7 @@
   .img-layout-header {
     padding: 20px;
     border-bottom: 1px #808080;
+    flex-direction: column;
   }
 
   .item-container {

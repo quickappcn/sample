@@ -9,7 +9,6 @@
       <input type="button" class="btn" onclick="showDialog" value="显示对话框"/>
       <input type="button" class="btn" onclick="showContextMenu" value="显示上下文菜单"/>
       <input type="button" class="btn" onclick="showLoading" value="显示加载弹窗"/>
-      <input type="button" class="btn" onclick="hideLoading" value="隐藏加载弹窗"/>
     </div>
   </div>
 </template>
@@ -74,9 +73,12 @@
     },
     showLoading () {
       prompt.showLoading({
-        message: 'loading',
+        message: '3s后关闭',
         loadingColor: '#29B6F6'
       })
+      setTimeout(() => {
+        this.hideLoading()
+      }, 3000);
     },
     hideLoading () {
       prompt.hideLoading()

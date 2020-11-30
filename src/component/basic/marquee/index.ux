@@ -12,36 +12,36 @@
         <input type="button" class="btn input-button" value="速度加快" onclick="speedUp"></input>
         <input type="button" class="btn input-button color2" value="速度减慢" onclick="speedDown"></input>
       </div>
-      <marquee id="marquee1" scrollamount={{scrollSpeed}} value="scrollamount控制滚动速度，默认值为6（6像素/秒）" loop={{-1}}></marquee>
+      <marquee id="marquee1" scrollamount={{scrollSpeed}} loop={{-1}}>scrollamount控制滚动速度，默认值为6（6像素/秒）</marquee>
     </div>
 
     <div class="item-container">
       <text class="item-title">loop = 2</text>
       <input type="button" class="btn" value="开始滚动" onclick="runMarquee(2)"></input>
-      <marquee id="marquee2" loop={{2}} value="这段文字在滚动2次之后会停止滚动" scrollamount={{200}}></marquee>
+      <marquee id="marquee2" loop={{2}} scrollamount={{200}}>这段文字在滚动2次之后会停止滚动</marquee>
     </div>
 
     <div class="item-container">
       <text class="item-title">direction = "right"</text>
-      <marquee id="marquee3" direction="right" value="这段文字会向右滚动" loop={{-1}} scrollamount={{100}}></marquee>
+      <marquee id="marquee3" direction="right" loop={{-1}} scrollamount={{100}}>这段文字会向右滚动</marquee>
     </div>
 
     <div class="item-container">
       <text class="item-title">onstart: 当文字开始滚动时会触发</text>
       <input type="button" class="btn" value="开始滚动" onclick="runMarquee(4)"></input>
-      <marquee id="marquee4" loop={{1}} onstart="showPopStart" value="这段文字开始滚动时会有弹窗提示" scrollamount={{100}}></marquee>
+      <marquee id="marquee4" loop={{1}} onstart="showPopStart" scrollamount={{100}}>这段文字开始滚动时会有弹窗提示</marquee>
     </div>
 
     <div class="item-container">
       <text class="item-title">onbounce: 当滚动到结尾时触发</text>
       <input type="button" class="btn" value="开始滚动" onclick="runMarquee(5)"></input>
-      <marquee id="marquee5" loop={{1}} onbounce="showPopEnd" value="这段文字滚动到末尾时会有弹窗提示" scrollamount={{200}}></marquee>
+      <marquee id="marquee5" loop={{1}} onbounce="showPopEnd" scrollamount={{200}}>这段文字滚动到末尾时会有弹窗提示</marquee>
     </div>
 
     <div class="item-container">
       <text class="item-title">onfinish: loop>0时滚动结束时触发</text>
       <input type="button" class="btn" value="开始滚动" onclick="runMarquee(6)"></input>
-      <marquee id="marquee6" onfinish="showPopFinish" loop={{2}} value="这段文字滚动两次后会结束，结束时会有弹窗提示" scrollamount={{300}}></marquee>
+      <marquee id="marquee6" onfinish="showPopFinish" loop={{2}} scrollamount={{300}}>这段文字滚动两次后会结束，结束时会有弹窗提示</marquee>
     </div>
     
   </div>

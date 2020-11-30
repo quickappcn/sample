@@ -1,0 +1,13 @@
+<template>
+    <div>
+      <text class='text'>我是组件2</text>
+    </div>
+</template>
+
+<style>
+  .text {
+    height: 200px;
+    width: 200px;
+    background-color: brown;
+  }
+</style>

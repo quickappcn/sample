@@ -1,0 +1,34 @@
+<template>
+  <div class="demo-page">
+    <div class="title-container">
+      <text class="title">web开启夜间模式适配(仅Android 10+支持)</text>
+      <text>image开启夜间模式适配(仅Android 10+支持)</text>
+      <text class="title">forcedark: true(默认值)</text>
+    </div>
+    <web src="https://doc.quickapp.cn"></web>
+    <div class="title-container">
+      <text class="title">forcedark: false</text>
+    </div>
+    <web src="https://doc.quickapp.cn" forcedark="false"></web>
+  </div>
+</template>
+
+<style>
+  .demo-page {
+    flex-direction: column;
+  }
+  web{
+    height:150px;
+  }
+  .title-container {
+    flex-direction: column;
+    border-radius: 4px;
+    padding: 0 24px;
+  }
+
+  .title {
+    font-size: 36px;
+    color: #242424;
+    margin:12px 0;
+  }
+</style>

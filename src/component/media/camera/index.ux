@@ -5,7 +5,7 @@
     </div>
 
     <div class="container">
-      <camera id="camera" class="camera" deviceposition="{{deviceposition}}" flash="{{flash}}" onerror="handlerError"></camera>
+      <camera id="camera" class="camera" deviceposition="{{deviceposition}}" flash="{{flash}}" onerror="handlerError" oncamerainitdone="camerainitdone" oncameraframe="cameraframe"></camera>
 
       <input type="button" value="拍照" class="btn" onclick="takePhoto"></input>
 
@@ -24,12 +24,37 @@
         <input type="button" value="切换闪关灯" class="btn" onclick="switchFlash"></input>
       </div>
 
+      <div class="item-content column">
+        <select class="select" @change="getSceneModeType">
+          <option value="{{$item}}" for="{{Object.keys(sceneMode)}}" class="option">{{sceneMode[$item]}}</option>
+        </select>
+        <input type="button" value="场景模式设置" class="btn" onclick="setSceneMode"></input>
+      </div>
+
+      <div class="item-content column">
+        <text>曝光值：{{exposurecompensation}} 当前选中值： {{sliderValue}}</text>
+        <slider if="{{compensationRange}}" min="{{compensationRange.min}}" max="{{compensationRange.max}}" value="{{sliderValue}}" onchange="setSliderValue"></slider>
+        <input type="button" value="设置曝光值" class="btn" onclick="setExposureCompensation"></input>
+      </div>
+
+      <div class="item-content column">
+        <text>预览频率范围{{supportfpsrange}} 当前值： min{{previewFpsRange.min}} max: {{previewFpsRange.max}}</text>
+        <div class="item-content">
+          <text>min:</text><input  class="input" type="number" onchange="changeFn('min')"/>
+        </div>
+        <div class="item-content">
+          <text>max:</text><input class="input" type="number" onchange="changeFn('max')"/>
+        </div>
+        <input type="button" value="设置频率" class="btn" onclick="setPreviewFpsRange"></input>
+      </div>
+
       <image src="{{pictureUrl}}" class="picture"></image>
     </div>
   </div>
 </template>
 
 <style>
+  @import '../../../common/css/common.css';
   .doc-page {
     flex-direction: column;
     padding: 0 75px;
@@ -85,9 +110,17 @@
   .item-content {
     flex-direction: column;
   }
+
+  .input {
+    flex: 1;
+    font-size: 30px;
+    padding-left: 20px;
+    border: 1px solid #cccccc;
+  }
 </style>
 
 <script>
+  import prompt from '@system.prompt'
   export default {
     private: {
       componentName: 'camera',
@@ -95,7 +128,35 @@
       photoQuality: 'normal',
       deviceposition: "back",
       flash: "auto",
-      flashText: '自动'
+      flashText: '自动',
+      sceneModeType : '',
+      sceneMode: {
+        auto: '自动模式',
+        action: '动作模式',
+        portrait: '竖屏模式',
+        landscape: '横屏模式',
+        night: '夜晚模式',
+        'night-portrait': '晚间运动模式',
+        theatre: '剧院模式',
+        beach : '海滩模式',
+        snow: '雪景模式',
+        sunset: '日落模式',
+        steadyphoto: '稳定模式',
+        fireworks: '烟花模式',
+        sports: '运动模式',
+        party: '派对模式',
+        candlelight: '烛光模式',
+        barcode: '条码模式'
+      },
+      exposurecompensation: null,
+      previewFpsRange: '',
+      supportfpsrange: '',
+      fpsrange: {
+        min: 0,
+        max: 0
+      },
+      sliderValue: 0, 
+      compensationRange: null,
     },
     onInit() {
       this.$page.setTitleBar({ text: 'Camera' })
@@ -132,7 +193,7 @@
       }
     },
     // 切换摄像头
-    switchCamera (e) {
+    switchCamera () {
       this.deviceposition = this.deviceposition === 'back' ? 'front' : 'back'
     },
     // 切换闪关灯
@@ -153,6 +214,124 @@
     // 权限不允许处理
     handlerError () {
       console.log('用户不允许使用摄像头')
+    },
+    camerainitdone (data) {
+      console.log(data)
+      this.getSupportedPreviewFpsRange()
+      this.getExposureCompensation()
+      this.getPreviewFpsRange()
+      this.getExposureCompensationRange()
+    },
+    cameraframe(data) {
+      // console.log(data)
+    },
+    getSceneModeType (evt) {
+      this.sceneModeType = evt.newValue
+    },
+    setSceneMode () {
+      const self = this 
+      this.$element('camera').setSceneMode({
+        scenemode: self.sceneModeType,
+        success: function (data) {
+          prompt.showToast({
+            message: 'success'
+          })
+        },
+        fail: function ({ message }) {
+          prompt.showToast({
+            message
+          })
+        }
+      })
+    },
+    // 获取支持的预览频率范围
+    getSupportedPreviewFpsRange () {
+      const self = this
+      this.$element('camera').getSupportedPreviewFpsRange({
+        success: function (data) {
+          self.supportfpsrange = data.supportfpsrange
+        },
+        fail: function(data, code) {
+          console.log('handling fail', data, code)
+        }
+      })
+    },
+    setPreviewFpsRange() {
+      const self = this
+      this.$element('camera').setPreviewFpsRange({
+        previewfpsrange: self.fpsrange,
+        success() {
+          self.getPreviewFpsRange()
+          prompt.showToast({
+            message: 'success'
+          })
+        },
+        fail(data) {
+          prompt.showToast({
+            message: JSON.stringify(data)
+          })
+        }
+      })
+    },
+    getPreviewFpsRange () {
+      const self = this
+      this.$element('camera').getPreviewFpsRange({
+        success: function(data) {
+          self.previewFpsRange = data
+        },
+        fail: function(data, code) {
+          console.log('handling fail', data, code)
+        }
+      })
+    },
+
+    changeFn(type, evt) {
+      this.fpsrange[type] = evt.value
+    },
+    // 获取当前设置的曝光值
+    getExposureCompensation () {
+      const self = this
+      this.$element('camera').getExposureCompensation({
+        success: function ({ exposurecompensation }) {
+          self.exposurecompensation = exposurecompensation
+        },
+        fail: function(data, code) {
+          console.log('handling fail', data, code)
+        }
+      })
+    },
+    getExposureCompensationRange () {
+      const self = this
+      this.$element('camera').getExposureCompensationRange({
+        success(data) {
+          self.compensationRange = data
+        },
+        fail(data, code) {
+          prompt.showToast({
+            message: data + code
+          })
+        }
+      })
+    },
+    setExposureCompensation () {
+      const self = this
+      this.$element('camera').setExposureCompensation({
+        exposurecompensation: self.sliderValue,
+        success(data) {
+          self.getExposureCompensation()
+          prompt.showToast({
+            message: 'success'
+          })
+        },
+        fail(data) {
+          prompt.showToast({
+            message: JSON.stringify(data)
+          })
+        }
+      })
+    },
+    setSliderValue (evt) {
+      this.sliderValue = evt.progress
     }
   }
 </script>

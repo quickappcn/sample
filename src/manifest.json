@@ -1,9 +1,9 @@
 {
   "package": "org.quickapp.union.sample",
   "name": "快应用示例中心",
-  "versionName": "1.4.0",
-  "versionCode": 140,
-  "minPlatformVersion": 1060,
+  "versionName": "1.8.0",
+  "versionCode": 180,
+  "minPlatformVersion": 1080,
   "icon": "/common/logo.png",
   "features": [
     { "name": "system.cipher" },
@@ -39,6 +39,8 @@
     { "name": "system.bluetooth" },
     { "name": "system.websocketfactory" },
     { "name": "system.wifi" },
+    { "name": "system.telecom"},
+    { "name": "service.ad" },
     { "name": "android.settings" },
     { "name": "service.stats" },
     { "name": "service.account" },
@@ -49,7 +51,11 @@
     { "name": "service.alipay" },
     { "name": "service.exchange" },
     { "name": "system.zip" },
+    { "name": "system.keyguard" },
     { "name": "hap.io.MessageChannel" },
+    { "name": "system.configuration" },
+    { "name": "hap.io.Video" },
+    { "name": "service.texttoaudio" },
     {
       "name": "service.wxpay",
       "params": {
@@ -174,6 +180,9 @@
       "component/container/tabs": {
         "component": "index"
       },
+      "component/extend/drawer": {
+        "component": "index"
+      },
       "component/basic/text": {
         "component": "index"
       },
@@ -187,6 +196,9 @@
         "component": "index"
       },
       "component/media/video": {
+        "component": "index"
+      },
+      "component/media/video/fullscreen": {
         "component": "index"
       },
       "component/media/canvas": {
@@ -255,10 +267,19 @@
       "framework/style-layout/position": {
         "component": "index"
       },
+      "framework/style-layout/media-query": {
+        "component": "index"
+      },
+      "framework/style-layout/css-filter": {
+        "component": "index"
+      },
       "framework/filter": {
         "component": "index"
       },
       "framework/i18n": {
+        "component": "index"
+      },
+      "framework/theme-mode": {
         "component": "index"
       },
       "framework/computed": {
@@ -313,6 +334,9 @@
         "component": "index"
       },
       "interface/thirdparty/wbaccount": {
+        "component": "index"
+      },
+      "interface/audio/tts": {
         "component": "index"
       },
       "interface/system/brightness": {
@@ -441,10 +465,16 @@
       "interface/system/bluetooth": {
         "component": "index"
       },
-      "interface/system/zip":{
-        "component":"index"
+      "interface/system/zip": {
+        "component": "index"
+      },
+      "interface/system/keyguard": {
+        "component": "index"
       },
       "component/style/animation": {
+        "component": "index"
+      },
+      "component/style/animation-direction": {
         "component": "index"
       },
       "component/style/transform": {
@@ -521,6 +551,62 @@
       },
       "scenario/scene/accessible": {
         "component": "index"
+      },
+      "scenario/effect/dynamic-import-js": {
+        "component": "index"
+      },
+      "component/media/web/darkmode-web": {
+        "component": "index"
+      },
+      "component/style/animateApi": {
+        "component": "index"
+      },
+      "scenario/effect/sharepic": {
+        "component": "index"
+      },
+      "component/media/web/loading-web": {
+        "component": "index"
+      },
+      "component/media/web/scale-web": {
+        "component": "index"
+      },
+      "framework/optimization/dynaComponents": {
+        "component": "index"
+      },
+      "scenario/scene/waterfall": {
+        "component": "index"
+      },
+      "framework/pagestart": {
+        "component": "index"
+      },
+      "framework/pagestart/pageA": {
+        "component": "index",
+        "launchMode": "singleTask"
+      },
+      "framework/pagestart/pageB": {
+        "component": "index",
+        "launchMode": "standard"
+      },
+      "interface/manufacturer/pay": {
+        "component": "index"
+      },
+      "interface/manufacturer/stats": {
+        "component": "index"
+      },
+      "interface/manufacturer/push": {
+        "component": "index"
+      },
+      "interface/manufacturer/account": {
+        "component": "index"
+      },
+      "interface/manufacturer/ad": {
+        "component": "index"
+      },
+      "interface/system/telecom": {
+        "component": "index"
+      },
+      "scenario/scene/pagescroll": {
+        "component": "index"
       }
     }
   },
@@ -543,16 +629,20 @@
     }
   ],
   "display": {
-    "textSizeAdjust":"auto",
+    "textSizeAdjust": "auto",
     "backgroundColor": "#fbf9fe",
     "titleBar": true,
     "titleBarBackgroundColor": "#0faeff",
     "titleBarTextColor": "#ffffff",
+    "themeMode": -1,
     "pages": {
       "home": {
         "titleBarText": "快应用组件展示"
       },
       "component/media/web": {
+        "titleBar": false
+      },
+      "component/extend/drawer": {
         "titleBar": false
       },
       "framework/lifecycle": {
@@ -566,7 +656,10 @@
       },
       "interface/system/fitCutout": {
         "fullScreen": true,
-        "fitCutout":"portrait"
+        "fitCutout": "portrait"
+      },
+      "component/media/web/darkmode-web": {
+        "titleBarText": "webview夜间模式适配效果对比"
       }
     },
     "windowSoftInputMode": "adjustResize"

@@ -12,22 +12,42 @@
       <input type="button" class="btn" onclick="getDeviceInfo" value="获取应用信息"/>
     </div>
 
+    <div class="item-container">
+      <div class="item-content">
+        <image src="{{qrcode}}"></image>
+      </div>
+       <input type="button" class="btn" onclick="createQRcode" value="生成快应用码"/>
+    </div>
   </div>
 </template>
 
 <script>
   import app from '@system.app'
-
+  import prompt from '@system.prompt'
   export default {
     private: {
       componentName: 'App',
-      info: ''
+      info: '',
+      qrcode: ''
     },
     onInit () {
       this.$page.setTitleBar({text: '应用上下文'})
     },
     getDeviceInfo () {
       this.info = app.getInfo()
+    },
+    createQRcode () {
+       const self = this
+       app.createQuickAppQRCode ({
+         success: function (data) {
+           self.qrcode = data.uri
+         },
+         fail: function (code, data) {
+            prompt.showToast({
+              message: data
+            })
+         }
+       })
     }
   }
 </script>

@@ -1,0 +1,83 @@
+<template>
+    <div class="doc-page">
+      <div class="page-title-wrap">
+        <text class="page-title">{{componentName}}</text>
+      </div>
+      <div class="item-container">
+        <div class="item-content line">
+            <text>推送</text>
+            <text class="title">此功能不便演示，请参考代码。需要与对应厂商进行服务接入</text>
+        </div>   
+      </div>
+    </div>
+</template>
+  
+<style>
+@import '../../../common/css/common.css';
+
+</style>
+
+<script>
+  import push from '@service.push'
+  import prompt from '@system.prompt'
+  export default {
+    private: {
+      componentName: '推送'
+    },
+    onInit () {
+      this.$page.setTitleBar({ text: '推送' })
+    },
+    //　订阅push,一般可在应用初始化的地方进行调用。比如在 app 的 onCreate 方法中调用
+    subscribe () {
+      push.subscribe({
+        success: function(data) {
+          console.log(
+            `push.subscribe succeeded, result data = ${JSON.stringify(data)}`
+          )
+        },
+        fail: function(data, code) {
+          console.log(
+            `push.subscribe failed, result data = ${JSON.stringify(
+              data
+            )}, code = ${code}`
+          )
+        },
+        complete: function() {
+          console.log('push.subscribe completed')
+        }
+      })
+    },
+    //　取消订阅
+    ubsubscribe () {
+      push.unsubscribe({
+        success: function(data) {
+          console.log(
+            `push.unsubscribe succeeded, result data = ${JSON.stringify(data)}`
+          )
+        },
+        fail: function(data, code) {
+          console.log(
+            `push.unsubscribe failed, result data = ${JSON.stringify(
+              data
+            )}, code = ${code}`
+          )
+        },
+        complete: function() {
+          console.log('push.unsubscribe completed')
+        }
+      })
+    },
+    // 透传消息接收
+    passThrough () {
+      push.on({
+        callback: function(ret) {
+          console.log(`received pass through message, ret = ${JSON.stringify(ret)}`)
+        }
+      })
+    },
+    //　取消接受透传消息
+    offPassThrough () {
+      push.off()
+    }
+  }
+</script>

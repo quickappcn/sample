@@ -1,0 +1,657 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+
+    <tabs class="tabs" index="0">
+      <tab-bar class="tab-bar">
+        <text class="tab-text">banner</text>
+        <text class="tab-text">插屏</text>
+        <text class="tab-text">原生</text>
+        <text class="tab-text">激励视屏</text>
+      </tab-bar>
+
+      <tab-content class="tab-content">
+
+        <div class="item-container">
+
+          <div class="create-con">
+            <div><text>width</text><input type="number" name="width" class="input-text" onchange="bannerStyleAttrValCreateChange"></input></div>
+            <div><text>height</text><input type="number" name="height" class="input-text" onchange="bannerStyleAttrValCreateChange"></input></div>
+          </div>
+          <div class="create-con">
+            <div><text>top</text><input type="number" name="top" class="input-text" onchange="bannerStyleAttrValCreateChange"></input></div>
+            <div><text>left</text><input type="number" name="left" class="input-text" onchange="bannerStyleAttrValCreateChange"></input></div>
+          </div>
+          <div class="banner-btn-con"><text>配置初始style，</text> <input type="button" class="btn" onclick="initBannerAd" value="创建并展示广告" /></div>
+          <div class="btn-con">
+            <input type="button" class="btn" onclick="listenBannerAdOnloadB" value="新增onLoadB" />
+            <input type="button" class="btn" onclick="offLoadB" value="取消onLoadB" />
+          </div>
+          <div class="btn-con">
+            <input type="button" class="btn" onclick="offErrorAll" value="取消onErrorAll" />
+            <input type="button" class="btn" onclick="offLoadAll" value="取消onLoadAll" />
+          </div>
+          <div class="btn-con">
+            <input type="button" class="btn" onclick="hideBannerAd" value="隐藏广告" />
+            <input type="button" class="btn" onclick="offCloseAll" value="取消onCloseAll" />
+
+          </div>
+          <div class="btn-con">
+            <input type="button" class="btn" onclick="showBannerAd" value="展示广告" />
+            <input type="button" class="btn" onclick="destroyBannerAd" value="销毁广告" />
+          </div>
+          <div class="btn-con">
+            <text>第</text>
+            <select class="attrSel" onchange="bannerStyleIndexChange">
+              <option class="option" value="-1">全部</option>
+              <option class="option" for="{{(bannerIndex, bannerObj) in bannerAds}}" value="{{bannerIndex}}">{{ bannerIndex }}</option>
+            </select>
+            <text>个的</text>
+            <select class="attrSel" onchange="bannerStyleAttrChange">
+              <option value='width' selected="true">width</option>
+              <option value='height' selected="false">height</option>
+              <option value='top' selected="false">top</option>
+              <option value='left' selected="false">left</option>
+            </select>
+
+            <input type="number" class="input-text" onchange="bannerStyleAttrValChange"></input>
+            <input type="button" class="btn" onclick="setBannerStyle" value="设置style" />
+          </div>
+        </div>
+
+        <div class="item-container">
+          <div class="btn-con">
+            <input type="button" class="btn" onclick="initInterstitialAd" value="创建广告" />
+            <input type="button" class="btn" onclick="interstitialAdDestroy" value="销毁广告" />
+          </div>
+          <div class="btn-con">
+            <input type="button" class="btn" onclick="interstitialAdOffError" value="取消onError" />
+            <input type="button" class="btn" onclick="interstitialAdOffClose" value="取消onClose" />
+          </div>
+          <div class="btn-con">
+            <input type="button" class="btn" onclick="showInterstitialAd" value="展示广告" />
+            <input type="button" class="btn" onclick="interstitialAdOffLoad" value="取消onLoad" />
+          </div>
+        </div>
+
+        <div class="item-container">
+          <div style="margin-bottom:10px;">
+            <text>广告ID</text>
+            <input type="number" class="input-text" value="{{nativeAdUnitId}}" onchange="nativeAdUnitIdChange"></input></div>
+          <div class="btn-con">
+            <input type="button" class="btn" onclick="initNativeAd" value="创建广告" />
+            <input type="button" class="btn" onclick="loadNativeAd" value="加载广告" />
+          </div>
+          <div class="btn-con">
+            <input type="button" class="btn" onclick="nativeOffLoad" value="取消onLoad" />
+            <input type="button" class="btn" onclick="nativeOffError" value="取消onError" />
+          </div>
+          <input type="button" class="btn" onclick="nativeDestroy" value="销毁广告" />
+          <div class="nativeContent" if="{{nativeIsShow}}">
+            <text>广告展示</text>
+            <list class="nativeList">
+              <list-item type="native" for="{{nativeDataList}}" class="native-item">
+                <stack class="nativeBox" onclick="reportNativeAdClick($item.adId)" onappear="reportNativeAdShow($item.adId)">
+                  <div class="nativeMsgBox">
+                    <image src="{{$item.icon}}" class="nativeIcon"></image>
+                    <div class="nativeText">
+                      <text class="nativeTitle">{{$item.title}}</text>
+                      <text class="nativeDesc">{{$item.desc}}</text>
+                    </div>
+                  </div>
+                  <div class="logoBox">
+                    <text class="nativeClose" onclick="nativeHide($idx)">关闭</text>
+                    <image src="{{$item.logoUrl}}" class="nativeLogo"></image>
+                  </div>
+                </stack>
+              </list-item>
+            </list>
+          </div>
+        </div>
+
+        <!-- 激励视频 -->
+        <div class="item-container">
+          <div class="btn-con">
+            <input type="button" class="btn" onclick="initRewardedVideoAd" value="创建广告" />
+            <input type="button" class="btn" onclick="loadRewardedVideoAd" value="加载广告" />
+          </div>
+          <div class="btn-con">
+            <input type="button" class="btn" onclick="showRewardedVideoAd" value="展示广告" />
+            <input type="button" class="btn" onclick="rewardedVideoOffLoad" value="取消onLoad" />
+          </div>
+          <div class="btn-con">
+            <input type="button" class="btn" onclick="rewardedVideoOffClose" value="取消onClose" />
+            <input type="button" class="btn" onclick="rewardedVideoOffError" value="取消onError" />
+          </div>
+          <div class="btn-con">
+            <input type="button" class="btn" onclick="destroyRewardedVideo" value="销毁destroy" />
+          </div>
+        </div>
+      </tab-content>
+    </tabs>
+
+    <div class="page-title-wrap">
+      <text class="page-title">日志</text>
+    </div>
+    <div class="item-container">
+      <text class="item-content" for="(logIndex, log) in logs">
+        <span class="txt">- {{log}}</span></text>
+    </div>
+    <div class="bottomPlaceHolder"></div>
+  </div>
+
+  </div>
+</template>
+
+  <style>
+@import "../../../common/css/common.css";
+.bottomPlaceHolder {
+  height: 200px;
+}
+.tabs {
+  height: 1010px;
+}
+.tab-text:active {
+  color: #f76160;
+}
+
+.btn-con {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.create-con {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.btn-con .btn {
+  flex: 1;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 30px;
+  color: #ffffff;
+}
+.banner-btn-con {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.banner-btn-con .btn {
+  padding: 10px 0;
+  margin: 0px;
+}
+
+.item-container {
+  margin-bottom: 50px;
+  margin-right: 60px;
+  margin-left: 60px;
+  flex-direction: column;
+  background-color: #ffffff;
+}
+.item-content {
+  align-items: center;
+  justify-content: center;
+}
+
+.txt {
+  line-height: 45px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+.nativeContent {
+  flex-direction: column;
+  align-items: center;
+  height: 300px;
+}
+.nativeList {
+  flex: 1;
+}
+.native-item {
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+}
+.nativeBox {
+  width: 550px;
+  height: 100px;
+  background-color: skyblue;
+  margin-bottom: 20px;
+}
+.nativeMsgBox {
+  width: 100%;
+  height: 100%;
+  align-items: center;
+}
+.nativeIcon {
+  width: 80px;
+  height: 80px;
+  margin-right: 20px;
+  margin-left: 30px;
+  border-radius: 180px;
+}
+
+.nativeText {
+  width: 300px;
+  flex-direction: column;
+}
+.nativeTitle {
+  font-weight: bold;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+.nativeDesc {
+  font-size: 24px;
+}
+.logoBox {
+  width: 100%;
+  justify-content: space-between;
+}
+.nativeClose {
+  width: 30px;
+  height: 10px;
+  text-align: center;
+  line-height: 10px;
+  font-size: 10px;
+  background-color: #ccc;
+  color: #fff;
+  opacity: 0.7;
+}
+.nativeLogo {
+  width: 30px;
+  height: 10px;
+  margin-right: 0;
+}
+.page-title-wrap {
+  padding-top: 0;
+}
+.hide {
+  display: none;
+}
+
+.input-text {
+  height: 80px;
+  line-height: 80px;
+  padding-left: 30px;
+  padding-right: 30px;
+  margin-left: 30px;
+  margin-right: 30px;
+  border-bottom: 1px solid #999999;
+  font-size: 30px;
+  background-color: #ffffff;
+}
+
+.attrSel {
+  padding: 0px 10px;
+}
+</style>
+
+  <script>
+import ad from '@service.ad'
+export default {
+  data: {
+    bannerStyle: {
+    },
+    bannerAds: [],
+    bannerStyleIndex: -1,
+    interstitialAd: null,
+    nativeAd: null,
+    show: true,
+    componentName: '广告',
+    nativeAdResult: null,
+    logs: [],
+    cbsBanner: [], //回调
+    nativeIsShow: false,
+    nativeDataList: [],
+    nativeOnErrorFunc: null,
+    bannerStyleAttr: 'width',
+    bannerStyleAttrVal: 100,
+    bannerAdUnitIds: ['1'],
+    interstitialAdUnitId: '2',
+    nativeAdUnitId: '3',
+    rewardedVideoAdUnitId: '4'
+
+  },
+  generateCbs(method, adIndex, func, funcIndex) {
+    let result = null
+    if (this.cbsBanner[adIndex]) {
+      if (!this.cbsBanner[adIndex][method]) {
+        this.cbsBanner[adIndex][method] = {}
+      }
+      if (typeof this.cbsBanner[adIndex][method][funcIndex] !== 'function') {
+        this.cbsBanner[adIndex][method][funcIndex] = func.bind(this)
+      }
+      result = this.cbsBanner[adIndex][method][funcIndex]
+    }
+    return result
+  },
+  getCbs(method, adIndex, funcIndex) {
+    let result = null
+    if (this.cbsBanner[adIndex] && this.cbsBanner[adIndex][method]) {
+      result = this.cbsBanner[adIndex][method][funcIndex]
+    }
+    return result
+  },
+  bannerStyleAttrValCreateChange(e) {
+    let attrName = e.target.attr.name
+    if (e.value !== '') {
+      this.bannerStyle[attrName] = e.value
+    }
+    else {
+      delete this.bannerStyle[attrName]
+    }
+  },
+  onInit() {
+    this.$page.setTitleBar({ text: '广告' })
+    this.logs.unshift(`provider: ${ad.getProvider()}`)
+  },
+  initBannerAd() {
+    let bannerAd = ad.createBannerAd({
+      adUnitId: this.bannerAdUnitIds[this.bannerAds.length % this.bannerAdUnitIds.length ],
+      style: this.bannerStyle
+    })
+    const bannerLen = this.bannerAds.push(bannerAd)
+    this.cbsBanner[bannerLen - 1] = {}
+    this.logs.unshift(`banner广告创建，监听onError、onLoad、onShow、onClose事件，广告实例数量${bannerLen}，传参：${JSON.stringify(this.bannerStyle)}`)
+    bannerAd.onError(this.generateCbs('onError', bannerLen - 1, this.bannerOnError, 0))
+    bannerAd.onClose(this.generateCbs('onClose', bannerLen - 1, this.bannerOnCloseA, 0))
+    bannerAd.onResize(this.generateCbs('onResize', bannerLen - 1, this.bannerOnResize, 0))
+    bannerAd.onLoad(this.generateCbs('onLoad', bannerLen - 1, this.bannerOnLoadA, 'A'))
+    setTimeout(()=>{
+      bannerAd.show().then(()=>{
+        this.logs.unshift(`banner 广告show成功, realWith ${bannerAd.style.realWidth}, realHeight ${bannerAd.style.realHeight}`)
+      },()=>{
+        this.logs.unshift('banner 广告show失败')
+      })
+    },10)
+
+  },
+  listenBannerAdOnloadB() {
+    for (const i in this.bannerAds) {
+      this.bannerAds[i].onLoad(this.generateCbs('onLoad', i, this.bannerOnLoadB, 'B'))
+    }
+    this.logs.unshift('新增banner广告load监听事件B')
+  },
+  showBannerAd() {
+    for (const i in this.bannerAds) {
+      this.bannerAds[i].show().then(
+        ()=>{
+          this.logs.unshift('banner 广告show成功')
+        },
+        ()=>{
+          this.logs.unshift('banner 广告show失败')
+        })
+    }
+    this.logs.unshift('调用banner广告展示')
+  },
+  hideBannerAd() {
+    for (const i in this.bannerAds) {
+      this.bannerAds[i].hide().then(
+        ()=>{
+          this.logs.unshift('banner 广告hide成功')
+        },()=>{
+          this.logs.unshift('banner 广告hide失败')
+        })
+    }
+    this.logs.unshift('调用banner广告隐藏')
+  },
+  offLoadB() {
+    for (const i in this.bannerAds) {
+      let cb = this.getCbs('onLoad', i, 'B')
+      this.bannerAds[i].offLoad(cb)
+    }
+    this.logs.unshift('移除banner广告load监听事件B')
+  },
+  offLoadAll() {
+    for (const i in this.bannerAds) {
+      this.bannerAds[i].offLoad()
+    }
+    this.logs.unshift('移除banner广告全部load监听事件')
+  },
+  offErrorAll() {
+    for (const i in this.bannerAds) {
+      this.bannerAds[i].offError()
+    }
+    this.logs.unshift('移除banner广告error监听事件')
+  },
+  destroyBannerAd() {
+    for (const i in this.bannerAds) {
+      this.bannerAds[i].destroy()
+    }
+    this.logs.unshift('销毁banner广告')
+    this.bannerAds = []
+  },
+  bannerOnShow() {
+    const str = `bannerAd show 事件监听`
+    this.logs.unshift(str)
+  },
+  bannerOnError(err) {
+    const str = `banner error: ${err.errMsg}, ${err.errCode}`
+    this.logs.unshift(str)
+  },
+  bannerOnLoadA() {
+    const str = 'bannerAd load 事件监听A'
+    this.logs.unshift(str)
+  },
+  bannerOnLoadB() {
+    const str = 'bannerAd load 事件监听B'
+    this.logs.unshift(str)
+  },
+  bannerOnCloseA() {
+    const str = 'bannerAd close 事件监听A'
+    this.logs.unshift(str)
+  },
+  bannerOnCloseB() {
+    const str = 'bannerAd close 事件监听B'
+    this.logs.unshift(str)
+  },
+  listenBannerAdOnCloseB() {
+    this.logs.unshift('新增banner广告隐藏监听事件')
+    for (const i in this.bannerAds) {
+      this.bannerAds[i].onClose(this.generateCbs('onClose', this.bannerAds.length - 1, this.bannerOnCloseB, 1))
+    }
+  },
+  offCloseAll() {
+    this.logs.unshift('移除bannerAd 全部关闭监听事件')
+    for (const i in this.bannerAds) {
+      this.bannerAds[i].offClose()
+    }
+  },
+  bannerStyleAttrChange(e) {
+    this.bannerStyleAttr = e.newValue
+  },
+  bannerStyleAttrValChange(e) {
+    this.bannerStyleAttrVal = e.value
+  },
+  bannerStyleIndexChange(e) {
+    this.bannerStyleIndex = parseInt(e.newValue, 10)
+  },
+  setBannerStyle() {
+    for (const i in this.bannerAds) {
+      if (this.bannerStyleIndex == -1 || this.bannerStyleIndex != -1 && this.bannerStyleIndex == i) {
+        this.bannerAds[i].style[this.bannerStyleAttr] = this.bannerStyleAttrVal
+        const str = `第${i}个bannerAd style 设置${this.bannerStyleAttr}值：${this.bannerStyleAttrVal}`
+        this.logs.unshift(str)
+      }
+    }
+  },
+  bannerOnResize(res) {
+    let str = `bannerAd style设置回调 res值:${JSON.stringify(res)}值；`
+    for (const i in this.bannerAds) {
+
+      str += `第${i}个bannerAd style 值：${JSON.stringify(this.bannerAds[i].style)},`
+      str += `real width: ${this.bannerAds[i].style.realWidth} , real height:  ${this.bannerAds[i].style.realHeight}`
+    }
+    this.logs.unshift(str)
+  },
+  // Interstitial
+  initInterstitialAd() {
+    let interstitialAd = ad.createInterstitialAd({
+      adUnitId: this.interstitialAdUnitId
+    })
+    this.interstitialAd = interstitialAd
+    interstitialAd.onError(this.interstitialOnError.bind(this))
+    interstitialAd.onLoad(this.interstitialOnLoad.bind(this))
+    interstitialAd.onClose(this.interstitialOnClose.bind(this))
+    this.logs.unshift('插屏广告初始化，增加事件监听')
+  },
+  showInterstitialAd() {
+    this.interstitialAd.show().then(
+      ()=>{
+        this.logs.unshift('插屏广告show成功')
+      },
+      ()=>{this.logs.unshift('插屏广告show失败')})
+    this.logs.unshift('调用插屏广告展示')
+  },
+  interstitialOnShow() {
+    const str = `插屏广告展示成功`
+    this.logs.unshift(str)
+  },
+  interstitialOnError(err) {
+    const str = `插屏广告错误: ${err.errMsg}, ${err.errCode}`
+    this.logs.unshift(str)
+  },
+  interstitialOnLoad() {
+    const str = '插屏广告 load 事件'
+    this.logs.unshift(str)
+  },
+  interstitialOnClose() {
+    const str = '插屏广告 close 事件'
+    this.logs.unshift(str)
+  },
+  interstitialAdDestroy() {
+    this.interstitialAd.destroy()
+    this.logs.unshift(`插屏广告销毁`)
+  },
+  interstitialAdOffError() {
+    this.interstitialAd.offError()
+    this.logs.unshift(`插屏广告取消error监听`)
+  },
+  interstitialAdOffLoad() {
+    this.interstitialAd.offLoad()
+    this.logs.unshift(`插屏广告取消load监听`)
+  },
+  interstitialAdOffClose() {
+    this.interstitialAd.offClose()
+    this.logs.unshift(`插屏广告取消close监听`)
+  },
+  // 原生广告native
+  nativeAdUnitIdChange(e) {
+    this.nativeAdUnitId = e.value
+  },
+
+  initNativeAd() {
+    let nativeAd = ad.createNativeAd({
+      adUnitId: this.nativeAdUnitId
+    })
+    this.nativeAd = nativeAd
+    nativeAd.onLoad(this.nativeOnLoad.bind(this))
+    nativeAd.onError(this.nativeOnError.bind(this))
+    this.logs.unshift('原生广告已创建，增加事件监听')
+  },
+  loadNativeAd() {
+    this.nativeAd.load()
+    this.logs.unshift('加载原生广告')
+  },
+  nativeOnError(err) {
+    const str = `原生广告错误: ${err.errMsg}, ${err.errCode}`
+    console.log(str)
+    this.logs.unshift(str)
+    this.nativeIsShow = false
+  },
+  nativeOnLoad(result) {
+    console.log('原生广告结果', JSON.stringify(result))
+    this.nativeAdResult = result
+    this.nativeDataList = result.adList
+    this.logs.unshift(`原生广告加载成功，内容:${JSON.stringify(result)}`)
+    this.nativeIsShow = true
+  },
+  reportNativeAdClick(adId) {
+    if (this.nativeAdResult && this.nativeAdResult.adList && this.nativeAdResult.adList.length > 0) {
+      this.nativeAd.reportAdClick({ adId: adId })
+      this.logs.unshift(`原生广告点击上报，adid:${adId}`)
+    }
+  },
+  reportNativeAdShow(adId) {
+    if (this.nativeAdResult && this.nativeAdResult.adList && this.nativeAdResult.adList.length > 0) {
+      this.nativeAd.reportAdShow({ adId: adId })
+      this.logs.unshift(`原生广告展示上报，adid:${adId}`)
+    }
+  },
+  nativeDestroy() {
+    this.nativeAd.destroy()
+    this.logs.unshift(`原生广告销毁`)
+    this.nativeIsShow = false
+  },
+  nativeOffError() {
+    this.nativeAd.offError()
+    this.logs.unshift(`原生广告取消error监听`)
+  },
+  nativeOffLoad() {
+    this.nativeAd.offLoad()
+    this.logs.unshift(`原生广告取消load监听`)
+  },
+  nativeHide(idx, e) {
+    if (e.stopPropagation) {
+      e.stopPropagation()
+    }
+    this.nativeDataList.splice(idx, 1)
+  },
+
+  // rewardedVideo
+  initRewardedVideoAd() {
+      let rewardedVideoAd = ad.createRewardedVideoAd({
+        adUnitId: this.rewardedVideoAdUnitId
+      })
+      this.rewardedVideoAd = rewardedVideoAd
+      rewardedVideoAd.onError(this.rewardedVideoOnError.bind(this))
+      rewardedVideoAd.onLoad(this.rewardedVideoOnLoad.bind(this))
+      rewardedVideoAd.onClose(this.rewardedVideoOnClose.bind(this))
+      this.logs.unshift('激励视频广告初始化，增加事件监听')
+    },
+    loadRewardedVideoAd() {
+      this.rewardedVideoAd.load()
+      this.logs.unshift('调用激励视频广告加载')
+    },
+    showRewardedVideoAd() {
+      this.rewardedVideoAd.show()
+      this.logs.unshift('调用激励视频广告展示')
+    },
+    rewardedVideoOnError(err) {
+      const str = `激励视频广告错误: ${err.errMsg}, ${err.errCode}`
+      console.log(str)
+      this.logs.unshift(str)
+    },
+    rewardedVideoOnLoad() {
+      const str = '激励视频广告 load 事件'
+      console.log(str)
+      this.logs.unshift(str)
+    },
+    rewardedVideoOnClose(res) {
+      const str = `激励视频广告 close 事件，是否观看完整：${res.isEnded}`
+      console.log(str)
+      this.logs.unshift(str)
+    },
+    rewardedVideoOffError() {
+      this.rewardedVideoAd.offError()
+      this.logs.unshift(`激励视频广告取消error监听`)
+    },
+    rewardedVideoOffClose() {
+      this.rewardedVideoAd.offClose()
+      this.logs.unshift(`激励视频广告取消close监听`)
+    },
+    rewardedVideoOffLoad() {
+      this.rewardedVideoAd.offLoad()
+      this.logs.unshift(`激励视频广告取消load监听`)
+    },
+    destroyRewardedVideo() {
+      this.rewardedVideoAd.destroy()
+      this.logs.unshift(`激励视频广告destroy`)
+    }
+
+}
+</script>

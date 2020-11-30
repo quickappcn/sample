@@ -1,0 +1,50 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{ pageTitle }}</text>
+    </div>
+
+    <div class="item-container">
+      <text class="title">静态声明</text>
+      <text class="title"></text>
+      <input type="button" class="btn"  onclick="routeSingle" value="singleTask页面启动"/>
+    </div>
+
+    <div class="item-container">
+      <text class="title">动态声明</text>
+      <input type="button" class="btn"  onclick="routeFlag" value="clearTask页面启动"/>
+    </div>
+
+  </div>
+</template>
+
+<script>
+  import router from '@system.router'
+
+  export default {
+    private: {
+      pageTitle: '页面启动模式'
+    },
+    onInit () {
+      this.$page.setTitleBar({ text: this.pageTitle })
+    },
+    routeSingle () {
+      router.push({
+        uri: '/framework/pagestart/pageA'
+      })
+    },
+    routeFlag () {
+      router.push({
+        uri: 'interface/system/router/detail',
+        params: {
+          ___PARAM_LAUNCH_FLAG___: 'clearTask',
+          pageInfo: '当前打开页面已将之前页面全部销毁，返回上一页将退出快应用'
+        }
+      })
+    },
+  }
+</script>
+
+<style lang="less">
+  @import '../../common/css/common.css';
+</style>

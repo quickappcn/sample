@@ -1,0 +1,62 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+
+    <div class="item-container">
+      <div class="item-content">
+        <text class="txt">是否是5G设备:{{telecomInfo.is5GDevice}}</text>
+        <text class="txt">5G开关是否打开:{{telecomInfo.is5GSwitchOpened}}</text>
+      </div>
+      <input type="button" class="btn" onclick="getTelecomInfo" value="获取设备通讯信息"/>
+    </div>
+  </div>
+</template>
+
+<script>
+  import telecom from '@system.telecom'
+
+  export default {
+    private: {
+      componentName: 'telecom',
+      telecomInfo: {
+        is5GDevice: '',
+        is5GSwitchOpened: ''
+      }
+    },
+    onInit () {
+      this.$page.setTitleBar({text: 'telecom'})
+    },
+    getTelecomInfo () {
+      telecom.getTelecomInfo({
+        success: function (ret) {
+          console.log(ret)
+          self.telecomInfo = ret
+        },
+        fail: function (errcode, errmsg) {
+          console.log(errmsg, errcode)
+        }
+      })
+    }
+  }
+</script>
+
+<style>
+  @import '../../../common/css/common.css';
+
+  .item-container {
+    margin-bottom: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+
+  .item-content {
+    flex-direction: column;
+    background-color: #ffffff;
+    padding: 30px;
+    margin-bottom: 100px;
+    align-items: flex-start;
+  }
+</style>
