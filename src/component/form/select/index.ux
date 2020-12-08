@@ -1,0 +1,60 @@
+<template>
+    <div class="doc-page">
+        <div class="page-title-wrap">
+            <text class="page-title">{{ componentName }}</text>
+        </div>
+
+        <div class="item-container">
+            <text class="item-title">select当前选中的值：{{ selectedVal }}</text>
+            <select class="select" @change="updateVal">
+                <option value="默认样式">默认样式选项</option>
+                <option value="红色" style="color: red;" selected="true">红色选项</option>
+                <option value="字号42px" style="font-size: 42px;">字号42px选项</option>
+                <option value="粗体" style="font-weight: bold;">粗体选项</option>
+                <option value="下划线" style="text-decoration: underline;">下划线选项</option>
+                <option value="横划线" style="text-decoration: line-through;">横划线选项</option>
+            </select>
+        </div>
+    </div>
+</template>
+
+<style>
+@import "../../../common/css/common.css";
+
+.item-container {
+  margin-bottom: 50px;
+  margin-right: 60px;
+  margin-left: 60px;
+  padding: 0 20px;
+  flex-direction: column;
+}
+
+.item-title {
+  padding-top: 50px;
+  padding-bottom: 20px;
+  color: #aaaaaa;
+}
+
+.select {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  border: 1px solid #333333;
+  border-radius: 5px;
+}
+</style>
+
+<script>
+export default {
+    data: {
+        componentName: 'select',
+        selectedVal: '',
+    },
+    onInit() {
+        this.$page.setTitleBar({ text: 'Select' })
+    },
+    updateVal(e) {
+        this.selectedVal = e.newValue
+    },
+}
+</script>
