@@ -291,6 +291,10 @@ export const tabsData = {
           {
             name: 'textarea',
             path: 'component/form/textarea'
+          },
+          {
+            name: 'select',
+            path: 'component/form/select'
           }
         ]
       },

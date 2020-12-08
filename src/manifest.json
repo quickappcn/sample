@@ -176,6 +176,9 @@
       "component/form/switch": {
         "component": "index"
       },
+      "component/form/select": {
+        "component": "index"
+      },
       "component/container/tabs": {
         "component": "index"
       },
