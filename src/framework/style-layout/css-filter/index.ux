@@ -22,7 +22,7 @@ export default {
   },
   computed: {
     getStyleText() {
-      return `filter:blur(${this.blurRadius}dp)`
+      return `filter:blur(${this.blurRadius}px)`
     }
   },
   getSliderValue(name, e) {
