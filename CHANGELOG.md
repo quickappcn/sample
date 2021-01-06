@@ -8,9 +8,13 @@
 - 优化: `deeplink`　支持唤起`web`,　增加唤起`h5`页面示例
 ## 组件
 
+- 新增: 新增对`transition`过渡动画的支持
 - 新增: 新增`section-list`列表分组组件, 对列表的分组示例
 - 新增: 新增`slide-view`组件, 增加侧滑操作示例
+- 新增: 新增`refresh2`组件, 扩展refresh组件的能力
 - 优化: 增加`heif/heic`图片的支持
+- 优化: `camera`组件增加支持录像
+- 优化: `web`组件文件选择支持Capture属性
 
 ## 样式
 
