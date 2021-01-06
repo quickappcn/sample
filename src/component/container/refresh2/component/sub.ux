@@ -1,0 +1,153 @@
+<import name="classic-header" src="./classic-header.ux"></import>
+<import name="classic-footer" src="./classic-footer.ux"></import>
+<import name="title-bar" src="./titlebar.ux"></import>
+
+<template>
+  <div class="sub">
+    <block if="{{titlebar}}">
+      <title-bar title="{{pageTitle}}"></title-bar>
+    </block>
+    <refresh2
+      id="refresh"
+      @pullUpRefresh="pullUpRefresh"
+      gesture="{{gesture}}"
+      animationduration="1000"
+      @pullDownRefresh="pullDownRefresh"
+      enablepullup="true"
+      enablepulldown="{{enablepulldown}}"
+    >
+      <refresh-header class="header" onmove="headerMove">
+        <classic-header id="classicHeader"></classic-header>
+      </refresh-header>
+      <list class="list" id="list" @swipe="swipe">
+        <block for="dataList">
+          <list-item @click="showList" class="list_item" type="data-item">
+            <text class="title">{{ $item }}数据</text>
+            <text class="desc">这是{{ $item }}测试数据</text>
+          </list-item>
+        </block>
+      </list>
+      <refresh-footer class="footer" onmove="footerMove">
+        <classic-footer id="classicFooter"></classic-footer>
+      </refresh-footer>
+    </refresh2>
+  </div>
+</template>
+
+<script>
+export default {
+  data: {
+    dataList: [],
+    pageTitle: '基本使用',
+    gesture: true,
+  },
+  onInit() {
+    if (this.hasList > 0) {
+      this.getList(this.hasList)
+    }
+  },
+  props: {
+    titlebar: {
+      type: Boolean,
+      default: true,
+    },
+    enablepulldown: {
+      type: Boolean,
+      default: true,
+    },
+    hasList: 0,
+  },
+  getList(len) {
+    let idx = 0
+    if (this.dataList.length > 0) {
+      idx = this.dataList.length
+    }
+    for (let i = idx; i <= len + idx; i++) {
+      if (i < 10) {
+        this.dataList.push(`第0${i}条`)
+      } else {
+        this.dataList.push(`第${i}条`)
+      }
+    }
+    if (idx > 0 && this.hasList !== 0) this.$element('list').scrollTo({ index: len + idx, smooth: true })
+  },
+  pullDownRefresh() {
+    console.log(this.hasList)
+    let count = 18
+    if (this.hasList > 0) {
+      count = this.hasList
+    }
+    this.$child('classicHeader').startRefresh()
+    this.$element('refresh').startPullDownRefresh()
+    setTimeout(() => {
+      this.dataList = []
+      this.getList(count)
+      this.finishRefresh()
+    }, 2000)
+  },
+
+  pullUpRefresh() {
+    if (this.dataList.length < 30) {
+      this.$child('classicFooter').startRefresh()
+      this.$element('refresh').startPullUpRefresh()
+      setTimeout(() => {
+        this.getList(8)
+        this.finishPullUp()
+      }, 2000)
+    } else {
+      this.$child('classicFooter').nomoreRfresh()
+    }
+  },
+  headerMove(e) {
+    this.$child('classicHeader').move(e.percent)
+  },
+  footerMove(e) {
+    this.$child('classicFooter').move(e.percent)
+  },
+  finishRefresh() {
+    this.$child('classicHeader').stopRefresh()
+    this.$element('refresh').stopPullDownRefresh()
+  },
+  finishPullUp() {
+    this.$child('classicFooter').stopRefresh()
+    setTimeout(() => {
+      this.$element('refresh').stopPullUpRefresh()
+    }, 1000)
+  },
+  showList() {
+    this.$emit('showMask')
+  },
+  swipe(e) {
+    e.stopPropagation()
+    this.$emit('onswipe', { data: e.direction })
+  },
+}
+</script>
+
+<style>
+@import '../../../../Common/css/common.css';
+.sub {
+  flex-direction: column;
+}
+.header {
+  width: 100%;
+  height: 200px;
+  flex-direction: column-reverse;
+  background-color: #0faeff;
+  align-items: flex-end;
+  align-self: flex-end;
+}
+.list_item {
+  height: 150px;
+  border-bottom: 1px solid #dddddd;
+  width: 100%;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding-left: 30px;
+}
+.title {
+  font-size: 32px;
+  color: #000000;
+}
+</style>

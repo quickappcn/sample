@@ -1,0 +1,65 @@
+<template>
+  <div class="footer" style="backgorund-color:{{footColor}}">
+    <image class="loading" show="{{refreshing}}" src="../img/loading.gif"></image>
+    <text class="loading_text" style="color:{{txtColor}}">{{ refreshFootTitle }}</text>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    txtColor: '#888888',
+    footColor: '#ffffff',
+  },
+  data: {
+    refreshing: false,
+    refreshFootTitle: '@正在加载···',
+    nomore: false,
+  },
+  startRefresh() {
+    this.refreshing = true
+  },
+
+  stopRefresh() {
+    this.refreshFootTitle = '@加载完成 '
+    this.refreshing = false
+  },
+  nomoreRfresh() {
+    this.nomore = true
+    this.refreshing = false
+    this.refreshFootTitle = '@没有更多数据了'
+  },
+  move(percent) {
+    if (!this.refreshing) {
+      if (percent >= 1 && !this.refreshing) {
+        setTimeout(() => {
+          if (this.nomore) {
+            this.refreshFootTitle = '@没有更多数据了'
+          } else {
+            this.refreshFootTitle = '@正在加载···'
+          }
+        }, 500)
+      } else {
+        this.refreshFootTitle = '@加载完成'
+      }
+    }
+  },
+}
+</script>
+
+<style>
+.footer {
+  height: 150px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+.loading {
+  width: 40px;
+  height: 40px;
+  margin-right: 30px;
+}
+.loading_text {
+  text-align: center;
+}
+</style>

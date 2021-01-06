@@ -211,6 +211,10 @@ export const tabsData = {
             path: 'component/container/refresh'
           },
           {
+            name: 'refresh2',
+            path: 'component/container/refresh2'
+          },
+          {
             name: 'richtext',
             path: 'component/container/richtext'
           },

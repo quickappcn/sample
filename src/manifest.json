@@ -159,6 +159,9 @@
       "component/container/refresh": {
         "component": "index"
       },
+      "component/container/refresh2": {
+        "component": "index"
+      },
       "component/container/richtext": {
         "component": "index"
       },

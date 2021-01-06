@@ -1,0 +1,104 @@
+<template>
+  <div class="header">
+    <stack class="header_arrow">
+      <progress type="circular" color="#fff" if="{{refreshing}}" />
+      <image elif="{{!refreshing}}" src="../img/refresh-arrow_white.png" class="{{arrowAnim}}"></image>
+    </stack>
+
+    <div style="flex-direction:column">
+      <text style="color:#fff">{{ refreshHeadTitle }}</text>
+      <text style="color:#fff">{{ refreshHeadSubtitle }}</text>
+    </div>
+  </div>
+</template>
+
+<script>
+import { getCurrentTime } from '../util'
+var lastUpdateTime = getCurrentTime()
+
+export default {
+  props: ['refreshing'],
+
+  data: {
+    refreshing: false,
+    refreshHeadTitle: '下拉开始刷新',
+    refreshHeadSubtitle: '上次更新 ' + lastUpdateTime,
+    arrowAnim: '',
+    isArrowDown: true,
+  },
+
+  startRefresh() {
+    this.refreshing = true
+    this.refreshHeadTitle = '正在刷新...'
+  },
+
+  stopRefresh() {
+    lastUpdateTime = getCurrentTime()
+    this.refreshing = false
+    this.refreshHeadTitle = '下拉开始刷新'
+    this.refreshHeadSubtitle = '上次更新 ' + lastUpdateTime
+  },
+
+  move(percent) {
+    if (!this.refreshing) {
+      if (percent >= 1 && !this.refreshing) {
+        this.refreshHeadTitle = '释放即将刷新'
+        if (this.isArrowDown) {
+          this.isArrowDown = false
+          this.arrowAnim = 'header_arrow_anim_up'
+        }
+      } else {
+        this.refreshHeadTitle = '下拉开始刷新'
+        if (!this.isArrowDown) {
+          this.isArrowDown = true
+          this.arrowAnim = 'header_arrow_anim_down'
+        }
+      }
+    }
+  },
+}
+</script>
+
+<style>
+.header {
+  width: 100%;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.header_arrow {
+  width: 60px;
+  height: 60px;
+}
+
+.header_arrow_anim_up {
+  animation-name: arrow_up;
+  animation-duration: 500ms;
+  animation-fill-mode: forwards;
+}
+
+.header_arrow_anim_down {
+  animation-name: arrow_down;
+  animation-duration: 500ms;
+  animation-fill-mode: forwards;
+}
+
+@keyframes arrow_up {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(180deg);
+  }
+}
+
+@keyframes arrow_down {
+  from {
+    transform: rotate(180deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+</style>

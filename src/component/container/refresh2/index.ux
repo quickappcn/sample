@@ -1,0 +1,17 @@
+<import name="sub" src="./component/sub.ux"></import>
+
+<template>
+  <sub id="sub"></sub>
+</template>
+
+<script>
+export default {
+  onShow() {
+    this.$child('sub').pullDownRefresh()
+  },
+}
+</script>
+
+<style>
+@import '../../../common/css/common.css';
+</style>
