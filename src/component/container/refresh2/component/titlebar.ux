@@ -1,7 +1,7 @@
 <template>
   <div class="title_bar">
     <div class="content">
-      <image class="arrows-left" @click="back" src="/Common/refresh-arrow_white.png"></image>
+      <image class="arrows-left" @click="back" src="../img/refresh-arrow_white.png"></image>
       <text class="title">{{ title }}</text>
     </div>
   </div>

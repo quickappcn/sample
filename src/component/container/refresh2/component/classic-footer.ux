@@ -1,5 +1,5 @@
 <template>
-  <div class="footer" style="backgorund-color:{{footColor}}">
+  <div class="footer" style="background-color:{{footColor}}">
     <image class="loading" show="{{refreshing}}" src="../img/loading.gif"></image>
     <text class="loading_text" style="color:{{txtColor}}">{{ refreshFootTitle }}</text>
   </div>

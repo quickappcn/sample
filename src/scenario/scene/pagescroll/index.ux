@@ -4,8 +4,8 @@
       <text>{{item}}</text>
     </div>
     <div class="btn-box-fixed">
-      <input type="button" class="btn" @click="scrollToTop" value="置顶">
-      <input type="button" class="btn" @click="scrollBy" value="向下200">
+      <input type="button" class="btn" @click="scrollToTop" value="置顶"/>
+      <input type="button" class="btn" @click="scrollBy" value="向下200"/>
     </div>
   </div>
 </template>

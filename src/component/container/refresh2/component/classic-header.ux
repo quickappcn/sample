@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <stack class="header_arrow">
-      <progress type="circular" color="#fff" if="{{refreshing}}" />
+      <progress type="circular" style="color:#fff" if="{{refreshing}}" />
       <image elif="{{!refreshing}}" src="../img/refresh-arrow_white.png" class="{{arrowAnim}}"></image>
     </stack>
 
