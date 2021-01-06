@@ -1,0 +1,313 @@
+<template>
+  <div class="doc-page">
+    <div class="item-container">
+      <div
+        class="box2"
+        style="width: {{width}};
+            height: {{height}};
+            opacity: {{opacity}};
+            visibility: {{visibility}};
+            position: {{position}};
+            padding: {{padding}};
+            border-width: {{borderWidth}};
+            left: {{left}};
+            top: {{top}};
+            border-color:{{borderColor}};
+            background-position:{{bgp}};
+            transform:{{transform}};
+            transform-origin:{{transformOrigin}};
+            align-self:flex-start
+            "
+      >
+        <text class="txt">box2</text>
+      </div>
+      <text>设置需要变换的样式属性</text>
+      <select @change="options1">
+        <option for="{{styleList2}}" value="{{$item.val}}">{{ $item.key }}</option>
+      </select>
+      <input type="text" class="input_text" value="" @change="setValue" placeholder="设置属性变化值" />
+      <text class="btn" @click="btnClick1">点击控制box2</text>
+    </div>
+    <div class="item-container">
+      <div class="box5" style="flex-direction:{{flag?'column':'row'}}">
+        <div
+          class="box_content"
+          style="flex: {{flex}};
+              right: {{right}};
+              bottom: {{bottom}};
+              padding-left: {{paddingLeft}};
+              padding-right: {{paddingRight}};
+              padding-top: {{paddingTop}};
+              padding-bottom: {{paddingBottom}};
+              margin-left: {{marginLeft}};
+              margin-right: {{marginRight}};
+              margin-top: {{marginTop}};
+              margin-bottom: {{marginBottom}};
+              border-left-width:{{bdLeftWidth}};
+              border-right-width:{{bdRightWidth}};
+              border-top-width:{{bdTopWidth}};
+              border-bottom-width:{{bdBottomWidth}};
+              border-left-color:{{bdLeftColor}};
+              border-right-color:{{bdRightColor}};
+              border-top-color:{{bdTopColor}};
+              border-bottom-color:{{bdBottomColor}};
+              background-color: {{bgc}};"
+        >
+          <text class="txt">box5-1</text>
+        </div>
+        <div class="box_content" style="background-color:#fff000;">
+          <text class="txt">box5-2</text>
+        </div>
+        <div class="box_content" style="background-color:#fff000;">
+          <text class="txt">box5-3</text>
+        </div>
+        <div class="box_content" style="background-color:#fff000;">
+          <text class="txt">box5-4</text>
+        </div>
+      </div>
+      <text>设置需要变换的样式属性</text>
+      <select @change="options2">
+        <option for="{{styleList1}}" value="{{$item.val}}">{{ $item.key }}</option>
+      </select>
+      <input type="text" class="input_text" value="" @change="setValue" placeholder="设置属性变化值" />
+      <text class="btn" @click="btnClick2">点击控制box5-1</text>
+      <text class="btn" @click="changeBoxDirection">切换父盒子方向</text>
+    </div>
+    <div class="item-container">
+      <text class="desc">伪类测试:</text>
+      <text class="desc">长按控制宽度(:active)</text>
+      <div class="box" @click="anim"><text>无动画box</text></div>
+      <div class="box box-transition" @click="anim"><text>有动画box</text></div>
+      <text>点击输入框变绿(:focus)</text>
+      <input type="text" placeholder="无动画" value="" class="box3" />
+      <input type="text" placeholder="有动画" value="" class="box3 box3transition" />
+      <text>点击选择按钮旋转45度(:checked)</text>
+      <label target="checkbox1">无动画</label>
+      <input type="checkbox" name="checkbox" id="checkbox1" value="checkbox1" class="box4" />
+      <label target="checkbox2">有动画</label>
+      <input type="checkbox" name="checkbox" id="checkbox2" value="checkbox1" class="box4 box4transition" />
+    </div>
+  </div>
+</template>
+
+<script>
+import router from '@system.router'
+import { styleList2, styleList1 } from './style.js'
+export default {
+  data: {
+    styleName1: null,
+    styleName2: null,
+    styleValue: null,
+    styleObj: '',
+    styleObj2: '',
+    flag: true,
+    width: '360px',
+    height: '200px',
+    opacity: 1,
+    visibility: 'visible',
+    bgc: '#00ffff',
+    bgp: '0px 0px',
+    position: 'relative',
+    padding: '0px',
+    borderWidth: '10px',
+    left: '0px',
+    top: '0px',
+    borderColor: 'rgba(255, 0, 0, 0.5)',
+    bdLeftWidth: '10px',
+    bdRightWidth: '10px',
+    bdTopWidth: '10px',
+    bdBottomWidth: '10px',
+    bdLeftColor: '#5f9ea0',
+    bdRightColor: '#deb887',
+    bdTopColor: '#6495ed',
+    bdBottomColor: '#a52a2a',
+    flex: 1,
+    right: '0px',
+    bottom: '0px',
+    flexBasis: '0px',
+    paddingLeft: '10px',
+    paddingRight: '10px',
+    paddingTop: '10px',
+    paddingBottom: '10px',
+    marginLeft: '10px',
+    marginRight: '10px',
+    marginTop: '10px',
+    marginBottom: '10px',
+    transformOrigin: '0px 0px',
+    transform: '',
+    styleList1: styleList1,
+    styleList2: styleList2,
+  },
+  onInit() {
+    var Buffer = require('buffer/').Buffer
+  },
+  anim() {
+    console.log('clicked')
+  },
+  options1(e) {
+    this.styleName1 = e.newValue
+  },
+  options2(e) {
+    this.styleName2 = e.newValue
+  },
+  setValue(e) {
+    this.styleValue = e.value
+  },
+  btnClick1() {
+    this[this.styleName1] = this.styleValue
+  },
+  btnClick2() {
+    this[this.styleName2] = this.styleValue
+  },
+  changeBoxDirection() {
+    this.flag = !this.flag
+  },
+}
+</script>
+
+<style>
+.doc-page {
+  flex-direction: column;
+  width: 100%;
+  padding: 0 20px;
+}
+.content {
+  display: flex;
+  height: 500px;
+  width: 600px;
+  flex-direction: column;
+}
+
+.content text {
+  flex-basis: 120px;
+  border: 3px solid rgba(0, 0, 0, 0.2);
+  height: 80px;
+  width: 100px;
+}
+.item-container {
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: #f3f3f3;
+  margin: 10px 0;
+}
+select {
+  border: 1px solid #000;
+  width: 50%;
+  height: 80px;
+  padding: 20px 0;
+  margin-top: 10px;
+}
+option {
+  padding: 20px;
+  width: 100%;
+}
+.input_text {
+  height: 80px;
+  width: 80%;
+  border: 1px solid #1e90ff;
+  font-size: 24px;
+  padding: 0 20px;
+  margin-top: 10px;
+}
+.input_text:focus {
+  border: 1px solid #ff0000;
+}
+.btn {
+  height: 80px;
+  margin: 10px 60px;
+  text-align: center;
+  border-radius: 5px;
+  color: #ffffff;
+  font-size: 30px;
+  width: 80%;
+  background-color: #0faeff;
+  line-height: 80px;
+}
+.btn:active {
+  opacity: 0.5;
+}
+.box {
+  width: 300px;
+  background-color: #fff000;
+  height: 300px;
+  margin-top: 10px;
+}
+.box-transition {
+  transition-property: width;
+  transition-duration: 2s;
+  transition-timing-function: ease;
+}
+.box:active {
+  width: 100px;
+}
+.box2 {
+  border-style: solid;
+  transition-property: all;
+  transition-duration: 2s;
+  transition-timing-function: ease;
+  background-image: url('../../../Common/logo.png');
+  background-size: 100px 100px;
+  background-repeat: no-repeat;
+}
+.box3 {
+  width: 80%;
+  background-color: #ffffff;
+  border: 1px solid #000;
+  height: 80px;
+  margin-top: 10px;
+}
+.box3transition {
+  transition-property: background-color;
+  transition-duration: 2s;
+  transition-timing-function: ease;
+}
+.box3:focus {
+  background-color: #7fffd4;
+}
+.box4 {
+  width: 80px;
+  height: 80px;
+  transform: rotate(0deg);
+  background-color: #ffa500;
+}
+.box4transition {
+  transition-property: transform;
+  transition-duration: 2s;
+  transition-timing-function: ease;
+}
+.box4:checked {
+  transform: rotate(45deg);
+  background-color: #ffc0cb;
+}
+.box5 {
+  border: 10px solid #4682b4;
+  width: 500px;
+  height: 500px;
+  margin: 10px 0;
+}
+.box_content {
+  flex-direction: column;
+  border: 1px solid #000000;
+  transition: all 2s ease;
+  flex: 1;
+}
+.txt {
+  border: 1px solid #000000;
+}
+.shrink-box {
+  background-color: #fff000;
+  transition-property: flex-shrink;
+  transition-duration: 2s;
+  transition-timing-function: ease;
+  flex-shrink: 1;
+}
+.shrink-box2 {
+  flex-shrink: 1;
+}
+
+.shrink-box1 {
+  flex-shrink: 0;
+}
+</style>

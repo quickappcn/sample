@@ -40,298 +40,351 @@
       <div class="item-content column">
         <text>预览频率范围{{supportfpsrange}} 当前值： min{{previewFpsRange.min}} max: {{previewFpsRange.max}}</text>
         <div class="item-content">
-          <text>min:</text><input  class="input" type="number" onchange="changeFn('min')"/>
+          <text>min:</text><input class="input" type="number" onchange="changeFn('min')" />
         </div>
         <div class="item-content">
-          <text>max:</text><input class="input" type="number" onchange="changeFn('max')"/>
+          <text>max:</text><input class="input" type="number" onchange="changeFn('max')" />
         </div>
         <input type="button" value="设置频率" class="btn" onclick="setPreviewFpsRange"></input>
       </div>
 
       <image src="{{pictureUrl}}" class="picture"></image>
+
+      <div class="item-content column">
+        <input type="button" value="开始录像" class="btn" onclick="startRecord"></input>
+        <input type="button" value="停止录像" class="btn" onclick="stopRecord"></input>
+      </div>
+
+      <image src="{{imgUri}}" class="img"></image>
+      <video autoplay="false" src="{{videoUri}}" class="video"></video>
+
     </div>
   </div>
 </template>
 
 <style>
-  @import '../../../common/css/common.css';
-  .doc-page {
-    flex-direction: column;
-    padding: 0 75px;
-  }
+@import "../../../common/css/common.css";
+.doc-page {
+  flex-direction: column;
+  padding: 0 75px;
+}
 
-  .page-title-wrap {
-    padding-top: 50px;
-    padding-bottom: 80px;
-    justify-content: center;
-  }
+.page-title-wrap {
+  padding-top: 50px;
+  padding-bottom: 80px;
+  justify-content: center;
+}
 
-  .page-title{
-    padding-top: 30px;
-    padding-bottom: 30px;
-    padding-left: 40px;
-    padding-right: 40px;
-    border-color: #bbbbbb;
-    color: #bbbbbb;
-    border-bottom-width: 2px;
-  }
+.page-title {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  padding-left: 40px;
+  padding-right: 40px;
+  border-color: #bbbbbb;
+  color: #bbbbbb;
+  border-bottom-width: 2px;
+}
 
-  .container {
-    flex-direction: column;
-    align-items: center;
-    padding-top: 50px;
-    padding-bottom: 20px;
-  }
+.container {
+  flex-direction: column;
+  align-items: center;
+  padding-top: 50px;
+  padding-bottom: 20px;
+}
 
-  .camera {
-    flex: 1;
-    width: 600px;
-    height: 400px;
-  }
+.camera,
+.video,
+.img {
+  flex: 1;
+  width: 600px;
+  height: 400px;
+}
 
-  .btn {
-    width: 600px;
-    height: 80px;
-    text-align: center;
-    border-radius: 5px;
-    margin: 20px 0;
-    margin-bottom: 50px;
-    color: #ffffff;
-    font-size: 30px;
-    background-color: #0faeff;
-  }
+.btn {
+  width: 600px;
+  height: 80px;
+  text-align: center;
+  border-radius: 5px;
+  margin: 20px 0;
+  margin-bottom: 50px;
+  color: #ffffff;
+  font-size: 30px;
+  background-color: #0faeff;
+}
 
-  .picture {
-    width: 600px;
-    height: 400px;
-    margin-bottom: 20px;
-  }
+.picture {
+  width: 600px;
+  height: 400px;
+  margin-bottom: 20px;
+}
 
-  .item-content {
-    flex-direction: column;
-  }
+.item-content {
+  flex-direction: column;
+}
 
-  .input {
-    flex: 1;
-    font-size: 30px;
-    padding-left: 20px;
-    border: 1px solid #cccccc;
-  }
+.input {
+  flex: 1;
+  font-size: 30px;
+  padding-left: 20px;
+  border: 1px solid #cccccc;
+}
 </style>
 
 <script>
-  import prompt from '@system.prompt'
-  export default {
-    private: {
-      componentName: 'camera',
-      pictureUrl: '',
-      photoQuality: 'normal',
-      deviceposition: "back",
-      flash: "auto",
-      flashText: '自动',
-      sceneModeType : '',
-      sceneMode: {
-        auto: '自动模式',
-        action: '动作模式',
-        portrait: '竖屏模式',
-        landscape: '横屏模式',
-        night: '夜晚模式',
-        'night-portrait': '晚间运动模式',
-        theatre: '剧院模式',
-        beach : '海滩模式',
-        snow: '雪景模式',
-        sunset: '日落模式',
-        steadyphoto: '稳定模式',
-        fireworks: '烟花模式',
-        sports: '运动模式',
-        party: '派对模式',
-        candlelight: '烛光模式',
-        barcode: '条码模式'
+import prompt from '@system.prompt'
+export default {
+  private: {
+    componentName: 'camera',
+    pictureUrl: '',
+    photoQuality: 'normal',
+    deviceposition: "back",
+    flash: "auto",
+    flashText: '自动',
+    sceneModeType: '',
+    sceneMode: {
+      auto: '自动模式',
+      action: '动作模式',
+      portrait: '竖屏模式',
+      landscape: '横屏模式',
+      night: '夜晚模式',
+      'night-portrait': '晚间运动模式',
+      theatre: '剧院模式',
+      beach: '海滩模式',
+      snow: '雪景模式',
+      sunset: '日落模式',
+      steadyphoto: '稳定模式',
+      fireworks: '烟花模式',
+      sports: '运动模式',
+      party: '派对模式',
+      candlelight: '烛光模式',
+      barcode: '条码模式'
+    },
+    exposurecompensation: null,
+    previewFpsRange: '',
+    supportfpsrange: '',
+    fpsrange: {
+      min: 0,
+      max: 0
+    },
+    sliderValue: 0,
+    compensationRange: null,
+    imgUri: '',
+    videoUri: '',
+  },
+  onInit() {
+    this.$page.setTitleBar({ text: 'Camera' })
+  },
+  takePhoto() {
+    let _this = this
+
+    // 调用相机组件的照相功能
+    this.$element('camera').takePhoto({
+      // 通过quality参数设置照片质量 默认为normal
+      quality: _this.photoQuality,
+      success(data) {
+        // 获取回调中的照片地址
+        _this.pictureUrl = data.uri
       },
-      exposurecompensation: null,
-      previewFpsRange: '',
-      supportfpsrange: '',
-      fpsrange: {
-        min: 0,
-        max: 0
+      fail(data, code) {
+        console.log('take photos failed：code' + code.code)
       },
-      sliderValue: 0, 
-      compensationRange: null,
-    },
-    onInit() {
-      this.$page.setTitleBar({ text: 'Camera' })
-    },
-    takePhoto () {
-      let _this = this
-
-      // 调用相机组件的照相功能
-      this.$element('camera').takePhoto({
-        // 通过quality参数设置照片质量 默认为normal
-        quality: _this.photoQuality,
-        success(data){
-          // 获取回调中的照片地址
-          _this.pictureUrl = data.uri
-        },
-        fail(data, code) {
-          console.log('take photos failed：code' + code.code)
-        },
-        complete() {
-          console.log('complete')
-        }
-      })
-    },
-    // 切换照片质量
-    switchQuality () {
-      const qualityArr = ['low', 'normal', 'high']
-      const index = qualityArr.indexOf(this.photoQuality)
-
-      if (index >= 2) {
-        this.photoQuality = qualityArr[0]
+      complete() {
+        console.log('complete')
       }
-      else {
-        this.photoQuality = qualityArr[index + 1]
-      }
-    },
-    // 切换摄像头
-    switchCamera () {
-      this.deviceposition = this.deviceposition === 'back' ? 'front' : 'back'
-    },
-    // 切换闪关灯
-    switchFlash () {
-      const flashArr = ['auto', 'on', 'off', 'torch']
-      const textArr = ['自动', '开', '关', '常亮']
-      const index = flashArr.indexOf(this.flash)
+    })
+  },
+  // 切换照片质量
+  switchQuality() {
+    const qualityArr = ['low', 'normal', 'high']
+    const index = qualityArr.indexOf(this.photoQuality)
 
-      if (index >= 3) {
-        this.flash = flashArr[0]
-      }
-      else {
-        this.flash = flashArr[index + 1]
-      }
-
-      this.flashText = textArr[flashArr.indexOf(this.flash)]
-    },
-    // 权限不允许处理
-    handlerError () {
-      console.log('用户不允许使用摄像头')
-    },
-    camerainitdone (data) {
-      console.log(data)
-      this.getSupportedPreviewFpsRange()
-      this.getExposureCompensation()
-      this.getPreviewFpsRange()
-      this.getExposureCompensationRange()
-    },
-    cameraframe(data) {
-      // console.log(data)
-    },
-    getSceneModeType (evt) {
-      this.sceneModeType = evt.newValue
-    },
-    setSceneMode () {
-      const self = this 
-      this.$element('camera').setSceneMode({
-        scenemode: self.sceneModeType,
-        success: function (data) {
-          prompt.showToast({
-            message: 'success'
-          })
-        },
-        fail: function ({ message }) {
-          prompt.showToast({
-            message
-          })
-        }
-      })
-    },
-    // 获取支持的预览频率范围
-    getSupportedPreviewFpsRange () {
-      const self = this
-      this.$element('camera').getSupportedPreviewFpsRange({
-        success: function (data) {
-          self.supportfpsrange = data.supportfpsrange
-        },
-        fail: function(data, code) {
-          console.log('handling fail', data, code)
-        }
-      })
-    },
-    setPreviewFpsRange() {
-      const self = this
-      this.$element('camera').setPreviewFpsRange({
-        previewfpsrange: self.fpsrange,
-        success() {
-          self.getPreviewFpsRange()
-          prompt.showToast({
-            message: 'success'
-          })
-        },
-        fail(data) {
-          prompt.showToast({
-            message: JSON.stringify(data)
-          })
-        }
-      })
-    },
-    getPreviewFpsRange () {
-      const self = this
-      this.$element('camera').getPreviewFpsRange({
-        success: function(data) {
-          self.previewFpsRange = data
-        },
-        fail: function(data, code) {
-          console.log('handling fail', data, code)
-        }
-      })
-    },
-
-    changeFn(type, evt) {
-      this.fpsrange[type] = evt.value
-    },
-    // 获取当前设置的曝光值
-    getExposureCompensation () {
-      const self = this
-      this.$element('camera').getExposureCompensation({
-        success: function ({ exposurecompensation }) {
-          self.exposurecompensation = exposurecompensation
-        },
-        fail: function(data, code) {
-          console.log('handling fail', data, code)
-        }
-      })
-    },
-    getExposureCompensationRange () {
-      const self = this
-      this.$element('camera').getExposureCompensationRange({
-        success(data) {
-          self.compensationRange = data
-        },
-        fail(data, code) {
-          prompt.showToast({
-            message: data + code
-          })
-        }
-      })
-    },
-    setExposureCompensation () {
-      const self = this
-      this.$element('camera').setExposureCompensation({
-        exposurecompensation: self.sliderValue,
-        success(data) {
-          self.getExposureCompensation()
-          prompt.showToast({
-            message: 'success'
-          })
-        },
-        fail(data) {
-          prompt.showToast({
-            message: JSON.stringify(data)
-          })
-        }
-      })
-    },
-    setSliderValue (evt) {
-      this.sliderValue = evt.progress
+    if (index >= 2) {
+      this.photoQuality = qualityArr[0]
     }
-  }
+    else {
+      this.photoQuality = qualityArr[index + 1]
+    }
+  },
+  // 切换摄像头
+  switchCamera() {
+    this.deviceposition = this.deviceposition === 'back' ? 'front' : 'back'
+  },
+  // 切换闪关灯
+  switchFlash() {
+    const flashArr = ['auto', 'on', 'off', 'torch']
+    const textArr = ['自动', '开', '关', '常亮']
+    const index = flashArr.indexOf(this.flash)
+
+    if (index >= 3) {
+      this.flash = flashArr[0]
+    }
+    else {
+      this.flash = flashArr[index + 1]
+    }
+
+    this.flashText = textArr[flashArr.indexOf(this.flash)]
+  },
+  // 权限不允许处理
+  handlerError() {
+    console.log('用户不允许使用摄像头')
+  },
+  camerainitdone(data) {
+    console.log(data)
+    this.getSupportedPreviewFpsRange()
+    this.getExposureCompensation()
+    this.getPreviewFpsRange()
+    this.getExposureCompensationRange()
+  },
+  cameraframe(data) {
+    // console.log(data)
+  },
+  getSceneModeType(evt) {
+    this.sceneModeType = evt.newValue
+  },
+  setSceneMode() {
+    const self = this
+    this.$element('camera').setSceneMode({
+      scenemode: self.sceneModeType,
+      success: function (data) {
+        prompt.showToast({
+          message: 'success'
+        })
+      },
+      fail: function ({ message }) {
+        prompt.showToast({
+          message
+        })
+      }
+    })
+  },
+  // 获取支持的预览频率范围
+  getSupportedPreviewFpsRange() {
+    const self = this
+    this.$element('camera').getSupportedPreviewFpsRange({
+      success: function (data) {
+        self.supportfpsrange = data.supportfpsrange
+      },
+      fail: function (data, code) {
+        console.log('handling fail', data, code)
+      }
+    })
+  },
+  setPreviewFpsRange() {
+    const self = this
+    this.$element('camera').setPreviewFpsRange({
+      previewfpsrange: self.fpsrange,
+      success() {
+        self.getPreviewFpsRange()
+        prompt.showToast({
+          message: 'success'
+        })
+      },
+      fail(data) {
+        prompt.showToast({
+          message: JSON.stringify(data)
+        })
+      }
+    })
+  },
+  getPreviewFpsRange() {
+    const self = this
+    this.$element('camera').getPreviewFpsRange({
+      success: function (data) {
+        self.previewFpsRange = data
+      },
+      fail: function (data, code) {
+        console.log('handling fail', data, code)
+      }
+    })
+  },
+
+  changeFn(type, evt) {
+    this.fpsrange[type] = evt.value
+  },
+  // 获取当前设置的曝光值
+  getExposureCompensation() {
+    const self = this
+    this.$element('camera').getExposureCompensation({
+      success: function ({ exposurecompensation }) {
+        self.exposurecompensation = exposurecompensation
+      },
+      fail: function (data, code) {
+        console.log('handling fail', data, code)
+      }
+    })
+  },
+  getExposureCompensationRange() {
+    const self = this
+    this.$element('camera').getExposureCompensationRange({
+      success(data) {
+        self.compensationRange = data
+      },
+      fail(data, code) {
+        prompt.showToast({
+          message: data + code
+        })
+      }
+    })
+  },
+  setExposureCompensation() {
+    const self = this
+    this.$element('camera').setExposureCompensation({
+      exposurecompensation: self.sliderValue,
+      success(data) {
+        self.getExposureCompensation()
+        prompt.showToast({
+          message: 'success'
+        })
+      },
+      fail(data) {
+        prompt.showToast({
+          message: JSON.stringify(data)
+        })
+      }
+    })
+  },
+  setSliderValue(evt) {
+    this.sliderValue = evt.progress
+  },
+  startRecord() {
+    this.$element('camera').startRecord({
+      quality: 'high',
+      compressed: false,
+      maxduration: 3,
+      success: data => {
+        prompt.showToast({
+          message: `start，${data.message}`,
+        })
+      },
+      fail: errMsg => {
+        prompt.showToast({
+          message: `error, code = ${errMsg.code}, msg = ${errMsg.message}`,
+        })
+      },
+      timeoutCallback: data => {
+        this.videoUri = data.uri
+        this.imgUri = data.thumbPath
+        prompt.showToast({
+          message: `timeout , ${JSON.stringify(data)}`,
+        })
+      },
+    })
+  },
+  stopRecord() {
+    this.$element('camera').stopRecord({
+      success: data => {
+        this.videoUri = data.uri
+        this.imgUri = data.thumbPath
+        prompt.showToast({
+          message: `stop, ${JSON.stringify(data)}`,
+        })
+      },
+      fail: (errMsg, errCode) => {
+        prompt.showToast({
+          message: `error, code = ${errCode}, msg = ${errMsg}`,
+        })
+      },
+    })
+  },
+}
 </script>

@@ -1,0 +1,36 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">控制当前页面是否允许截屏</text>
+    </div>
+
+    <div class="item-container">
+      <text class="input-hint">{{checkedVal ? '禁止截屏'　: '允许截屏'}}</text>
+      <switch checked="false" class="switch" onchange="accessibleFocus"></switch>
+    </div>
+  </div>
+</template>
+
+<script>
+  export default {
+    private: {
+      checkedVal: true,
+    },
+    onInit() {
+      this.$page.setTitleBar({
+        text: '页面截屏控制'
+      })
+      this.$page.setSecure(this.checkedVal)
+    },
+    accessibleFocus() {
+      this.checkedVal = !this.checkedVal;
+      this.$page.setSecure(this.checkedVal)
+    }
+  }
+</script>
+
+<style>
+  @import "../../util/index.css";
+  @import '../../../common/css/common.css';
+
+</style>

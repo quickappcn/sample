@@ -1,0 +1,39 @@
+<template>
+    <div class="demo-page">
+        <textarea class="textarea">{{ content }}</textarea>
+        <text class="color:red;">1.把上面的文字复制粘贴到&lt;form action="demo_form.php"&gt;&lt;form&gt;中，再点击网页中的“点击运行”</text>
+        <text class="color:red;">2.查看运行结果，按粘贴的提示分别点击“选择文件”</text>
+        <web class="webview" src="https://www.w3school.com.cn/tiy/t.asp?f=html_input_accept"></web>
+    </div>
+</template>
+
+<script>
+export default {
+    data: {
+        content: `<p style="color:red">直接打开相机拍照</p>
+    <input type="file" accept="image/*" capture="camera"> 
+    <p style="color:red">直接打开录音</p>
+    <input type="file" accept="audio/*" capture="microphone"> 
+    <p style="color:red">直接打开相机录像</p>
+    <input type="file" accept="video/*" capture="camcorder">`,
+    },
+}
+</script>
+
+<style>
+@import "../../../../common/css/common.css";
+.demo-page {
+  flex-direction: column;
+}
+.textarea {
+  width: 80%;
+  height: 300px;
+  border: 1px solid #000;
+  margin: 10px;
+}
+.webview {
+  flex: 1;
+  border: 1px solid #000;
+  margin-top: 10px;
+}
+</style>

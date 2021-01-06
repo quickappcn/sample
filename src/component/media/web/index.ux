@@ -31,6 +31,9 @@
         <div class="item-container">
             <input type="button" value="web组件是否支持缩放" @click="openDarkModePage('/component/media/web/scale-web')"/>
         </div>
+        <div class="item-container">
+            <input type="button" value="web组件文件选择支持Capture属性" @click="openDarkModePage('/component/media/web/capture')"/>
+        </div>
     </div>
 </template>
 

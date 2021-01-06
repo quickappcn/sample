@@ -4,19 +4,30 @@
       <text class="title">图片alt属性示例（可通过清除快应用缓存再次进入此页面查看占位图效果）</text>
     </div>
     <text class="description">本地图标，无alt</text>
-    <text class="description">地址："./img/sponge-bob.jpg"</text>
     <image src="./img/sponge_bob.jpg" class="small-image"></image>
     <text class="description">远程地址图标，alt为blank（加载时不显示占位图）</text>
-    <text class="description">地址："http://www.guandian.cn/uploadfile3/2017/0117/20170117034705167.png"</text>
     <image src="http://www.guandian.cn/uploadfile3/2017/0117/20170117034705167.png" class="big-image"
            alt="blank"></image>
     <text class="description">远程地址图标，无alt(加载时sdk自动设置灰色占位图）</text>
-    <text class="description">地址："http://www.guandian.cn/uploadfile3/2017/0117/20170117034705167.png"</text>
     <image src="http://www.guandian.cn/uploadfile3/2017/0117/20170117034705167.png" class="big-image"></image>
     <text class="description">远程地址图标，有alt</text>
-    <text class="description">地址："https://cdn140.picsart.com/267246714012211.png"</text>
     <image src="https://cdn140.picsart.com/267246714012211.png" class="small-image"
            alt="./img/grey_box.png"></image>
+    <text class="description">(1090+)有占位图，缩放模式alt-object-fit为contain</text>
+    <image src="https://cdn140.picsart.com/267246714012211.png" class="small-image alt-contain"
+           alt="./img/sponge_bob.jpg"></image>
+    <text class="description">(1090+)有占位图，缩放模式alt-object-fit为cover</text>
+    <image src="https://cdn140.picsart.com/267246714012211.png" class="small-image alt-cover"
+           alt="./img/sponge_bob.jpg"></image>
+    <text class="description">(1090+)有占位图，缩放模式alt-object-fit为fill</text>
+    <image src="https://cdn140.picsart.com/267246714012211.png" class="small-image alt-fill"
+           alt="./img/sponge_bob.jpg"></image>
+    <text class="description">(1090+)有占位图，缩放模式alt-object-fit为none</text>
+    <image src="https://cdn140.picsart.com/267246714012211.png" class="small-image alt-none"
+           alt="./img/sponge_bob.jpg"></image>
+    <text class="description">(1090+)有占位图，缩放模式alt-object-fit为scale-down</text>
+    <image src="https://cdn140.picsart.com/267246714012211.png" class="small-image alt-scale-down"
+           alt="./img/sponge_bob.jpg"></image>
   </div>
 </template>
 
@@ -66,5 +77,25 @@
     color: #777;
     margin:0 24px;
     text-align:center;
+  }
+
+  .alt-contain {
+    alt-object-fit: contain;
+  }
+
+  .alt-cover {
+    alt-object-fit: cover;
+  }
+
+  .alt-none {
+    alt-object-fit: none;
+  }
+
+  .alt-fill {
+    alt-object-fit: fill;
+  }
+
+  .alt-scale-down {
+    alt-object-fit: scale-down;
   }
 </style>

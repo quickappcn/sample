@@ -1,9 +1,9 @@
 {
   "package": "org.quickapp.union.sample",
   "name": "快应用示例中心",
-  "versionName": "1.8.0",
-  "versionCode": 180,
-  "minPlatformVersion": 1080,
+  "versionName": "1.9.0",
+  "versionCode": 190,
+  "minPlatformVersion": 1090,
   "icon": "/common/logo.png",
   "features": [
     { "name": "system.cipher" },
@@ -51,6 +51,7 @@
     { "name": "service.alipay" },
     { "name": "service.exchange" },
     { "name": "system.zip" },
+    { "name": "system.keyguard" },
     { "name": "hap.io.MessageChannel" },
     { "name": "system.configuration" },
     { "name": "hap.io.Video" },
@@ -158,6 +159,9 @@
       "component/container/refresh": {
         "component": "index"
       },
+      "component/container/refresh2": {
+        "component": "index"
+      },
       "component/container/richtext": {
         "component": "index"
       },
@@ -180,6 +184,12 @@
         "component": "index"
       },
       "component/container/tabs": {
+        "component": "index"
+      },
+      "component/container/section-list": {
+        "component": "index"
+      },
+      "component/container/slide-view": {
         "component": "index"
       },
       "component/extend/drawer": {
@@ -270,6 +280,9 @@
         "component": "index"
       },
       "framework/style-layout/media-query": {
+        "component": "index"
+      },
+      "framework/style-layout/css-filter": {
         "component": "index"
       },
       "framework/filter": {
@@ -467,7 +480,16 @@
       "interface/system/zip": {
         "component": "index"
       },
+      "interface/system/keyguard": {
+        "component": "index"
+      },
       "component/style/animation": {
+        "component": "index"
+      },
+      "component/style/transition": {
+        "component": "index"
+      },
+      "component/style/animation-direction": {
         "component": "index"
       },
       "component/style/transform": {
@@ -563,6 +585,9 @@
       "component/media/web/scale-web": {
         "component": "index"
       },
+      "component/media/web/capture": {
+        "component": "index"
+      },
       "framework/optimization/dynaComponents": {
         "component": "index"
       },
@@ -586,20 +611,23 @@
       "interface/manufacturer/stats": {
         "component": "index"
       },
-      "interface/manufacturer/push":{
-        "component":"index"
+      "interface/manufacturer/push": {
+        "component": "index"
       },
-      "interface/manufacturer/account":{
-        "component":"index"
+      "interface/manufacturer/account": {
+        "component": "index"
       },
       "interface/manufacturer/ad": {
-        "component":"index"
+        "component": "index"
       },
       "interface/system/telecom": {
-        "component":"index"
+        "component": "index"
       },
       "scenario/scene/pagescroll": {
-        "component":"index"
+        "component": "index"
+      },
+      "scenario/scene/secure": {
+        "component": "index"
       }
     }
   },

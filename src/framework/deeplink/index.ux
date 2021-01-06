@@ -3,8 +3,14 @@
     <div class="page-title-wrap">
       <text class="page-title">{{componentName}}</text>
     </div>
-    <text class="desc">hap://app/packageName/[path][?key=value]</text>
-    <a href="hap://app/com.autohome.quickapp">汽车之家极速版</a>
+    <div class="item-container">
+      <text class="desc">hap://app/packageName/[path][?key=value]</text>
+      <a href="hap://app/com.autohome.quickapp">汽车之家极速版</a>
+    </div>
+    <div class="item-container">
+      <text class="desc">hap://app/packageName/[path][?___H5___=value]</text>
+      <a href="hap://app/org.quickapp.union.sample/?___H5___=https://www.quickapp.cn">快应用官网</a>
+    </div>
   </div>
 </template>
 
