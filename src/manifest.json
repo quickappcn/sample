@@ -486,6 +486,9 @@
       "component/style/animation": {
         "component": "index"
       },
+      "component/style/transition": {
+        "component": "index"
+      },
       "component/style/animation-direction": {
         "component": "index"
       },
