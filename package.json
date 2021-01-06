@@ -1,9 +1,6 @@
 {
   "name": "sample",
-  "version": "1.8.0",
-  "subversion": {
-    "toolkit": "0.6.1"
-  },
+  "version": "1.9.0",
   "description": "Quickapp Samples",
   "scripts": {
     "server": "hap server",
@@ -21,7 +18,7 @@
     "qrcode-js": "0.0.2"
   },
   "dependencies": {
-    "hap-toolkit": "^1.8.3",
+    "hap-toolkit": "^1.8.5",
     "hsl-to-hex": "^1.0.0"
   },
   "browserslist": [
