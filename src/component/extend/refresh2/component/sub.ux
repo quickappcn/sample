@@ -1,12 +1,8 @@
 <import name="classic-header" src="./classic-header.ux"></import>
 <import name="classic-footer" src="./classic-footer.ux"></import>
-<import name="title-bar" src="./titlebar.ux"></import>
 
 <template>
   <div class="sub">
-    <block if="{{titlebar}}">
-      <title-bar title="{{pageTitle}}"></title-bar>
-    </block>
     <refresh2
       id="refresh"
       @pullUpRefresh="pullUpRefresh"
@@ -38,24 +34,15 @@
 export default {
   data: {
     dataList: [],
-    pageTitle: '基本使用',
     gesture: true,
+    enablepulldown: true,
+    hasList: 0,
+
   },
   onInit() {
     if (this.hasList > 0) {
       this.getList(this.hasList)
     }
-  },
-  props: {
-    titlebar: {
-      type: Boolean,
-      default: true,
-    },
-    enablepulldown: {
-      type: Boolean,
-      default: true,
-    },
-    hasList: 0,
   },
   getList(len) {
     let idx = 0

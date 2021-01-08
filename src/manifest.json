@@ -159,9 +159,6 @@
       "component/container/refresh": {
         "component": "index"
       },
-      "component/container/refresh2": {
-        "component": "index"
-      },
       "component/container/richtext": {
         "component": "index"
       },
@@ -186,13 +183,16 @@
       "component/container/tabs": {
         "component": "index"
       },
-      "component/container/section-list": {
-        "component": "index"
-      },
-      "component/container/slide-view": {
-        "component": "index"
-      },
       "component/extend/drawer": {
+        "component": "index"
+      },
+      "component/extend/refresh2": {
+        "component": "index"
+      },
+      "component/extend/section-list": {
+        "component": "index"
+      },
+      "component/extend/slide-view": {
         "component": "index"
       },
       "component/basic/text": {

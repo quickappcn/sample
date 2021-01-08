@@ -211,10 +211,6 @@ export const tabsData = {
             path: 'component/container/refresh'
           },
           {
-            name: 'refresh2',
-            path: 'component/container/refresh2'
-          },
-          {
             name: 'richtext',
             path: 'component/container/richtext'
           },
@@ -229,14 +225,6 @@ export const tabsData = {
           {
             name: 'tabs',
             path: 'component/container/tabs'
-          },
-          {
-            name: 'section-list',
-            path: 'component/container/section-list'
-          },
-          {
-            name: 'slide-view',
-            path: 'component/container/slide-view'
           }
         ]
       },
@@ -358,6 +346,18 @@ export const tabsData = {
           {
             name: 'drawer',
             path: 'component/extend/drawer'
+          },
+          {
+            name: 'refresh2',
+            path: 'component/extend/refresh2'
+          },
+          {
+            name: 'section-list',
+            path: 'component/extend/section-list'
+          },
+          {
+            name: 'slide-view',
+            path: 'component/extend/slide-view'
           }
         ]
       },
