@@ -5,10 +5,10 @@
   <div class="sub">
     <refresh2
       id="refresh"
-      @pullUpRefresh="pullUpRefresh"
+      @pulluprefresh="pullUpRefresh"
       gesture="{{gesture}}"
       animationduration="1000"
-      @pullDownRefresh="pullDownRefresh"
+      @pulldownrefresh="pullDownRefresh"
       enablepullup="true"
       enablepulldown="{{enablepulldown}}"
     >
