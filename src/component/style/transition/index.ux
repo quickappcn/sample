@@ -76,8 +76,8 @@
     <div class="item-container">
       <text class="desc">伪类测试:</text>
       <text class="desc">长按控制宽度(:active)</text>
-      <div class="box" @click="anim"><text>无动画box</text></div>
-      <div class="box box-transition" @click="anim"><text>有动画box</text></div>
+      <div class="box"><text>无动画box</text></div>
+      <div class="box box-transition"><text>有动画box</text></div>
       <text>点击输入框变绿(:focus)</text>
       <input type="text" placeholder="无动画" value="" class="box3" />
       <input type="text" placeholder="有动画" value="" class="box3 box3transition" />
@@ -137,12 +137,6 @@ export default {
     transform: '',
     styleList1: styleList1,
     styleList2: styleList2,
-  },
-  onInit() {
-    var Buffer = require('buffer/').Buffer
-  },
-  anim() {
-    console.log('clicked')
   },
   options1(e) {
     this.styleName1 = e.newValue
