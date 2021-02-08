@@ -6,11 +6,16 @@
 
     <div class="video justify-content-center">
       <stack id="stackDemo01" class="flex-column video-container">
-        <video class="flex-1 {{objectFitClass}}" poster="./video_poster_small.png"
+        <div enablevideofullscreencontainer="true">
+          <video class="flex-1 {{objectFitClass}}" poster="./video_poster_small.png"
                autoplay="false" onprepared="preparedfn" onstart="startfn" onpause="pausefn" onfinish="finishfn"
-               onerror="errorfn" onseeking="seekingfn" onseeked="seekedfn" ontimeupdate="timeupdatefn" id="video"
-               src="https://swsdl.vivo.com.cn/appstore/developer/uploadfile/20180323/20180323183010837.mp4"
+               onerror="errorfn" onseeking="seekingfn" onseeked="seekedfn" ontimeupdate="timeupdatefn" onfullscreenchange="screenChange"
+               id="video" src="https://swsdl.vivo.com.cn/appstore/developer/uploadfile/20180323/20180323183010837.mp4"
                controls="{{showControls}}" muted="{{muted}}" titlebar="{{titlebar}}" title="快应用展示视频"></video>
+          <div if="{{isFullScreen}}" class="video-snapshot" onclick="clickSaveToAlbum">
+            <image class="video-snapshot-img" src="./camera.png"></image>
+          </div>
+        </div>
         <image show="{{showmask}}" src="./video_poster_small.png"></image>
         <div class="mask align-item-center justify-content-center flex-column" show="{{showmask}}">
           <image show="{{showicon}}" src="./start.png" class="start-icon" onclick="startVideo"></image>
@@ -52,6 +57,7 @@
 <script>
   import prompt from '@system.prompt'
   import network from '@system.network'
+  import media from '@system.media'
 
   export default {
     private: {
@@ -65,10 +71,54 @@
       objectFitValues: [
         "contain", "cover", "fill", "none", "scale-down"
       ],
-      objectFitClass: ''
+      objectFitClass: '',
+      isFullScreen: false
     },
     onInit() {
       this.$page.setTitleBar({ text: 'Video' })
+    },
+    screenChange(res) {
+      this.isFullScreen = res.fullscreen
+    },
+    clickSaveToAlbum() {
+      // 获取video组件
+      const videoEle = this.$element('video')
+      // 暂停播放
+      videoEle.pause()
+      // 调用snapshot方法进行截屏
+      videoEle.snapshot({
+        success: (data) => {
+          const imagePath = data.uri
+          if (imagePath && imagePath.length > 0) {
+            // 调用media.saveToPhotosAlbum方法将图片存入相册
+            media.saveToPhotosAlbum({
+              uri: imagePath,
+              folderName: 'custom-folder',
+              success: () => {
+                prompt.showToast({
+                  message: `视频截图已保存到相册`
+                })
+              },
+              fail: (errorMsg, errorCode) => {
+                console.info(`### media.saveToPhotosAlbum ### ${ errorCode }: ${ errorMsg }`)
+                prompt.showToast({
+                  message: `${ errorCode }: ${ errorMsg }`
+                })
+              },
+              complete: () => {
+                // 开始播放
+                videoEle.start()
+              }
+            })
+          }
+        },
+        fail: (errorMsg, errorCode) => {
+          console.info(`### video.snapshot ### ${ errorCode }: ${ errorMsg }`)
+          prompt.showToast({
+            message: `${ errorCode }: ${ errorMsg }`
+          })
+        }
+      })
     },
     startVideo(e) {
       if (e.usenet) {
@@ -127,6 +177,18 @@
   .video {
     width: 750px;
     height: 400px;
+  }
+
+  .video-snapshot {
+    position: absolute;
+    top: 150px;
+    right: 20px;
+    width: 30px;
+    height: 30px;
+  }
+
+  .video-snapshot-img {
+    object-fit: contain;
   }
 
   .mask {
