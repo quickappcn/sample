@@ -1,0 +1,141 @@
+<template>
+  <!-- template里只能有一个根节点 -->
+  <div class="demo-page">
+    <text class="big-title">lottie动画演示</text>
+    <lottie class="lottie" source="../../../lottie/lottie.json" id="lottie1" autoplay="{{autoplay}}"
+            progress="{{progressComputed}}" speed="{{speed}}"
+            rendermode="{{renderMode}}" loop="{{loop}}"
+            onerror="animationError"
+            oncomplete="animationFinished"
+            onchange="animationChanged"
+    ></lottie>
+    <text class="title link" onclick="playAnimation">从头播放</text>
+    <text class="title link" onclick="loopChange">是否循环(可点击切换): {{ loop }}</text>
+    <text class="title link" onclick="autoPlayChange">是否自动播放(可点击切换): {{ autoplay }}</text>
+    <text class="title link" onclick="playAnimation(50,120)">播放50到120帧</text>
+    <text class="title link" onclick="playAnimation(120,50)">播放120到50帧</text>
+    <text class="title link" onclick="pauseAnimation">暂停</text>
+    <text class="title link" onclick="resumeAnimation">继续播放</text>
+    <text class="title link" onclick="resetAnimation">重置动画</text>
+    <text class="title">拖动下方进度条，设置播放进度：{{ progressComputed }}</text>
+    <slider class="slider" min="0" max="10" value="{{progress}}" step="1" onchange="getProgressValue"></slider>
+    <text class="title">拖动下方进度条，设置播放倍速：{{ speed }}</text>
+    <slider class="slider" min="-5" max="5" value="{{speed}}" step="1" onchange="getSpeedValue"></slider>
+    <text class="title">当前播放进度：{{ changeProgress }}</text>
+    <text class="title">点击下方菜单，选择渲染模式: {{ renderMode }}</text>
+    <select class="select" @change="changeRenderMode">
+      <option value="AUTOMATIC" class="option" selected="true">AUTOMATIC</option>
+      <option value="HARDWARE" class="option">HARDWARE</option>
+      <option value="SOFTWARE" class="option">SOFTWARE</option>
+    </select>
+    <text class="title">播放错误信息: {{ errorMessage }}</text>
+  </div>
+</template>
+<script>
+import prompt from '@system.prompt'
+
+export default {
+  private: {
+    progress: 0,
+    changeProgress: 0,
+    speed: 1,
+    loop: false,
+    autoplay: false,
+    renderMode: `AUTOMATIC`,
+    errorMessage: '空'
+  },
+  computed: {
+    progressComputed() {
+      return this.progress / 10
+    }
+  },
+  playAnimation(startFrame, endFrame) {
+    this.$element('lottie1').play({startFrame, endFrame})
+  },
+  resetAnimation() {
+    this.$element('lottie1').reset()
+  },
+  resumeAnimation() {
+    this.$element('lottie1').resume()
+  },
+  pauseAnimation() {
+    this.$element('lottie1').pause()
+  },
+  getProgressValue(event) {
+    this.progress = event.progress
+  },
+  getSpeedValue(event) {
+    this.speed = event.progress
+  },
+  loopChange() {
+    this.loop = !this.loop
+  },
+  autoPlayChange() {
+    this.autoplay = !this.autoplay
+  },
+  animationFinished() {
+    prompt.showToast({
+      message: '动画播放完啦~'
+    })
+  },
+  changeRenderMode(event) {
+    this.renderMode = event.newValue
+  },
+  animationChanged(event) {
+    this.changeProgress = event.progress
+  },
+  animationError(event) {
+    prompt.showToast({
+      message: 'lottie动画加载出错了~'
+    })
+    this.errorMessage = event.error
+  }
+}
+</script>
+<style>
+.demo-page {
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.lottie {
+  width: 400px;
+  height: 400px;
+  border: 1px solid black;
+}
+
+.title {
+  font-size: 40px;
+  text-align: center;
+  line-height: 60px;
+}
+
+.link {
+  color: #4c9afa;
+}
+
+.big-title {
+  font-size: 60px;
+  text-align: center;
+  line-height: 80px;
+  margin-bottom: 16px;
+}
+
+.slider {
+  width: 600px;
+  height: 40px;
+}
+
+.select {
+  width: 600px;
+  height: 60px;
+}
+
+.option {
+  width: 600px;
+  height: 60px;
+  line-height: 60px;
+  font-size: 40px;
+}
+</style>
