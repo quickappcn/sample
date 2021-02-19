@@ -348,6 +348,10 @@ export const tabsData = {
             path: 'component/extend/drawer'
           },
           {
+            name: 'lottie动画',
+            path: 'component/extend/lottie'
+          },
+          {
             name: 'refresh2',
             path: 'component/extend/refresh2'
           },
