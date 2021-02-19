@@ -186,6 +186,9 @@
       "component/extend/drawer": {
         "component": "index"
       },
+      "component/extend/lottie": {
+        "component": "index"
+      },
       "component/extend/refresh2": {
         "component": "index"
       },
