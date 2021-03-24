@@ -300,6 +300,9 @@
       "framework/computed": {
         "component": "index"
       },
+      "framework/directive/model": {
+        "component": "index"
+      },
       "framework/directive/for": {
         "component": "index"
       },

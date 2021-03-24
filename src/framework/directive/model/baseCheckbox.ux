@@ -1,0 +1,17 @@
+<template>
+  <div>
+    <input
+      type="checkbox"
+      checked="{{checked}}"
+      onchange="$emit('change', evt.target.checked)"
+    ></input>
+  </div>
+</template>
+<script>
+  export default {
+    model: {
+      prop: 'checked'
+    },
+    props: ['checked']
+  }
+</script>
