@@ -1,0 +1,131 @@
+<import name="base-checkbox" src="./baseCheckbox.ux"></import>
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{ componentName }}</text>
+    </div>
+
+    <div class="item-container">
+      <div class="item-content">
+        <text>文本</text>
+        <input model="{{message}}" placeholder="edit me"></input>
+        <text>Message is: {{ message }}</text>
+      </div>
+      <div class="item-content">
+        <text>多行文本</text>
+        <textarea model="{{multilineMessage}}" placeholder="edit me"></textarea>
+        <text>Multiline message is: {{ multilineMessage }}</text>
+      </div>
+      <div class="item-content">
+        <text>单个复选框，绑定到布尔值：</text>
+        <div>
+          <input type="checkbox" id="checkbox" model="{{checked}}"></input>
+          <label target="checkbox">{{ checked }}</label>
+        </div>
+       
+        <text>多个复选框，绑定到同一个数组：</text>
+        <div>
+          <input type="checkbox" id="jack" value="Jack" model="{{checkedNames}}"></input>
+          <label target="jack">Jack</label>
+        </div>
+        <div>
+          <input type="checkbox" id="john" value="John" model="{{checkedNames}}"></input>
+          <label target="john">John</label>
+        </div>
+        <div>
+          <input type="checkbox" id="mike" value="Mike" model="{{checkedNames}}"></input>
+          <label target="mike">Mike</label>
+        </div>  
+        <text>Checked names: {{ checkedNames }}</text>
+      </div>
+      <div class="item-content">
+        <text>单选按钮</text>
+        <div>
+          <input type="radio" id="one" value="One" model="{{picked}}"></input>
+          <label target="one">One</label>
+        </div>
+        <div>
+          <input type="radio" id="two" value="Two" model="{{picked}}"></input>
+          <label target="two">Two</label>
+        </div>
+        <text>Picked: {{ picked }}</text>
+      </div>
+      <div class="item-content">
+        <text>选择框</text>
+        <select model="{{selected}}">
+          <option value="A" class="option">A</option>
+          <option value="B" class="option">B</option>
+          <option value="C" class="option">C</option>
+        </select>
+        <text>Selected: {{ selected }}</text>
+      </div>
+      <div class="item-content">
+        <text>复选框 修改值</text>
+        <input type="checkbox" model="{{toggle}}" true-value="yes" false-value="no"></input>
+        <text>toggle: {{ toggle }}</text>
+      </div>
+      <div class="item-content">
+        <text>单选 修改值</text>
+        <input type="radio" model="{{pick}}" value="{{pickValue}}"></input>
+        <text>pick: {{ pick }}</text>
+      </div>
+      <div class="item-content">
+        <text>动态input type</text>
+        <input type="{{dynamicType}}" model="{{dynamicValue}}" value="test dynamic type"></input>
+        <input type="button" class="btn" @click="changeType('text')" value="type=text"></input>
+        <input type="button" class="btn" @click="changeType('radio')" value="type=radio"></input>
+        <input type="button" class="btn" @click="changeType('checkbox')" value="type=checkbox"></input>
+        <text>dynamicValue: {{ dynamicValue }}</text>
+      </div>
+      <div class="item-content">
+        <text>自定义组件的model</text>
+        <base-checkbox model="{{lovingQa}}"></base-checkbox>
+        <text>lovingQa: {{ lovingQa }}</text>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+  export default {
+    private: {
+      message: '',
+      multilineMessage: '',
+      checked: true,
+      checkedNames: [],
+      picked: '',
+      selected: '',
+      toggle: '',
+      pick: '',
+      pickValue: 'init value',
+      dynamicValue: '',
+      dynamicType: 'text',
+      lovingQa: false,
+      componentName: '指令 model（1100+）'
+    },
+    changeType(type) {
+      this.dynamicType = type
+    },
+    onInit() {
+      this.$page.setTitleBar({ text: this.componentName })
+    }
+  }
+</script>
+
+<style lang="less">
+  @import '../../../common/css/common.css';
+
+  .item-content {
+    flex-direction: column;
+    background-color: #ffffff;
+    padding: 30px;
+    margin-bottom: 30px;
+  }
+  .btn {
+    margin-top: 30px;
+  }
+  .option {
+    width: 100%;
+    height: 50px;
+  }
+</style>
