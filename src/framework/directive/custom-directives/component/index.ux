@@ -1,0 +1,71 @@
+<import name="first-component" src="./first.ux"></import>
+
+<template>
+  <div dir:subDir="{{ subMessage }}" style="backgroundColor: {{ bgColor }}" class="sub-container">
+    <first-component dir:subDir="引用三级组件"></first-component>
+    <text dir:subDir="{{ subMessage }}" message="{{ message }}" class="sub-text">子组件q-subDire指令更新信息: <span if="{{ nodeUpdateList.length === 0 }}">无</span></text>
+    <block for="{{ nodeUpdateList }}">
+      <text>{{ $idx }}</text>
+      <text>绑定的值：{{ $item.data }}</text>
+      <text>更新类型：{{ $item.type }}</text>
+      <text>更新key：{{ $item.key }}</text>
+      <text>更新前：{{ $item.oldValue }}</text>
+      <text>更新后：{{ $item.newValue }}</text>
+    </block>
+    <input type="button" class="btn" style="margin-top: 50px;" value="触发子组件根节点自定义指令" onclick="changeMessageAttr"/>
+  </div>
+</template>
+
+<script>
+  import prompt from '@system.prompt'
+
+  export default {
+    data: {
+      nodeUpdateList: [],
+      message: 'Life is real, life is earnest.',
+      bgColor: '#eee',
+      subMessage: '子组件message1'
+    },
+    directives: {
+      subDir: {
+        mounted(el, binding) {
+          prompt.showToast({
+            message: `子组件指令触发：${JSON.stringify(binding)}`
+          })
+        },
+        update(el, binding) {
+          prompt.showToast({
+            message: `子组件update：${JSON.stringify(binding)}`
+          })
+          this.nodeUpdateList.push(binding)
+        }
+      }
+    },
+    changeMessageAttr() {
+      if (this.message === 'Life is real, life is earnest.') {
+        this.message = '人生真实，人生诚挚。'
+        this.bgColor = '#c4c4c4'
+        this.subMessage = '子组件message1'
+      } else {
+        this.message = 'Life is real, life is earnest.'
+        this.bgColor = '#eee'
+        this.subMessage = '子组件message2'
+      }
+    }
+  }
+</script>
+
+<style>
+  @import "../../../../common/css/common.css";
+  .sub-container {
+    flex-direction: column;
+    padding: 10px;
+  }
+  .sub-text {
+    border-bottom: 1px solid;
+  }
+  .result {
+    padding: 0px 30px;
+    flex-direction: column;
+  }
+</style>

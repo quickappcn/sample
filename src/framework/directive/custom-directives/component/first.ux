@@ -1,0 +1,5 @@
+<template>
+  <div class="sub-container">
+    <text>first component</text>
+  </div>
+</template>
