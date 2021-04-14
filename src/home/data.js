@@ -116,12 +116,16 @@ export const tabsData = {
             path: 'framework/directive/if-show'
           },
           {
+            name: '指令 data',
+            path: 'framework/directive/data'
+          },
+          {
             name: '指令 model（1100+）',
             path: 'framework/directive/model'
           },
           {
-            name: '指令 data',
-            path: 'framework/directive/data'
+            name: '自定义指令（1100+）',
+            path: 'framework/directive/custom-directives'
           },
           {
             name: '组件 block',
