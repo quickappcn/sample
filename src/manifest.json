@@ -303,6 +303,9 @@
       "framework/directive/model": {
         "component": "index"
       },
+      "framework/directive/custom-directives": {
+        "component": "index"
+      },
       "framework/directive/for": {
         "component": "index"
       },

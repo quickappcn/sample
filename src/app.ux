@@ -2,6 +2,16 @@
     import './common/js/util.js'
 
     export default {
+        directives: {
+            focus: {
+                mounted(el) {
+                    // this指向触发该指令的vm实例
+                    console.log(this)
+                    // 获取到el对象，执行focus方法获得焦点          
+                    el.focus()
+                }
+            }
+        },
         onError(err) {
             console.log(`error message=${err.message}, stack=${err.stack}`)
         },

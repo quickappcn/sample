@@ -1,0 +1,208 @@
+<import name="sub-component" src="./component/index.ux"></import>
+<import name="first-component" src="./component/first.ux"></import>
+<import name="second-component" src="./component/second.ux"></import>
+
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{ componentName }}</text>
+    </div>
+
+    <div class="item-container">
+      <text class="item-title">基本使用</text>
+      <div class="item-content">
+        <text>全局指令</text>
+        <input dir:focus value="全局定义指令，所有页面都能使用" class="input-text"></input>
+      </div>
+
+      <div class="item-content">
+        <text>自定义指令钩子触发</text>
+        <text if="{{ textShow }}" dir:test="自定义指令静态value" class="display-text">{{ message1 }}</text>
+        <div class="btn-group">
+          <input if="{{ textShow }}" type="button" class="btn" value="修改节点信息" onclick="changeMessage"/>
+          <input type="button" class="btn" value="{{ textShow ? '移除' : '显示' }}节点" onclick="changeTextState"/>
+        </div>
+      </div>
+
+      <div class="item-content">
+        <text>获取节点更新信息</text>
+        <text dir:watchAttr="{{ message2 }}" id="{{ messageId }}" class="{{ messageClass }} display-text" style="color: {{ messageColor }};border-bottom: 1px solid {{ messageColor }}">{{ message2 }}</text>
+        <div if="{{ nodeUpdateList.length }}" class="result">
+          <text>节点更新信息: </text>
+          <block for="{{ nodeUpdateList }}">
+            <text>{{ $idx }}: </text>
+            <text>绑定的值：{{ $item.data }}</text>
+            <text>更新类型：{{ $item.type }}</text>
+            <text if="{{ $item.type !== 'class' }}">更新key：{{ $item.key }}</text>
+            <text>更新前：{{ JSON.stringify($item.oldValue) }}</text>
+            <text>更新后：{{ JSON.stringify($item.newValue) }}</text>
+          </block>
+        </div>
+        <input type="button" class="btn" style="margin-top: 20px;" value="修改节点信息" onclick="changeMessageAttr"/>
+      </div>
+
+      <text class="item-title">组件使用</text>
+      <div class="item-content">
+        <text>动态组件</text>
+        <input if="{{ !componentShow }}" type="button" class="btn" style="margin-top: 50px;" value="渲染动态组件" onclick="createComponent"/>
+        <div if="{{ componentShow }}" class="item-content">
+          <component dir:parentDir="{{ componentName }}" is="{{ dynamicComponent }}"></component>
+        </div>
+        <input if="{{ componentShow }}" type="button" class="btn" style="margin-top: 50px;" value="切换动态组件" onclick="changeDynamicComponent"/>
+
+        <text>自定义组件</text>
+        <input if="{{ !subComponentShow }}" type="button" class="btn" style="margin-top: 50px;" value="渲染自定义组件" onclick="createCustomComponent"/>
+        <div if="{{ subComponentShow }}" class="item-content">
+          <sub-component dir:parentDir="{{ componentName }}"></sub-component>
+        </div>
+      </div>
+
+      <text class="item-title">事件绑定</text>
+      <div class="item-content">
+        <div for="{{ [1,2,3] }}" style="flex-direction: column; margin: 50px 0;">
+          <image dir:report="{{ $item }}" name="{{ $item }}" width="100%" src="./demo.png"></image>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+  import prompt from '@system.prompt'
+
+  export default {
+    directives: {
+      test: {
+        mounted(el, binding) {
+          prompt.showToast({
+            message: `text节点创建完毕, 参数：${JSON.stringify(binding)}`
+          })
+        },
+        update(el, binding) {
+          prompt.showToast({
+            message: `text节点更新, 参数：${JSON.stringify(binding)}`
+          })
+        },
+        destroy(el, binding) {
+          prompt.showToast({
+            message: `text节点销毁, 参数：${JSON.stringify(binding)}`
+          })
+        }
+      },
+      watchAttr: {
+        update(el, binding) {
+          this.nodeUpdateList.push(binding)
+        }
+      },
+      parentDir: {
+        mounted(el, binding) {
+          setTimeout(() => {
+            prompt.showToast({
+              message: `组件的dir:parentDir指令触发：${JSON.stringify(binding)}`
+            })
+          }, 200)
+        }
+      },
+      report: {
+        mounted(el, binding) {
+          el.addEventListener('appear', () => {
+            prompt.showToast({
+              message: `图片${binding.data}曝光`
+            })
+          })
+          el.addEventListener('click', () => {
+            prompt.showToast({
+              message: `图片${binding.data}点击`
+            })
+          })
+        }
+      },
+    },
+    data: {
+      componentName: '自定义指令Custom Directives（1100+）',
+      textShow: true,
+      componentShow: false,
+      subComponentShow: false,
+      dynamicComponent: 'first-component',
+      message1: 'Life is real, life is earnest.',
+      message2: 'Life is real, life is earnest.',
+      messageColor: '#000',
+      messageId: 'msg1',
+      messageClass: 'default-class',
+      nodeUpdateList: []
+    },
+    changeTextState() {
+      this.textShow = !this.textShow
+    },
+    createComponent() {
+      this.componentShow = true
+    },
+    createCustomComponent() {
+      this.subComponentShow = true
+    },
+    changeDynamicComponent() {
+      this.dynamicComponent = this.dynamicComponent === 'first-component' ? 'second-component' : 'first-component'
+    },
+    changeMessage() {
+      if (this.message1 === 'Life is real, life is earnest.') {
+        this.message1 = '人生真实，人生诚挚。'
+      } else {
+        this.message1 = 'Life is real, life is earnest.'
+      }
+    },
+    changeMessageAttr() {
+      this.nodeUpdateList = []
+      if (this.message2 === 'Life is real, life is earnest.') {
+        this.message2 = '人生真实，人生诚挚。'
+        this.messageId = 'msg2'
+        this.messageColor = 'red'
+        this.messageClass = 'new-class'
+      } else {
+        this.message2 = 'Life is real, life is earnest.'
+        this.messageId = 'msg1'
+        this.messageColor = '#000'
+        this.messageClass = 'default-class'
+      }
+    }
+  }
+</script>
+
+<style>
+  @import "../../../common/css/common.css";
+  .item-title {
+    line-height: 100px;
+    padding-left: 40px;
+    color: #aaaaaa;
+  }
+  .btn-group {
+    margin-top: 20px;
+  }
+  .btn {
+    width: 100%;
+    margin-right: 20px;
+    margin-left: 20px;
+  }
+  .result {
+    padding: 0px 30px;
+    flex-direction: column;
+  }
+  .display-text {
+    height: 80px;
+    line-height: 80px;
+    padding: 0px 30px;
+    margin: 30px;
+    font-size: 30px;
+    background-color: #ffffff;
+  }
+  .input-text {
+    height: 80px;
+    line-height: 80px;
+    padding: 0px 30px;
+    margin: 30px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-color: #999999;
+    font-size: 30px;
+    background-color: #ffffff;
+  }
+</style>
