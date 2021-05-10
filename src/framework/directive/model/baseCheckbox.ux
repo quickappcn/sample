@@ -1,17 +1,38 @@
 <template>
-  <div>
+  <div class="doc-page">
     <input
-      type="checkbox"
-      checked="{{checked}}"
-      onchange="$emit('change', evt.target.checked)"
+      value="{{checkboxName}}"
+      onchange="$emit('update:checkboxName', evt.target.value)"
     ></input>
+    <div class="item-content">
+      <div>
+        <input
+          id="checkbox"
+          type="checkbox"
+          checked="{{checked}}"
+          onchange="$emit('update:checked', evt.target.checked)"
+        ></input>
+        <label target="checkbox">checkbox</label>
+      </div>
+    </div>
   </div>
+  
 </template>
 <script>
   export default {
-    model: {
-      prop: 'checked'
-    },
-    props: ['checked']
+    props: ['checked', 'checkboxName']
   }
 </script>
+
+<style>
+  @import '../../../common/css/common.css';
+  .doc-page {
+    flex-direction: column;
+  }
+  .item-content {
+    flex-direction: column;
+    background-color: #ffffff;
+    padding: 30px;
+    margin-bottom: 10px;
+  }
+</style>
