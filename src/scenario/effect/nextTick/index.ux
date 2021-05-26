@@ -1,0 +1,59 @@
+<template>
+    <div class="doc-page">
+        <div class="page-title-wrap">
+            <text id="text" class="page-title">{{ text }}</text>
+        </div>
+        <div class="demo-page">
+            <input class="btn" type="button" value="点击即可获取最新的DOM" onclick="showInput" />
+            <input id="input" if="{{ isShow }}" class="btn" type="button" value="testApi" />
+        </div>
+    </div>
+</template>
+
+<script>
+    import prompt from '@system.prompt'
+    export default {
+        private: {
+            text: 'nextTick代码示例',
+            isShow: false,
+        },
+        showInput() {
+            this.text = '第一个nextTick'
+            this.isShow = true
+            // 因为此时DOM还未更新，无法将焦点聚集到input元素上
+            this.$nextTick(() => {
+                // 此时DOM已更新，可获取更新后的值从而做相关的逻辑处理)
+                const value = this.$element('text')._attr.value
+                prompt.showToast({
+                    message: value
+                })
+                // 此时的DOM已更新，可以将焦点聚集在input元素上，触发input背景颜色改变
+                this.$element('input').focus()
+            });
+        },
+    }
+</script>
+
+<style>
+    @import "../../../common/css/common.css";
+
+    .demo-page {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .btn {
+        width: 550px;
+        height: 86px;
+        margin-top: 75px;
+        border-radius: 43px;
+        background-color: #09ba07;
+        font-size: 30px;
+        color: #ffffff;
+    }
+
+    .btn :focus {
+        background-color: cadetblue;
+    }
+</style>

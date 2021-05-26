@@ -794,6 +794,10 @@ export const tabsData = {
             name: '动态引入js',
             path: 'scenario/effect/dynamic-import-js'
           },
+          {
+            name: 'nextTick函数',
+            path: 'scenario/effect/nextTick'
+          },
         ]
       },
       {
