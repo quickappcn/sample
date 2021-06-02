@@ -1,0 +1,80 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{ componentName }}</text>
+    </div>
+
+    <div class="item-container">
+      <div class="item-content">
+
+        <div class="item-content">
+          <text class="txt">请进行屏幕截屏</text>
+          <text class="txt">截屏事件触发{{captured}}</text>
+          <input type="button" class="btn" onclick="stop" value="停止监听" />
+          <input type="button" class="btn" onclick="start" value="开始监听" />
+        </div>
+      </div>
+    </div>
+</template>
+
+<style>
+@import "../../../common/css/common.css";
+
+.item-container {
+  margin-top: 50px;
+  margin-right: 60px;
+  margin-left: 60px;
+  flex-direction: column;
+}
+
+.item-content {
+  flex-direction: column;
+  background-color: #ffffff;
+  padding: 30px;
+}
+</style>
+
+<script>
+import screenshot from '@system.screenshot'
+import prompt from '@system.prompt'
+
+export default {
+  data: {
+    componentName: 'screenshot',
+    captured: 'false',
+    systemInfo: ''
+  },
+
+  onInit: function () {
+    var that = this
+    screenshot.onUserCaptureScreen({
+      callback: function (data) {
+        that.captured = 'true'
+        prompt.showToast({
+          message: `触发监听`,
+        })
+        console.log(`触发监听`)
+      }
+    })
+
+  },
+  start: function () {
+    var that = this
+    screenshot.onUserCaptureScreen({
+      callback: function (data) {
+        that.captured = 'true'
+        prompt.showToast({
+          message: `触发监听`,
+        })
+        console.log(`触发监听`)
+      }
+    })
+  },
+  stop: function () {
+    var that = this
+    that.captured = 'false'
+    screenshot.offUserCaptureScreen()
+  }
+
+}
+</script>

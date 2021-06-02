@@ -610,6 +610,10 @@ export const tabsData = {
           {
             name: '锁屏 keyguard',
             path: 'interface/system/keyguard'
+          },
+          {
+            name: '截屏 screenshot',
+            path: 'interface/system/screenshot'
           }
         ]
       },
