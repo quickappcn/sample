@@ -52,6 +52,7 @@
     { "name": "service.exchange" },
     { "name": "system.zip" },
     { "name": "system.keyguard" },
+    { "name": "system.screenshot" },
     { "name": "hap.io.MessageChannel" },
     { "name": "system.configuration" },
     { "name": "hap.io.Video" },
