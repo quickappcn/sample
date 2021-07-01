@@ -163,6 +163,9 @@
       "component/container/richtext": {
         "component": "index"
       },
+      "component/container/richtext/book": {
+        "component": "index"
+      },
       "component/form/slider": {
         "component": "index"
       },
