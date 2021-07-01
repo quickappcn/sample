@@ -3,7 +3,9 @@
     <div class="page-title-wrap">
       <text class="page-title ">{{componentName}}</text>
     </div>
-
+    <div class="item-container">
+      <input type="button" value="图文翻页能力" @click="gotoBook"/>
+    </div>
     <div class="item-container">
       <text class="item-hint">type=html</text>
       <text class="item-hint">html类型的富文本的value,最外层必须用开发文档中html支持的块级元素包裹起来</text>
@@ -12,11 +14,14 @@
         {{content+`hello world`}}
       </richtext>
     </div>
+
   </div>
 </template>
 
 <script>
   import prompt from '@system.prompt'
+  import router from '@system.router'
+
   export default {
     private: {
       componentName: 'richtext',
@@ -67,6 +72,11 @@
     completeFn () {
       prompt.showToast({
         message: `richtext 加载完成`
+      })
+    },
+    gotoBook(){
+      router.push({
+        uri: '/component/container/richtext/book'
       })
     }
   }
