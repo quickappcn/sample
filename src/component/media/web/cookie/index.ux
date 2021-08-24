@@ -1,0 +1,51 @@
+<template>
+  <div class="demo-page">
+    <input
+      class="btn"
+      type="button"
+      value="通过web组件设置Cookie"
+      onclick="setCookie"
+    />
+    <web id="web" src="{{webSrc}}"></web>
+  </div>
+</template>
+
+<script>
+import prompt from '@system.prompt'
+
+export default {
+    data: {
+        webSrc: 'your domain:post/',
+        domain: 'your domain'
+    },
+    setCookie() {
+        this.$element('web').setCookie({
+            domain: this.domain,
+            name: 'featureTestName',
+            value: 'testCookie',
+            maxAge: 3000, // s为单位
+            path: '/',
+            success: () => {
+                prompt.showDialog({
+                    message: 'setCookie suceess',
+                })
+            },
+            fail: (e) => {
+                prompt.showDialog({
+                    message: 'setCookie fail:' + e,
+                })
+            },
+        })
+    },
+}
+</script>
+
+
+<style>
+@import '../../../../common/css/common.css';
+.demo-page {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+</style>
