@@ -837,6 +837,10 @@ export const tabsData = {
           {
             name: '增加父组件覆盖子组件样式能力',
             path: 'scenario/effect/stylesExtend'
+          },
+          {
+            name: 'list-item 新增点击事件拦截控制属性 disallowintercept',
+            path: 'scenario/effect/list-disallowintercept'
           }
         ]
       },

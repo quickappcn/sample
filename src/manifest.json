@@ -612,6 +612,9 @@
       "scenario/effect/stylesExtend": {
         "component": "index"
       },
+      "scenario/effect/list-disallowintercept": {
+        "component": "index"
+      },
       "scenario/effect/sharepic": {
         "component": "index"
       },
