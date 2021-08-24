@@ -1,0 +1,37 @@
+<import name="custom-component3" src="./comp3.ux"></import>
+
+<template>
+  <div class="container">
+    <text class="acl color-class">comp1</text>
+    <text class="color-class">节点颜色测试</text>
+    <text class="bgcolor-class">节点背景色测试</text>
+    <custom-component3 color-class1="color-class" bgcolor-class1="bgcolor-class"></custom-component3>
+  </div>
+</template>
+
+<script>
+export default {
+  externalClasses: ['color-class', 'bgcolor-class'],
+  // props: ['colorClass', 'bgcolorClass'],
+  data() {
+    return {}
+  },
+}
+</script>
+
+<style>
+.color-class {
+  color: green;
+}
+.bgcolor-class {
+  background-color: grey;
+}
+.container {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.acl {
+  font-size: 50px;
+}
+</style>

@@ -834,6 +834,10 @@ export const tabsData = {
             name: '动态引入js',
             path: 'scenario/effect/dynamic-import-js'
           },
+          {
+            name: '增加父组件覆盖子组件样式能力',
+            path: 'scenario/effect/stylesExtend'
+          }
         ]
       },
       {

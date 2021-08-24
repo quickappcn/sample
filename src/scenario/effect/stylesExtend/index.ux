@@ -1,0 +1,64 @@
+<import name="custom-component1" src="./component/comp1.ux"></import>
+<import name="custom-component2" src="./component/comp2.ux"></import>
+
+<template>
+  <!-- template里只能有一个根节点 -->
+  <div class="wrapper">
+    <custom-component1 color-class="color-class1" bgcolor-class="bgcolor-class1"></custom-component1>
+    <custom-component1 color-class="color-class1 color-class2"></custom-component1>
+    <custom-component1 color-class="{{color}}"></custom-component1>
+    <custom-component2 color-class="color-class1" bgcolor-class="bgcolor-class1"></custom-component2>
+    <custom-component2 color-class="{{color}}"></custom-component2>
+
+    <input type="button" class="btn" value="改变样式" onclick="onChangeStyle" />
+  </div>
+</template>
+
+<script>
+import router from '@system.router'
+
+export default {
+  onInit() {
+    this.$page.setTitleBar({ text: '增加父组件覆盖子组件样式能力' })
+  },
+  // 页面级组件的数据模型，影响传入数据的覆盖机制：private内定义的属性不允许被覆盖
+  private: {
+    color: 'color-class1',
+    backgroundColor: 'bgcolor-class1',
+  },
+  onChangeStyle() {
+    this.color = 'color-class2 bgcolor-class2'
+    this.backgroundColor = 'bgcolor-class2'
+  },
+}
+</script>
+
+<style>
+.wrapper {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.btn {
+  width: 450px;
+  height: 80px;
+  border-radius: 40px;
+  background-color: #09ba07;
+  color: #ffffff;
+  font-size: 30px;
+  margin-top: 80px;
+}
+.bgcolor-class1 {
+  background-color: blue;
+}
+.color-class1 {
+  color: red;
+  font-size: 20px;
+}
+.color-class2 {
+  color: blue;
+}
+.bgcolor-class2 {
+  background-color: red;
+}
+</style>
