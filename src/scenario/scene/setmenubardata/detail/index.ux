@@ -1,0 +1,288 @@
+<template>
+  <div class="doc-page">
+    <text>H5透传到快应用的参数为：</text>
+    <text class="desc span">name: {{ name }}</text>
+    <text class="desc span">count: {{ count }}</text>
+    <text class="desc span">type: {{ type }}</text>
+    <text class="desc span">description: {{ description }}</text>
+    <text class="desc span">quantity: {{ quantity }}</text>
+    <text class="desc span" style="color:#ff0000;"
+      >router.push传递来的参数 param: {{ param }}</text
+    >
+    <text>shareTitle：</text>
+    <input
+      class="input"
+      type="text"
+      onchange="getValue('shareTitle')"
+      placeholder="分享标题"
+    />
+    <text>shareDescription：</text>
+    <input
+      class="input"
+      type="text"
+      onchange="getValue('shareDescription')"
+      placeholder="分享描述"
+    />
+    <text>​shareIcon：</text>
+    <input
+      class="input"
+      type="text"
+      onchange="getValue('shareIcon')"
+      placeholder="分享图标"
+    />
+    <text>shareUrl：</text>
+    <input
+      class="input"
+      type="text"
+      onchange="getValue('shareUrl')"
+      placeholder="配置分享url"
+    />
+    <text>shareCurrentPage：</text>
+    <text class="desc">当前页面是否支持分享</text>
+    <div class="radio_groups">
+      <div class="radio_item">
+        <input
+          type="radio"
+          @change="changeRadio"
+          name="shareCurrentPage"
+          id="true"
+          value="1"
+        />
+        <label target="true">true</label>
+      </div>
+      <div class="radio_item">
+        <input
+          type="radio"
+          @change="changeRadio"
+          name="shareCurrentPage"
+          id="false"
+          value="0"
+        />
+        <label target="false">false</label>
+      </div>
+    </div>
+    <text>usePageParams：</text>
+    <text class="desc">是否添加当前页面参数到分享参数中</text>
+    <div class="radio_groups">
+      <div class="radio_item">
+        <input
+          type="radio"
+          @change="changeRadio"
+          name="usePageParams"
+          id="true"
+          value="1"
+        />
+        <label target="true">true</label>
+      </div>
+      <div class="radio_item">
+        <input
+          type="radio"
+          @change="changeRadio"
+          name="usePageParams"
+          id="false"
+          value="0"
+        />
+        <label target="false">false</label>
+      </div>
+    </div>
+    <text>​shareParams：配置透传给分享页面的参数</text>
+    <div class="params-box">
+      <div class="key-list">
+        <text class="list-title">key</text>
+        <text class="key-item">name：</text>
+        <text class="key-item">count：</text>
+        <text class="key-item">type：</text>
+        <text class="key-item">description：</text>
+        <text class="key-item">quantity：</text>
+      </div>
+      <div class="value-list">
+        <text class="list-title">value</text>
+        <input
+          class="value-item"
+          type="text"
+          onchange="getParamsValue('name')"
+          placeholder="value"
+        />
+        <input
+          class="value-item"
+          type="text"
+          onchange="getParamsValue('count')"
+          placeholder="value"
+        />
+        <input
+          class="value-item"
+          type="text"
+          onchange="getParamsValue('type')"
+          placeholder="value"
+        />
+        <input
+          class="value-item"
+          type="text"
+          onchange="getParamsValue('description')"
+          placeholder="value"
+        />
+        <input
+          class="value-item"
+          type="text"
+          onchange="getParamsValue('quantity')"
+          placeholder="value"
+        />
+      </div>
+    </div>
+    <text class="btn" @click="setMenubarData">确认配置</text>
+  </div>
+</template>
+
+
+<script>
+import prompt from '@system.prompt'
+import router from '@system.router'
+export default {
+  private: {
+    shareTitle: "",
+    shareDescription: "",
+    shareIcon: "",
+    shareCurrentPage: null,
+    shareUrl: "",
+    shareParams: {},
+    usePageParams: null
+  },
+  public: {
+    name: null,
+    count: null,
+    type: null,
+    description: null,
+    quantity: null,
+    param: ''
+  },
+  onInit() {
+    const obj = {
+      name: this.name,
+      count: this.count,
+      type: this.type,
+      description: this.description,
+      quantity: this.quantity
+    }
+    prompt.showDialog({
+      message: `onInit share param page：${JSON.stringify(obj)}`
+    })
+    this.$page.setTitleBar({ text: '动态配置menubarData' })
+  },
+  onRefresh(data) {
+    this.name = data.name
+    this.count = data.count
+    this.type = data.type
+    this.description = data.description
+    this.quantity = data.quantity
+    const obj = {
+      name: data.name,
+      count: data.count,
+      type: data.type,
+      description: data.description,
+      quantity: data.quantity
+    }
+    if (!!data.param) obj.param = data.param
+    prompt.showDialog({
+      message: `onRefresh share param page：${JSON.stringify(obj)}`
+    })
+  },
+  getValue(type, e) {
+    switch (type) {
+      case 'shareTitle':
+        this.shareTitle = e.value
+        break;
+      case 'shareDescription':
+        this.shareDescription = e.value
+        break;
+      case 'shareIcon':
+        this.shareIcon = e.value
+        break;
+      case 'shareUrl':
+        this.shareUrl = e.value
+        break;
+      default:
+        break;
+    }
+  },
+  changeRadio(e) {
+    if (e.value) {
+      const { name, value } = e
+      this[name] = !!parseInt(value)
+    }
+  },
+  getParamsValue(type, e) {
+    this.shareParams[type] = e.value
+  },
+  setMenubarData() {
+    let menubarData =
+    {
+      shareTitle: this.shareTitle || '分享标题',
+      shareDescription: this.shareDescription || '分享描述',
+      shareIcon: this.shareIcon,
+      shareUrl: this.shareUrl,
+      shareParams: JSON.stringify(this.shareParams),
+    }
+    if (this.usePageParams !== null) {
+      menubarData.usePageParams = this.usePageParams
+    }
+    if (this.shareCurrentPage !== null) {
+      menubarData.shareCurrentPage = this.shareCurrentPage
+    }
+    this.$page.setMenubarData(menubarData)
+  }
+}
+</script>
+
+
+<style lang="less">
+@import "../../../../common/css/common.css";
+.doc-page {
+  align-items: center;
+  .params-box {
+    width: 100%;
+    justify-content: space-between;
+    padding: 20px;
+    .key-list,
+    .value-list {
+      flex-direction: column;
+      width: 70%;
+    }
+    .key-list {
+      width: 30%;
+    }
+    .list-title,
+    .key-item,
+    .value-item {
+      width: 100%;
+      height: 80px;
+      text-align: center;
+    }
+    .key-item {
+      color: #0faeff;
+    }
+    .value-item {
+      border-bottom: 1px solid #8d8d8d;
+    }
+  }
+  .desc {
+    color: #708090;
+    font-size: 24px;
+    text-align: center;
+    padding: 10px;
+  }
+  .span {
+    color: #008080;
+  }
+  .input {
+    height: 80px;
+    border: 1px solid #000;
+    padding: 0 20px;
+    margin-bottom: 20px;
+    width: 70%;
+  }
+  .radio_groups {
+    justify-content: space-around;
+    width: 100%;
+  }
+}
+</style>

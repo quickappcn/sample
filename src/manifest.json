@@ -658,6 +658,15 @@
       },
       "scenario/scene/secure": {
         "component": "index"
+      },
+      "scenario/scene/setmenubardata": {
+        "component": "index"
+      },
+      "scenario/scene/setmenubardata/demo": {
+        "component": "index"
+      },
+      "scenario/scene/setmenubardata/detail": {
+        "component": "index"
       }
     }
   },
@@ -711,6 +720,18 @@
       },
       "component/media/web/darkmode-web": {
         "titleBarText": "webview夜间模式适配效果对比"
+      },
+      "scenario/scene/setmenubardata/demo":{
+        "menuBarData": { 
+          "menuBarStyle": "dark", 
+          "shareTitle": "子页面分享标题", 
+          "shareDescription": "分页面享描述", 
+          "shareIcon": "页面分享url", 
+          "shareCurrentPage": true, 
+          "shareUrl": "https://www.quickapp.cn/", 
+          "shareParams": "{key:1,id:2}",
+          "usePageParams": true 
+        }
       }
     },
     "windowSoftInputMode": "adjustResize"
