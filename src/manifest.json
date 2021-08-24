@@ -627,6 +627,9 @@
       "component/media/web/capture": {
         "component": "index"
       },
+      "component/media/web/cookie": {
+        "component": "index"
+      },
       "framework/optimization/dynaComponents": {
         "component": "index"
       },
