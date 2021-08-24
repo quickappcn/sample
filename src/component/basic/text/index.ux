@@ -1,7 +1,7 @@
 <template>
   <div class="doc-page">
     <div class="page-title-wrap">
-      <text class="page-title">{{componentName}}</text>
+      <text class="page-title">{{ componentName }}</text>
     </div>
 
     <div class="item-container">
@@ -10,23 +10,37 @@
       <text class="txt">
         <span style="color: #09ba07">文本内容</span>
         <span style="color: #0faeff;text-decoration: underline;">文本内容</span>
-        <span style="color: #f76160;text-decoration: line-through;">文本内容</span>
+        <span style="color: #f76160;text-decoration: line-through;"
+          >文本内容</span
+        >
       </text>
       <text class="item-title">在text中a的多种表现形式</text>
       <text class="txt">
         <a href="https://www.quickapp.cn/" style="color: #09ba07;">文本内容</a>
-        <a href="https://www.quickapp.cn/" style="color: #0faeff;text-decoration: underline;">文本内容</a>
-        <a href="https://www.quickapp.cn/" style="color: #f76160;text-decoration: line-through;">文本内容</a>
+        <a
+          href="https://www.quickapp.cn/"
+          style="color: #0faeff;text-decoration: underline;"
+          >文本内容</a
+        >
+        <a
+          href="https://www.quickapp.cn/"
+          style="color: #f76160;text-decoration: line-through;"
+          >文本内容</a
+        >
       </text>
       <!-- style -->
       <text class="item-title">lines: 默认值-1</text>
-      <text class="txt">{{loneText}}</text>
+      <text class="txt">{{ loneText }}</text>
       <text class="item-title">lines: 设置为3; text-overflow: clip</text>
-      <text class="txt" style="lines: 3; text-overflow: clip;">{{loneText}}</text>
+      <text class="txt" style="lines: 3; text-overflow: clip;">{{
+        loneText
+      }}</text>
       <text class="item-title">lines: 设置为3; text-overflow: ellipsis</text>
-      <text class="txt" style="lines: 3; text-overflow: ellipsis;">{{loneText}}</text>
+      <text class="txt" style="lines: 3; text-overflow: ellipsis;">{{
+        loneText
+      }}</text>
       <text class="item-title">line-height: 设置为50px</text>
-      <text class="txt" style="line-height: 50px;">{{loneText}}</text>
+      <text class="txt" style="line-height: 50px;">{{ loneText }}</text>
       <text class="item-title">text-indent: 设置为100px</text>
       <text class="txt" style="text-indent: 100px;">{{loneText}}</text>
       <text class="item-title">text标签的letter-spacing属性</text>
@@ -34,23 +48,44 @@
       <text class="letter-spacing20px">字间距为20px</text>
       <text class="letter-spacing30px">字间距为30px</text>
     </div>
+
+    <text class="item-container color1">
+      <span>网络资源</span>
+      <image
+        src="http://img.t.sinajs.cn/t4/appstyle/expression/ext/normal/a1/2018new_doge02_org.png"
+        alt="[doge]"
+      ></image>
+      <span>本地资源</span>
+      <image src="/common/logo.png" alt="[logo]"></image>
+      <span>设置宽高</span>
+      <image
+        src="http://img.t.sinajs.cn/t4/appstyle/expression/ext/normal/a1/2018new_doge02_org.png"
+        alt="[doge]"
+        width="50px"
+        height="50px"
+      ></image>
+      <span>设置对齐方式</span>
+      <image src="/common/logo.png" alt="[logo]" align="bottom"></image>
+      <image src="/common/logo.png" alt="[logo]" align="baseline"></image>
+      <span>左边两个图片第一个设置为bottom，第二个设置为baseline（默认）</span>
+    </text>
   </div>
 </template>
 
 <script>
-  export default {
-    private: {
-      componentName: 'text',
-      loneText: '本框架是一套以前端开发技术栈为主进行应用开发的框架，采用流行的前端开发模式，贴合主流前端开发者的思维习惯，同时大幅提升应用的性能，提供大量前端环境无法使用的系统能力，以及很多第三方服务的对接能力。'
-    },
-    onInit () {
-      this.$page.setTitleBar({text: 'Text'})
-    }
+export default {
+  private: {
+    componentName: 'text',
+    loneText: '本框架是一套以前端开发技术栈为主进行应用开发的框架，采用流行的前端开发模式，贴合主流前端开发者的思维习惯，同时大幅提升应用的性能，提供大量前端环境无法使用的系统能力，以及很多第三方服务的对接能力。'
+  },
+  onInit() {
+    this.$page.setTitleBar({ text: 'Text' })
   }
+}
 </script>
 
 <style>
-  @import '../../../common/css/common.css';
+@import "../../../common/css/common.css";
 
   .item-container {
     margin-bottom: 50px;
