@@ -1,0 +1,70 @@
+<template>
+  <list>
+    <block for="dataVar">
+      <list-item
+        disallowintercept="{{$idx===3?true:false}}"
+        type="item"
+        class="item-box"
+        style="background-color:{{$item}};height:{{$idx===3 || $idx===5?'500px':'80px'}}"
+      >
+        <div class="item-test" if="{{$idx===3}}">
+          <text style="color:#ff0000;">{{ $idx }} 该item设置disallowintercept：true</text>
+          <web class="web" src="https://doc.quickapp.cn/"></web>
+        </div>
+        <div class="item-test" elif="{{$idx===5}}">
+          <text style="color:#ff0000;">{{ $idx }} 该item设置disallowintercept：false（默认为false）</text>
+          <web class="web" src="https://doc.quickapp.cn/"></web>
+        </div>
+        <text else>{{ $idx }}</text>
+      </list-item>
+    </block>
+  </list>
+</template>
+
+<script>
+export default {
+  data: {
+    dataVar: [
+      '#FFFAF0',
+      '#FDF5E6',
+      '#FAF0E6',
+      '#FAF0E6',
+      '#FFEFD5',
+      '#FFEBCD',
+      '#FFE4C4',
+      '#FFDAB9',
+      '#FFDAB9',
+      '#FFE4B5',
+      '#FFE4B5',
+      '#FFFFF0',
+      '#FFFACD',
+      '#FFF5EE',
+      '#F0FFF0',
+      '#F5FFFA',
+      '#F0FFFF',
+      '#F0F8FF',
+      '#E6E6FA',
+      '#FFF0F5',
+      '#FFE4E1',
+    ],
+  },
+  onInit() {
+    this.$page.setTitleBar({text: 'list-item 新增点击事件拦截控制属性 disallowintercept'})
+  },
+}
+</script>
+
+<style>
+.item-box {
+  height: 80px;
+  width: 100%;
+}
+.item-test {
+  width: 100%;
+  flex-direction: column;
+  border: 1px solid #000;
+}
+.web {
+  width: 100%;
+}
+</style>
