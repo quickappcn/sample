@@ -609,6 +609,9 @@
       "component/style/animateApi": {
         "component": "index"
       },
+      "scenario/effect/stylesExtend": {
+        "component": "index"
+      },
       "scenario/effect/sharepic": {
         "component": "index"
       },

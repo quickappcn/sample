@@ -1,0 +1,31 @@
+<template>
+  <div class="container">
+    <text class="color-class bgcolor-class">comp2</text>
+    <text class="color-class">节点颜色测试</text>
+    <text class="bgcolor-class">节点背景色测试</text>
+    <input type="text" value="{{colorClass}}" />
+  </div>
+</template>
+
+<script>
+export default {
+  externalClasses: ['color-class', 'bgcolor-class'],
+  // props: {
+  //   colorClass: String
+  // },
+  data() {
+    return {}
+  },
+}
+</script>
+
+<style>
+.color-class {
+  color: green;
+}
+.container {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+</style>
