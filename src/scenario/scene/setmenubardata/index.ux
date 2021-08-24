@@ -1,0 +1,25 @@
+<template>
+  <div class="doc-page">
+    <text class="btn" @click="goPage('/scenario/scene/setmenubardata/demo')">动态配置MenubarData</text>
+    <text class="btn" @click="goPage('/scenario/scene/setmenubardata/detail')">manifest.json配置MenubarData</text>
+  </div>
+</template>
+
+<script>
+import router from '@system.router'
+export default {
+    goPage(uri) {
+        let params = { 'param': 'param' }
+        router.push({ uri, params })
+    }
+
+}
+</script>
+
+<style lang="less">
+@import "../../../common/css/common.css";
+.doc-page{
+    justify-content: center;
+    align-items: center;
+}
+</style>

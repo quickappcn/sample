@@ -1,0 +1,64 @@
+<template>
+  <div class="doc-page">
+    <text>H5透传到快应用的参数为：</text>
+    <text class="desc span">key: {{ key }}</text>
+    <text class="desc span">id: {{ id }}</text>
+    <text class="desc span" style="color:#ff0000;">router.push传递来的参数: {{ param }}</text>
+    <text class="desc" style="color:#001aff;">manifest.json中配置如下：</text>
+    <text>{{content}}</text>
+  </div>
+</template>
+
+<script>
+import prompt from '@system.prompt'
+export default {
+  private: {
+    shareParams: {},
+    content:`"menuBarData": { 
+        "menuBarStyle": "dark", 
+        "shareTitle": "子页面分享标题", 
+        "shareDescription": "分页面享描述", 
+        "shareIcon": "页面分享url", 
+        "shareCurrentPage": true, 
+        "shareUrl": "https://www.quickapp.cn/", 
+        "shareParams": "{key:1,id:2}",
+        "usePageParams": true 
+      }`
+  },
+  public: {
+    param: ''
+  },
+  onInit() {
+    const obj = {
+      key: this.key,
+      id: this.id
+    }
+    prompt.showDialog({
+      message: `onInit share param page：${JSON.stringify(obj)}`
+    })
+    this.$page.setTitleBar({ text: 'manifest.json配置menubarData' })
+  },
+  onRefresh(data) {
+    this.key = data.key
+    this.id = data.id
+    const obj = {
+      key: data.key,
+      id: data.id,
+    }
+    if(!!data.param) obj.param = data.param
+    prompt.showDialog({
+      message: `onRefresh share param page：${JSON.stringify(obj)}`
+    })
+  },
+}
+</script>
+
+<style lang="less">
+@import "../../../../common/css/common.css";
+.doc-page {
+  align-items: center;
+    .span {
+      color: #008080;
+    }
+}
+</style>

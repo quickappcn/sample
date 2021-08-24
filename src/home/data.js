@@ -796,6 +796,10 @@ export const tabsData = {
           {
             name: '页面截屏控制',
             path: 'scenario/scene/secure'
+          },
+          {
+            name: 'setMenubarData ',
+            path: 'scenario/scene/setmenubardata'
           }
         ]
       },
