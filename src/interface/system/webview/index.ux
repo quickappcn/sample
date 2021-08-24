@@ -9,15 +9,23 @@
       <input type="button" class="btn" onclick="loadUrl" value="打开链接"/>
     </div>
 
+    <input
+      class="btn"
+      type="button"
+      value="通过接口设置Cookie"
+      onclick="setCookieByFeature"
+    />
+
   </div>
 </template>
 
 <script>
   import webview from '@system.webview'
-
+  import prompt from '@system.prompt'
   export default {
     private: {
-      componentName: 'webview'
+      componentName: 'webview',
+      domain: 'your domain'
     },
     onInit () {
       this.$page.setTitleBar({text: 'Webview'})
@@ -26,7 +34,26 @@
       webview.loadUrl({
         url: 'https://www.quickapp.cn/'
       })
-    }
+    },
+    setCookieByFeature() {
+        webview.setCookie({
+            domain: this.domain,
+            name: 'featureTestName',
+            value: 'featureTestCookie',
+            maxAge: 3000, // s为单位
+            path: '/',
+            success: function () {
+                prompt.showDialog({
+                    message: 'setCookie sucess',
+                })
+            },
+            fail: function (e) {
+                prompt.showDialog({
+                    message: e,
+                })
+            },
+        })
+    },
   }
 </script>
 

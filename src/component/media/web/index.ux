@@ -5,34 +5,37 @@
         </div>
 
         <div class="item-container">
-            <input type="button" value="允许cookie跨域读取" @click="openWeb(true)"/>
+            <input class="btn" type="button" value="允许cookie跨域读取" @click="openWeb(true)"/>
         </div>
         <div class="item-container">
-            <input type="button" value="禁止cookie跨域读取(1010+)" @click="openWeb(false)"/>
+            <input class="btn" type="button" value="禁止cookie跨域读取(1010+)" @click="openWeb(false)"/>
         </div>
         <div class="item-container">
-            <input type="button" value="进入京东拉起微信支付" @click="gotoPay('weixin')"/>
+            <input class="btn" type="button" value="进入京东拉起微信支付" @click="gotoPay('weixin')"/>
         </div>
         <div class="item-container">
-            <input type="button" value="进入淘宝拉起支付宝支付" @click="gotoPay('zhifubao')"/>
+            <input class="btn" type="button" value="进入淘宝拉起支付宝支付" @click="gotoPay('zhifubao')"/>
         </div>
         <div class="item-container">
-            <input type="button" value="web组件h5页面支持定位功能" @click="gotoMap"/>
+            <input class="btn" type="button" value="web组件h5页面支持定位功能" @click="gotoMap"/>
         </div>
         <div class="item-container">
-            <input type="button" value="web组件h5页面支持网页证书过期加载" @click="openWeb(true)"/>
+            <input class="btn" type="button" value="web组件h5页面支持网页证书过期加载" @click="openWeb(true)"/>
         </div>
         <div class="item-container">
-            <input type="button" value="安卓10+ webview夜间模式适配效果对比" @click="openDarkModePage('/component/media/web/darkmode-web')"/>
+            <input class="btn" type="button" value="安卓10+ webview夜间模式适配效果对比" @click="openDarkModePage('/component/media/web/darkmode-web')"/>
         </div>
         <div class="item-container">
-            <input type="button" value="web组件是否展示加载框" @click="openDarkModePage('/component/media/web/loading-web')"/>
+            <input class="btn" type="button" value="web组件是否展示加载框" @click="openDarkModePage('/component/media/web/loading-web')"/>
         </div>
         <div class="item-container">
-            <input type="button" value="web组件是否支持缩放" @click="openDarkModePage('/component/media/web/scale-web')"/>
+            <input class="btn" type="button" value="web组件是否支持缩放" @click="openDarkModePage('/component/media/web/scale-web')"/>
         </div>
         <div class="item-container">
-            <input type="button" value="web组件文件选择支持Capture属性" @click="openDarkModePage('/component/media/web/capture')"/>
+            <input class="btn" type="button" value="web组件文件选择支持Capture属性" @click="openDarkModePage('/component/media/web/capture')"/>
+        </div>
+        <div class="item-container">
+            <input class="btn" type="button" value="web组件设置本地cookie接口" @click="openDarkModePage('/component/media/web/cookie')"/>
         </div>
     </div>
 </template>
