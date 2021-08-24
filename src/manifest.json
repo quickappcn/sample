@@ -41,7 +41,7 @@
     { "name": "system.bluetooth" },
     { "name": "system.websocketfactory" },
     { "name": "system.wifi" },
-    { "name": "system.telecom"},
+    { "name": "system.telecom" },
     { "name": "service.ad" },
     { "name": "android.settings" },
     { "name": "service.stats" },
@@ -205,6 +205,9 @@
         "component": "index"
       },
       "component/extend/slide-view": {
+        "component": "index"
+      },
+      "component/extend/share-button": {
         "component": "index"
       },
       "component/basic/text": {
@@ -721,23 +724,20 @@
       "component/media/web/darkmode-web": {
         "titleBarText": "webview夜间模式适配效果对比"
       },
-      "scenario/scene/setmenubardata/demo":{
-        "menuBarData": { 
-          "menuBarStyle": "dark", 
-          "shareTitle": "子页面分享标题", 
-          "shareDescription": "分页面享描述", 
-          "shareIcon": "页面分享url", 
-          "shareCurrentPage": true, 
-          "shareUrl": "https://www.quickapp.cn/", 
+      "scenario/scene/setmenubardata/demo": {
+        "menuBarData": {
+          "menuBarStyle": "dark",
+          "shareTitle": "子页面分享标题",
+          "shareDescription": "分页面享描述",
+          "shareIcon": "页面分享url",
+          "shareCurrentPage": true,
+          "shareUrl": "https://www.quickapp.cn/",
           "shareParams": "{key:1,id:2}",
-          "usePageParams": true 
+          "usePageParams": true
         }
       }
     },
     "windowSoftInputMode": "adjustResize"
   },
-  "trustedSslDomains": [
-    "www.quickapp.cn",
-    "m.quickapp.cn"
-  ]
+  "trustedSslDomains": ["www.quickapp.cn", "m.quickapp.cn"]
 }

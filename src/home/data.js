@@ -370,6 +370,10 @@ export const tabsData = {
           {
             name: 'slide-view',
             path: 'component/extend/slide-view'
+          },
+          {
+            name: 'share-button',
+            path: 'component/extend/share-button'
           }
         ]
       },

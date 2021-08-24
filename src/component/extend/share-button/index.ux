@@ -1,0 +1,323 @@
+<template>
+  <div class="doc-page">
+    <text>H5透传到快应用的参数为：</text>
+    <text class="desc span">name: {{ name }}</text>
+    <text class="desc span">count: {{ count }}</text>
+    <text class="desc span">type: {{ type }}</text>
+    <text class="desc span">desc: {{ desc }}</text>
+    <text class="desc span">quantity: {{ quantity }}</text>
+    <text class="desc span" style="color:#ff0000;"
+      >router.push传递来的参数 routerParams: {{ routerParams }}</text
+    >
+    <div class="container" for="shareOptions">
+      <block if="{{$item.type==='text'}}">
+        <text>{{ $item.key }}:</text>
+        <text class="desc">{{ $item.desc }}</text>
+        <input
+          class="input"
+          type="text"
+          onchange="getValue($item.key)"
+          placeholder="请输入"
+        />
+      </block>
+      <block if="{{$item.type==='radio'}}">
+        <text>{{ $item.key }}</text>
+        <text class="desc">{{ $item.desc }}</text>
+        <div class="radio_groups">
+          <div class="radio_item">
+            <input
+              type="radio"
+              @change="changeRadio"
+              name="{{$item.key}}"
+              id="true"
+              value="1"
+            />
+            <label target="true">true</label>
+          </div>
+          <div class="radio_item">
+            <input
+              type="radio"
+              @change="changeRadio"
+              name="{{$item.key}}"
+              id="false"
+              value="0"
+            />
+            <label target="false">false</label>
+          </div>
+        </div>
+      </block>
+      <block if="{{$item.type==='array'}}">
+        <text>{{ $item.key }}：{{ $item.desc }}</text>
+        <div class="params-box">
+          <div class="key-list">
+            <text class="list-title">key</text>
+            <text class="key-item">name：</text>
+            <text class="key-item">count：</text>
+            <text class="key-item">type：</text>
+            <text class="key-item">description：</text>
+            <text class="key-item">quantity：</text>
+          </div>
+          <div class="value-list">
+            <text class="list-title">value</text>
+            <input
+              class="value-item"
+              type="text"
+              onchange="getParamsValue('name')"
+              placeholder="value"
+            />
+            <input
+              class="value-item"
+              type="text"
+              onchange="getParamsValue('count')"
+              placeholder="value"
+            />
+            <input
+              class="value-item"
+              type="text"
+              onchange="getParamsValue('type')"
+              placeholder="value"
+            />
+            <input
+              class="value-item"
+              type="text"
+              onchange="getParamsValue('desc')"
+              placeholder="value"
+            />
+            <input
+              class="value-item"
+              type="text"
+              onchange="getParamsValue('quantity')"
+              placeholder="value"
+            />
+          </div>
+        </div>
+      </block>
+    </div>
+    <text class="btn" @click="setOptions">确认配置，展示分享按钮</text>
+    <block if="{{showButton}}">
+      <share-button
+        class="btn color-2"
+        value="分享"
+        title="{{newShareOptions.title}}"
+        description="{{newShareOptions.description}}"
+        platforms="{{newShareOptions.platforms}}"
+        params="{{newShareOptions.params}}"
+        onclick="showClickPrompt('分享组件被点击')"
+        onsuccess="successCallback"
+        onfail="failCallback"
+        oncancel="cancelCallback"
+      ></share-button
+    ></block>
+  </div>
+</template>
+
+<script>
+import prompt from '@system.prompt'
+import router from '@system.router'
+export default {
+    private: {
+        title: '',
+        description: '',
+        icon: '',
+        url: '',
+        path: '',
+        params: {},
+        platforms: '',
+        usePageParams: null,
+        shareOptions: [
+            { key: 'title', desc: '分享标题', type: 'text' },
+            { key: 'description', desc: '分享描述', type: 'text' },
+            { key: 'icon', desc: '分享图片的url', type: 'text' },
+            { key: 'url', desc: '不支持跳转快应用设备时, 分享跳转使用此链接', type: 'text' },
+            { key: 'path', desc: '分享路径，若为空则默认使用当前页面路径', type: 'text' },
+            { key: 'platforms', desc: '分享到的平台，不填则默认分享所有平台（多个值请用逗号隔开）', type: 'text' },
+            { key: 'usepageparams', desc: '是否使用页面参数', type: 'radio' },
+            { key: 'params', desc: '自定义参数，允许开发者自由配置', type: 'array' },
+        ],
+        newShareOptions: {},
+        showButton: false,
+    },
+    public: {
+        name: null,
+        count: null,
+        type: null,
+        desc: null,
+        quantity: null,
+        routerParams: '',
+    },
+    onInit() {
+        console.log(this.shareOptions)
+        const obj = {
+            name: this.name,
+            count: this.count,
+            type: this.type,
+            desc: this.desc,
+            quantity: this.quantity,
+        }
+        prompt.showDialog({
+            message: `onInit share params page：${JSON.stringify(obj)}`,
+        })
+        this.$page.setTitleBar({ text: 'sharebutton' })
+    },
+    onRefresh(data) {
+        this.name = data.name
+        this.count = data.count
+        this.type = data.type
+        this.desc = data.desc
+        this.quantity = data.quantity
+        const obj = {
+            name: data.name,
+            count: data.count,
+            type: data.type,
+            desc: data.desc,
+            quantity: data.quantity,
+        }
+        if (!!data.routerParams) obj.routerParams = data.routerParams
+        prompt.showDialog({
+            message: `onRefresh share params page：${JSON.stringify(obj)}`,
+        })
+    },
+    getValue(type, e) {
+        switch (type) {
+            case 'title':
+                this.title = e.value
+                break
+            case 'description':
+                this.description = e.value
+                break
+            case 'icon':
+                this.icon = e.value
+                break
+            case 'url':
+                this.url = e.value
+                break
+            case 'path':
+                this.path = e.value
+                break
+            case 'platforms':
+                this.platforms = e.value
+                console.log(value)
+                break
+            default:
+                break
+        }
+    },
+    changeRadio(e) {
+        if (e.value) {
+            const { name, value } = e
+            this[name] = !!parseInt(value)
+        }
+    },
+    getParamsValue(type, e) {
+        this.params[type] = e.value
+    },
+    setOptions() {
+        this.newShareOptions = {
+            title: this.title,
+            description: this.description,
+            icon: this.icon,
+            url: this.url,
+        }
+        if (this.platforms !== '') {
+            this.newShareOptions.platforms = JSON.stringify(this.platforms.split(','))
+        }
+        if (this.usePageParams !== null) {
+            this.newShareOptions.usePageParams = this.usePageParams
+        }
+        this.showButton = true
+    },
+    showClickPrompt(message) {
+        prompt.showDialog({
+            message,
+        })
+    },
+    successCallback(code, content) {
+        prompt.showDialog({
+            message: code,
+            content,
+        })
+    },
+    failCallback(code, content) {
+        prompt.showDialog({
+            message: code,
+            content,
+        })
+    },
+    cancelCallback(code, content) {
+        prompt.showDialog({
+            message: code,
+            content,
+        })
+    },
+}
+</script>
+
+<style lang="less">
+@import "../../../common/css/common.css";
+.doc-page {
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  flex-direction: column;
+  background-color: #ffffff;
+  padding: 50px 20px;
+  .container {
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .input {
+    height: 80px;
+    border: 1px solid #000;
+    padding: 0 20px;
+    margin-bottom: 20px;
+    width: 70%;
+    font-size: 26px;
+  }
+  .desc {
+    color: #708090;
+    font-size: 24px;
+    text-align: center;
+    padding: 10px;
+  }
+  .params-box {
+    width: 100%;
+    justify-content: space-between;
+    padding: 20px;
+  }
+  .key-list,
+  .value-list {
+    flex-direction: column;
+    width: 70%;
+  }
+  .key-list {
+    width: 30%;
+  }
+  .list-title,
+  .key-item,
+  .value-item {
+    width: 100%;
+    height: 80px;
+    text-align: center;
+  }
+  .key-item {
+    color: #0faeff;
+  }
+  .value-item {
+    border-bottom: 1px solid #8d8d8d;
+  }
+  .span {
+    color: #008080;
+  }
+  .radio_groups {
+    justify-content: space-around;
+    width: 100%;
+  }
+  .color-2 {
+    background-color: #90f5fc;
+    color: #9088ff;
+  }
+}
+</style>
