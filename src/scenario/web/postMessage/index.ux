@@ -29,7 +29,15 @@
     },
     sendMsg () {
       // const msg = JSON.stringify(this.param)
-      // this.$element('web').postMessage({message: msg})
+      // this.$element('web').postMessage({
+      //   message: msg,
+      //   success: function() {
+      //     console.log('success')
+      //   },
+      //   fail: function(e) {
+      //     console.log('fail:' + e)
+      //   }
+      // })
     },
     messagefn (e) {
       this.message = e.message
