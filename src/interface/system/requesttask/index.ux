@@ -1,0 +1,136 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+    <div class="item-container">
+      <input type="button" class="btn" onclick="requestStart" value="开始请求" />
+      <input type="button" class="btn" onclick="requestAbort" value="中断请求" />
+      <input type="button" class="btn" onclick="clearLog" value="清空日志" />
+      <div class="log">
+        <text class="txt">打印日志：</text>
+        <text for="item in logList" class="">{{item.log}}</text>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+  import prompt from '@system.prompt'
+  import requesttask from '@system.requesttask'
+
+  export default {
+    private: {
+      componentName: 'requesttask',
+      logList: [],
+      retRequestTask: null
+    },
+    requestStart() {
+      const self = this
+      self.retRequestTask = requesttask.request({
+        // 必填：开发者服务器接口地址
+        url: 'http://httpbin.org/anything',
+        method: "GET",
+        success: function (response) {
+          prompt.showToast({
+            message: `请求成功：${JSON.stringify(response)}`
+          });
+        },
+        fail(msg, code) {
+          prompt.showToast({
+            message: `请求失败：${msg}-${code}`
+          });
+        }
+      })
+
+      const a = function (header) {
+        self.logList.push({ log: `监听到了a` })
+        console.log('监听到了a')
+      }
+      const b = function (header) {
+        self.logList.push({ log: `监听到了b` })
+        console.log('监听到了b')
+
+      }
+      const c = function (header) {
+        self.logList.push({ log: `监听到了c` })
+        console.log('监听到了c')
+      }
+
+      self.retRequestTask.onHeadersReceived(a)
+      self.retRequestTask.onHeadersReceived(b)
+      self.retRequestTask.onHeadersReceived(c)
+      self.retRequestTask.offHeadersReceived(b)
+    },
+    requestAbort() {
+      this.logList.push({ log: "触发中断请求" })
+      this.retRequestTask.abort()
+    },
+    clearLog() {
+      this.logList = []
+    }
+  }
+</script>
+
+<style>
+  @import '../../../common/css/common.css';
+
+  .input-text {
+    width: 400px;
+    height: 80px;
+    line-height: 80px;
+    padding-left: 30px;
+    padding-right: 30px;
+    margin: 30px;
+    border-width: 1px;
+    border-color: #999999;
+    font-size: 30px;
+    background-color: #ffffff;
+
+  }
+
+  .log {
+    width: 100%;
+    border: 1px solid #333333;
+    padding: 20px;
+    border-radius: 5px;
+    flex-direction: column;
+  }
+
+  .select {
+    border: 1px solid #333333;
+    border-radius: 5px;
+    margin-left: 20px;
+    width: 400px;
+    padding: 20px;
+  }
+
+  .option {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  .item-container {
+    margin-bottom: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+
+  .item-content {
+    flex-direction: column;
+    background-color: #ffffff;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+    align-items: flex-start;
+  }
+
+  .txt {
+    lines: 5;
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+</style>
