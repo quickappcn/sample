@@ -41,41 +41,49 @@
           <text class="td">{{ personItem.name }}</text>
         </div>
       </div>
+      <!-- 方式4：支持固定值 -->
+      <text>方式4： for="personItem in Number"</text>
+      <div class="item-content">
+        <div class="row" for="val in 3">
+          <text class="th">{{ val }}</text>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-  export default {
-    private: {
-      list: [{ name: 'aa' }, { name: 'bb' }],
-      componentName: '指令 for'
-    },
-    onInit() {
-      this.$page.setTitleBar({ text: this.componentName })
-    }
+export default {
+  private: {
+    list: [{ name: 'aa' }, { name: 'bb' }],
+    componentName: '指令 for'
+  },
+  onInit() {
+    this.$page.setTitleBar({ text: this.componentName })
   }
+}
 </script>
 
 <style lang="less">
-  @import '../../../common/css/common.css';
+@import "../../../common/css/common.css";
 
-  .item-content {
-    flex-direction: column;
-    background-color: #ffffff;
-    padding: 30px;
-    margin-bottom: 30px;
-  }
-  .row {
-    flex-direction: row;
-    border: 0.55px solid #ccc;
-  }
-  .th, .td {
-    flex: 1;
-    border: 0.55px solid #ccc;
-    padding: 5px 10px;
-  }
-  .th {
-    font-weight: bold;
-  }
+.item-content {
+  flex-direction: column;
+  background-color: #ffffff;
+  padding: 30px;
+  margin-bottom: 30px;
+}
+.row {
+  flex-direction: row;
+  border: 0.55px solid #ccc;
+}
+.th,
+.td {
+  flex: 1;
+  border: 0.55px solid #ccc;
+  padding: 5px 10px;
+}
+.th {
+  font-weight: bold;
+}
 </style>
