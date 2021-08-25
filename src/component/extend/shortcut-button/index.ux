@@ -1,0 +1,104 @@
+<template>
+  <div class="doc-page">
+    <shortcut-button
+      show="{{!hasInstalled}}"
+      class="btn"
+      value="{{content}}"
+      onclick="oneventclick"
+      style="height:{{height}};
+  width:{{width}}px;
+  border-radius:{{borderRadius}}px;
+  background-color:{{backgroundColor}};
+  border:{{border}};
+  font-size:{{fontSize}}px;
+  padding:{{padding}}px;
+  color:{{color}};
+  text-align:{{align}};"
+    ></shortcut-button>
+    <input type="text" value="{{newValue}}" placeholder="请输入需要设置的属性对应的值" @change="getValue" class="input-text" />
+    <div class="btn-group">
+      <text class="btn" onclick="setStyles('height')">按钮高度</text>
+      <text class="btn" onclick="setStyles('width')">按钮宽度</text>
+      <text class="btn" onclick="setStyles('fontSize')">文本字号</text>
+      <text class="btn" onclick="setStyles('color')">文本颜色</text>
+      <text class="btn" onclick="setStyles('backgroundColor')">按钮颜色</text>
+    </div> 
+  </div>
+</template>
+
+<script>
+import shortcut from '@system.shortcut'
+import prompt from '@system.prompt'
+export default {
+  data: {
+    height: '',
+    width: '',
+    borderRadius: '0',
+    backgroundColor: '',
+    border: '1px solid #000000',
+    content: '添加至桌面',
+    fontSize: '',
+    padding: '0',
+    color: '',
+    align: 'center',
+    newValue: '',
+    hasInstalled: false,
+  },
+  getValue(e) {
+    if (e.value) {
+      this.newValue = e.value
+    }
+  },
+  setStyles(type) {
+    this[type] = this.newValue
+  },
+  oneventclick(evt) {
+    console.log(evt.eventStatusCode, evt.eventMessage)
+    prompt.showDialog({
+      message: `${evt.eventStatusCode} , ${evt.eventMessage}`,
+    })
+  },
+}
+</script>
+
+<style lang="less">
+@import "../../../common/css/common.css";
+.doc-page {
+  flex-direction: column;
+  background-color: #fbf9fe;
+  flex: 1;
+  width: 100%;
+  align-items: center;
+}
+.btn-group {
+  flex-direction: column;
+}
+.btn {
+  width: 40%;
+  height: 80px;
+  text-align: center;
+  border-radius: 5px;
+  color: #ffffff;
+  font-size: 30px;
+  background-color: #0faeff;
+  margin: 5px 0;
+}
+.input-text {
+  margin-top: 20px;
+  height: 80px;
+  line-height: 80px;
+  padding-left: 30px;
+  padding-right: 30px;
+  margin-left: 30px;
+  margin-right: 30px;
+  border-top-width: 1px;
+  border-bottom-width: 1px;
+  border-color: #999999;
+  font-size: 30px;
+  background-color: #ffffff;
+}
+
+.input-text:focus {
+  border-color: #f76160;
+}
+</style>
