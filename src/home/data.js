@@ -486,6 +486,10 @@ export const tabsData = {
             path: 'interface/system/fetch'
           },
           {
+            name: '数据请求 requesttask',
+            path: 'interface/system/requesttask'
+          },
+          {
             name: 'Websocket',
             path: 'interface/system/websocket'
           },
