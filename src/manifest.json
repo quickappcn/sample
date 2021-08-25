@@ -218,6 +218,9 @@
       "component/extend/share-button": {
         "component": "index"
       },
+      "component/extend/shortcut-button": {
+        "component": "index"
+      },
       "component/basic/text": {
         "component": "index"
       },
