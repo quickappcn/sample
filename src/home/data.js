@@ -374,6 +374,10 @@ export const tabsData = {
           {
             name: 'share-button',
             path: 'component/extend/share-button'
+          },
+          {
+            name: 'shortcut-button',
+            path: 'component/extend/shortcut-button'
           }
         ]
       },
