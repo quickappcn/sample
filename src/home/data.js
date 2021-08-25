@@ -841,6 +841,10 @@ export const tabsData = {
           {
             name: 'list-item 新增点击事件拦截控制属性 disallowintercept',
             path: 'scenario/effect/list-disallowintercept'
+          },
+          {
+            name: '灰色模式',
+            path: 'scenario/effect/garyMode'
           }
         ]
       },

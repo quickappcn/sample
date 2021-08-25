@@ -3,7 +3,7 @@
   "name": "快应用示例中心",
   "versionName": "1.9.0",
   "versionCode": 190,
-  "minPlatformVersion": 1090,
+  "minPlatformVersion": 1100,
   "icon": "/common/logo.png",
   "features": [
     { "name": "system.cipher" },
@@ -115,6 +115,14 @@
       "connectTimeout": 10000,
       "readTimeout": 10000,
       "writeTimeout": 10000
+    },
+    "grayMode": {
+      "enable": true,
+      "duration": {
+        "regular": ["12/13", "09/18"],
+        "temporary": ["2021/04/04", "2021/05/12"]
+      },
+      "excludedPages": ["/home"]
     }
   },
   "router": {
@@ -601,6 +609,9 @@
         "component": "index"
       },
       "scenario/effect/dynamic-import-js": {
+        "component": "index"
+      },
+      "scenario/effect/garyMode": {
         "component": "index"
       },
       "component/media/web/darkmode-web": {

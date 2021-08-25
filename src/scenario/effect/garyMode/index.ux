@@ -1,0 +1,103 @@
+<template>
+  <div class="doc-page">
+    <text class="desc"
+      >每年固定的日期，日期格式为MM/dd；一次性的临时日期，日期格式为yyyy/MM/dd；
+      需要禁用灰色模式的页面列表，如1100 suite-test
+      测试页的页面地址为“/Interface_PageMeta1100”、
+      当前页的地址为“/Interface_PageMeta1100/garyMode”。
+      三个属性值都可以填写多个，请用*号隔开</text
+    >
+    <text class="desc" style="color:#cd5c5c;"
+      >可直接长按复制下方页面名称：</text
+    >
+    <textarea>/Interface_PageMeta1100</textarea>
+    <textarea>/Interface_PageMeta1100/garyMode</textarea>
+    <input
+      type="text"
+      class="input-text"
+      value="{{regular}}"
+      placeholder="每年固定的日期"
+      @change="inputValue('regular')"
+    />
+    <input
+      type="text"
+      class="input-text"
+      value="{{temporary}}"
+      placeholder="一次性的临时日期"
+      @change="inputValue('temporary')"
+    />
+    <input
+      type="text"
+      class="input-text"
+      value="{{excludedPages}}"
+      placeholder="需要禁用灰色模式的页面列表"
+      @change="inputValue('excludedPages')"
+    />
+    <text class="btn" @click="setGrayMode">设置灰色模式</text>
+  </div>
+</template>
+
+<script>
+import configuration from '@system.configuration'
+import prompt from '@system.prompt'
+export default {
+  data: {
+    regular: '',
+    temporary: '',
+    excludedPages: '',
+  },
+  setGrayMode() {
+    const regular = this.valueHandler('regular')
+    const temporary = this.valueHandler('temporary')
+    const excludedPages = this.valueHandler('excludedPages')
+    configuration.setGrayMode({
+      enable: true,
+      duration: {
+        regular: regular,
+        temporary: temporary,
+      },
+      excludedPages: excludedPages,
+    })
+    prompt.showDialog({
+      message: `配置成功！固定日期为：${JSON.stringify(regular)}，临时日期为：${JSON.stringify(temporary)}，禁用页面为：${JSON.stringify(excludedPages)}`,
+    })
+  },
+  inputValue(type, e) {
+    this[type] = e.value
+  },
+  valueHandler(type) {
+    if (this[type] === '') return []
+    console.log(this[type])
+    let arr = this[type].split('*')
+    arr.forEach((ele, idx) => {
+      ele === '' ? arr.splice(idx, 1) : ''
+    })
+    return arr
+  },
+}
+</script>
+
+<style lang="less">
+@import "../../../common/css/common.css";
+.doc-page{
+  align-items: center;
+}
+.input-text {
+  height: 80px;
+  line-height: 80px;
+  padding-left: 30px;
+  padding-right: 30px;
+  margin-left: 30px;
+  margin-right: 30px;
+  border-top-width: 1px;
+  border-bottom-width: 1px;
+  border-color: #999999;
+  font-size: 30px;
+  background-color: #ffffff;
+  margin-bottom: 10px;
+}
+
+.input-text:focus {
+  border-color: #f76160;
+}
+</style>
