@@ -1,0 +1,96 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{componentName}}</text>
+    </div>
+
+    <div class="item-container">
+      <!-- <div class="item-content">
+        <text class="txt">下载的token：{{token}}</text>
+      </div> -->
+      <input type="button" class="btn" onclick="downloadTask" value="下载文件"/>
+
+      <div class="item-content">
+        <text class="txt">下载进度{{progress}}% , {{totalBytesWritten}}Bytes/{{totalBytesExpectedToWrite}}Bytes</text>
+      </div>
+      <input type="button" class="btn" onclick="onProgressUpdate" value="监听下载任务"/>
+      
+      <input type="button" class="btn" onclick="offProgressUpdate" value="取消监听下载任务"/>
+
+      <input type="button" class="btn" onclick="abort" value="中断下载任务"/>
+    </div>
+  </div>
+</template>
+
+<script>
+  import prompt from '@system.prompt'
+  import downloadtask from '@system.downloadtask'
+  export default {
+    private: {
+      componentName: 'downloadtask',
+      progress: '',
+      totalBytesWritten: '',
+      totalBytesExpectedToWrite: ''
+    },
+    onInit () {
+      this.$page.setTitleBar({ text: 'Requst' })
+    },
+    downloadTask () {
+
+      this.download_task = downloadtask.downloadFile({
+        url: 'https://statres.quickapp.cn/quickapp/show/ide/quickapp-ide-4.1.0.exe',
+        success(res) {
+          console.log("Download success. resp = " + JSON.stringify(res))
+        }, fail(res) {
+          console.log("Download fail. resp = " + JSON.stringify(res))
+        }
+      })
+
+    },
+    onProgressUpdate () {
+      var that = this
+      this.download_task.onProgressUpdate(res => {
+        console.log("Download onProgressUpdate = " + JSON.stringify(res))
+        that.progress =  parseFloat(res.progress).toFixed(2)
+        that.totalBytesWritten = res.totalBytesWritten
+        that.totalBytesExpectedToWrite = res.totalBytesExpectedToWrite
+      })
+
+    },
+    offProgressUpdate () {
+      this.download_task.offProgressUpdate()
+    },
+    abort () {
+      this.download_task.abort()
+      this.progress = ''
+      this.totalBytesWritten = ''
+      this.totalBytesExpectedToWrite = ''
+    }
+  }
+</script>
+
+<style>
+  @import '../../../common/css/common.css';
+
+  .item-container {
+    margin-bottom: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
+    flex-direction: column;
+  }
+  .item-content {
+    flex-direction: column;
+    background-color: #ffffff;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+    align-items: flex-start;
+  }
+  .txt {
+    lines: 5;
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+</style>

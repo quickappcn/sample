@@ -6,6 +6,10 @@
     <a href="https://www.quickapp.cn/">链接示例</a>
     <a href="/home">跳转到应用的首页</a>
     <a href="/interface/system/router/detail?pageInfo=我是上个页面传递来的数据">携带数据跳转到应用的详情页</a>
+    <text class="item-title">a标签的letter-spacing属性</text>
+    <a href="/" class="letter-spacing10px">字间距为10px</text>
+    <a href="/" class="letter-spacing20px">字间距为20px</text>
+    <a href="/" class="letter-spacing30px">字间距为30px</text>
   </div>
 </template>
 
@@ -32,5 +36,25 @@
     background-color: #ffffff;
     text-decoration: underline;
     text-align: center;
+  }
+  .item-title {
+    padding-left: 50px;
+    padding-bottom: 20px;
+    color: #aaaaaa;
+  }
+  .letter-spacing10px {
+    font-size:24px;
+    line-height:36px;
+    letter-spacing:10px;
+  }
+  .letter-spacing20px {
+    font-size:24px;
+    line-height:36px;
+    letter-spacing:20px;
+  }
+  .letter-spacing30px {
+    font-size:24px;
+    line-height:36px;
+    letter-spacing:30px;
   }
 </style>

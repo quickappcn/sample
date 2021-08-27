@@ -370,6 +370,14 @@ export const tabsData = {
           {
             name: 'slide-view',
             path: 'component/extend/slide-view'
+          },
+          {
+            name: 'share-button',
+            path: 'component/extend/share-button'
+          },
+          {
+            name: 'shortcut-button',
+            path: 'component/extend/shortcut-button'
           }
         ]
       },
@@ -411,6 +419,10 @@ export const tabsData = {
           {
             name: 'animateApi',
             path: 'component/style/animateApi'
+          },
+          {
+            name: 'overflow',
+            path: 'component/style/overflow'
           }
         ]
       }
@@ -492,6 +504,10 @@ export const tabsData = {
           {
             name: '数据请求 requesttask',
             path: 'interface/system/requesttask'
+          },
+          {
+            name: 'downloadtask',
+            path: 'interface/system/downloadtask'
           },
           {
             name: 'Websocket',
@@ -622,6 +638,10 @@ export const tabsData = {
           {
             name: '截屏 screenshot',
             path: 'interface/system/screenshot'
+          },
+          {
+            name: 'NFC',
+            path: 'interface/system/nfca'
           }
         ]
       },
@@ -788,6 +808,10 @@ export const tabsData = {
           {
             name: '页面截屏控制',
             path: 'scenario/scene/secure'
+          },
+          {
+            name: 'setMenubarData ',
+            path: 'scenario/scene/setmenubardata'
           }
         ]
       },
@@ -818,6 +842,18 @@ export const tabsData = {
             name: '动态引入js',
             path: 'scenario/effect/dynamic-import-js'
           },
+          {
+            name: '增加父组件覆盖子组件样式能力',
+            path: 'scenario/effect/stylesExtend'
+          },
+          {
+            name: 'list-item 新增点击事件拦截控制属性 disallowintercept',
+            path: 'scenario/effect/list-disallowintercept'
+          },
+          {
+            name: '灰色模式',
+            path: 'scenario/effect/garyMode'
+          }
         ]
       },
       {
