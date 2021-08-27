@@ -411,6 +411,10 @@ export const tabsData = {
           {
             name: 'animateApi',
             path: 'component/style/animateApi'
+          },
+          {
+            name: 'overflow',
+            path: 'component/style/overflow'
           }
         ]
       }
@@ -492,6 +496,10 @@ export const tabsData = {
           {
             name: '数据请求 requesttask',
             path: 'interface/system/requesttask'
+          },
+          {
+            name: 'downloadtask',
+            path: 'interface/system/downloadtask'
           },
           {
             name: 'Websocket',
