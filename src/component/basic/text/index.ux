@@ -29,6 +29,10 @@
       <text class="txt" style="line-height: 50px;">{{loneText}}</text>
       <text class="item-title">text-indent: 设置为100px</text>
       <text class="txt" style="text-indent: 100px;">{{loneText}}</text>
+      <text class="item-title">text标签的letter-spacing属性</text>
+      <text class="letter-spacing10px">字间距为10px</text>
+      <text class="letter-spacing20px">字间距为20px</text>
+      <text class="letter-spacing30px">字间距为30px</text>
     </div>
   </div>
 </template>
@@ -58,5 +62,20 @@
     padding-top: 50px;
     padding-bottom: 20px;
     color: #aaaaaa;
+  }
+  .letter-spacing10px {
+    font-size:24px;
+    line-height:36px;
+    letter-spacing:10px;
+  }
+  .letter-spacing20px {
+    font-size:24px;
+    line-height:36px;
+    letter-spacing:20px;
+  }
+  .letter-spacing30px {
+    font-size:24px;
+    line-height:36px;
+    letter-spacing:30px;
   }
 </style>
