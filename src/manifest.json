@@ -29,6 +29,7 @@
     { "name": "system.network" },
     { "name": "system.request" },
     { "name": "system.requesttask" },
+    { "name": "system.uploadtask" },
     { "name": "system.audio" },
     { "name": "system.volume" },
     { "name": "system.battery" },
@@ -426,6 +427,9 @@
         "component": "index"
       },
       "interface/system/requesttask": {
+        "component": "index"
+      },
+      "interface/system/uploadtask": {
         "component": "index"
       },
       "interface/system/router": {

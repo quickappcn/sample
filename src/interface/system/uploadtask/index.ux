@@ -1,0 +1,181 @@
+<template>
+    <div class="doc-page">
+        <div class="page-title-wrap">
+            <text class="page-title">{{componentName}}</text>
+        </div>
+        <div class="item-container">
+            <input type="button" class="btn" onclick="uploadimageStart" value="开始上传image文件" />
+            <input type="button" class="btn" onclick="uploadAbort" value="中断上传" />
+            <input type="button" class="btn" onclick="clearlog" value="清空log框" />
+
+            <input type="button" class="btn" onclick="uploadOffProgressUpdate" value="取消监听请求进度变化事件" />
+            <input type="button" class="btn" onclick="uploadOffHeadersReceived" value="取消监听 HTTP Response Header 事件" />
+
+            <div class="log">
+                <text class="txt">打印日志：</text>
+                <text for="item in logList" class="">{{ item.log }}</text>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import request from '@system.request'
+    import prompt from '@system.prompt'
+    // 导入能力
+    import uploadtask from '@system.uploadtask'
+
+    export default {
+        private: {
+            logList: [],
+            componentName: 'uploadtask',
+            retUploadTask: null,
+            fileUploadData: ''
+        },
+        onInit() {
+            this.$page.setTitleBar({ text: 'UploadTask' })
+        },
+        // 清空log
+        clearlog() {
+            this.logList = []
+        },
+        async downloadimageFileComplete(token) {
+            const self = this
+            const ret = await request.onDownloadComplete({
+                token,
+            }).catch(function (msg, code) {
+                self.logList.push({ log: `下载失败：${code} - ${msg}` })
+            })
+            self.fileUploadData = ret.data.uri
+            self.logList.push({ log: `下载成功，文件路径：${JSON.stringify(self.fileUploadData)}` })
+        },
+        async uploadimageStart() {
+            const self = this
+            // 先下载网络图片到手机，才能得到上传的图片
+            self.logList.push({ log: "下载网络图片到手机" })
+            const { data } = await request.download({
+                // https://www.quickapp.cn/assets/images/home/logo_quickApp.png
+                url: 'https://iknow-pic.cdn.bcebos.com/4034970a304e251fae75ad03a786c9177e3e534e?x-bce-process%3Dimage%2Fresize%2Cm_lfit%2Cw_600%2Ch_800%2Climit_1%2Fquality%2Cq_85%2Fformat%2Cf_jpg',
+                description: '一个网络图片', // 指定描述
+                filename: 'PNG.jpg', // 指定文件名
+            }).catch(function (msg, code) {
+                self.logList.push({ log: `下载失败：${code} - ${msg}` })
+            })
+
+            if (data.token) {
+                self.downloadimageFileComplete(data.token)
+            }
+
+        },
+        async uploadImage() {
+            const self = this
+            this.retUploadTask = uploadtask.uploadFile({
+                // 必填：开发者服务器接口地址
+                url: 'https://httpbin.org/post',
+                filePath: this.fileUploadData,
+                name: "PNGtest",
+                method: "PUT",
+                formData: {
+                    user: 'test',
+                    value: 'value1'
+                },
+                success: function (data) {
+                    self.logList.push({ log: `开始上传：{statusdataCode:${JSON.stringify(data)}}` })
+                },
+                fail: function (msg, code) {
+                    self.logList.push({ log: `msg:${msg},code:${code}` })
+                }
+            })
+
+            this.retUploadTask.onHeadersReceived(header => {
+                self.logList.push({ log: "监听到响应头事件：" + JSON.stringify(header) })
+                console.log(JSON.stringify(header))
+            })
+
+            this.retUploadTask.onProgressUpdate(({ progress, totalBytesSent, totalBytesExpectedToSend }) => {
+                // self.logList.push({ log: `监听到进度事件,上传进度百分比:${progress},已经上传的数据长度:${totalBytesSent},totalBytesExpectedToSend:${totalBytesExpectedToSend}` })
+                self.logList.push({ log: `监听到进度事件,上传进度百分比:${progress}` })
+            })
+        },
+        onReady() {
+            this.$watch('fileUploadData', (uri) => uri && this.uploadImage())
+        },
+        uploadAbort() {
+            this.logList.push({ log: "触发中断上传" })
+            this.retUploadTask.abort()
+        },
+        uploadOffProgressUpdate() {
+            // 取消监听
+            this.logList.push({ log: "取消监听进度事件" })
+            this.retUploadTask.offProgressUpdate()
+        },
+        uploadOffHeadersReceived() {
+            // 取消监听响应头事件
+            this.logList.push({ log: "取消监听响应头事件" })
+            this.retUploadTask.offHeadersReceived()
+        }
+    }
+</script>
+
+<style>
+    @import '../../../common/css/common.css';
+
+    .input-text {
+        width: 400px;
+        height: 80px;
+        line-height: 80px;
+        padding-left: 30px;
+        padding-right: 30px;
+        margin: 30px;
+        border-width: 1px;
+        border-color: #999999;
+        font-size: 30px;
+        background-color: #ffffff;
+    }
+
+    .log {
+        width: 100%;
+        border: 1px solid #333333;
+        padding: 20px;
+        border-radius: 5px;
+        flex-direction: column;
+    }
+
+    .select {
+        border: 1px solid #333333;
+        border-radius: 5px;
+        margin-left: 20px;
+        width: 400px;
+        padding: 20px;
+    }
+
+    .option {
+        padding-top: 20px;
+        padding-bottom: 20px;
+        width: 100%;
+    }
+
+    .item-container {
+        margin-bottom: 50px;
+        margin-right: 60px;
+        margin-left: 60px;
+        flex-direction: column;
+    }
+
+    .item-content {
+        flex-direction: column;
+        background-color: #ffffff;
+        padding-left: 30px;
+        padding-right: 30px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        margin-bottom: 30px;
+        align-items: flex-start;
+    }
+
+    .txt {
+        lines: 5;
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+</style>
