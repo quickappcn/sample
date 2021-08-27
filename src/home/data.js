@@ -482,6 +482,10 @@ export const tabsData = {
             path: 'interface/system/request'
           },
           {
+            name: '上传 uploadtask',
+            path: 'interface/system/uploadtask'
+          },
+          {
             name: '数据请求 fetch',
             path: 'interface/system/fetch'
           },
