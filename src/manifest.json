@@ -94,6 +94,9 @@
         "sign": "",
         "appKey": ""
       }
+    },
+    {
+      "name": "system.downloadtask"
     }
   ],
   "permissions": [{ "origin": "*" }],
@@ -372,6 +375,9 @@
       "interface/system/fetch": {
         "component": "index"
       },
+      "interface/system/downloadtask": {
+        "component": "index"
+      },
       "interface/system/file": {
         "component": "index"
       },
@@ -484,6 +490,9 @@
         "component": "index"
       },
       "component/style/animation": {
+        "component": "index"
+      },
+      "component/style/overflow": {
         "component": "index"
       },
       "component/style/transition": {
