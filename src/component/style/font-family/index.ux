@@ -5,10 +5,18 @@
     </div>
 
     <div class="item-container vertical">
-      <text class="container-header">设置系统字体</text>
+      <text class="container-header">设置系统字体serif</text>
       <div class="container-content vertical">
         <text class="normal">不设置字体：abcdefg</text>
         <text class="serif">设置字体：abcdefg</text>
+      </div>
+    </div>
+
+    <div class="item-container vertical">
+      <text class="container-header">设置系统字体robotoBlack</text>
+      <div class="container-content vertical">
+        <text class="normal">不设置字体：abcdefg</text>
+        <text class="robotoBlack">设置字体：abcdefg</text>
       </div>
     </div>
 
@@ -50,6 +58,11 @@
     src: url('/common/css/icomoon.ttf');
   }
 
+  @font-face {
+    font-family: robotoBlack;
+    src: local(Roboto-Black);
+  }
+
   .icon-font-span {
     font-family: icomoon;
     font-size: 40px;
@@ -73,5 +86,9 @@
 
   .myfont {
     font-family: myfont;
+  }
+
+  .robotoBlack {
+    font-family: robotoBlack;
   }
 </style>
