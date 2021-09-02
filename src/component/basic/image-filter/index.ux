@@ -1,0 +1,61 @@
+<template>
+  <div class="doc-page">
+    <div class="item-container">
+      <image style="filter: blur({{blurVal}});" src="/common/logo.png"></image>
+      <text>按回车键设置</text>
+      <input
+        class="input_text"
+        type="text"
+        value=""
+        @enterkeyclick="setBlurVal"
+        enterkeytype="done"
+        @change="getBlurVal"
+        placeholder="请输入blur属性值(需带上单位：px/dp)"
+      />
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+    private: {
+        blurVal: '0px',
+        newBlurVal: '',
+    },
+    onInit() {
+        this.$page.setTitleBar({ text: 'image的滤镜示例' })
+    },
+    getBlurVal(e) {
+        this.newBlurVal = e.value
+    },
+    setBlurVal() {
+        this.blurVal = this.newBlurVal
+    },
+
+}
+</script>
+
+<style>
+@import "../../../common/css/common.css";
+.item-container {
+  margin: 20px;
+  padding: 10px 30px;
+  flex-direction: column;
+  background-color: #fff;
+}
+image {
+  width: 200px;
+  height: 200px;
+}
+.input_text {
+  width: 80%;
+  height: 80px;
+  font-size: 24px;
+  padding-left: 20px;
+  border: 1px solid #000;
+  margin-top: 10px;
+}
+.input_text:focus {
+  border: 1px solid red;
+}
+</style>
