@@ -149,6 +149,9 @@
       "component/basic/image-alt": {
         "component": "index"
       },
+      "component/basic/image-filter": {
+        "component": "index"
+      },
       "component/form/input": {
         "component": "index"
       },
@@ -522,6 +525,9 @@
         "component": "index"
       },
       "interface/system/keyguard": {
+        "component": "index"
+      },
+      "interface/system/screenshot": {
         "component": "index"
       },
       "component/style/animation": {
