@@ -1,0 +1,381 @@
+<template>
+  <div class="doc-page">
+    <div class="page-title-wrap">
+      <text class="page-title">{{ componentName }}</text>
+    </div>
+
+    <input class="btn" type="button" value="1、NFC.getNFCAdapter" onclick="getNFCAdapter" />
+
+    <input class="btn" type="button" value="2.1、NFCAdapter.startDiscovery" onclick="startDiscovery" />
+    <input class="btn" type="button" value="2.2、NFCAdapter.stopDiscovery" onclick="stopDiscovery" />
+    <input class="btn" type="button" value="2.3、NFCAdapter.onDiscovered" onclick="onDiscovered" />
+    <text>贴卡回调：</text>
+    <text>{{ onDiscoveredVal }}</text>
+    <input class="btn" type="button" value="2.4、NFCAdapter.offDiscovered" onclick="offDiscovered" />
+    <input class="btn" type="button" value="2.5、NFCAdapter.getNfcA" onclick="getTag" />
+
+    <input class="btn" type="button" value="3.1、close" onclick="close" />
+    <input class="btn" type="button" value="3.2、connect" onclick="connect" />
+    <input class="btn" type="button" value="3.3、isConnected" onclick="isConnected" />
+    <input class="btn" type="button" value="3.4、setTimeout" onclick="setTimeout" />
+    <input class="btn" type="button" value="3.5、getAtqa" onclick="getAtqa" />
+    <input class="btn" type="button" value="3.6、getSak" onclick="getSak" />
+    <input class="btn" type="button" value="3.7、getMaxTransceiveLength" onclick="getMaxTransceiveLength" />
+    <input class="btn" type="button" value="3.8、transceive" onclick="transceive" />
+    <input class="btn" type="button" value="3.9、transceiveTest" onclick="transceiveTest" />
+  </div>
+</template>
+
+<style>
+@import '../../../common/css/common.css';
+.item-container {
+  margin-bottom: 50px;
+  margin-right: 60px;
+  margin-left: 60px;
+  flex-direction: column;
+}
+
+.item-content {
+  flex-direction: column;
+  background-color: #ffffff;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-bottom: 30px;
+  align-items: flex-start;
+}
+
+.txt {
+  lines: 5;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+</style>
+
+<script>
+import nfc from '@system.nfc'
+
+let tagName = 'NfcA'
+let nfcAdapter
+let nfcTag
+
+/**
+ * 格式化得到aid值
+ * @param {Object} buffer
+ */
+const ab2hex = function (buffer) {
+  var hexArr = Array.prototype.map.call(
+    new Uint8Array(buffer),
+
+    function (bit) {
+      return ('00' + bit.toString(16)).slice(-2)
+    }
+  )
+  return hexArr.join('')
+}
+
+/**
+ * 字节对象转字符串
+ * @param {Object} arr
+ */
+const byteToString = function (arr) {
+  if (typeof arr === 'string') {
+    return arr
+  }
+  var str = '',
+    _arr = arr
+
+  for (var i = 0; i < _arr.length; i++) {
+    var one = _arr[i].toString(2),
+      v = one.match(/^1+?(?=0)/)
+
+    if (v && one.length == 8) {
+      var bytesLength = v[0].length
+      var store = _arr[i].toString(2).slice(7 - bytesLength)
+      for (var st = 1; st < bytesLength; st++) {
+        store += _arr[st + i].toString(2).slice(2)
+      }
+      str += String.fromCharCode(parseInt(store, 2))
+      i += bytesLength - 1
+    } else {
+      str += String.fromCharCode(_arr[i])
+    }
+  }
+  return str
+}
+export default {
+  data: {
+    componentName: 'NfcA',
+    fileDownloadData: '',
+    fileUploadData: '',
+    onDiscoveredVal: '',
+  },
+  onInit: function () {
+    this.$page.setTitleBar({ text: 'NfcA' })
+  },
+
+  getNFCAdapter() {
+    console.log('getNFCAdapter')
+    nfcAdapter = nfc.getNFCAdapter({})
+    if (nfcAdapter) {
+      console.log('getNFCAdapter: success')
+    } else {
+      console.log('getNFCAdapter: fail')
+    }
+  },
+
+  startDiscovery() {
+    console.log('nfcAdapter.startDiscovery')
+    if (!nfcAdapter) {
+      console.log('nfcAdapter is null')
+      return
+    }
+    nfcAdapter.startDiscovery({
+      success: function () {
+        console.log(`startDiscovery：success`)
+      },
+      fail: function (data, code) {
+        console.log(`startDiscovery：code: ${code}, msg: ${data}`)
+      },
+    })
+  },
+  stopDiscovery() {
+    console.log('nfcAdapter.stopDiscovery')
+    if (!nfcAdapter) {
+      console.log('nfcAdapter is null')
+      return
+    }
+    nfcAdapter.stopDiscovery({
+      success: function () {
+        console.log(`stopDiscovery：success`)
+      },
+      fail: function (data, code) {
+        console.log(`stopDiscovery：code: ${code}, msg: ${data}`)
+      },
+    })
+  },
+
+  onDiscovered() {
+    console.log('nfcAdapter.onDiscovered')
+    if (!nfcAdapter) {
+      console.log('nfcAdapter is null')
+      return
+    }
+    var that = this
+    nfcAdapter.onDiscovered({
+      callback: data => {
+        console.log(`onDiscovered callback`)
+        if (data.id) {
+          console.log(`onDiscovered callback id  = ` + new Int8Array(data.id))
+          this.onDiscoveredVal = `onDiscovered callback id  = ` + new Int8Array(data.id)
+        } else {
+          console.log(`onDiscovered callback -- null of id`)
+        }
+        if (data.techs.length != 0) {
+          data.techs.forEach((res, index) => {
+            console.log('res = ' + res)
+            this.onDiscoveredVal = 'res = ' + res
+            if (res == 'NFC_A') {
+              that.getTag()
+              return
+            }
+          })
+        }
+      },
+      fail: function (data, code) {
+        console.log(`onDiscovered fail, code = ${code}`)
+      },
+    })
+  },
+  offDiscovered() {
+    console.log('nfcAdapter.offDiscovered')
+    if (!nfcAdapter) {
+      console.log('nfcAdapter is null')
+      return
+    }
+    nfcAdapter.offDiscovered({
+      callback: function (data) {
+        console.log(`offDiscovered callback`)
+      },
+      fail: function (data, code) {
+        console.log(`offDiscovered fail, code = ${code}`)
+      },
+    })
+  },
+  getTag() {
+    console.log('get' + tagName)
+    if (!nfcAdapter) {
+      console.log('nfcAdapter is null')
+      return
+    }
+    nfcTag = nfcAdapter.getNfcA({})
+    if (nfcTag) {
+      console.log('get' + tagName + ': success')
+      this.connect()
+    } else {
+      console.log('get' + tagName + ': fail')
+    }
+  },
+  connect() {
+    console.log(tagName + '.connect')
+    if (!nfcTag) {
+      console.log(tagName + ' is null')
+      return
+    }
+    nfcTag.connect({
+      success: function () {
+        console.log(tagName + `.connect：success`)
+      },
+      fail: function (data, code) {
+        console.log(tagName + `.connect：code: ${code}, msg: ${data}`)
+      },
+    })
+  },
+  getAtqa() {
+    console.log(tagName + '.getAtqa')
+    if (!nfcTag) {
+      console.log(tagName + ' is null')
+      return
+    }
+    nfcTag.getAtqa({
+      success: function (data) {
+        console.log(tagName + `.getAtqa：success, atqa = ` + new Int8Array(data.atqa))
+      },
+      fail: function (data, code) {
+        console.log(tagName + `.getAtqa：code: ${code}, msg: ${data}`)
+      },
+    })
+  },
+  getSak() {
+    console.log(tagName + '.getSak')
+    if (!nfcTag) {
+      console.log(tagName + ' is null')
+      return
+    }
+    nfcTag.getSak({
+      success: function (data) {
+        console.log(tagName + `.getSak：success, sak = ` + data.sak)
+      },
+      fail: function (data, code) {
+        console.log(tagName + `.getSak：code: ${code}, msg: ${data}`)
+      },
+    })
+  },
+  getMaxTransceiveLength() {
+    console.log(tagName + '.getMaxTransceiveLength')
+    if (!nfcTag) {
+      console.log(tagName + ' is null')
+      return
+    }
+    nfcTag.getMaxTransceiveLength({
+      success: function (data) {
+        console.log(tagName + `.getMaxTransceiveLength：success, length: ` + data.length)
+      },
+      fail: function (data, code) {
+        console.log(tagName + `.getMaxTransceiveLength：code: ${code}, msg: ${data}`)
+      },
+    })
+  },
+  isConnected() {
+    console.log(tagName + '.isConnected')
+    if (!nfcTag) {
+      console.log(tagName + ' is null')
+      return
+    }
+    nfcTag.isConnected({
+      success: function (data) {
+        console.log(tagName + `.isConnected：success: ` + JSON.stringify(data.isConnected))
+      },
+      fail: function (data, code) {
+        console.log(tagName + `.isConnected：code: ${code}, msg: ${data}`)
+      },
+    })
+  },
+  setTimeout() {
+    console.log(tagName + '.setTimeout')
+    if (!nfcTag) {
+      console.log(tagName + ' is null')
+      return
+    }
+    nfcTag.setTimeout({
+      timeout: 3000,
+      success: function () {
+        console.log(tagName + `.setTimeout：success`)
+      },
+      fail: function (data, code) {
+        console.log(tagName + `.setTimeout：code: ${code}, msg: ${data}`)
+      },
+    })
+  },
+  transceive() {
+    console.log(tagName + '.transceive')
+    if (!nfcTag) {
+      console.log(tagName + ' is null')
+      return
+    }
+    let arrayBuffer = new ArrayBuffer(12)
+    let dataView = new DataView(arrayBuffer)
+    dataView.setUint8(0, 0x60)
+    dataView.setUint8(1, 0x00)
+
+    // [22, -55, 105, -20]
+    dataView.setUint8(2, 0x16)
+    dataView.setUint8(3, 0xc9)
+    dataView.setUint8(4, 0x69)
+    dataView.setUint8(5, 0xec)
+
+    dataView.setUint8(6, 0xff)
+    dataView.setUint8(7, 0xff)
+    dataView.setUint8(8, 0xff)
+    dataView.setUint8(9, 0xff)
+    dataView.setUint8(10, 0xff)
+    dataView.setUint8(11, 0xff)
+    nfcTag.transceive({
+      data: arrayBuffer,
+      success: function (data) {
+        console.log(tagName + `.transceive：success` + byteToString(data.data))
+      },
+      fail: function (data, code) {
+        console.log(tagName + `.transceive：code: ${code}, msg: ${data}`)
+      },
+    })
+  },
+  transceiveTest() {
+    console.log(tagName + '.transceiveTest')
+    if (!nfcTag) {
+      console.log(tagName + ' is null')
+      return
+    }
+    let cmd = new ArrayBuffer(2)
+    let dataView = new DataView(cmd)
+    dataView.setUint8(0, 0x30)
+    dataView.setUint8(1, 0x60)
+
+    nfcTag.transceive({
+      data: cmd,
+      success: function (data) {
+        console.log(tagName + `.transceiveTest：success` + byteToString(data.data))
+      },
+      fail: function (data, code) {
+        console.log(tagName + `.transceiveTest：code: ${code}, msg: ${data}`)
+      },
+    })
+  },
+  close() {
+    console.log(tagName + '.close')
+    if (!nfcTag) {
+      console.log(tagName + ' is null')
+      return
+    }
+    nfcTag.close({
+      success: function () {
+        console.log(tagName + `.close：success`)
+      },
+      fail: function (data, code) {
+        console.log(tagName + `.close：code: ${code}, msg: ${data}`)
+      },
+    })
+  },
+}
+</script>
