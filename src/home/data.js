@@ -638,6 +638,10 @@ export const tabsData = {
           {
             name: '截屏 screenshot',
             path: 'interface/system/screenshot'
+          },
+          {
+            name: 'NFC',
+            path: 'interface/system/nfca'
           }
         ]
       },
