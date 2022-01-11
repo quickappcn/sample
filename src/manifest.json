@@ -530,6 +530,9 @@
       "interface/system/screenshot": {
         "component": "index"
       },
+      "interface/system/nfca": {
+        "component": "index"
+      },
       "component/style/animation": {
         "component": "index"
       },

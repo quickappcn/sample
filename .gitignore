@@ -3,4 +3,5 @@ build
 dist
 .idea
 package-lock.json
+.ide
 .DS_Store
