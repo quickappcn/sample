@@ -106,6 +106,7 @@
         onsuccess="successCallback"
         onfail="failCallback"
         oncancel="cancelCallback"
+        path="{{path}}"
       ></share-button
     ></block>
   </div>
